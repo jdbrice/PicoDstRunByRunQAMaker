@@ -1,6 +1,6 @@
 
-InitialDir = ./
-Executable = ./app
-Arguments = config.xml $(Process)
+InitialDir = /data/star1/jdb12/work/PicoDstRunByRunQAMaker/bin/
+Executable = /data/star1/jdb12/work/PicoDstRunByRunQAMaker/bin/app
+Arguments = /data/star1/jdb12/work/PicoDstRunByRunQAMaker/bin/config.xml $(Process)
 
-Queue 10
+Queue 5800
