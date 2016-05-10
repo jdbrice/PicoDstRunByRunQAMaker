@@ -1,0 +1,6 @@
+
+InitialDir = ./
+Executable = ./app
+Arguments = config.xml $(Process)
+
+Queue 10
