@@ -6,11 +6,11 @@
 	<Logger color="true" globalLogLevel="info" />
 	
 
-	<RunByRunQAMaker event="true" track="false" noRunMap="true">
+	<RunByRunQAMaker event="true" track="true" noRunMap="true">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
-			<dst treeName="PicoDst" nEvents="10" maxEvents="10" url="list.lis" maxFiles="10000"/>
+			<dst treeName="PicoDst" url="list.lis" maxFiles="10000" nEvents="200000"/>
 		</input>
 
 		<DataSource>
@@ -18,7 +18,9 @@
 			<!-- Turn on only the ones you need -->
 			<BranchStatus status="1">
 				Event*,
-				Tracks*
+				Tracks*,
+				BTofPidTraits*,
+				MtdPidTraits*
 			</BranchStatus>
 		</DataSource>
 
@@ -37,6 +39,8 @@
 				<Histo name="mNumberOfGlobalTracks" bins_x="bins.runIndex" bins_y="bins.nGlobal" />
 				<Histo name="mNBTOFMatch" bins_x="bins.runIndex" bins_y="bins.NBTOFMatch" />
 				<Histo name="mNBEMCMatch" bins_x="bins.runIndex" bins_y="bins.NBEMCMatch" />
+				<Histo name="mNMtdMatched" bins_x="bins.runIndex" bins_y="bins.NMtdMatched" />
+				<Histo name="mbTofTrayMultiplicity" bins_x="bins.runIndex" bins_y="bins.nGlobal" />
 				<Histo name="delta_mVzVpd_mPrimaryVertex_mX3" bins_x="bins.runIndex" bins_y="bins.dVertexZ" />
 				<Histo name="mVzVpd" bins_x="bins.runIndex" bins_y="bins.VertexZ" />
 				<Histo name="mRanking" bins_x="bins.runIndex" bins_y="bins.Ranking" />
@@ -92,14 +96,17 @@
 				<Histo name="mNHitsMax" bins_x="bins.runIndex" bins_y="bins.NHits" />
 				<Histo name="mNHitsDedx" bins_x="bins.runIndex" bins_y="bins.NHits" />
 
-				
+				<Histo name="mBTofYLocal" bins_x="bins.runIndex" bins_y="bins.YLocal" />
+				<Histo name="mBTofZLocal" bins_x="bins.runIndex" bins_y="bins.ZLocal" />
 
+				<Histo name="mDeltaZ" bins_x="bins.runIndex" bins_y="bins.DeltaZ" />
+				<Histo name="mDeltaY" bins_x="bins.runIndex" bins_y="bins.DeltaY" />
 				<!-- Track -->
 
 
 			</RunByRun>
 
-			<Event>
+			<!-- <Event>
 				<Histo name="Event.mPrimaryVertex.mX1" bins_x="bins.VertexPerp" />
 				<Histo name="Event.mPrimaryVertex.mX2" bins_x="bins.VertexPerp" />
 				<Histo name="Event.mPrimaryVertex.mX3" bins_x="bins.VertexZ" />		
@@ -118,15 +125,8 @@
 				<Histo name="Tracks.mNSigmaKaon" width="10" min="-1000" max="5000" />
 				<Histo name="Tracks.mNSigmaProton" width="10" min="-1000" max="5000" />
 				<Histo name="Tracks.mNSigmaElectron" width="10" min="-1000" max="5000" />
-			</Track>
+			</Track> -->
 		</histos>
-
-
-		
-		
-
-
-		
 
 	</RunByRunQAMaker>
 
@@ -147,6 +147,7 @@
 		<NBTOFMatch width="5" min="0" max="900" />
 		<NBEMCMatch width="5" min="0" max="1000" />
 		<nGlobal width="20" min="0" max="4500" />
+		<NMtdMatched width="1" min="0" max="30" />
 
 		<Q width="1" min="-45" max="45" />
 		<Ntrk_eta width="5" min="0" max="450" />
@@ -156,6 +157,12 @@
 		<Chi2 width="100" min="0" max="9000" />
 		<NHits width="1" min="0" max="47" />
 		<PMomentum width="0.1" min="0" max="15" />
+
+		<YLocal width="0.1" min="-5" max="5" />
+		<ZLocal width="0.1" min="-3.5" max="3.5" />
+
+		<DeltaZ width="1" min="-150" max="150" />
+		<DeltaY width="1" min="-70" max="70" />
 	</bins>
 
 </config>

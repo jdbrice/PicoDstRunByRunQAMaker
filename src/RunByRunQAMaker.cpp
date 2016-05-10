@@ -1,6 +1,6 @@
 #include "RunByRunQAMaker.h"
 
-
+#include "TVector3.h"
 
 void RunByRunQAMaker::initialize(){
 	DEBUG( classname(), "initialize" );
@@ -14,12 +14,6 @@ void RunByRunQAMaker::initialize(){
 		config.set( "bins.runIndex:max", "10" );
 	}
 
-
-	book->cd( "Event" );
-	book->makeAll( config, nodePath + ".histos.Event" );
-
-	book->cd( "Track" );
-	book->makeAll( config, nodePath + ".histos.Track" );
 
 	book->cd( "RunByRun" );
 	book->makeAll( config, nodePath + ".histos.RunByRun" );
@@ -35,17 +29,6 @@ void RunByRunQAMaker::initialize(){
 
 bool RunByRunQAMaker::keepEvent() {
 	DEBUG( classname(), "keepEvent" );
-
-	book->cd( "Event" );
-
-	// vector<string> eventHistos = config.childrenOf( nodePath + ".Event.histograms" );
-	// for ( string kid : eventHistos ){
-	// 	string hName = config[ kid + ":name" ];
-	// 	DEBUG( classname(),  "hName : " << hName );
-
-	// 	book->fill( hName, ds->get<float>( hName ) );
-	// }
-
 
 	int runId = ds->get<int>( "Event.mRunId" );
 
@@ -91,6 +74,7 @@ void RunByRunQAMaker::analyzeEvent(){
 		book->fill( "mBBCx", runIndex, ds->get<UInt_t>( "Event.mBBCx" )  );
 		book->fill( "mZDCx", runIndex, ds->get<UInt_t>( "Event.mZDCx" )  );
 		book->fill( "mBackgroundRate", runIndex, ds->get<Float_t>( "Event.mBackgroundRate" )  );
+		book->fill( "mbTofTrayMultiplicity", runIndex, ds->get<UShort_t>( "Event.mbTofTrayMultiplicity" )  );
 		
 		/**************** EventPlane.* *******************************/
 		book->fill( "mQx_eta_pos", runIndex, ds->get<float>( "EventPlane.mQx_eta_pos" ) );
@@ -124,21 +108,40 @@ void RunByRunQAMaker::analyzeEvent(){
 		book->fill( "mWeight_ran_2", runIndex, ds->get<float>( "EventPlane.mWeight_ran_2" ) );
 	}
 
+	int nMtdMatched = 0;
+	int nBTofMatched = 0;
 	if ( makeTrackQA ){
 		/**************** Tracks *******************************/
 		int nTracks = ds->get<Int_t>( "Tracks" );
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ) {
 		
 			book->fill( "mChi2", runIndex, ds->get<UShort_t>( "Tracks.mChi2", iTrack ) );
-			// book->fill( "mPMomentum", runIndex, ds->get<float>( "Tracks.mPMomentum", iTrack ) );
-			// book->fill( "mPtMomentum", runIndex, ds->get<float>( "Tracks.mPtMomentum", iTrack ) );
+			TVector3 p( ds->get<float>( "Tracks.mPMomentum.mX1", iTrack ), ds->get<float>( "Tracks.mPMomentum.mX2", iTrack ), ds->get<float>( "Tracks.mPMomentum.mX3", iTrack ) );
+
+			book->fill( "mPMomentum", runIndex, p.Mag() );
+			book->fill( "mPtMomentum", runIndex, p.Pt() );
 			book->fill( "mDedx", runIndex, ds->get<UShort_t>( "Tracks.mDedx", iTrack ) / 1000.0 );
-			book->fill( "mNHitsFit", runIndex, ds->get<Char_t>( "Tracks.mNHitsFit", iTrack ) );
+			book->fill( "mNHitsFit", runIndex, fabs( ds->get<Char_t>( "Tracks.mNHitsFit", iTrack ) ) );
 			book->fill( "mNHitsMax", runIndex, ds->get<Char_t>( "Tracks.mNHitsMax", iTrack ) );
 			book->fill( "mNHitsDedx", runIndex, ds->get<UChar_t>( "Tracks.mNHitsDedx", iTrack ) );
 
+			int iBTof = ds->get<Short_t>( "Tracks.mBTofPidTraitsIndex", iTrack );
+			int iMtd = ds->get<Short_t>( "Tracks.mMtdPidTraitsIndex", iTrack );
+			if ( iBTof >= 0 ){
+				book->fill( "mBTofYLocal", runIndex, ds->get<Short_t>( "BTofPidTraits.mBTofYLocal", iBTof ) / 1000.0 );
+				book->fill( "mBTofZLocal", runIndex, ds->get<Short_t>( "BTofPidTraits.mBTofZLocal", iBTof ) / 1000.0 );	
+				nBTofMatched++;
+			}
+			if ( iMtd >= 0 ) {
+				book->fill( "mDeltaZ", runIndex, ds->get<float>( "MtdPidTraits.mDeltaZ", iMtd ) );	
+				book->fill( "mDeltaY", runIndex, ds->get<float>( "MtdPidTraits.mDeltaY", iMtd ) );	
+				nMtdMatched++;
+			}
+
 		} // loop on tracks	
 	}
+
+	book->fill( "mNMtdMatched", runIndex, nMtdMatched  );
 	
 
 	// Fill Automatic Histos
