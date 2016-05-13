@@ -10,7 +10,7 @@
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
-			<dst treeName="PicoDst" url="list.lis" maxFiles="10000" nEvents="200000"/>
+			<dst treeName="PicoDst" url="list.lis"/>
 		</input>
 
 		<DataSource>
@@ -21,145 +21,14 @@
 			</BranchStatus>
 		</DataSource>
 
-		<output path="qa/" >
+		<output path="/star/data03/pwg/jdb/scratch/" >
 			<data>qa.root</data>
 		</output>
 
-
-		<histos>
-			<RunByRun>
-				<!-- Event.* -->
-				<Histo name="mRefMult" bins_x="bins.runIndex" bins_y="bins.refMult" />
-				<Histo name="mRefMultPos" bins_x="bins.runIndex" bins_y="bins.refMultPosNeg" />
-				<Histo name="mRefMultNeg" bins_x="bins.runIndex" bins_y="bins.refMultPosNeg" />
-				<Histo name="mGRefMult" bins_x="bins.runIndex" bins_y="bins.grefMult" />
-				<Histo name="mNumberOfGlobalTracks" bins_x="bins.runIndex" bins_y="bins.nGlobal" />
-				<Histo name="mNBTOFMatch" bins_x="bins.runIndex" bins_y="bins.NBTOFMatch" />
-				<Histo name="mNBEMCMatch" bins_x="bins.runIndex" bins_y="bins.NBEMCMatch" />
-				<Histo name="mNMtdMatched" bins_x="bins.runIndex" bins_y="bins.NMtdMatched" />
-				<Histo name="mbTofTrayMultiplicity" bins_x="bins.runIndex" bins_y="bins.nGlobal" />
-				<Histo name="delta_mVzVpd_mPrimaryVertex_mX3" bins_x="bins.runIndex" bins_y="bins.dVertexZ" />
-				<Histo name="mVzVpd" bins_x="bins.runIndex" bins_y="bins.VertexZ" />
-				<Histo name="mRanking" bins_x="bins.runIndex" bins_y="bins.Ranking" />
-
-				<Histo name="mPrimaryVertex_mX1" bins_x="bins.runIndex" bins_y="bins.VertexPerp" />
-				<Histo name="mPrimaryVertex_mX2" bins_x="bins.runIndex" bins_y="bins.VertexPerp" />
-				<Histo name="mPrimaryVertex_mX3" bins_x="bins.runIndex" bins_y="bins.VertexZ" />
-
-
-				<Histo name="mBBCx" bins_x="bins.runIndex" bins_y="bins.BBCx" />
-				<Histo name="mZDCx" bins_x="bins.runIndex" bins_y="bins.ZDCx" />
-				<Histo name="mBackgroundRate" bins_x="bins.runIndex" bins_y="bins.BackgroundRate" />
-
-				<!-- Event.* -->
-
-				<!-- EventPlane.* -->
-				<Histo name="mQx_eta_pos" bins_x="bins.runIndex" bins_y="bins.Q" />
-				<Histo name="mQx_eta_neg" bins_x="bins.runIndex" bins_y="bins.Q" />
-				<Histo name="mQy_eta_pos" bins_x="bins.runIndex" bins_y="bins.Q" />
-				<Histo name="mQy_eta_neg" bins_x="bins.runIndex" bins_y="bins.Q" />
-
-				<Histo name="mQx_chg_pos" bins_x="bins.runIndex" bins_y="bins.Q" />
-				<Histo name="mQx_chg_neg" bins_x="bins.runIndex" bins_y="bins.Q" />
-				<Histo name="mQy_chg_pos" bins_x="bins.runIndex" bins_y="bins.Q" />
-				<Histo name="mQy_chg_neg" bins_x="bins.runIndex" bins_y="bins.Q" />
-				
-				<Histo name="mNtrk_eta_pos" bins_x="bins.runIndex" bins_y="bins.Ntrk_eta" />
-				<Histo name="mNtrk_eta_neg" bins_x="bins.runIndex" bins_y="bins.Ntrk_eta" />
-				<Histo name="mNtrk_chg_pos_eta_pos" bins_x="bins.runIndex" bins_y="bins.Ntrk" />
-				<Histo name="mNtrk_chg_pos_eta_neg" bins_x="bins.runIndex" bins_y="bins.Ntrk" />
-				<Histo name="mNtrk_chg_neg_eta_pos" bins_x="bins.runIndex" bins_y="bins.Ntrk" />
-				<Histo name="mNtrk_chg_neg_eta_neg" bins_x="bins.runIndex" bins_y="bins.Ntrk" />
-
-				<Histo name="mNtrk_ran_1_eta_pos" bins_x="bins.runIndex" bins_y="bins.Ntrk" />
-				<Histo name="mNtrk_ran_1_eta_neg" bins_x="bins.runIndex" bins_y="bins.Ntrk" />
-				<Histo name="mNtrk_ran_2_eta_pos" bins_x="bins.runIndex" bins_y="bins.Ntrk" />
-				<Histo name="mNtrk_ran_2_eta_neg" bins_x="bins.runIndex" bins_y="bins.Ntrk" />
-
-				<Histo name="mWeight_eta_pos" bins_x="bins.runIndex" bins_y="bins.Weight" />
-				<Histo name="mWeight_eta_neg" bins_x="bins.runIndex" bins_y="bins.Weight" />
-				<Histo name="mWeight_chg_pos" bins_x="bins.runIndex" bins_y="bins.Weight" />
-				<Histo name="mWeight_chg_neg" bins_x="bins.runIndex" bins_y="bins.Weight" />
-				<Histo name="mWeight_ran_1" bins_x="bins.runIndex" bins_y="bins.Weight" />
-				<Histo name="mWeight_ran_2" bins_x="bins.runIndex" bins_y="bins.Weight" />
-				<!-- EventPlane.* -->
-
-				<!-- Tanks -->
-				<Histo name="mChi2" bins_x="bins.runIndex" bins_y="bins.Chi2" />
-				<Histo name="mPMomentum" bins_x="bins.runIndex" bins_y="bins.PMomentum" />
-				<Histo name="mPtMomentum" bins_x="bins.runIndex" bins_y="bins.PMomentum" />
-				<Histo name="mDedx" bins_x="bins.runIndex" bins_y="bins.Dedx" />
-				<Histo name="mNHitsFit" bins_x="bins.runIndex" bins_y="bins.NHits" />
-				<Histo name="mNHitsMax" bins_x="bins.runIndex" bins_y="bins.NHits" />
-				<Histo name="mNHitsDedx" bins_x="bins.runIndex" bins_y="bins.NHits" />
-
-				<Histo name="mBTofYLocal" bins_x="bins.runIndex" bins_y="bins.YLocal" />
-				<Histo name="mBTofZLocal" bins_x="bins.runIndex" bins_y="bins.ZLocal" />
-
-				<Histo name="mDeltaZ" bins_x="bins.runIndex" bins_y="bins.DeltaZ" />
-				<Histo name="mDeltaY" bins_x="bins.runIndex" bins_y="bins.DeltaY" />
-				<!-- Track -->
-
-
-			</RunByRun>
-
-			<!-- <Event>
-				<Histo name="Event.mPrimaryVertex.mX1" bins_x="bins.VertexPerp" />
-				<Histo name="Event.mPrimaryVertex.mX2" bins_x="bins.VertexPerp" />
-				<Histo name="Event.mPrimaryVertex.mX3" bins_x="bins.VertexZ" />		
-			</Event>
-
-			<Track>
-				<Histo name="Tracks.mChi2" width="100" min="0" max="10000" />
-				<Histo name="Tracks.mPMomentum.mX1" width="0.1" min="-10" max="10" />
-				<Histo name="Tracks.mPMomentum.mX2" width="0.1" min="-10" max="10" />
-				<Histo name="Tracks.mPMomentum.mX3" width="0.1" min="-10" max="10" />
-				<Histo name="Tracks.mDedx" width="10" min="0" max="60000" />
-				<Histo name="Tracks.mNHitsFit" width="1" min="-50" max="50" />
-				<Histo name="Tracks.mNHitsMax" width="1" min="0" max="50" />
-				<Histo name="Tracks.mNHitsDedx" width="1" min="0" max="50" />
-				<Histo name="Tracks.mNSigmaPion" width="10" min="-1000" max="5000" />
-				<Histo name="Tracks.mNSigmaKaon" width="10" min="-1000" max="5000" />
-				<Histo name="Tracks.mNSigmaProton" width="10" min="-1000" max="5000" />
-				<Histo name="Tracks.mNSigmaElectron" width="10" min="-1000" max="5000" />
-			</Track> -->
-		</histos>
+		<Include url="config/histograms.xml" />
 
 	</RunByRunQAMaker>
 
-	<bins>
-		<runIndex width="1" min="0" max="2100" />
-
-		<VertexPerp width="0.01" min="-1.5" max="1.5" />
-		<VertexZ width="2" min="-200" max="200" />
-		<Ranking width=".1" min="-20" max="8" />
-		<dVertexZ width=".05" min="-3.5" max="3.5" />
-		<BBCx width="500" min="0" max="100000" />
-		<ZDCx width="1000" min="0" max="150000" />
-		<BackgroundRate width="500" min="0" max="80000" />
-		
-		<refMult width="5" min="0" max="700" />
-		<grefMult width="5" min="0" max="700" />
-		<refMultPosNeg width="5" min="0" max="350" />
-		<NBTOFMatch width="5" min="0" max="900" />
-		<NBEMCMatch width="5" min="0" max="1000" />
-		<nGlobal width="20" min="0" max="4500" />
-		<NMtdMatched width="1" min="0" max="30" />
-
-		<Q width="1" min="-45" max="45" />
-		<Ntrk_eta width="5" min="0" max="450" />
-		<Ntrk width="5" min="0" max="250" />
-		<Weight width="5" min="0" max="250" />
-
-		<Chi2 width="100" min="0" max="9000" />
-		<NHits width="1" min="0" max="47" />
-		<PMomentum width="0.1" min="0" max="15" />
-
-		<YLocal width="0.1" min="-5" max="5" />
-		<ZLocal width="0.1" min="-3.5" max="3.5" />
-
-		<DeltaZ width="1" min="-150" max="150" />
-		<DeltaY width="1" min="-70" max="70" />
-	</bins>
+	<Include url="config/bins.xml" />
 
 </config>
