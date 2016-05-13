@@ -115,9 +115,12 @@ void RunByRunQAMaker::analyzeEvent(){
 		int nTracks = ds->get<Int_t>( "Tracks" );
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ) {
 		
-			book->fill( "mChi2", runIndex, ds->get<UShort_t>( "Tracks.mChi2", iTrack ) );
+			
 			TVector3 p( ds->get<float>( "Tracks.mPMomentum.mX1", iTrack ), ds->get<float>( "Tracks.mPMomentum.mX2", iTrack ), ds->get<float>( "Tracks.mPMomentum.mX3", iTrack ) );
+			if ( p.Mag() <= 0.001 ) continue;
 
+
+			book->fill( "mChi2", runIndex, ds->get<UShort_t>( "Tracks.mChi2", iTrack ) );
 			book->fill( "mPMomentum", runIndex, p.Mag() );
 			book->fill( "mPtMomentum", runIndex, p.Pt() );
 			book->fill( "mDedx", runIndex, ds->get<UShort_t>( "Tracks.mDedx", iTrack ) / 1000.0 );
