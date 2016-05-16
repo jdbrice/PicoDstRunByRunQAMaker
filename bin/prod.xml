@@ -21,7 +21,7 @@
 			</BranchStatus>
 		</DataSource>
 
-		<output path="/star/data03/pwg/jdb/scratch/" >
+		<output path="" >
 			<data>qa.root</data>
 		</output>
 
