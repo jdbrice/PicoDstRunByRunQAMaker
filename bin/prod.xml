@@ -3,11 +3,8 @@
 
 	<Task name="PicoDstQAMaker" type="RunByRunQAMaker" config="" nodePath="RunByRunQAMaker" />
 
-	<Logger color="true" globalLogLevel="warning" />
-	
-
 	<RunByRunQAMaker event="true" track="false">
-		<!-- <Logger color="true" globalLogLevel="info" /> -->
+		<Logger color="true" globalLogLevel="warning" />
 
 
 		<input>
