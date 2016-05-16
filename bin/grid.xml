@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<job maxFilesPerProcess="200" filesPerHour="600" fileListSyntax="paths" simulateSubmission="false">
+<job maxFilesPerProcess="1" filesPerHour="600" fileListSyntax="paths" simulateSubmission="false">
 	<command>
 		starver SL15e
 
@@ -8,7 +8,7 @@
 
 	<stdout URL="file:/star/data03/pwg/jdb/scratch/log/$JOBID.out" />
 	<stderr URL="file:/star/data03/pwg/jdb/scratch/log/$JOBID.err" />
-	<input URL="filelist:/star/u/jdb/work/PicoDstRunByRunQAMaker/bin/list.lis" nFiles="200"/>
+	<input URL="filelist:/star/u/jdb/work/PicoDstRunByRunQAMaker/bin/n.lis" nFiles="5"/>
 	
 	<output fromScratch="*.root" toURL="file:/star/data03/pwg/jdb/scratch/" />
 	<output fromScratch="log_*.log" toURL="file:/star/data03/pwg/jdb/scratch/" />
