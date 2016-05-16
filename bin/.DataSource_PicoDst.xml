@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><root>
-	<TreeInfo nTrees="12">
+	<TreeInfo nTrees="1000">
 		<LeafInfo name="BTOWHit" size="1" /> 
 		<LeafInfo name="BTOWHit.fBits" size="1" /> 
 		<LeafInfo name="BTOWHit.fUniqueID" size="1" /> 
@@ -13,38 +13,38 @@
 		<LeafInfo name="BTofHit.mId" size="1" /> 
 		<LeafInfo name="BTofHit_" size="1" /> 
 		<LeafInfo name="BTofPidTraits" size="1" /> 
-		<LeafInfo name="BTofPidTraits.fBits" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.fUniqueID" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mBTof" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mBTofBeta" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mBTofCellId" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mBTofHitPosX" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mBTofHitPosY" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mBTofHitPosZ" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mBTofMatchFlag" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mBTofYLocal" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mBTofZLocal" size="3000" /> 
-		<LeafInfo name="BTofPidTraits.mTrackIndex" size="3000" /> 
+		<LeafInfo name="BTofPidTraits.fBits" size="1" /> 
+		<LeafInfo name="BTofPidTraits.fUniqueID" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mBTof" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mBTofBeta" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mBTofCellId" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mBTofHitPosX" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mBTofHitPosY" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mBTofHitPosZ" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mBTofMatchFlag" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mBTofYLocal" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mBTofZLocal" size="1" /> 
+		<LeafInfo name="BTofPidTraits.mTrackIndex" size="1" /> 
 		<LeafInfo name="BTofPidTraits_" size="1" /> 
 		<LeafInfo name="EmcPidTraits" size="1" /> 
-		<LeafInfo name="EmcPidTraits.fBits" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.fUniqueID" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBEMCDistPhi" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBEMCDistZ" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBEMCId" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBSMDNEta" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBSMDNPhi" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWADC0" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWDistEta" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWDistPhi" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWE" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWE0" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWE1" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWE2" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWE3" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWId" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mBTOWId23" size="3000" /> 
-		<LeafInfo name="EmcPidTraits.mTrackIndex" size="3000" /> 
+		<LeafInfo name="EmcPidTraits.fBits" size="1" /> 
+		<LeafInfo name="EmcPidTraits.fUniqueID" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBEMCDistPhi" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBEMCDistZ" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBEMCId" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBSMDNEta" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBSMDNPhi" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWADC0" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWDistEta" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWDistPhi" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWE" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWE0" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWE1" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWE2" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWE3" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWId" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mBTOWId23" size="1" /> 
+		<LeafInfo name="EmcPidTraits.mTrackIndex" size="1" /> 
 		<LeafInfo name="EmcPidTraits_" size="1" /> 
 		<LeafInfo name="EmcTrigger" size="1" /> 
 		<LeafInfo name="EmcTrigger.fBits" size="100" /> 
@@ -137,25 +137,25 @@
 		<LeafInfo name="EventPlane_" size="1" /> 
 		<LeafInfo name="Event_" size="1" /> 
 		<LeafInfo name="MtdHit" size="1" /> 
-		<LeafInfo name="MtdHit.fBits" size="200" /> 
-		<LeafInfo name="MtdHit.fUniqueID" size="200" /> 
-		<LeafInfo name="MtdHit.mLeadingEdgeTime.first" size="200" /> 
-		<LeafInfo name="MtdHit.mLeadingEdgeTime.second" size="200" /> 
-		<LeafInfo name="MtdHit.mTrailingEdgeTime.first" size="200" /> 
-		<LeafInfo name="MtdHit.mTrailingEdgeTime.second" size="200" /> 
-		<LeafInfo name="MtdHit.mTriggerFlag" size="200" /> 
-		<LeafInfo name="MtdHit.mgChannel" size="200" /> 
+		<LeafInfo name="MtdHit.fBits" size="1" /> 
+		<LeafInfo name="MtdHit.fUniqueID" size="1" /> 
+		<LeafInfo name="MtdHit.mLeadingEdgeTime.first" size="1" /> 
+		<LeafInfo name="MtdHit.mLeadingEdgeTime.second" size="1" /> 
+		<LeafInfo name="MtdHit.mTrailingEdgeTime.first" size="1" /> 
+		<LeafInfo name="MtdHit.mTrailingEdgeTime.second" size="1" /> 
+		<LeafInfo name="MtdHit.mTriggerFlag" size="1" /> 
+		<LeafInfo name="MtdHit.mgChannel" size="1" /> 
 		<LeafInfo name="MtdHit_" size="1" /> 
 		<LeafInfo name="MtdPidTraits" size="1" /> 
-		<LeafInfo name="MtdPidTraits.fBits" size="500" /> 
-		<LeafInfo name="MtdPidTraits.fUniqueID" size="500" /> 
-		<LeafInfo name="MtdPidTraits.mBeta" size="500" /> 
-		<LeafInfo name="MtdPidTraits.mDeltaTimeOfFlight" size="500" /> 
-		<LeafInfo name="MtdPidTraits.mDeltaY" size="500" /> 
-		<LeafInfo name="MtdPidTraits.mDeltaZ" size="500" /> 
-		<LeafInfo name="MtdPidTraits.mMatchFlag" size="500" /> 
-		<LeafInfo name="MtdPidTraits.mMtdHitChan" size="500" /> 
-		<LeafInfo name="MtdPidTraits.mTrackIndex" size="500" /> 
+		<LeafInfo name="MtdPidTraits.fBits" size="1" /> 
+		<LeafInfo name="MtdPidTraits.fUniqueID" size="1" /> 
+		<LeafInfo name="MtdPidTraits.mBeta" size="1" /> 
+		<LeafInfo name="MtdPidTraits.mDeltaTimeOfFlight" size="1" /> 
+		<LeafInfo name="MtdPidTraits.mDeltaY" size="1" /> 
+		<LeafInfo name="MtdPidTraits.mDeltaZ" size="1" /> 
+		<LeafInfo name="MtdPidTraits.mMatchFlag" size="1" /> 
+		<LeafInfo name="MtdPidTraits.mMtdHitChan" size="1" /> 
+		<LeafInfo name="MtdPidTraits.mTrackIndex" size="1" /> 
 		<LeafInfo name="MtdPidTraits_" size="1" /> 
 		<LeafInfo name="MtdTrigger" size="1" /> 
 		<LeafInfo name="MtdTrigger.fBits" size="1" /> 
@@ -165,24 +165,24 @@
 		<LeafInfo name="MtdTrigger.mVpdTacSum" size="1" /> 
 		<LeafInfo name="MtdTrigger_" size="1" /> 
 		<LeafInfo name="Tracks" size="1" /> 
-		<LeafInfo name="Tracks.mBTofPidTraitsIndex" size="3000" /> 
-		<LeafInfo name="Tracks.mChi2" size="3000" /> 
-		<LeafInfo name="Tracks.mDedx" size="3000" /> 
-		<LeafInfo name="Tracks.mEmcPidTraitsIndex" size="3000" /> 
-		<LeafInfo name="Tracks.mId" size="3000" /> 
-		<LeafInfo name="Tracks.mMap0" size="3000" /> 
-		<LeafInfo name="Tracks.mMap1" size="3000" /> 
-		<LeafInfo name="Tracks.mMtdPidTraitsIndex" size="3000" /> 
-		<LeafInfo name="Tracks.mNHitsDedx" size="3000" /> 
-		<LeafInfo name="Tracks.mNHitsFit" size="3000" /> 
-		<LeafInfo name="Tracks.mNHitsMax" size="3000" /> 
-		<LeafInfo name="Tracks.mNSigmaElectron" size="3000" /> 
-		<LeafInfo name="Tracks.mNSigmaKaon" size="3000" /> 
-		<LeafInfo name="Tracks.mNSigmaPion" size="3000" /> 
-		<LeafInfo name="Tracks.mNSigmaProton" size="3000" /> 
-		<LeafInfo name="Tracks.mPMomentum.mX1" size="3000" /> 
-		<LeafInfo name="Tracks.mPMomentum.mX2" size="3000" /> 
-		<LeafInfo name="Tracks.mPMomentum.mX3" size="3000" /> 
+		<LeafInfo name="Tracks.mBTofPidTraitsIndex" size="1" /> 
+		<LeafInfo name="Tracks.mChi2" size="1" /> 
+		<LeafInfo name="Tracks.mDedx" size="1" /> 
+		<LeafInfo name="Tracks.mEmcPidTraitsIndex" size="1" /> 
+		<LeafInfo name="Tracks.mId" size="1" /> 
+		<LeafInfo name="Tracks.mMap0" size="1" /> 
+		<LeafInfo name="Tracks.mMap1" size="1" /> 
+		<LeafInfo name="Tracks.mMtdPidTraitsIndex" size="1" /> 
+		<LeafInfo name="Tracks.mNHitsDedx" size="1" /> 
+		<LeafInfo name="Tracks.mNHitsFit" size="1" /> 
+		<LeafInfo name="Tracks.mNHitsMax" size="1" /> 
+		<LeafInfo name="Tracks.mNSigmaElectron" size="1" /> 
+		<LeafInfo name="Tracks.mNSigmaKaon" size="1" /> 
+		<LeafInfo name="Tracks.mNSigmaPion" size="1" /> 
+		<LeafInfo name="Tracks.mNSigmaProton" size="1" /> 
+		<LeafInfo name="Tracks.mPMomentum.mX1" size="1" /> 
+		<LeafInfo name="Tracks.mPMomentum.mX2" size="1" /> 
+		<LeafInfo name="Tracks.mPMomentum.mX3" size="1" /> 
 		<LeafInfo name="Tracks_" size="1" /> 
 		<LeafInfo name="V0Ks" size="1" /> 
 		<LeafInfo name="V0Ks.mDca2Vtx" size="1" /> 
