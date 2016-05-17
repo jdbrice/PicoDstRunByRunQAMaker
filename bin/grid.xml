@@ -3,7 +3,7 @@
 	<command>
 		starver SL15e
 
-		./app prod.xml $JOBID --RunByRunQAMaker.input.dst:splitBy=200  &gt;&amp; log_$JOBID.log 
+		./app prod.xml $INPUTFILE0 --RunByRunQAMaker.input.dst:splitBy=200  &gt;&amp; log_$INPUTFILE0.log 
 	</command>
 
 	<stdout URL="file:/star/data03/pwg/jdb/scratch/log/$JOBID.out" />
