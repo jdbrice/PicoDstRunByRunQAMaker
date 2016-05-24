@@ -59,20 +59,50 @@
 			<Histo name="mWeight_ran_2" bins_x="bins.runIndex" bins_y="bins.Weight" />
 			<!-- EventPlane.* -->
 
-			<!-- Tanks -->
-			<Histo name="mChi2" bins_x="bins.runIndex" bins_y="bins.Chi2" />
-			<Histo name="mPMomentum" bins_x="bins.runIndex" bins_y="bins.PMomentum" />
-			<Histo name="mPtMomentum" bins_x="bins.runIndex" bins_y="bins.PMomentum" />
-			<Histo name="mDedx" bins_x="bins.runIndex" bins_y="bins.Dedx" />
-			<Histo name="mNHitsFit" bins_x="bins.runIndex" bins_y="bins.NHits" />
-			<Histo name="mNHitsMax" bins_x="bins.runIndex" bins_y="bins.NHits" />
-			<Histo name="mNHitsDedx" bins_x="bins.runIndex" bins_y="bins.NHits" />
+			<!-- Tracks -->
+			<Histo name="Tracks_mChi2" bins_x="bins.runIndex" bins_y="bins.Chi2" />
+			<Histo name="Tracks_mPMomentum" bins_x="bins.runIndex" bins_y="bins.PMomentum" />
+			<Histo name="Tracks_mPtMomentum" bins_x="bins.runIndex" bins_y="bins.PMomentum" />
+			<Histo name="Tracks_mDedx" bins_x="bins.runIndex" bins_y="bins.Dedx" />
+			<Histo name="Tracks_mNHitsFit" bins_x="bins.runIndex" bins_y="bins.NHits" />
+			<Histo name="Tracks_mNHitsMax" bins_x="bins.runIndex" bins_y="bins.NHits" />
+			<Histo name="Tracks_mNHitsDedx" bins_x="bins.runIndex" bins_y="bins.NHits" />
 
-			<Histo name="mBTofYLocal" bins_x="bins.runIndex" bins_y="bins.YLocal" />
-			<Histo name="mBTofZLocal" bins_x="bins.runIndex" bins_y="bins.ZLocal" />
+			<!-- BTofPidTraits -->
+			<Histo name="BTofPidTraits_mBTofYLocal" bins_x="bins.runIndex" bins_y="bins.YLocal" />
+			<Histo name="BTofPidTraits_mBTofZLocal" bins_x="bins.runIndex" bins_y="bins.ZLocal" />
+			<Histo name="BTofPidTraits_mBTofMatchFlag" bins_x="bins.runIndex" bins_y="bins.BTofMatchFlag" />
+			<Histo name="BTofPidTraits_mBTof" bins_x="bins.runIndex" bins_y="bins.BTof" />
+			<Histo name="BTofPidTraits_mBTofBeta" bins_x="bins.runIndex" bins_y="bins.BTofBeta" />
+			<!-- BTofPidTraits -->
 
-			<Histo name="mDeltaZ" bins_x="bins.runIndex" bins_y="bins.DeltaZ" />
-			<Histo name="mDeltaY" bins_x="bins.runIndex" bins_y="bins.DeltaY" />
+			<!-- MtdPidTraits -->
+			<Histo name="MtdPidTraits_mMtdHitChan" bins_x="bins.runIndex" bins_y="bins.MtdHitChan" />
+			<Histo name="MtdPidTraits_mMatchFlag" bins_x="bins.runIndex" bins_y="bins.MtdMatchFlag" />
+			<Histo name="MtdPidTraits_mDeltaZ" bins_x="bins.runIndex" bins_y="bins.DeltaZ" />
+			<Histo name="MtdPidTraits_mDeltaY" bins_x="bins.runIndex" bins_y="bins.DeltaY" />
+			<Histo name="MtdPidTraits_mDeltaTimeOfFlight" bins_x="bins.runIndex" bins_y="bins.DeltaTimeOfFlight" />
+			<Histo name="MtdPidTraits_mBeta" bins_x="bins.runIndex" bins_y="bins.MtdBeta" />
+			<!-- MtdPidTraits -->
+
+			<!-- EmcPidTraits -->
+			<Histo name="EmcPidTraits_mBEMCId" bins_x="bins.runIndex" bins_y="bins.mBEMCId" />
+			<Histo name="EmcPidTraits_mBTOWADC0" bins_x="bins.runIndex" bins_y="bins.mBTOWADC0" />
+			<Histo name="EmcPidTraits_mBTOWE0" bins_x="bins.runIndex" bins_y="bins.mBTOWE0" />
+			<Histo name="EmcPidTraits_mBTOWE" bins_x="bins.runIndex" bins_y="bins.mBTOWE" />
+			<Histo name="EmcPidTraits_mBEMCDistZ" bins_x="bins.runIndex" bins_y="bins.mBEMCDistZ" />
+			<Histo name="EmcPidTraits_mBEMCDistPhi" bins_x="bins.runIndex" bins_y="bins.mBEMCDistPhi" />
+			<Histo name="EmcPidTraits_mBSMDNEta" bins_x="bins.runIndex" bins_y="bins.mBSMDNEta" />
+			<Histo name="EmcPidTraits_mBSMDNPhi" bins_x="bins.runIndex" bins_y="bins.mBSMDNPhi" />
+			<Histo name="EmcPidTraits_mBTOWId" bins_x="bins.runIndex" bins_y="bins.mBTOWId" />
+			<Histo name="EmcPidTraits_mBTOWId23" bins_x="bins.runIndex" bins_y="bins.mBTOWId23" />
+			<Histo name="EmcPidTraits_mBTOWE1" bins_x="bins.runIndex" bins_y="bins.mBTOWE1" />
+			<Histo name="EmcPidTraits_mBTOWE2" bins_x="bins.runIndex" bins_y="bins.mBTOWE2" />
+			<Histo name="EmcPidTraits_mBTOWE3" bins_x="bins.runIndex" bins_y="bins.mBTOWE3" />
+			<Histo name="EmcPidTraits_mBTOWDistEta" bins_x="bins.runIndex" bins_y="bins.mBTOWDistEta" />
+			<Histo name="EmcPidTraits_mBTOWDistPhi" bins_x="bins.runIndex" bins_y="bins.mBTOWDistPhi" />
+			<!-- EmcPidTraits -->
+
 			<!-- Track -->
 
 

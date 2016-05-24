@@ -10,7 +10,7 @@
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
-			<dst treeName="PicoDst" url="list.lis" maxFiles="10000" nEvents="200000"/>
+			<dst treeName="PicoDst" url="list.lis" maxFiles="10000" nEvents="2000"/>
 		</input>
 
 		<DataSource>
@@ -20,7 +20,8 @@
 				Event*,
 				Tracks*,
 				BTofPidTraits*,
-				MtdPidTraits*
+				MtdPidTraits*,
+				EmcPidTraits*
 			</BranchStatus>
 		</DataSource>
 

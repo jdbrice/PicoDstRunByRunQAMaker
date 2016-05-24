@@ -110,36 +110,63 @@ void RunByRunQAMaker::analyzeEvent(){
 
 	int nMtdMatched = 0;
 	int nBTofMatched = 0;
+	int nEmcMatched = 0;
 	if ( makeTrackQA ){
 		/**************** Tracks *******************************/
 		int nTracks = ds->get<Int_t>( "Tracks" );
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ) {
 		
-			
 			TVector3 p( ds->get<float>( "Tracks.mPMomentum.mX1", iTrack ), ds->get<float>( "Tracks.mPMomentum.mX2", iTrack ), ds->get<float>( "Tracks.mPMomentum.mX3", iTrack ) );
 			if ( p.Mag() <= 0.001 ) continue;
 
 
-			book->fill( "mChi2", runIndex, ds->get<UShort_t>( "Tracks.mChi2", iTrack ) );
-			book->fill( "mPMomentum", runIndex, p.Mag() );
-			book->fill( "mPtMomentum", runIndex, p.Pt() );
-			book->fill( "mDedx", runIndex, ds->get<UShort_t>( "Tracks.mDedx", iTrack ) / 1000.0 );
-			book->fill( "mNHitsFit", runIndex, fabs( ds->get<Char_t>( "Tracks.mNHitsFit", iTrack ) ) );
-			book->fill( "mNHitsMax", runIndex, ds->get<Char_t>( "Tracks.mNHitsMax", iTrack ) );
-			book->fill( "mNHitsDedx", runIndex, ds->get<UChar_t>( "Tracks.mNHitsDedx", iTrack ) );
+			book->fill( "Tracks_mChi2", runIndex, ds->get<UShort_t>( "Tracks.mChi2", iTrack ) );
+			book->fill( "Tracks_mPMomentum", runIndex, p.Mag() );
+			book->fill( "Tracks_mPtMomentum", runIndex, p.Pt() );
+			book->fill( "Tracks_mDedx", runIndex, ds->get<UShort_t>( "Tracks.mDedx", iTrack ) / 1000.0 );
+			book->fill( "Tracks_mNHitsFit", runIndex, fabs( ds->get<Char_t>( "Tracks.mNHitsFit", iTrack ) ) );
+			book->fill( "Tracks_mNHitsMax", runIndex, ds->get<Char_t>( "Tracks.mNHitsMax", iTrack ) );
+			book->fill( "Tracks_mNHitsDedx", runIndex, ds->get<UChar_t>( "Tracks.mNHitsDedx", iTrack ) );
 
 			int iBTof = ds->get<Short_t>( "Tracks.mBTofPidTraitsIndex", iTrack );
 			int iMtd = ds->get<Short_t>( "Tracks.mMtdPidTraitsIndex", iTrack );
+			int iEmc = ds->get<Short_t>( "Tracks.mEmcPidTraitsIndex", iTrack );
 			if ( iBTof >= 0 ){
-				book->fill( "mBTofYLocal", runIndex, ds->get<Short_t>( "BTofPidTraits.mBTofYLocal", iBTof ) / 1000.0 );
-				book->fill( "mBTofZLocal", runIndex, ds->get<Short_t>( "BTofPidTraits.mBTofZLocal", iBTof ) / 1000.0 );	
+				book->fill( "BTofPidTraits_mBTofYLocal", runIndex, ds->get<Short_t>( "BTofPidTraits.mBTofYLocal", iBTof ) / 1000.0 );
+				book->fill( "BTofPidTraits_mBTofZLocal", runIndex, ds->get<Short_t>( "BTofPidTraits.mBTofZLocal", iBTof ) / 1000.0 );
+				book->fill( "BTofPidTraits_mBTofMatchFlag", runIndex, ds->get<UChar_t>( "BTofPidTraits.mBTofMatchFlag", iBTof ) );	
+				book->fill( "BTofPidTraits_mBTof", runIndex, ds->get<UShort_t>( "BTofPidTraits.mBTof", iBTof ) / 1000.0 );
+				book->fill( "BTofPidTraits_mBTofBeta", runIndex, ds->get<UShort_t>( "BTofPidTraits.mBTofBeta", iBTof ) / 20000.0 );
 				nBTofMatched++;
 			}
 			if ( iMtd >= 0 ) {
-				book->fill( "mDeltaZ", runIndex, ds->get<float>( "MtdPidTraits.mDeltaZ", iMtd ) );	
-				book->fill( "mDeltaY", runIndex, ds->get<float>( "MtdPidTraits.mDeltaY", iMtd ) );	
+				book->fill( "MtdPidTraits_mDeltaZ", runIndex, ds->get<float>( "MtdPidTraits.mDeltaZ", iMtd ) );	
+				book->fill( "MtdPidTraits_mDeltaY", runIndex, ds->get<float>( "MtdPidTraits.mDeltaY", iMtd ) );	
+				book->fill( "MtdPidTraits_mMtdHitChan", runIndex, ds->get<Short_t>( "MtdPidTraits.mMtdHitChan", iMtd ) );
+				book->fill( "MtdPidTraits_mMatchFlag", runIndex, ds->get<Char_t>( "MtdPidTraits.mMatchFlag", iMtd ) );	
+				book->fill( "MtdPidTraits_mDeltaTimeOfFlight", runIndex, ds->get<float>( "MtdPidTraits.mDeltaTimeOfFlight", iMtd ) );
+				book->fill( "MtdPidTraits_mBeta", runIndex, ds->get<float>( "MtdPidTraits.mBeta", iMtd ) );	
 				nMtdMatched++;
 			}
+			if ( iEmc >= 0 ){
+				book->fill( "EmcPidTraits_mBEMCId", runIndex, ds->get<Short_t>("EmcPidTraits.mBEMCId", iEmc ) );
+				book->fill( "EmcPidTraits_mBTOWADC0", runIndex, ds->get<Short_t>("EmcPidTraits.mBTOWADC0", iEmc ) );
+				book->fill( "EmcPidTraits_mBTOWE0", runIndex, ds->get<Short_t>("EmcPidTraits.mBTOWE0", iEmc ) / 1000.0 );
+				book->fill( "EmcPidTraits_mBTOWE", runIndex, ds->get<Short_t>("EmcPidTraits.mBTOWE", iEmc ) / 1000.0 );
+				book->fill( "EmcPidTraits_mBEMCDistZ", runIndex, ds->get<Short_t>("EmcPidTraits.mBEMCDistZ", iEmc ) / 100.0 );
+				book->fill( "EmcPidTraits_mBEMCDistPhi", runIndex, ds->get<Short_t>("EmcPidTraits.mBEMCDistPhi", iEmc ) / 10000.0 );
+				book->fill( "EmcPidTraits_mBSMDNEta", runIndex, ds->get<UChar_t>("EmcPidTraits.mBSMDNEta", iEmc ) );
+				book->fill( "EmcPidTraits_mBSMDNPhi", runIndex, ds->get<UChar_t>("EmcPidTraits.mBSMDNPhi", iEmc ) );
+				book->fill( "EmcPidTraits_mBTOWId", runIndex, ds->get<Short_t>("EmcPidTraits.mBTOWId", iEmc ) );
+				book->fill( "EmcPidTraits_mBTOWId23", runIndex, ds->get<Char_t>("EmcPidTraits.mBTOWId23", iEmc ) );
+				book->fill( "EmcPidTraits_mBTOWE1", runIndex, ds->get<Short_t>("EmcPidTraits.mBTOWE1", iEmc ) / 1000.0 );
+				book->fill( "EmcPidTraits_mBTOWE2", runIndex, ds->get<Short_t>("EmcPidTraits.mBTOWE2", iEmc ) / 1000.0 );
+				book->fill( "EmcPidTraits_mBTOWE3", runIndex, ds->get<Short_t>("EmcPidTraits.mBTOWE3", iEmc ) / 1000.0 );
+				book->fill( "EmcPidTraits_mBTOWDistEta", runIndex, ds->get<Short_t>("EmcPidTraits.mBTOWDistEta", iEmc ) / 10000.0 );
+				book->fill( "EmcPidTraits_mBTOWDistPhi", runIndex, ds->get<Short_t>("EmcPidTraits.mBTOWDistPhi", iEmc ) / 10000.0 );
+				nEmcMatched++;
+			}
+
 
 		} // loop on tracks	
 	}

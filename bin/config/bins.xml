@@ -27,11 +27,40 @@
 		<Chi2 width="100" min="0" max="9000" />
 		<NHits width="1" min="0" max="47" />
 		<PMomentum width="0.1" min="0" max="15" />
+		<Dedx width="1" min="0" max="70" />
+
 
 		<YLocal width="0.1" min="-5" max="5" />
 		<ZLocal width="0.1" min="-3.5" max="3.5" />
+		<BTof width="2" min="0" max="100" />
+		<BTofBeta width="0.05" min="0" max="1.5" />
+		<BTofMatchFlag width="1" min="0" max="3" />
 
+		<!-- MTD PID Traits -->
+		<MtdHitChan width="1" min="0" max="1810" />
+		<MtdMatchFlag width="1" min="0" max="11" />
 		<DeltaZ width="1" min="-150" max="150" />
 		<DeltaY width="1" min="-70" max="70" />
+		<DeltaTimeOfFlight min="-5000" max="1000" width="250" />
+		<MtdBeta min="0.95" max="1.01" width="0.001" />
+
+
+
+		<!-- EmcPidTraits -->
+		<mBEMCId width="1" min="0" max="400" />
+		<mBTOWADC0 width="10" min="0" max="1200" />
+		<mBTOWE0 width="0.1" min="0" max="20" />
+		<mBTOWE width="0.1" min="0" max="20" />
+		<mBEMCDistZ width="2.5" min="-75" max="75" />
+		<mBEMCDistPhi width="0.01" min="-3.14" max="3.14" />
+		<mBSMDNEta width="1" min="0" max="20" />
+		<mBSMDNPhi width="1" min="0" max="20" />
+		<mBTOWId width="1" min="0" max="4801" />
+		<mBTOWId23 width="1" min="0" max="100" />
+		<mBTOWE1 width="0.1" min="0" max="20" />
+		<mBTOWE2 width="0.1" min="0" max="20" />
+		<mBTOWE3 width="0.1" min="0" max="20" />
+		<mBTOWDistEta width="0.01" min="-2.0" max="2.0" />
+		<mBTOWDistPhi width="0.01" min="-3.14" max="3.14" />
 	</bins>
 </config>

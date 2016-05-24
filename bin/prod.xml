@@ -3,10 +3,9 @@
 
 	<Task name="PicoDstQAMaker" type="RunByRunQAMaker" config="" nodePath="RunByRunQAMaker" />
 
-	<RunByRunQAMaker event="true" track="false">
+	<RunByRunQAMaker event="true" track="true">
 		<Logger color="true" globalLogLevel="warning" />
-
-
+		
 		<input>
 			<dst treeName="PicoDst" url="list.lis" splitBy="200" />
 		</input>
@@ -15,7 +14,11 @@
 			<BranchStatus status="0">*</BranchStatus>
 			<!-- Turn on only the ones you need -->
 			<BranchStatus status="1">
-				Event*
+				Event*,
+				Tracks*,
+				BTofPidTraits*,
+				MtdPidTraits*,
+				EmcPidTraits*
 			</BranchStatus>
 		</DataSource>
 
