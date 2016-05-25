@@ -648,7 +648,7 @@ void StRefMultCorr::readBadRuns()
       cout << endl;
       continue;
     }
-    cout << "  " << inputFileName << flush;
+    // cout << "  " << inputFileName << flush;
 
     Int_t runId = 0 ;
     while( fin >> runId ) {

@@ -20,9 +20,9 @@
  			<File>file:./app</File>
  			<File>file:./list.lis</File>
  			<File>file:./prod.xml</File> 
- 			<File>file:./config/bins.xml</File> 
- 			<File>file:./config/histograms.xml</File> 
- 			<File>file:./.DataSource_PicoDst.xml</File>
+ 			<!-- <File>file:./config/bins.xml</File> 
+ 			<File>file:./config/histograms.xml</File>  -->
+ 			<File>file:./config</File> 
  		</Package> 
  	</SandBox>
 
