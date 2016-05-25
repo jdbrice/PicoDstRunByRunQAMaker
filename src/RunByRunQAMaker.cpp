@@ -10,7 +10,7 @@ void RunByRunQAMaker::initialize(){
 	// build the run map
 	if (!config.getBool( nodePath + ":noRunMap", false ) ){
 		for ( int iRun = 0; iRun < runNumbers.size(); iRun++ ){
-			runIndices[ runNumbers[ iRun ] ] = iRun;
+			runIndices[ runNumbers[ iRun ] ] = iRun + 1;
 		}  
 	} else {
 		config.set( "bins.runIndex:max", "10" );
@@ -43,7 +43,12 @@ bool RunByRunQAMaker::keepEvent() {
 	int runId = pico->get<int>( "Event.mRunId" );
 
 	rmc->init( runId );
-	rmc->initEvent( pico->get<UShort_t>( "Event.mRefMultPos" ) + pico->get<UShort_t>( "Event.mRefMultNeg" ), pico->get<float>( "Event.mPrimaryVertex.mX3" ), pico->get<UInt_t>( "Event.mZDCx" )  );
+
+	rmc->initEvent( 
+		pico->get<UShort_t>( "Event.mGRefMult" ), 
+		pico->get<float>( "Event.mPrimaryVertex.mX3" ), 
+		pico->get<UInt_t>( "Event.mZDCx" )  
+	);
 
 	if ( runIndices.count( runId ) >= 1 ){
 		runIndex = runIndices[ runId ];
