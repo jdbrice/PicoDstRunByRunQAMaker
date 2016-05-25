@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<bins>
-		<runIndex width="1" min="0" max="2100" />
+		<runIndex width="1" min="0" max="3000" />
 
 		<VertexPerp width="0.01" min="-1.5" max="1.5" />
 		<VertexZ width="2" min="-200" max="200" />
@@ -12,6 +12,8 @@
 		<BackgroundRate width="500" min="0" max="80000" />
 		
 		<refMult width="1" min="0" max="725" />
+		<Bin9 width="1" min="0" max="9" />
+		<Bin16 width="1" min="0" max="16" />
 		<grefMult width="1" min="0" max="700" />
 		<refMultPosNeg width="5" min="0" max="400" />
 		<NBTOFMatch width="5" min="0" max="900" />
@@ -27,6 +29,8 @@
 		<Chi2 width="100" min="0" max="9000" />
 		<NHits width="1" min="0" max="47" />
 		<PMomentum width="0.1" min="0" max="15" />
+		<Eta width="0.1" min="-2" max="2" />
+		<Phi width="0.1" min="-3.3" max="3.31" />
 		<Dedx width="1" min="0" max="70" />
 
 
@@ -43,8 +47,6 @@
 		<DeltaY width="1" min="-70" max="70" />
 		<DeltaTimeOfFlight min="-5000" max="1000" width="250" />
 		<MtdBeta min="0.95" max="1.01" width="0.001" />
-
-
 
 		<!-- EmcPidTraits -->
 		<mBEMCId width="1" min="0" max="400" />

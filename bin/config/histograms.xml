@@ -5,6 +5,9 @@
 		<RunByRun>
 			<!-- Event.* -->
 			<Histo name="mRefMult" bins_x="bins.runIndex" bins_y="bins.refMult" />
+			<Histo name="mRefMultCorr" bins_x="bins.runIndex" bins_y="bins.refMult" />
+			<Histo name="mBin9" bins_x="bins.runIndex" bins_y="bins.Bin9" />
+			<Histo name="mBin16" bins_x="bins.runIndex" bins_y="bins.Bin16" />
 			<Histo name="mRefMultPos" bins_x="bins.runIndex" bins_y="bins.refMultPosNeg" />
 			<Histo name="mRefMultNeg" bins_x="bins.runIndex" bins_y="bins.refMultPosNeg" />
 			<Histo name="mGRefMult" bins_x="bins.runIndex" bins_y="bins.grefMult" />
@@ -63,6 +66,8 @@
 			<Histo name="Tracks_mChi2" bins_x="bins.runIndex" bins_y="bins.Chi2" />
 			<Histo name="Tracks_mPMomentum" bins_x="bins.runIndex" bins_y="bins.PMomentum" />
 			<Histo name="Tracks_mPtMomentum" bins_x="bins.runIndex" bins_y="bins.PMomentum" />
+			<Histo name="Tracks_mEta" bins_x="bins.runIndex" bins_y="bins.Eta" />
+			<Histo name="Tracks_mPhi" bins_x="bins.runIndex" bins_y="bins.Phi" />
 			<Histo name="Tracks_mDedx" bins_x="bins.runIndex" bins_y="bins.Dedx" />
 			<Histo name="Tracks_mNHitsFit" bins_x="bins.runIndex" bins_y="bins.NHits" />
 			<Histo name="Tracks_mNHitsMax" bins_x="bins.runIndex" bins_y="bins.NHits" />

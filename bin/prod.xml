@@ -10,18 +10,6 @@
 			<dst treeName="PicoDst" url="list.lis" splitBy="200" />
 		</input>
 
-		<DataSource>
-			<BranchStatus status="0">*</BranchStatus>
-			<!-- Turn on only the ones you need -->
-			<BranchStatus status="1">
-				Event*,
-				Tracks*,
-				BTofPidTraits*,
-				MtdPidTraits*,
-				EmcPidTraits*
-			</BranchStatus>
-		</DataSource>
-
 		<output path="" >
 			<data>qa.root</data>
 		</output>

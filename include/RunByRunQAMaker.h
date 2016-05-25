@@ -2,6 +2,9 @@
 
 #include "DataSource.h"
 
+#include "PicoDst.h"
+#include "CentralityMaker.h"
+
 #include <map>
 
 class RunByRunQAMaker : public TreeAnalyzer
@@ -15,6 +18,10 @@ protected:
 	static vector<int> runNumbers;
 
 	bool makeTrackQA, makeEventQA;
+
+	PicoDst * pico;
+
+	StRefMultCorr * rmc;
 
 public:
 	virtual const char* classname() const { return "RunByRunQAMaker"; }

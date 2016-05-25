@@ -4,7 +4,7 @@ project = app
 # source suffix
 source = .cpp 
 # object files to make
-objects = Engine.o RunByRunQAMaker.o
+objects = Engine.o PicoDst.o RunByRunQAMaker.o CentralityMaker.o StRefMultCorr.o
 
 sources = $(wildcard *.cpp)
 headers = $(wildcard ../include/*.h)

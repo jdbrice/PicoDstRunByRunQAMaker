@@ -6,31 +6,22 @@
 	<Logger color="true" globalLogLevel="info" />
 	
 
-	<RunByRunQAMaker event="true" track="true" noRunMap="true">
+	<RunByRunQAMaker event="true" track="false" noRunMap="true">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
 			<dst treeName="PicoDst" url="list.lis" maxFiles="10000" nEvents="2000"/>
 		</input>
 
-		<DataSource>
-			<BranchStatus status="0">*</BranchStatus>
-			<!-- Turn on only the ones you need -->
-			<BranchStatus status="1">
-				Event*,
-				Tracks*,
-				BTofPidTraits*,
-				MtdPidTraits*,
-				EmcPidTraits*
-			</BranchStatus>
-		</DataSource>
-
 		<output path="qa/" >
 			<data>qa.root</data>
 		</output>
 
-
 		<Include url="config/histograms.xml" />
+
+		<TrackCuts>
+			<MtdMatch>true</MtdMatch>
+		</TrackCuts>
 
 	</RunByRunQAMaker>
 

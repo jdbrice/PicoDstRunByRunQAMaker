@@ -1,8 +1,8 @@
 #Remove bulky root files
 *.root
+*.pdf
 
 # Remove data files in the script folder used for testing 
-/script/*
 !/script/*.C
 
 #remove OS X system files
@@ -21,3 +21,5 @@
 !/bin/config.xml
 
 bin/*.lis
+
+StRefMultCorr

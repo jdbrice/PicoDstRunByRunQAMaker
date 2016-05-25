@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<nSigma>
+		 <mRefMult> 			3.0 </mRefMult> 
+		 <mVzVpd> 				1.0 </mVzVpd> 
+		 <mRanking> 			3.0 </mRanking> 
+		 <mPrimaryVertex_mX1> 	3.0 </mPrimaryVertex_mX1> 
+		 <mPrimaryVertex_mX2> 	3.0 </mPrimaryVertex_mX2> 
+		 <mPrimaryVertex_mX3> 	3.0 </mPrimaryVertex_mX3> 
+		 <mBBCx> 				3.0 </mBBCx> 
+		 <mZDCx> 				3.0 </mZDCx> 
+		 <mBackgroundRate> 		3.0 </mBackgroundRate> 
+		 <mQx_eta_pos> 			3.0 </mQx_eta_pos> 
+		 <mQx_eta_neg> 			3.0 </mQx_eta_neg> 
+		 <mRefMultPos> 			3.0 </mRefMultPos> 
+		 <mQy_eta_pos> 			3.0 </mQy_eta_pos> 
+		 <mQy_eta_neg> 			3.0 </mQy_eta_neg> 
+		 <mQx_chg_pos> 			3.0 </mQx_chg_pos> 
+		 <mQx_chg_neg> 			3.0 </mQx_chg_neg> 
+		 <mQy_chg_pos> 			3.0 </mQy_chg_pos> 
+		 <mQy_chg_neg> 			3.0 </mQy_chg_neg> 
+		 <mNtrk_eta_pos> 		3.0 </mNtrk_eta_pos> 
+		 <mNtrk_eta_neg> 		3.0 </mNtrk_eta_neg> 
+		 <mNtrk_chg_pos_eta_pos> 3.0 </mNtrk_chg_pos_eta_pos> 
+		 <mNtrk_chg_pos_eta_neg> 3.0 </mNtrk_chg_pos_eta_neg> 
+		 <mRefMultNeg> 			3.0 </mRefMultNeg> 
+		 <mNtrk_chg_neg_eta_pos> 3.0 </mNtrk_chg_neg_eta_pos> 
+		 <mNtrk_chg_neg_eta_neg> 3.0 </mNtrk_chg_neg_eta_neg> 
+		 <mNtrk_ran_1_eta_pos> 	3.0 </mNtrk_ran_1_eta_pos> 
+		 <mNtrk_ran_1_eta_neg> 	3.0 </mNtrk_ran_1_eta_neg> 
+		 <mNtrk_ran_2_eta_pos> 	3.0 </mNtrk_ran_2_eta_pos> 
+		 <mNtrk_ran_2_eta_neg> 	3.0 </mNtrk_ran_2_eta_neg> 
+		 <mWeight_eta_pos> 		3.0 </mWeight_eta_pos> 
+		 <mWeight_eta_neg> 		3.0 </mWeight_eta_neg> 
+		 <mWeight_chg_pos> 		3.0 </mWeight_chg_pos> 
+		 <mWeight_chg_neg> 		3.0 </mWeight_chg_neg> 
+		 <mGRefMult> 			3.0 </mGRefMult> 
+		 <mWeight_ran_1> 		3.0 </mWeight_ran_1> 
+		 <mWeight_ran_2> 		3.0 </mWeight_ran_2> 
+		 <mNumberOfGlobalTracks> 3.0 </mNumberOfGlobalTracks> 
+		 <mNBTOFMatch> 			3.0 </mNBTOFMatch> 
+		 <mNBEMCMatch> 			3.0 </mNBEMCMatch> 
+		 <mbTofTrayMultiplicity> 1.0 </mbTofTrayMultiplicity> 
+		 <delta_mVzVpd_mPrimaryVertex_mX3> 3.0 </delta_mVzVpd_mPrimaryVertex_mX3>
+	</nSigma>
+</root>
