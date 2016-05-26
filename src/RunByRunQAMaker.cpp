@@ -138,8 +138,6 @@ void RunByRunQAMaker::analyzeEvent(){
 	if ( makeTrackQA ){
 		/**************** Tracks *******************************/
 		int nTracks = pico->get<Int_t>( "Tracks_" );
-		cout << "nnTracks=" << pico->Tracks_ << endl;
-		cout << "nTracks = " << nTracks << endl;
 		
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ) {
 		
@@ -154,8 +152,6 @@ void RunByRunQAMaker::analyzeEvent(){
 			if ( requireEmcMatch && iEmc < 0 ) continue;
 			if ( requireMtdMatch && iMtd < 0 ) continue;
 			if ( requireBTofMatch && iBTof < 0 ) continue;
-
-			cout << "TrackPass" << endl;
 
 			book->fill( "Tracks_mChi2", runIndex, pico->get<UShort_t>( "Tracks.mChi2", iTrack ) );
 			book->fill( "Tracks_mPMomentum", runIndex, p.Mag() );
