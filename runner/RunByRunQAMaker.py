@@ -1,8 +1,8 @@
 
 
 
-c_template = """ 
-<?xml version="1.0" encoding="utf-8" ?>
+
+c_template = """<?xml version="1.0" encoding="utf-8" ?>
 <job maxFilesPerProcess="1" filesPerHour=".5" fileListSyntax="paths" simulateSubmission="false">
 	<command>
 		starver SL15e
@@ -29,8 +29,7 @@ c_template = """
 	<Generator> 
  		<Location>/star/data03/pwg/jdb/scratch/gen</Location> 
  	</Generator> 
-</job>
-"""
+</job>"""
 
 
 
