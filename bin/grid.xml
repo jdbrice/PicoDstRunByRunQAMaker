@@ -22,7 +22,7 @@
  			<File>file:./prod.xml</File> 
  			<!-- <File>file:./config/bins.xml</File> 
  			<File>file:./config/histograms.xml</File>  -->
- 			<File>file:./config</File> 
+ 			<File>file:./config/</File> 
  		</Package> 
  	</SandBox>
 
