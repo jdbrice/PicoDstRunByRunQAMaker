@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<job maxFilesPerProcess="1" filesPerHour=".5" fileListSyntax="paths" simulateSubmission="false">
+	<command>
+		starver SL15e
+
+		./app prod.xml $INPUTFILE0 &gt;&amp; log_$INPUTFILE0.log 
+	</command>
+
+	<stdout URL="file:/star/data03/pwg/jdb/scratch/log/$JOBID.out" />
+	<stderr URL="file:/star/data03/pwg/jdb/scratch/log/$JOBID.err" />
+	<input URL="filelist:/star/u/jdb/work/PicoDstRunByRunQAMaker/bin/n.lis" nFiles="3788"/>
+	
+	<output fromScratch="*.root" toURL="file:/star/data03/pwg/jdb/scratch/" />
+	<output fromScratch="log_*.log" toURL="file:/star/data03/pwg/jdb/scratch/" />
+
+
+	<SandBox>
+ 		<Package>
+ 			
+ 			<File>file:./app</File>
+ 			<File>file:./list.lis</File>
+ 			<File>file:./prod.xml</File> 
+ 			<File>file:./config/</File> 
+ 		</Package> 
+ 	</SandBox>
+
+	<Generator> 
+ 		<Location>/star/data03/pwg/jdb/scratch/gen</Location> 
+ 	</Generator> 
+</job>
