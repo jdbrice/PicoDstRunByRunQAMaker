@@ -5,7 +5,7 @@
 		<EventCuts width="1" min="0" max="10" />
 
 
-		<VertexPerp width="0.01" min="-1.5" max="1.5" />
+		<VertexPerp width="0.025" min="-1.5" max="1.5" />
 		<VertexZ width="2" min="-200" max="200" />
 		<Ranking width=".1" min="-15.1" max="3.1" />
 		<dVertexZ width=".05" min="-3.5" max="3.5" />
@@ -20,7 +20,7 @@
 		<refMultPosNeg width="5" min="0" max="400" />
 		<NBTOFMatch width="5" min="0" max="900" />
 		<NBEMCMatch width="5" min="0" max="1100" />
-		<nGlobal width="20" min="0" max="4500" />
+		<nGlobal width="25" min="0" max="4500" />
 		<NMtdMatched width="1" min="0" max="30" />
 
 		<Q width="1" min="-50" max="50" />
@@ -43,7 +43,7 @@
 		<BTofMatchFlag width="1" min="0" max="3" />
 
 		<!-- MTD PID Traits -->
-		<MtdHitChan width="1" min="0" max="1810" />
+		<MtdHitChan width="100" min="0" max="1810" />
 		<MtdMatchFlag width="1" min="0" max="11" />
 		<DeltaZ width="1" min="-150" max="150" />
 		<DeltaY width="1" min="-70" max="70" />
@@ -51,7 +51,7 @@
 		<MtdBeta min="0.95" max="1.01" width="0.001" />
 
 		<!-- EmcPidTraits -->
-		<mBEMCId width="1" min="0" max="400" />
+		<mBEMCId width="40" min="0" max="400" />
 		<mBTOWADC0 width="10" min="0" max="1200" />
 		<mBTOWE0 width="0.1" min="0" max="20" />
 		<mBTOWE width="0.1" min="0" max="20" />
@@ -59,7 +59,7 @@
 		<mBEMCDistPhi width="0.01" min="-3.14" max="3.14" />
 		<mBSMDNEta width="1" min="0" max="20" />
 		<mBSMDNPhi width="1" min="0" max="20" />
-		<mBTOWId width="1" min="0" max="4801" />
+		<mBTOWId width="200" min="0" max="4801" />
 		<mBTOWId23 width="1" min="0" max="100" />
 		<mBTOWE1 width="0.1" min="0" max="20" />
 		<mBTOWE2 width="0.1" min="0" max="20" />
