@@ -138,6 +138,7 @@ void RunByRunQAMaker::analyzeEvent(){
 	if ( makeTrackQA ){
 		/**************** Tracks *******************************/
 		int nTracks = pico->get<Int_t>( "Tracks_" );
+		cout << "nnTracks=" << pico->Tracks_ << endl;
 		cout << "nTracks = " << nTracks << endl;
 		
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ) {
