@@ -15,10 +15,10 @@
 			<data>qa.root</data>
 		</output>
 
-		<Include url="config/histograms.xml" />
+		<Include url="config/RunByRunQAMaker/histograms.xml" />
 
 	</RunByRunQAMaker>
 
-	<Include url="config/bins.xml" />
+	<Include url="config/RunByRunQAMaker/bins.xml" />
 
 </config>
