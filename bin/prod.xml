@@ -2,9 +2,10 @@
 <config>
 
 	<Task name="PicoDstQAMaker" type="RunByRunQAMaker" config="" nodePath="RunByRunQAMaker" />
+	<Logger color="true" globalLogLevel="info" />
 
 	<RunByRunQAMaker event="true" track="true">
-		<Logger color="true" globalLogLevel="warning" />
+		<Logger color="true" globalLogLevel="info" />
 		
 		<input>
 			<dst treeName="PicoDst" url="list.lis" splitBy="200" />
