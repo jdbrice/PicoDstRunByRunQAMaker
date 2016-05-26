@@ -4,11 +4,12 @@
 	<Task name="PicoDstQAMaker" type="RunByRunQAMaker" config="" nodePath="RunByRunQAMaker" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<RunByRunQAMaker event="true" track="true" noRunMap="true">
+	<RunByRunQAMaker event="true" track="true" noRunMap="true" production="AuAu_200_production_high_2014" triggers="emu">
 		<Logger color="true" globalLogLevel="info" />
 
+		<EventLoop progress="true" />
 		<input>
-			<dst treeName="PicoDst" url="list.lis" splitBy="200" nEvents="2000"/>
+			<dst treeName="PicoDst" url="list.lis" splitBy="200" nEvents="200000"/>
 		</input>
 
 		<output path="qa/" >

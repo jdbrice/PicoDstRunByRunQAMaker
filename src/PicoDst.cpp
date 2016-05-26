@@ -31,6 +31,32 @@ Long64_t PicoDst::LoadTree(Long64_t entry)
    return centry;
 }
 
+
+// {
+//   // st_mtd stream
+//   450601, // dimuon
+//   450611, // dimuon
+//   450621, // dimuon
+//   450631, // dimuon
+//   450641, // dimuon
+//   450604,    // dimuon-30-hft (production_2014)
+//   450605,    // dimuon-5-hft (production_mid_2014, production_low_2014)
+//   450606,    // dimuon-5-hft (production_mid_2014)
+//   450602,    // e-mu (production_2014)
+//   450612,    // e-mu (production_2014, production_low_2014)
+//   450622,    // e-mu (production_2014, production_low_2014)
+//   450632,    // e-mu (production_mid_2014)
+//   450642,    // e-mu (production_2014, production_low_2014)
+//   450600,    // single-muon (production_2014)
+//   450610,    // single-muon (production_2014, production_low_2014)
+//   450620,    // single-muon (production_2014, production_low_2014)
+//   450630,    // single-muon (production_mid_2014)
+//   450640     // single-muon (production_2014, production_low_2014)
+// }; // Run14 AuAu200 GeV StMtd Stream
+
+
+
+
 void PicoDst::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
@@ -288,221 +314,3 @@ Int_t PicoDst::Cut(Long64_t entry)
    return 1;
 }
 
-
-
-
-// template <typename T>
-// T PicoDst::get( std::string var ) {
-// 	if (var == "Event" ) return Event_;
-// 	if (var == "Event.mRunId" ) return Event_mRunId;
-// 	if (var == "Event.mEventId" ) return Event_mEventId;
-// 	if (var == "Event.mFillId" ) return Event_mFillId;
-// 	if (var == "Event.mBField" ) return Event_mBField;
-// 	if (var == "Event.mPrimaryVertex.mX1" ) return Event_mPrimaryVertex_mX1;
-// 	if (var == "Event.mPrimaryVertex.mX2" ) return Event_mPrimaryVertex_mX2;
-// 	if (var == "Event.mPrimaryVertex.mX3" ) return Event_mPrimaryVertex_mX3;
-// 	if (var == "Event.mSecondVertex.mX1" ) return Event_mSecondVertex_mX1;
-// 	if (var == "Event.mSecondVertex.mX2" ) return Event_mSecondVertex_mX2;
-// 	if (var == "Event.mSecondVertex.mX3" ) return Event_mSecondVertex_mX3;
-// 	if (var == "Event.mPrimaryVertexError.mX1" ) return Event_mPrimaryVertexError_mX1;
-// 	if (var == "Event.mPrimaryVertexError.mX2" ) return Event_mPrimaryVertexError_mX2;
-// 	if (var == "Event.mPrimaryVertexError.mX3" ) return Event_mPrimaryVertexError_mX3;
-// 	if (var == "Event.mTriggerWord" ) return Event_mTriggerWord;
-// 	if (var == "Event.mTriggerWordMtd" ) return Event_mTriggerWordMtd;
-// 	if (var == "Event.mRefMultFtpcEast" ) return Event_mRefMultFtpcEast;
-// 	if (var == "Event.mRefMultFtpcWest" ) return Event_mRefMultFtpcWest;
-// 	if (var == "Event.mRefMultNeg" ) return Event_mRefMultNeg;
-// 	if (var == "Event.mRefMultPos" ) return Event_mRefMultPos;
-// 	if (var == "Event.mRefMult2NegEast" ) return Event_mRefMult2NegEast;
-// 	if (var == "Event.mRefMult2PosEast" ) return Event_mRefMult2PosEast;
-// 	if (var == "Event.mRefMult2NegWest" ) return Event_mRefMult2NegWest;
-// 	if (var == "Event.mRefMult2PosWest" ) return Event_mRefMult2PosWest;
-// 	if (var == "Event.mRefMultHalfNegEast" ) return Event_mRefMultHalfNegEast;
-// 	if (var == "Event.mRefMultHalfPosEast" ) return Event_mRefMultHalfPosEast;
-// 	if (var == "Event.mRefMultHalfNegWest" ) return Event_mRefMultHalfNegWest;
-// 	if (var == "Event.mRefMultHalfPosWest" ) return Event_mRefMultHalfPosWest;
-// 	if (var == "Event.mGRefMult" ) return Event_mGRefMult;
-// 	if (var == "Event.mNHitsHFT[4]" ) return Event_mNHitsHFT;
-// 	if (var == "Event.mNVpdHitsEast" ) return Event_mNVpdHitsEast;
-// 	if (var == "Event.mNVpdHitsWest" ) return Event_mNVpdHitsWest;
-// 	if (var == "Event.mNT0" ) return Event_mNT0;
-// 	if (var == "Event.mVzVpd" ) return Event_mVzVpd;
-// 	if (var == "Event.mZDCx" ) return Event_mZDCx;
-// 	if (var == "Event.mBBCx" ) return Event_mBBCx;
-// 	if (var == "Event.mBackgroundRate" ) return Event_mBackgroundRate;
-// 	if (var == "Event.mBbcBlueBackgroundRate" ) return Event_mBbcBlueBackgroundRate;
-// 	if (var == "Event.mBbcYellowBackgroundRate" ) return Event_mBbcYellowBackgroundRate;
-// 	if (var == "Event.mBbcEastRate" ) return Event_mBbcEastRate;
-// 	if (var == "Event.mBbcWestRate" ) return Event_mBbcWestRate;
-// 	if (var == "Event.mZdcEastRate" ) return Event_mZdcEastRate;
-// 	if (var == "Event.mZdcWestRate" ) return Event_mZdcWestRate;
-// 	if (var == "Event.mVpd[64]" ) return Event_mVpd;
-// 	if (var == "Event.mZdcSumAdcEast" ) return Event_mZdcSumAdcEast;
-// 	if (var == "Event.mZdcSumAdcWest" ) return Event_mZdcSumAdcWest;
-// 	if (var == "Event.mZdcSmdEastHorizontal[8]" ) return Event_mZdcSmdEastHorizontal;
-// 	if (var == "Event.mZdcSmdEastVertical[8]" ) return Event_mZdcSmdEastVertical;
-// 	if (var == "Event.mZdcSmdWestHorizontal[8]" ) return Event_mZdcSmdWestHorizontal;
-// 	if (var == "Event.mZdcSmdWestVertical[8]" ) return Event_mZdcSmdWestVertical;
-// 	if (var == "Event.mSpaceCharge" ) return Event_mSpaceCharge;
-// 	if (var == "Event.mbTofTrayMultiplicity" ) return Event_mbTofTrayMultiplicity;
-// 	if (var == "Event.mNumberOfGlobalTracks" ) return Event_mNumberOfGlobalTracks;
-// 	if (var == "Event.mRanking" ) return Event_mRanking;
-// 	if (var == "Event.mNBEMCMatch" ) return Event_mNBEMCMatch;
-// 	if (var == "Event.mNBTOFMatch" ) return Event_mNBTOFMatch;
-// 	if (var == "Event.mBbcAdcEast[24]" ) return Event_mBbcAdcEast;
-// 	if (var == "Event.mBbcAdcWest[24]" ) return Event_mBbcAdcWest;
-// 	if (var == "Event.mHT_Th[4]" ) return Event_mHT_Th;
-// 	if (var == "Event.mJP_Th[4]" ) return Event_mJP_Th;
-// 	if (var == "EventPlane" ) return EventPlane_;
-// 	if (var == "EventPlane.fUniqueID" ) return EventPlane_fUniqueID;
-// 	if (var == "EventPlane.fBits" ) return EventPlane_fBits;
-// 	if (var == "EventPlane.mQx_eta_pos" ) return EventPlane_mQx_eta_pos;
-// 	if (var == "EventPlane.mQy_eta_pos" ) return EventPlane_mQy_eta_pos;
-// 	if (var == "EventPlane.mQx_eta_neg" ) return EventPlane_mQx_eta_neg;
-// 	if (var == "EventPlane.mQy_eta_neg" ) return EventPlane_mQy_eta_neg;
-// 	if (var == "EventPlane.mNtrk_eta_pos" ) return EventPlane_mNtrk_eta_pos;
-// 	if (var == "EventPlane.mNtrk_eta_neg" ) return EventPlane_mNtrk_eta_neg;
-// 	if (var == "EventPlane.mWeight_eta_pos" ) return EventPlane_mWeight_eta_pos;
-// 	if (var == "EventPlane.mWeight_eta_neg" ) return EventPlane_mWeight_eta_neg;
-// 	if (var == "EventPlane.mQx_chg_pos" ) return EventPlane_mQx_chg_pos;
-// 	if (var == "EventPlane.mQy_chg_pos" ) return EventPlane_mQy_chg_pos;
-// 	if (var == "EventPlane.mQx_chg_neg" ) return EventPlane_mQx_chg_neg;
-// 	if (var == "EventPlane.mQy_chg_neg" ) return EventPlane_mQy_chg_neg;
-// 	if (var == "EventPlane.mNtrk_chg_pos_eta_pos" ) return EventPlane_mNtrk_chg_pos_eta_pos;
-// 	if (var == "EventPlane.mNtrk_chg_pos_eta_neg" ) return EventPlane_mNtrk_chg_pos_eta_neg;
-// 	if (var == "EventPlane.mNtrk_chg_neg_eta_pos" ) return EventPlane_mNtrk_chg_neg_eta_pos;
-// 	if (var == "EventPlane.mNtrk_chg_neg_eta_neg" ) return EventPlane_mNtrk_chg_neg_eta_neg;
-// 	if (var == "EventPlane.mWeight_chg_pos" ) return EventPlane_mWeight_chg_pos;
-// 	if (var == "EventPlane.mWeight_chg_neg" ) return EventPlane_mWeight_chg_neg;
-// 	if (var == "EventPlane.mQx_ran_1" ) return EventPlane_mQx_ran_1;
-// 	if (var == "EventPlane.mQy_ran_1" ) return EventPlane_mQy_ran_1;
-// 	if (var == "EventPlane.mQx_ran_2" ) return EventPlane_mQx_ran_2;
-// 	if (var == "EventPlane.mQy_ran_2" ) return EventPlane_mQy_ran_2;
-// 	if (var == "EventPlane.mNtrk_ran_1_eta_pos" ) return EventPlane_mNtrk_ran_1_eta_pos;
-// 	if (var == "EventPlane.mNtrk_ran_1_eta_neg" ) return EventPlane_mNtrk_ran_1_eta_neg;
-// 	if (var == "EventPlane.mNtrk_ran_2_eta_pos" ) return EventPlane_mNtrk_ran_2_eta_pos;
-// 	if (var == "EventPlane.mNtrk_ran_2_eta_neg" ) return EventPlane_mNtrk_ran_2_eta_neg;
-// 	if (var == "EventPlane.mWeight_ran_1" ) return EventPlane_mWeight_ran_1;
-// 	if (var == "EventPlane.mWeight_ran_2" ) return EventPlane_mWeight_ran_2;
-// 	if (var == "Tracks" ) return Tracks_;
-// 	if (var == "Tracks.mId" ) return Tracks_mId;
-// 	if (var == "Tracks.mChi2" ) return Tracks_mChi2;
-// 	if (var == "Tracks.mPMomentum.mX1" ) return Tracks_mPMomentum_mX1;
-// 	if (var == "Tracks.mPMomentum.mX2" ) return Tracks_mPMomentum_mX2;
-// 	if (var == "Tracks.mPMomentum.mX3" ) return Tracks_mPMomentum_mX3;
-// 	if (var == "Tracks.mDedx" ) return Tracks_mDedx;
-// 	if (var == "Tracks.mNHitsFit" ) return Tracks_mNHitsFit;
-// 	if (var == "Tracks.mNHitsMax" ) return Tracks_mNHitsMax;
-// 	if (var == "Tracks.mNHitsDedx" ) return Tracks_mNHitsDedx;
-// 	if (var == "Tracks.mNSigmaPion" ) return Tracks_mNSigmaPion;
-// 	if (var == "Tracks.mNSigmaKaon" ) return Tracks_mNSigmaKaon;
-// 	if (var == "Tracks.mNSigmaProton" ) return Tracks_mNSigmaProton;
-// 	if (var == "Tracks.mNSigmaElectron" ) return Tracks_mNSigmaElectron;
-// 	if (var == "Tracks.mMap0" ) return Tracks_mMap0;
-// 	if (var == "Tracks.mMap1" ) return Tracks_mMap1;
-// 	if (var == "Tracks.mPar[6]" ) return Tracks_mPar;
-// 	if (var == "Tracks.mErrMatrix[15]" ) return Tracks_mErrMatrix;
-// 	if (var == "Tracks.mEmcPidTraitsIndex" ) return Tracks_mEmcPidTraitsIndex;
-// 	if (var == "Tracks.mBTofPidTraitsIndex" ) return Tracks_mBTofPidTraitsIndex;
-// 	if (var == "Tracks.mMtdPidTraitsIndex" ) return Tracks_mMtdPidTraitsIndex;
-// 	if (var == "EmcTrigger" ) return EmcTrigger_;
-// 	if (var == "EmcTrigger.fUniqueID" ) return EmcTrigger_fUniqueID;
-// 	if (var == "EmcTrigger.fBits" ) return EmcTrigger_fBits;
-// 	if (var == "EmcTrigger.mFlag" ) return EmcTrigger_mFlag;
-// 	if (var == "EmcTrigger.mId" ) return EmcTrigger_mId;
-// 	if (var == "EmcTrigger.mAdc" ) return EmcTrigger_mAdc;
-// 	if (var == "MtdTrigger" ) return MtdTrigger_;
-// 	if (var == "MtdTrigger.fUniqueID" ) return MtdTrigger_fUniqueID;
-// 	if (var == "MtdTrigger.fBits" ) return MtdTrigger_fBits;
-// 	if (var == "MtdTrigger.mVpdTacSum" ) return MtdTrigger_mVpdTacSum;
-// 	if (var == "MtdTrigger.mQTtacSum[4][8]" ) return MtdTrigger_mQTtacSum;
-// 	if (var == "MtdTrigger.mMT101Tac[4][2]" ) return MtdTrigger_mMT101Tac;
-// 	if (var == "MtdTrigger.mMT101Id[4][2]" ) return MtdTrigger_mMT101Id;
-// 	if (var == "MtdTrigger.mTF201TriggerBit" ) return MtdTrigger_mTF201TriggerBit;
-// 	if (var == "MtdTrigger.mShouldHaveRejectEvent" ) return MtdTrigger_mShouldHaveRejectEvent;
-// 	if (var == "BTOWHit" ) return BTOWHit_;
-// 	if (var == "BTOWHit.fUniqueID" ) return BTOWHit_fUniqueID;
-// 	if (var == "BTOWHit.fBits" ) return BTOWHit_fBits;
-// 	if (var == "BTOWHit.mId" ) return BTOWHit_mId;
-// 	if (var == "BTOWHit.mAdc" ) return BTOWHit_mAdc;
-// 	if (var == "BTOWHit.mE" ) return BTOWHit_mE;
-// 	if (var == "BTofHit" ) return BTofHit_;
-// 	if (var == "BTofHit.fUniqueID" ) return BTofHit_fUniqueID;
-// 	if (var == "BTofHit.fBits" ) return BTofHit_fBits;
-// 	if (var == "BTofHit.mId" ) return BTofHit_mId;
-// 	if (var == "MtdHit" ) return MtdHit_;
-// 	if (var == "MtdHit.fUniqueID" ) return MtdHit_fUniqueID;
-// 	if (var == "MtdHit.fBits" ) return MtdHit_fBits;
-// 	if (var == "MtdHit.mgChannel" ) return MtdHit_mgChannel;
-// 	if (var == "MtdHit.mTriggerFlag" ) return MtdHit_mTriggerFlag;
-// 	if (var == "MtdHit.mLeadingEdgeTime.first" ) return MtdHit_mLeadingEdgeTime_first;
-// 	if (var == "MtdHit.mLeadingEdgeTime.second" ) return MtdHit_mLeadingEdgeTime_second;
-// 	if (var == "MtdHit.mTrailingEdgeTime.first" ) return MtdHit_mTrailingEdgeTime_first;
-// 	if (var == "MtdHit.mTrailingEdgeTime.second" ) return MtdHit_mTrailingEdgeTime_second;
-// 	if (var == "EmcPidTraits" ) return EmcPidTraits_;
-// 	if (var == "EmcPidTraits.fUniqueID" ) return EmcPidTraits_fUniqueID;
-// 	if (var == "EmcPidTraits.fBits" ) return EmcPidTraits_fBits;
-// 	if (var == "EmcPidTraits.mTrackIndex" ) return EmcPidTraits_mTrackIndex;
-// 	if (var == "EmcPidTraits.mBEMCId" ) return EmcPidTraits_mBEMCId;
-// 	if (var == "EmcPidTraits.mBTOWADC0" ) return EmcPidTraits_mBTOWADC0;
-// 	if (var == "EmcPidTraits.mBTOWE0" ) return EmcPidTraits_mBTOWE0;
-// 	if (var == "EmcPidTraits.mBTOWE" ) return EmcPidTraits_mBTOWE;
-// 	if (var == "EmcPidTraits.mBEMCDistZ" ) return EmcPidTraits_mBEMCDistZ;
-// 	if (var == "EmcPidTraits.mBEMCDistPhi" ) return EmcPidTraits_mBEMCDistPhi;
-// 	if (var == "EmcPidTraits.mBSMDNEta" ) return EmcPidTraits_mBSMDNEta;
-// 	if (var == "EmcPidTraits.mBSMDNPhi" ) return EmcPidTraits_mBSMDNPhi;
-// 	if (var == "EmcPidTraits.mBTOWId" ) return EmcPidTraits_mBTOWId;
-// 	if (var == "EmcPidTraits.mBTOWId23" ) return EmcPidTraits_mBTOWId23;
-// 	if (var == "EmcPidTraits.mBTOWE1" ) return EmcPidTraits_mBTOWE1;
-// 	if (var == "EmcPidTraits.mBTOWE2" ) return EmcPidTraits_mBTOWE2;
-// 	if (var == "EmcPidTraits.mBTOWE3" ) return EmcPidTraits_mBTOWE3;
-// 	if (var == "EmcPidTraits.mBTOWDistEta" ) return EmcPidTraits_mBTOWDistEta;
-// 	if (var == "EmcPidTraits.mBTOWDistPhi" ) return EmcPidTraits_mBTOWDistPhi;
-// 	if (var == "BTofPidTraits" ) return BTofPidTraits_;
-// 	if (var == "BTofPidTraits.fUniqueID" ) return BTofPidTraits_fUniqueID;
-// 	if (var == "BTofPidTraits.fBits" ) return BTofPidTraits_fBits;
-// 	if (var == "BTofPidTraits.mTrackIndex" ) return BTofPidTraits_mTrackIndex;
-// 	if (var == "BTofPidTraits.mBTofCellId" ) return BTofPidTraits_mBTofCellId;
-// 	if (var == "BTofPidTraits.mBTofMatchFlag" ) return BTofPidTraits_mBTofMatchFlag;
-// 	if (var == "BTofPidTraits.mBTof" ) return BTofPidTraits_mBTof;
-// 	if (var == "BTofPidTraits.mBTofBeta" ) return BTofPidTraits_mBTofBeta;
-// 	if (var == "BTofPidTraits.mBTofYLocal" ) return BTofPidTraits_mBTofYLocal;
-// 	if (var == "BTofPidTraits.mBTofZLocal" ) return BTofPidTraits_mBTofZLocal;
-// 	if (var == "BTofPidTraits.mBTofHitPosX" ) return BTofPidTraits_mBTofHitPosX;
-// 	if (var == "BTofPidTraits.mBTofHitPosY" ) return BTofPidTraits_mBTofHitPosY;
-// 	if (var == "BTofPidTraits.mBTofHitPosZ" ) return BTofPidTraits_mBTofHitPosZ;
-// 	if (var == "MtdPidTraits" ) return MtdPidTraits_;
-// 	if (var == "MtdPidTraits.fUniqueID" ) return MtdPidTraits_fUniqueID;
-// 	if (var == "MtdPidTraits.fBits" ) return MtdPidTraits_fBits;
-// 	if (var == "MtdPidTraits.mMtdHitChan" ) return MtdPidTraits_mMtdHitChan;
-// 	if (var == "MtdPidTraits.mTrackIndex" ) return MtdPidTraits_mTrackIndex;
-// 	if (var == "MtdPidTraits.mMatchFlag" ) return MtdPidTraits_mMatchFlag;
-// 	if (var == "MtdPidTraits.mDeltaY" ) return MtdPidTraits_mDeltaY;
-// 	if (var == "MtdPidTraits.mDeltaZ" ) return MtdPidTraits_mDeltaZ;
-// 	if (var == "MtdPidTraits.mDeltaTimeOfFlight" ) return MtdPidTraits_mDeltaTimeOfFlight;
-// 	if (var == "MtdPidTraits.mBeta" ) return MtdPidTraits_mBeta;
-// 	if (var == "V0Ks" ) return V0Ks_;
-// 	if (var == "V0Ks.mIndex2Track[2]" ) return V0Ks_mIndex2Track;
-// 	if (var == "V0Ks.mV0Pos.mX1" ) return V0Ks_mV0Pos_mX1;
-// 	if (var == "V0Ks.mV0Pos.mX2" ) return V0Ks_mV0Pos_mX2;
-// 	if (var == "V0Ks.mV0Pos.mX3" ) return V0Ks_mV0Pos_mX3;
-// 	if (var == "V0Ks.mDcaDaughters" ) return V0Ks_mDcaDaughters;
-// 	if (var == "V0Ks.mDca2Vtx" ) return V0Ks_mDca2Vtx;
-// 	if (var == "V0Ks.mM" ) return V0Ks_mM;
-// 	if (var == "V0L" ) return V0L_;
-// 	if (var == "V0L.mIndex2Track[2]" ) return V0L_mIndex2Track;
-// 	if (var == "V0L.mV0Pos.mX1" ) return V0L_mV0Pos_mX1;
-// 	if (var == "V0L.mV0Pos.mX2" ) return V0L_mV0Pos_mX2;
-// 	if (var == "V0L.mV0Pos.mX3" ) return V0L_mV0Pos_mX3;
-// 	if (var == "V0L.mDcaDaughters" ) return V0L_mDcaDaughters;
-// 	if (var == "V0L.mDca2Vtx" ) return V0L_mDca2Vtx;
-// 	if (var == "V0L.mM" ) return V0L_mM;
-// 	if (var == "V0Lbar" ) return V0Lbar_;
-// 	if (var == "V0Lbar.mIndex2Track[2]" ) return V0Lbar_mIndex2Track;
-// 	if (var == "V0Lbar.mV0Pos.mX1" ) return V0Lbar_mV0Pos_mX1;
-// 	if (var == "V0Lbar.mV0Pos.mX2" ) return V0Lbar_mV0Pos_mX2;
-// 	if (var == "V0Lbar.mV0Pos.mX3" ) return V0Lbar_mV0Pos_mX3;
-// 	if (var == "V0Lbar.mDcaDaughters" ) return V0Lbar_mDcaDaughters;
-// 	if (var == "V0Lbar.mDca2Vtx" ) return V0Lbar_mDca2Vtx;
-// 	if (var == "V0Lbar.mM" ) return V0Lbar_mM;	
-// }

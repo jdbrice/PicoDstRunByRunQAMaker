@@ -3,6 +3,8 @@
 
 	<histos>
 		<RunByRun>
+
+			<Histo name="EventCuts" bins_x="bins.EventCuts" />
 			<!-- Event.* -->
 			<Histo name="mRefMult" bins_x="bins.runIndex" bins_y="bins.refMult" />
 			<Histo name="mRefMultCorr" bins_x="bins.runIndex" bins_y="bins.refMult" />

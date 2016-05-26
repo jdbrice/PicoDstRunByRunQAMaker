@@ -2,6 +2,8 @@
 <config>
 	<bins>
 		<runIndex width="1" min="0" max="3000" />
+		<EventCuts width="1" min="0" max="10" />
+
 
 		<VertexPerp width="0.01" min="-1.5" max="1.5" />
 		<VertexZ width="2" min="-200" max="200" />
