@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="PicoDstSkimmer" config="" nodePath="PicoDstSkimmer" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<PicoDstSkimmer event="true" track="false" triggers="emu">
+		<Logger color="true" globalLogLevel="info" />
+
+		<input>
+			<dst treeName="PicoDst" url="list.lis" splitBy="200" nEvents="200000"/>
+		</input>
+
+		<output path="" >
+			<data>skimmer.root</data>
+		</output>
+
+		<EventBranches>
+			Event
+		</EventBranches>
+
+		<TrackBranches>
+			Tracks,
+			BTofPidTraits,
+			EmcPidTraits,
+			MtdPidTraits
+		</TrackBranches>
+
+	</PicoDstSkimmer>
+</config>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="PicoDstQAMaker" type="RunByRunQAMaker" config="" nodePath="RunByRunQAMaker" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<RunByRunQAMaker event="true" track="true" noRunMap="true" production="AuAu_200_production_high_2014" triggers="emu">
+		<Logger color="true" globalLogLevel="info" />
+
+		<EventLoop progress="true" />
+		<input>
+			<dst treeName="PicoDst" url="list.lis" splitBy="200" nEvents="200000"/>
+		</input>
+
+		<output path="qa/" >
+			<data>qa.root</data>
+		</output>
+
+		<Include url="config/RunByRunQAMaker/histograms.xml" />
+
+	</RunByRunQAMaker>
+
+	<Include url="config/RunByRunQAMaker/bins.xml" />
+
+</config>

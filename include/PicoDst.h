@@ -96,6 +96,83 @@ public:
 	}
 
 
+	Long64_t readEventBranches( Long64_t iEntry ){
+		
+		Long64_t read = 0;
+		// read += b_Event_->GetEntry( iEntry );
+		// read += b_Event_mRunId->GetEntry( iEntry );
+		// read += b_Event_mEventId->GetEntry( iEntry );
+		// read += b_Event_mBField->GetEntry( iEntry );
+		// read += b_Event_mPrimaryVertex_mX1->GetEntry( iEntry );
+		// read += b_Event_mPrimaryVertex_mX2->GetEntry( iEntry );
+		// read += b_Event_mPrimaryVertex_mX3->GetEntry( iEntry );
+		// read += b_Event_mZDCx->GetEntry( iEntry );
+		// read += b_Event_mGRefMult->GetEntry( iEntry );
+
+		return read;
+
+
+
+		// b_Event_mTriggerWordMtd->GetEntry( iEntry );
+
+
+		// b_Event_mTriggerWord->GetEntry( iEntry );
+		// b_Event_mFillId->GetEntry( iEntry );
+		// b_Event_mSecondVertex_mX1->GetEntry( iEntry );
+		// b_Event_mSecondVertex_mX2->GetEntry( iEntry );
+		// b_Event_mSecondVertex_mX3->GetEntry( iEntry );
+		// b_Event_mPrimaryVertexError_mX1->GetEntry( iEntry );
+		// b_Event_mPrimaryVertexError_mX2->GetEntry( iEntry );
+		// b_Event_mPrimaryVertexError_mX3->GetEntry( iEntry );
+		
+		// b_Event_mRefMultFtpcEast->GetEntry( iEntry );
+		// b_Event_mRefMultFtpcWest->GetEntry( iEntry );
+		// b_Event_mRefMultNeg->GetEntry( iEntry );
+		// b_Event_mRefMultPos->GetEntry( iEntry );
+		// b_Event_mRefMult2NegEast->GetEntry( iEntry );
+		// b_Event_mRefMult2PosEast->GetEntry( iEntry );
+		// b_Event_mRefMult2NegWest->GetEntry( iEntry );
+		// b_Event_mRefMult2PosWest->GetEntry( iEntry );
+		// b_Event_mRefMultHalfNegEast->GetEntry( iEntry );
+		// b_Event_mRefMultHalfPosEast->GetEntry( iEntry );
+		// b_Event_mRefMultHalfNegWest->GetEntry( iEntry );
+		// b_Event_mRefMultHalfPosWest->GetEntry( iEntry );
+		
+		// b_Event_mNHitsHFT->GetEntry( iEntry );
+		// b_Event_mNVpdHitsEast->GetEntry( iEntry );
+		// b_Event_mNVpdHitsWest->GetEntry( iEntry );
+		// b_Event_mNT0->GetEntry( iEntry );
+		// b_Event_mVzVpd->GetEntry( iEntry );
+		
+		// b_Event_mBBCx->GetEntry( iEntry );
+		// b_Event_mBackgroundRate->GetEntry( iEntry );
+		// b_Event_mBbcBlueBackgroundRate->GetEntry( iEntry );
+		// b_Event_mBbcYellowBackgroundRate->GetEntry( iEntry );
+		// b_Event_mBbcEastRate->GetEntry( iEntry );
+		// b_Event_mBbcWestRate->GetEntry( iEntry );
+		// b_Event_mZdcEastRate->GetEntry( iEntry );
+		// b_Event_mZdcWestRate->GetEntry( iEntry );
+		// b_Event_mVpd->GetEntry( iEntry );
+		// b_Event_mZdcSumAdcEast->GetEntry( iEntry );
+		// b_Event_mZdcSumAdcWest->GetEntry( iEntry );
+		// b_Event_mZdcSmdEastHorizontal->GetEntry( iEntry );
+		// b_Event_mZdcSmdEastVertical->GetEntry( iEntry );
+		// b_Event_mZdcSmdWestHorizontal->GetEntry( iEntry );
+		// b_Event_mZdcSmdWestVertical->GetEntry( iEntry );
+		// b_Event_mSpaceCharge->GetEntry( iEntry );
+		// b_Event_mbTofTrayMultiplicity->GetEntry( iEntry );
+		// b_Event_mNumberOfGlobalTracks->GetEntry( iEntry );
+		// b_Event_mRanking->GetEntry( iEntry );
+		// b_Event_mNBEMCMatch->GetEntry( iEntry );
+		// b_Event_mNBTOFMatch->GetEntry( iEntry );
+		// b_Event_mBbcAdcEast->GetEntry( iEntry );
+		// b_Event_mBbcAdcWest->GetEntry( iEntry );
+		// b_Event_mHT_Th->GetEntry( iEntry );
+		// b_Event_mJP_Th->GetEntry( iEntry );
+
+
+	}
+
 
 
 
