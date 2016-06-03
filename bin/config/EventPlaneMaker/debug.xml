@@ -4,7 +4,7 @@
 	<Task name="skimmer" type="EventPlaneMaker" config="" nodePath="EventPlaneMaker" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<EventPlaneMaker triggers="emu">
+	<EventPlaneMaker triggers="">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
@@ -22,6 +22,10 @@
 
 		<EventPlane v1="eta_neg" v2="">
 		</EventPlane>
+
+		<Include url="config/EventPlaneMaker/EventPlaneCorr.xml" />
+		
+
 		<!-- <fitQxQy nSig_qx="3.0" nSig_qy="3.0" /> -->
 
 	</EventPlaneMaker>

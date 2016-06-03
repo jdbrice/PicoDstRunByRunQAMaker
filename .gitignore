@@ -19,3 +19,6 @@
 
 bin/*.lis
 StRefMultCorr
+
+.sconsign.dblite
+test.py

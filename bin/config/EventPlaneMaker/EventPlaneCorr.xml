@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<EventPlaneCorr>
+
+		<!-- Centering Info -->
+		<!-- Substracted from the Qx, Qy -->
+		<CenteringPoint x="-4.94590e-03" y="1.48764e-02" />
+
+		<FlatteningFunction />
+	</EventPlaneCorr>
+
+</config>
