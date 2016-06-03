@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="ReportMaker" type="RunByRunReportMaker" config="" nodePath="RunByRunReportMaker" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<RunByRunReportMaker triggers="emu">
+		<Logger color="true" globalLogLevel="info" />
+		<Reporter>
+			<title>AuAu_200, DiMuon Triggers, Production low, mid, high</title>
+			<output url="rpRBR.pdf" width="1500" height="500"/>
+		</Reporter>
+
+		<input>
+			<data url="/Users/danielbrandenburg/bnl/local/data/muonPico/rbr/triggers_dimuon_qa.root" />
+		</input>
+
+		<output path="" >
+			<data>rbrReport.root</data>
+		</output>
+
+		<nSigma default="5.0">
+		</nSigma>
+
+		<Regions min="0" max="3000">
+			<mPrimaryVertex_mX1>
+				<XmlRange min="300" max="961" />
+				<XmlRange min="965" max="2900" />
+			</mPrimaryVertex_mX1>
+			<mPrimaryVertex_mX2>
+				<XmlRange min="300" max="961" />
+				<XmlRange min="965" max="2900" />
+			</mPrimaryVertex_mX2>
+			<MtdPidTraits_mDeltaY>
+				<XmlRange min="300" max="896" />
+				<XmlRange min="897" max="2900" />
+			</MtdPidTraits_mDeltaY>
+		</Regions>
+
+
+
+		<Style>
+			<all  yto="1.5" logy="0" />
+		</Style>
+
+
+		<HistoNames>
+			mNBEMCMatch,
+			mNMtdMatched,
+			mbTofTrayMultiplicity,
+			delta_mVzVpd_mPrimaryVertex_mX3,
+			mVzVpd,
+			mRanking,
+			mPrimaryVertex_mX1,
+			mPrimaryVertex_mX2,
+			mPrimaryVertex_mX3,
+			mBBCx,
+			mRefMult,
+			mZDCx,
+			mBackgroundRate,
+			mQx_eta_pos,
+			mQx_eta_neg,
+			mQy_eta_pos,
+			mQy_eta_neg,
+			mQx_chg_pos,
+			mQx_chg_neg,
+			mQy_chg_pos,
+			mQy_chg_neg,
+			mRefMultCorr,
+			mNtrk_eta_pos,
+			mNtrk_eta_neg,
+			mNtrk_chg_pos_eta_pos,
+			mNtrk_chg_pos_eta_neg,
+			mNtrk_chg_neg_eta_pos,
+			mNtrk_chg_neg_eta_neg,
+			mNtrk_ran_1_eta_pos,
+			mNtrk_ran_1_eta_neg,
+			mNtrk_ran_2_eta_pos,
+			mNtrk_ran_2_eta_neg,
+			mBin9,
+			mWeight_eta_pos,
+			mWeight_eta_neg,
+			mWeight_chg_pos,
+			mWeight_chg_neg,
+			mWeight_ran_1,
+			mWeight_ran_2,
+			Tracks_mChi2,
+			Tracks_mPMomentum,
+			Tracks_mPtMomentum,
+			Tracks_mEta,
+			mBin16,
+			Tracks_mPhi,
+			Tracks_mDedx,
+			Tracks_mNHitsFit,
+			Tracks_mNHitsMax,
+			Tracks_mNHitsDedx,
+			BTofPidTraits_mBTofYLocal,
+			BTofPidTraits_mBTofZLocal,
+			BTofPidTraits_mBTofMatchFlag,
+			BTofPidTraits_mBTof,
+			BTofPidTraits_mBTofBeta,
+			mRefMultPos,
+			MtdPidTraits_mMtdHitChan,
+			MtdPidTraits_mMatchFlag,
+			MtdPidTraits_mDeltaZ,
+			MtdPidTraits_mDeltaY,
+			MtdPidTraits_mDeltaTimeOfFlight,
+			MtdPidTraits_mBeta,
+			EmcPidTraits_mBEMCId,
+			EmcPidTraits_mBTOWADC0,
+			EmcPidTraits_mBTOWE0,
+			EmcPidTraits_mBTOWE,
+			mRefMultNeg,
+			EmcPidTraits_mBEMCDistZ,
+			EmcPidTraits_mBEMCDistPhi,
+			EmcPidTraits_mBSMDNEta,
+			EmcPidTraits_mBSMDNPhi,
+			EmcPidTraits_mBTOWId,
+			EmcPidTraits_mBTOWId23,
+			EmcPidTraits_mBTOWE1,
+			EmcPidTraits_mBTOWE2,
+			EmcPidTraits_mBTOWE3,
+			EmcPidTraits_mBTOWDistEta,
+			mGRefMult,
+			EmcPidTraits_mBTOWDistPhi,
+			mNumberOfGlobalTracks,
+			mNBTOFMatch
+		</HistoNames>
+		<BadRunHistos>
+			mPrimaryVertex_mX1,
+			mPrimaryVertex_mX2,
+			mPrimaryVertex_mX3,
+			mRefMult,
+			mNumberOfGlobalTracks,
+			mNBTOFMatch,
+			mGRefMult,
+			Tracks_mPhi,
+			Tracks_mDedx,
+			Tracks_mNHitsFit,
+			Tracks_mNHitsMax,
+			Tracks_mNHitsDedx,
+			mNBEMCMatch,
+			mNMtdMatched,
+			mbTofTrayMultiplicity,
+			delta_mVzVpd_mPrimaryVertex_mX3,
+			mVzVpd,
+			mRanking,
+			mPrimaryVertex_mX1,
+			MtdPidTraits_mDeltaZ,
+			MtdPidTraits_mDeltaY,
+			Tracks_mPMomentum
+		</BadRunHistos>
+		<!-- <BadRunHistos>
+			mRefMult,
+			mVzVpd,
+			mRanking,
+			mPrimaryVertex_mX1,
+			mPrimaryVertex_mX2,
+			mPrimaryVertex_mX3,
+			mBBCx,
+			mZDCx,
+			mBackgroundRate,
+			mQx_eta_pos,
+			mQx_eta_neg,
+			mRefMultPos,
+			mQy_eta_pos,
+			mQy_eta_neg,
+			mQx_chg_pos,
+			mQx_chg_neg,
+			mQy_chg_pos,
+			mQy_chg_neg,
+			mNtrk_eta_pos,
+			mNtrk_eta_neg,
+			mNtrk_chg_pos_eta_pos,
+			mNtrk_chg_pos_eta_neg,
+			mRefMultNeg,
+			mNtrk_chg_neg_eta_pos,
+			mNtrk_chg_neg_eta_neg,
+			mNtrk_ran_1_eta_pos,
+			mNtrk_ran_1_eta_neg,
+			mNtrk_ran_2_eta_pos,
+			mNtrk_ran_2_eta_neg,
+			mWeight_eta_pos,
+			mWeight_eta_neg,
+			mWeight_chg_pos,
+			mWeight_chg_neg,
+			mGRefMult,
+			mWeight_ran_1,
+			mWeight_ran_2,
+			mNumberOfGlobalTracks,
+			mNBTOFMatch,
+			mNBEMCMatch,
+			mbTofTrayMultiplicity,
+			delta_mVzVpd_mPrimaryVertex_mX
+		</BadRunHistos> -->
+
+	</RunByRunReportMaker>
+
+
+
+</config>
+
+
+mNBEMCMatch,
+mNMtdMatched,
+mbTofTrayMultiplicity,
+delta_mVzVpd_mPrimaryVertex_mX3,
+mVzVpd,
+mRanking,
+mPrimaryVertex_mX1,
+mPrimaryVertex_mX2,
+mPrimaryVertex_mX3,
+mBBCx,
+mRefMult,
+mZDCx,
+mBackgroundRate,
+mQx_eta_pos,
+mQx_eta_neg,
+mQy_eta_pos,
+mQy_eta_neg,
+mQx_chg_pos,
+mQx_chg_neg,
+mQy_chg_pos,
+mQy_chg_neg,
+mRefMultCorr,
+mNtrk_eta_pos,
+mNtrk_eta_neg,
+mNtrk_chg_pos_eta_pos,
+mNtrk_chg_pos_eta_neg,
+mNtrk_chg_neg_eta_pos,
+mNtrk_chg_neg_eta_neg,
+mNtrk_ran_1_eta_pos,
+mNtrk_ran_1_eta_neg,
+mNtrk_ran_2_eta_pos,
+mNtrk_ran_2_eta_neg,
+mBin9,
+mWeight_eta_pos,
+mWeight_eta_neg,
+mWeight_chg_pos,
+mWeight_chg_neg,
+mWeight_ran_1,
+mWeight_ran_2,
+Tracks_mChi2,
+Tracks_mPMomentum,
+Tracks_mPtMomentum,
+Tracks_mEta,
+mBin16,
+Tracks_mPhi,
+Tracks_mDedx,
+Tracks_mNHitsFit,
+Tracks_mNHitsMax,
+Tracks_mNHitsDedx,
+BTofPidTraits_mBTofYLocal,
+BTofPidTraits_mBTofZLocal,
+BTofPidTraits_mBTofMatchFlag,
+BTofPidTraits_mBTof,
+BTofPidTraits_mBTofBeta,
+mRefMultPos,
+MtdPidTraits_mMtdHitChan,
+MtdPidTraits_mMatchFlag,
+MtdPidTraits_mDeltaZ,
+MtdPidTraits_mDeltaY,
+MtdPidTraits_mDeltaTimeOfFlight,
+MtdPidTraits_mBeta,
+EmcPidTraits_mBEMCId,
+EmcPidTraits_mBTOWADC0,
+EmcPidTraits_mBTOWE0,
+EmcPidTraits_mBTOWE,
+mRefMultNeg,
+EmcPidTraits_mBEMCDistZ,
+EmcPidTraits_mBEMCDistPhi,
+EmcPidTraits_mBSMDNEta,
+EmcPidTraits_mBSMDNPhi,
+EmcPidTraits_mBTOWId,
+EmcPidTraits_mBTOWId23,
+EmcPidTraits_mBTOWE1,
+EmcPidTraits_mBTOWE2,
+EmcPidTraits_mBTOWE3,
+EmcPidTraits_mBTOWDistEta,
+mGRefMult,
+EmcPidTraits_mBTOWDistPhi,
+mNumberOfGlobalTracks,
+mNBTOFMatch
+
+
+
+mPrimaryVertex_mX1,
+mPrimaryVertex_mX2,
+mPrimaryVertex_mX3,
+mRefMult,
+mNumberOfGlobalTracks,
+mNBTOFMatch,
+mGRefMult,
+Tracks_mPhi,
+Tracks_mDedx,
+Tracks_mNHitsFit,
+Tracks_mNHitsMax,
+Tracks_mNHitsDedx,
+mNBEMCMatch,
+mNMtdMatched,
+mbTofTrayMultiplicity,
+delta_mVzVpd_mPrimaryVertex_mX3,
+mVzVpd,
+mRanking,
+mPrimaryVertex_mX1,
+MtdPidTraits_mDeltaZ,
+MtdPidTraits_mDeltaY,

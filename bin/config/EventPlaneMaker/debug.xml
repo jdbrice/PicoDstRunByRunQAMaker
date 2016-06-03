@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="skimmer" type="PicoDstSkimmer" config="" nodePath="PicoDstSkimmer" />
+	<Task name="skimmer" type="EventPlaneMaker" config="" nodePath="EventPlaneMaker" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<PicoDstSkimmer event="true" track="true" triggers="emu">
+	<EventPlaneMaker triggers="emu">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
@@ -20,12 +20,9 @@
 			EventPlane
 		</EventBranches>
 
-		<TrackBranches>
-			Tracks,
-			BTofPidTraits,
-			EmcPidTraits,
-			MtdPidTraits
-		</TrackBranches>
+		<EventPlane v1="eta_neg" v2="">
+		</EventPlane>
+		<!-- <fitQxQy nSig_qx="3.0" nSig_qy="3.0" /> -->
 
-	</PicoDstSkimmer>
+	</EventPlaneMaker>
 </config>

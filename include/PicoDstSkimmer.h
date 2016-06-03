@@ -3,12 +3,17 @@
 
 // RooBarb
 #include "TreeAnalyzer.h"
-#include "PicoDst.h"
 
+// Project
+#include "PicoDst.h"
+#include "TriggerFilter.h"
+
+// STL
 #include <memory>
 
 class PicoDstSkimmer : public TreeAnalyzer {
 public:
+	virtual const char* classname() const { return "PicoDstSkimmer"; }
 	PicoDstSkimmer(){}
 	~PicoDstSkimmer(){}
 
@@ -16,14 +21,18 @@ public:
 
 		pico = shared_ptr<PicoDst>( new PicoDst( chain ) );
 
-		EventBranches = config.getStringVector( nodePath + ".EventBranches" );
-		TrackBranches = config.getStringVector( nodePath + ".TrackBranches" );
+		EventBranches = config.getStringVector( nodePath + ".EventBranches" );//, (vector<string>){ "Event" } );
+		TrackBranches = config.getStringVector( nodePath + ".TrackBranches" );//, (vector<string>){"Tracks", "BTofPidTraits", "EmcPidTraits", "MtdPidTraits"} ); 
+
+		vector<string> triggers = config.getStringVector( nodePath + ":triggers" );
+		tf.setTriggers( triggers );
 	}
 	
 protected:
 
 	shared_ptr<PicoDst> pico;
 	vector<string> EventBranches, TrackBranches;
+	TriggerFilter tf;
 
 	virtual void eventLoop();
 	virtual bool keepEvent();

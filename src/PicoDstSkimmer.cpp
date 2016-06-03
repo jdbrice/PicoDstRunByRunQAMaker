@@ -8,17 +8,21 @@ bool PicoDstSkimmer::keepEvent(){
 	// if ( pico->Tracks_ > 10 )
 	// 	return true;
 
+	if ( !tf.anyTrigger( pico ) )
+		return false; 
+
+
 	return true;
 }
 
 void PicoDstSkimmer::analyzeEvent(){
-	// cout << "Run ID " << pico->Event_mRunId[0] << endl;
+	cout << "Run ID " << pico->Event_mRunId[0] << endl;
 }
 
 
 void PicoDstSkimmer::eventLoop() {
 
-	DEBUG( classname(), "EventLoop" );
+	INFO( classname(), "EventLoop" );
 
 	TaskTimer t;
 	t.start();
@@ -39,6 +43,7 @@ void PicoDstSkimmer::eventLoop() {
 		Long64_t read = readBranchList( EventBranches, iTreeEntry );
 
 		if ( read <= 0 || (nEventsToProcess >= 0 && iEvent >= nEventsToProcess) ){ // break if we read past end or hit limit
+			INFO( classname(), "Ending event loop on iEvent = " << iEvent );
 			break;
 		}
 
@@ -64,7 +69,6 @@ void PicoDstSkimmer::eventLoop() {
 
 		iEvent++;
 	} // Event Loop
-	cout << "iEvent = " << iEvent << endl;
 	if ( false == showProgress ){
 		INFO( classname(), "Event Loop Completed in " << t.elapsed() );
 	}
