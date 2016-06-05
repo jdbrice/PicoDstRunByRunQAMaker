@@ -7,23 +7,23 @@
 
 using namespace std;
 
-class ProductionFinder
+class ProductionFilter
 {
 public:
-	ProductionFinder();
-	~ProductionFinder();
+	ProductionFilter();
+	~ProductionFilter();
 
 	static void buildMap(){
-		for ( int rn : ProductionFinder::runs_production_2014 ){
+		for ( int rn : ProductionFilter::runs_production_2014 ){
 			production_map[ rn ] = "AuAu_200_production_2014";
 		}
-		for ( int rn : ProductionFinder::runs_production_low_2014 ){
+		for ( int rn : ProductionFilter::runs_production_low_2014 ){
 			production_map[ rn ] = "AuAu_200_production_low_2014";
 		}
-		for ( int rn : ProductionFinder::runs_production_mid_2014 ){
+		for ( int rn : ProductionFilter::runs_production_mid_2014 ){
 			production_map[ rn ] = "AuAu_200_production_mid_2014";
 		}
-		for ( int rn : ProductionFinder::runs_production_high_2014 ){
+		for ( int rn : ProductionFilter::runs_production_high_2014 ){
 			production_map[ rn ] = "AuAu_200_production_high_2014";
 		}
 	}

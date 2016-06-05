@@ -63,7 +63,7 @@ bool RunByRunQAMaker::keepEvent() {
 	
 	/*********** Production Cut *************/
 	if ( "" != productions ){
-		if ( ProductionFinder::productionFor( runId ) != productions )
+		if ( ProductionFilter::productionFor( runId ) != productions )
 			return false;
 	}
 	book->get( "EventCuts" )->Fill( "Prod", 1 );
