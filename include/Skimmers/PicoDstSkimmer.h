@@ -4,6 +4,7 @@
 // RooBarb
 #include "TreeAnalyzer.h"
 #include "CutCollection.h"
+#include "format.h"
 
 // Project
 #include "PicoDst.h"
@@ -30,8 +31,13 @@ public:
 
 		// eventCuts
 		eventCuts.init( config, nodePath + ".EventCuts" );
-		book->cd( "eventQA" );
-		book->makeAll( config, nodePath + ".histograms.EventQAHistos" );
+		eventCuts.setDefault( "zVertex", -100, 100 );
+		eventCuts.setDefault( "zVertexDelta", 0, 3 );
+
+		INFO( classname(), "" );
+		INFO( classname(), "############### Event Cuts ###################"  );
+		eventCuts.report();
+		INFO( classname(), "" );
 
 	}
 	
@@ -50,6 +56,7 @@ protected:
 	virtual void analyzeTrack( int iTrack );
 
 	void passEventCut( string cut, bool passAllCuts ){
+		DEBUG( classname(), fmt::format("(cut={0}, passAllCuts={1})", cut, bts(passAllCuts) ) );
 		book->cd("eventQA");
 
 		book->fill( "event_single_cuts", cut, 1.0 );

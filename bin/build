@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 
-cd ../src
-make
-cd ../bin
+cd ../
+scons -j8

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd ../src
-make clean
-make -j8
-cd ../bin
+cd ../
+scons -c
+scons -j8
+cd bin

@@ -4,8 +4,8 @@
 	<Task name="skimmer" type="PicoDstSkimmer" config="" nodePath="PicoDstSkimmer" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<PicoDstSkimmer event="true" track="true" triggers="emu">
-		<Logger color="true" globalLogLevel="info" />
+	<PicoDstSkimmer event="true" track="true" triggers="">
+		<Logger color="true" globalLogLevel="trace" />
 
 		<input>
 			<dst treeName="PicoDst" url="list.lis" splitBy="200" nEvents="200000"/>
@@ -17,16 +17,20 @@
 
 
 		<histograms>
-			<EventQAHistos>
+			<EventQAHistos dir="eventQA" >
 				<Histo name="event_cuts" title="Sequential Event Cuts" bins_x="bins.event_cuts" />
 				<Histo name="event_single_cuts" title="Individual Event Cuts" bins_x="bins.event_cuts" />
+
+				<Histo name="zVertex" title="Z Vertex" bins_x="bins.zVertex" />
+				<Histo name="zVpd" title="VPD Z Vertex" bins_x="bins.zVertex" />
+				<Histo name="zVertexDelta" title="Z Vertex - VPD Z Vertex" bins_x="bins.zVertexDelta" />
 			</EventQAHistos>
 		</histograms>
 		
 
 		<EventCuts>
-			<zVertex min="-100" max="100" />
-			<zVertexDelta min="0" max="3" />
+			<Range name="zVertex" min="-100" max="100" />
+			<Range name="zVertexDelta" min="0" max="3" />
 		</EventCuts>
 
 		<EventBranches>
@@ -45,5 +49,7 @@
 
 	<bins>
 		<event_cuts width="1" min="0" max="8" />
+		<zVertex width="1" min="-105" max="105" />
+		<zVertexDelta width=".1" min="-3.1" max="3.1" />
 	</bins>
 </config>

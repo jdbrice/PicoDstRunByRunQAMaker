@@ -4,36 +4,45 @@
 
 
 bool PicoDstSkimmer::keepEvent(){
+	DEBUG( classname(), "keepEvent" );
+	bool passAllCuts = true;
 
-	bool allCuts = true;
+	double zVertex = pico->Event_mPrimaryVertex_mX3[0];
+	double zVpd = (pico->Event_mVzVpd[0] / 100.0 );
 
 	// Trigger selection
 	if ( !tf.anyTrigger( pico ) ){
-		allCuts = false;
+		passAllCuts = false;
 	} else {
-		passCut( "trigger", allCuts );
+		passEventCut( "trigger", passAllCuts );
 	}
 
 	// zVertex Selection
-	if ( !eventCuts[ "zVertex" ]->inInclusiveRange( pico->Event_mPrimaryVertex_mX3[0] ) ){
-		allCuts = false;
+	if ( !eventCuts[ "zVertex" ]->inInclusiveRange( zVertex ) ){
+		passAllCuts = false;
 	} else {
-		passCut( "zVertex", allCuts );
+		passEventCut( "zVertex", passAllCuts );
 	}
 
 	// zVertexDelta
-	double zDelta = pico->Event_mPrimaryVertex_mX3[0] - (pico->Event_mVzVpd[0] / 100.0 );
+	double zDelta = zVertex - zVpd;
 	if ( zDelta > eventCuts[ "zVertexDelta" ]->max ){
-		allCuts = false;
+		passAllCuts = false;
 	} else {
-		passCut( "zVertexDelta", allCuts );
+		passEventCut( "zVertexDelta", passAllCuts );
 	}
 
-	return true;
+	if ( passAllCuts ){
+		book->fill("zVertex", zVertex);
+		book->fill( "zVpd", zVpd );
+		book->fill( "zVertexDelta", zDelta );
+	}
+
+	return passAllCuts;
 }
 
 void PicoDstSkimmer::analyzeEvent(){
-	cout << "Run ID " << pico->Event_mRunId[0] << endl;
+	// cout << "Run ID " << pico->Event_mRunId[0] << endl;
 }
 
 
