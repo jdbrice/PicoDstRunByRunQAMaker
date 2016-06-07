@@ -5,12 +5,29 @@
 
 bool PicoDstSkimmer::keepEvent(){
 
-	// if ( pico->Tracks_ > 10 )
-	// 	return true;
+	bool allCuts = true;
 
-	if ( !tf.anyTrigger( pico ) )
-		return false; 
+	// Trigger selection
+	if ( !tf.anyTrigger( pico ) ){
+		allCuts = false;
+	} else {
+		passCut( "trigger", allCuts );
+	}
 
+	// zVertex Selection
+	if ( !eventCuts[ "zVertex" ]->inInclusiveRange( pico->Event_mPrimaryVertex_mX3[0] ) ){
+		allCuts = false;
+	} else {
+		passCut( "zVertex", allCuts );
+	}
+
+	// zVertexDelta
+	double zDelta = pico->Event_mPrimaryVertex_mX3[0] - (pico->Event_mVzVpd[0] / 100.0 );
+	if ( zDelta > eventCuts[ "zVertexDelta" ]->max ){
+		allCuts = false;
+	} else {
+		passCut( "zVertexDelta", allCuts );
+	}
 
 	return true;
 }

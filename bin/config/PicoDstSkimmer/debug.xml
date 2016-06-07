@@ -15,6 +15,20 @@
 			<data>skimmer.root</data>
 		</output>
 
+
+		<histograms>
+			<EventQAHistos>
+				<Histo name="event_cuts" title="Sequential Event Cuts" bins_x="bins.event_cuts" />
+				<Histo name="event_single_cuts" title="Individual Event Cuts" bins_x="bins.event_cuts" />
+			</EventQAHistos>
+		</histograms>
+		
+
+		<EventCuts>
+			<zVertex min="-100" max="100" />
+			<zVertexDelta min="0" max="3" />
+		</EventCuts>
+
 		<EventBranches>
 			Event,
 			EventPlane
@@ -28,4 +42,8 @@
 		</TrackBranches>
 
 	</PicoDstSkimmer>
+
+	<bins>
+		<event_cuts width="1" min="0" max="8" />
+	</bins>
 </config>

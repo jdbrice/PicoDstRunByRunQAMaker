@@ -3,6 +3,7 @@
 
 // RooBarb
 #include "TreeAnalyzer.h"
+#include "CutCollection.h"
 
 // Project
 #include "PicoDst.h"
@@ -26,6 +27,12 @@ public:
 
 		vector<string> triggers = config.getStringVector( nodePath + ":triggers" );
 		tf.setTriggers( triggers );
+
+		// eventCuts
+		eventCuts.init( config, nodePath + ".EventCuts" );
+		book->cd( "eventQA" );
+		book->makeAll( config, nodePath + ".histograms.EventQAHistos" );
+
 	}
 	
 protected:
@@ -33,6 +40,7 @@ protected:
 	shared_ptr<PicoDst> pico;
 	vector<string> EventBranches, TrackBranches;
 	TriggerFilter tf;
+	CutCollection eventCuts;
 
 	virtual void eventLoop();
 	virtual bool keepEvent();
@@ -40,6 +48,17 @@ protected:
 	
 	virtual void trackLoop();
 	virtual void analyzeTrack( int iTrack );
+
+	void passEventCut( string cut, bool passAllCuts ){
+		book->cd("eventQA");
+
+		book->fill( "event_single_cuts", cut, 1.0 );
+
+		if ( passAllCuts ){
+			book->fill( "event_cuts", cut, 1.0 );
+		}
+		return;
+	}
 
 	Long64_t readBranchList( vector<string> &list, Long64_t &iEvent ){
 		// no protection
@@ -49,6 +68,10 @@ protected:
 		}
 		return read;
 	}
+
+
+
+
 
 
 };
