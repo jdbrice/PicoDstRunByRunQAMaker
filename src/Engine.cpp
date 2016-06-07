@@ -14,7 +14,10 @@ using namespace jdb;
 #include "RunByRunReportMaker.h"
 
 #include "PicoDstSkimmer.h"
+#include "MuonCandidateMaker.h"
 #include "EventPlaneMaker.h"
+
+#include "CandidateSkimmer.h"
 
 
 int main( int argc, char* argv[] ) {
@@ -25,7 +28,10 @@ int main( int argc, char* argv[] ) {
 
 
 	TaskFactory::registerTaskRunner<PicoDstSkimmer>( "PicoDstSkimmer" );
+	TaskFactory::registerTaskRunner<MuonCandidateMaker>( "MuonCandidateMaker" );
+
 	TaskFactory::registerTaskRunner<EventPlaneMaker>( "EventPlaneMaker" );
+	TaskFactory::registerTaskRunner<CandidateSkimmer>( "CandidateSkimmer" );
 
 	Engine engine( argc, argv );
 

@@ -534,19 +534,19 @@ Int_t StRefMultCorr::getCentralityBin9() const
 const Char_t* StRefMultCorr::getTable() const
 {
   if ( mName.CompareTo("refmult", TString::kIgnoreCase) == 0 ) {
-    return "config/Centrality_def_refmult.txt";
+    return "config/Common/Centrality_def_refmult.txt";
   }
   else if ( mName.CompareTo("refmult2", TString::kIgnoreCase) == 0 ) {
-    return "config/Centrality_def_refmult2.txt";
+    return "config/Common/Centrality_def_refmult2.txt";
   }
   else if ( mName.CompareTo("refmult3", TString::kIgnoreCase) == 0 ) {
-    return "config/Centrality_def_refmult3.txt";
+    return "config/Common/Centrality_def_refmult3.txt";
   }
   else if ( mName.CompareTo("toftray", TString::kIgnoreCase) == 0 ) {
-    return "config/Centrality_def_toftray.txt";
+    return "config/Common/Centrality_def_toftray.txt";
   }
   else if ( mName.CompareTo("grefmult", TString::kIgnoreCase) == 0 ) {
-    return "config/Centrality_def_grefmult.txt";
+    return "config/Common/Centrality_def_grefmult.txt";
   }
   else{
     Error("StRefMultCorr::getTable", "No implementation for %s", mName.Data());

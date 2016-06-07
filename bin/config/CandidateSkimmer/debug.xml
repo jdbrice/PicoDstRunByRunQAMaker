@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="CandidateSkimmer" config="" nodePath="CandidateSkimmer" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<CandidateSkimmer event="true" track="true" triggers="emu">
+		<Logger color="true" globalLogLevel="trace" />
+
+		<input>
+			<dst treeName="candidates" url="muon_candidates.root" splitBy="200" nEvents="2000000"/>
+		</input>
+
+		<output path="" >
+			<data>candidates.root</data>
+		</output>
+
+	</CandidateSkimmer>
+
+</config>

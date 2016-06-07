@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="skimmer" type="PicoDstSkimmer" config="" nodePath="PicoDstSkimmer" />
+	<Task name="skimmer" type="MuonCandidateMaker" config="" nodePath="MuonCandidateMaker" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<PicoDstSkimmer event="true" track="true" triggers="">
+	<MuonCandidateMaker event="true" track="true" triggers="">
 		<Logger color="true" globalLogLevel="trace" />
 
 		<input>
-			<dst treeName="PicoDst" url="list.lis" splitBy="200" nEvents="200000"/>
+			<dst treeName="PicoDst" url="list.lis" splitBy="200" nEvents="2000000"/>
 		</input>
 
 		<output path="" >
-			<data>skimmer.root</data>
+			<data>muon_candidates.root</data>
 		</output>
 
 		<histograms>
@@ -33,7 +33,7 @@
 			MtdPidTraits
 		</TrackBranches>
 
-	</PicoDstSkimmer>
+	</MuonCandidateMaker>
 
 	<Include url="../Common/EventQABins.xml" />
 
