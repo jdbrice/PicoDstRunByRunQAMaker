@@ -1,6 +1,6 @@
 // Do NOT change. Changes will be lost next time file is generated
 
-#define R__DICTIONARY_FILENAME CandidateEventDict
+#define R__DICTIONARY_FILENAME CandidateEventCint
 
 /*******************************************************************/
 #include <stddef.h>
@@ -38,7 +38,7 @@
 namespace std {} using namespace std;
 
 // Header files passed as explicit arguments
-#include "../../include/Skimmers/CandidateEvent.h"
+#include "../include/Skimmers/CandidateEvent.h"
 
 // Header files passed via #pragma extra_include
 
@@ -56,8 +56,8 @@ namespace ROOT {
       ::CandidateEvent *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::CandidateEvent >(0);
       static ::ROOT::TGenericClassInfo 
-         instance("CandidateEvent", ::CandidateEvent::Class_Version(), "../../include/Skimmers/CandidateEvent.h", 6,
-                  typeid(::CandidateEvent), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+         instance("CandidateEvent", ::CandidateEvent::Class_Version(), "../include/Skimmers/CandidateEvent.h", 6,
+                  typeid(::CandidateEvent), DefineBehavior(ptr, ptr),
                   &::CandidateEvent::Dictionary, isa_proxy, 16,
                   sizeof(::CandidateEvent) );
       instance.SetNew(&new_CandidateEvent);
@@ -160,33 +160,32 @@ namespace ROOT {
 } // end of namespace ROOT for class ::CandidateEvent
 
 namespace {
-  void TriggerDictionaryInitialization_CandidateEventDict_Impl() {
+  void TriggerDictionaryInitialization_CandidateEventCint_Impl() {
     static const char* headers[] = {
-"../../include/Skimmers/CandidateEvent.h",
+"../include/Skimmers/CandidateEvent.h",
 0
     };
     static const char* includePaths[] = {
-"/Users/jdb/bnl/vendor/root-6.06.02/include",
-"/Users/jdb/bnl/local/work/muonAna/src/Skimmers/",
+"/Users/danielbrandenburg/bnl/vendor/root-6.04.00/include",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/src/",
 0
     };
-    static const char* fwdDeclCode = R"DICTFWDDCLS(
-#line 1 "CandidateEventDict dictionary forward declarations' payload"
+    static const char* fwdDeclCode = 
+R"DICTFWDDCLS(
 #pragma clang diagnostic ignored "-Wkeyword-compat"
 #pragma clang diagnostic ignored "-Wignored-attributes"
 #pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
 extern int __Cling_Autoloading_Map;
-class __attribute__((annotate("$clingAutoload$../../include/Skimmers/CandidateEvent.h")))  CandidateEvent;
+class __attribute__((annotate("$clingAutoload$../include/Skimmers/CandidateEvent.h")))  CandidateEvent;
 )DICTFWDDCLS";
     static const char* payloadCode = R"DICTPAYLOAD(
-#line 1 "CandidateEventDict dictionary payload"
 
 #ifndef G__VECTOR_HAS_CLASS_ITERATOR
   #define G__VECTOR_HAS_CLASS_ITERATOR 1
 #endif
 
 #define _BACKWARD_BACKWARD_WARNING_H
-#include "../../include/Skimmers/CandidateEvent.h"
+#include "../include/Skimmers/CandidateEvent.h"
 
 #undef  _BACKWARD_BACKWARD_WARNING_H
 )DICTPAYLOAD";
@@ -196,18 +195,18 @@ nullptr};
 
     static bool isInitialized = false;
     if (!isInitialized) {
-      TROOT::RegisterModule("CandidateEventDict",
+      TROOT::RegisterModule("CandidateEventCint",
         headers, includePaths, payloadCode, fwdDeclCode,
-        TriggerDictionaryInitialization_CandidateEventDict_Impl, {}, classesHeaders);
+        TriggerDictionaryInitialization_CandidateEventCint_Impl, {}, classesHeaders);
       isInitialized = true;
     }
   }
   static struct DictInit {
     DictInit() {
-      TriggerDictionaryInitialization_CandidateEventDict_Impl();
+      TriggerDictionaryInitialization_CandidateEventCint_Impl();
     }
   } __TheDictionaryInitializer;
 }
-void TriggerDictionaryInitialization_CandidateEventDict() {
-  TriggerDictionaryInitialization_CandidateEventDict_Impl();
+void TriggerDictionaryInitialization_CandidateEventCint() {
+  TriggerDictionaryInitialization_CandidateEventCint_Impl();
 }

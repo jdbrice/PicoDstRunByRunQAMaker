@@ -11,8 +11,8 @@ public:
 	~CandidateTrack(){
 	}
 
-	Int_t trackId;	//!
-	Float_t daniel;
+ 	Char_t charge;
+	Float_t pX, pY, pZ;
 	
 	
 	ClassDef( CandidateTrack, 1 )

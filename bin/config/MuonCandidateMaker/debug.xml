@@ -20,6 +20,7 @@
 		</histograms>
 		
 		<Include url="../Common/EventCuts.xml" />
+		<Include url="../Common/MuonCandidateCuts.xml" />
 
 		<EventBranches>
 			Event,

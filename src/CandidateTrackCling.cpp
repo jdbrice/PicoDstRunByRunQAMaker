@@ -1,6 +1,6 @@
 // Do NOT change. Changes will be lost next time file is generated
 
-#define R__DICTIONARY_FILENAME CandidateTrackDict
+#define R__DICTIONARY_FILENAME CandidateTrackCling
 
 /*******************************************************************/
 #include <stddef.h>
@@ -48,7 +48,6 @@ namespace ROOT {
    static void delete_CandidateTrack(void *p);
    static void deleteArray_CandidateTrack(void *p);
    static void destruct_CandidateTrack(void *p);
-   static void streamer_CandidateTrack(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::CandidateTrack*)
@@ -57,15 +56,14 @@ namespace ROOT {
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::CandidateTrack >(0);
       static ::ROOT::TGenericClassInfo 
          instance("CandidateTrack", ::CandidateTrack::Class_Version(), "../include/Skimmers/CandidateTrack.h", 6,
-                  typeid(::CandidateTrack), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::CandidateTrack::Dictionary, isa_proxy, 16,
+                  typeid(::CandidateTrack), DefineBehavior(ptr, ptr),
+                  &::CandidateTrack::Dictionary, isa_proxy, 4,
                   sizeof(::CandidateTrack) );
       instance.SetNew(&new_CandidateTrack);
       instance.SetNewArray(&newArray_CandidateTrack);
       instance.SetDelete(&delete_CandidateTrack);
       instance.SetDeleteArray(&deleteArray_CandidateTrack);
       instance.SetDestructor(&destruct_CandidateTrack);
-      instance.SetStreamerFunc(&streamer_CandidateTrack);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::CandidateTrack*)
@@ -116,17 +114,10 @@ void CandidateTrack::Streamer(TBuffer &R__b)
 {
    // Stream an object of class CandidateTrack.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> daniel;
-      R__b.CheckByteCount(R__s, R__c, CandidateTrack::IsA());
+      R__b.ReadClassBuffer(CandidateTrack::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(CandidateTrack::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << daniel;
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(CandidateTrack::Class(),this);
    }
 }
 
@@ -149,25 +140,21 @@ namespace ROOT {
       typedef ::CandidateTrack current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_CandidateTrack(TBuffer &buf, void *obj) {
-      ((::CandidateTrack*)obj)->::CandidateTrack::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::CandidateTrack
 
 namespace {
-  void TriggerDictionaryInitialization_CandidateTrackDict_Impl() {
+  void TriggerDictionaryInitialization_CandidateTrackCling_Impl() {
     static const char* headers[] = {
 "../include/Skimmers/CandidateTrack.h",
 0
     };
     static const char* includePaths[] = {
-"/Users/jdb/bnl/vendor/root-6.06.02/include",
-"/Users/jdb/bnl/local/work/muonAna/src/",
+"/Users/danielbrandenburg/bnl/vendor/root-6.04.00/include",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/src/",
 0
     };
-    static const char* fwdDeclCode = R"DICTFWDDCLS(
-#line 1 "CandidateTrackDict dictionary forward declarations' payload"
+    static const char* fwdDeclCode = 
+R"DICTFWDDCLS(
 #pragma clang diagnostic ignored "-Wkeyword-compat"
 #pragma clang diagnostic ignored "-Wignored-attributes"
 #pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
@@ -175,7 +162,6 @@ extern int __Cling_Autoloading_Map;
 class __attribute__((annotate("$clingAutoload$../include/Skimmers/CandidateTrack.h")))  CandidateTrack;
 )DICTFWDDCLS";
     static const char* payloadCode = R"DICTPAYLOAD(
-#line 1 "CandidateTrackDict dictionary payload"
 
 #ifndef G__VECTOR_HAS_CLASS_ITERATOR
   #define G__VECTOR_HAS_CLASS_ITERATOR 1
@@ -192,18 +178,18 @@ nullptr};
 
     static bool isInitialized = false;
     if (!isInitialized) {
-      TROOT::RegisterModule("CandidateTrackDict",
+      TROOT::RegisterModule("CandidateTrackCling",
         headers, includePaths, payloadCode, fwdDeclCode,
-        TriggerDictionaryInitialization_CandidateTrackDict_Impl, {}, classesHeaders);
+        TriggerDictionaryInitialization_CandidateTrackCling_Impl, {}, classesHeaders);
       isInitialized = true;
     }
   }
   static struct DictInit {
     DictInit() {
-      TriggerDictionaryInitialization_CandidateTrackDict_Impl();
+      TriggerDictionaryInitialization_CandidateTrackCling_Impl();
     }
   } __TheDictionaryInitializer;
 }
-void TriggerDictionaryInitialization_CandidateTrackDict() {
-  TriggerDictionaryInitialization_CandidateTrackDict_Impl();
+void TriggerDictionaryInitialization_CandidateTrackCling() {
+  TriggerDictionaryInitialization_CandidateTrackCling_Impl();
 }

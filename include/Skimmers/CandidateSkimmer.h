@@ -40,7 +40,7 @@ protected:
 		INFO( classname(), event->eventId );
 		if ( tracks->GetEntries() >= 20 ){
 			CandidateTrack* track = (CandidateTrack*)tracks->At( 19 );
-			cout << track->daniel << endl;
+			// cout << track->daniel << endl;
 		}
 
 	}

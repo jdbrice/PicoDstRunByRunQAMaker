@@ -6,7 +6,11 @@
 #include "CandidateEvent.h"
 #include "CandidateTrack.h"
 
+//RooBarb
+#include "CutCollection.h"
+
 #include "TClonesArray.h"
+#include "TVector3.h"
 
 class MuonCandidateMaker : public PicoDstSkimmer
 {
@@ -18,8 +22,9 @@ public:
 	virtual void initialize();
 
 protected:
-	
+	CutCollection muonCuts;
 	TTree * mTree;
+	Int_t nCandTracks;
 
 	void createTree(){
 		mTree = new TTree("candidates","Muon Candidates");
@@ -37,6 +42,8 @@ protected:
 		event->runId 	= pico->Event_mRunId[0];
 		event->eventId 	= pico->Event_mEventId[0];
 		event->bin16 	= 0;
+
+		nCandTracks = 0;
 		
 	}
 
@@ -45,15 +52,25 @@ protected:
 		
 		tracks->Clear();
 		
-		
 		for ( int iTrack = 0; iTrack < pico->Tracks_; iTrack++ ){
-			CandidateTrack * aTrack =  new ((*tracks)[iTrack]) CandidateTrack( );
-			aTrack->daniel = pico->Tracks_mDedx[iTrack];
+
+			if ( !keepTrack( iTrack ) ) continue;
+
+			CandidateTrack * aTrack =  new ((*tracks)[nCandTracks]) CandidateTrack( );
+			
+			aTrack->charge = pico->Tracks_mNHitsFit[iTrack] > 0 ? 1 : -1;
+			aTrack->pX = pico->Tracks_mPMomentum_mX1[iTrack];
+			aTrack->pY = pico->Tracks_mPMomentum_mX2[iTrack];
+			aTrack->pZ = pico->Tracks_mPMomentum_mX3[iTrack];
+
+			nCandTracks ++;
 		}
 
 		mTree->Fill();
 		
 	}
+
+	bool keepTrack( int iTrack );
 
 
 };
