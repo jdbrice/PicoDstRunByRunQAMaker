@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="skimmer" type="MuonCandidateMaker" config="" nodePath="MuonCandidateMaker" />
+	<Task name="skimmer" type="CandidateMaker" config="" nodePath="CandidateMaker" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<MuonCandidateMaker event="true" track="true" triggers="">
+	<CandidateMaker event="true" track="true" triggers="">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
@@ -12,7 +12,7 @@
 		</input>
 
 		<output path="" >
-			<data>muon_candidates.root</data>
+			<data>generic_candidates.root</data>
 		</output>
 
 		<histograms>
@@ -20,7 +20,6 @@
 		</histograms>
 		
 		<Include url="../Common/EventCuts.xml" />
-		<Include url="../Common/MuonCandidateCuts.xml" />
 
 		<EventBranches>
 			Event,
@@ -28,13 +27,10 @@
 		</EventBranches>
 
 		<TrackBranches>
-			Tracks,
-			BTofPidTraits,
-			EmcPidTraits,
-			MtdPidTraits
+			Tracks
 		</TrackBranches>
 
-	</MuonCandidateMaker>
+	</CandidateMaker>
 
 	<Include url="../Common/EventQABins.xml" />
 

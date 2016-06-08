@@ -1,6 +1,6 @@
 // Do NOT change. Changes will be lost next time file is generated
 
-#define R__DICTIONARY_FILENAME CandidateTrackCling
+#define R__DICTIONARY_FILENAME srcdITreeDatadICintDictionary
 
 /*******************************************************************/
 #include <stddef.h>
@@ -38,9 +38,42 @@
 namespace std {} using namespace std;
 
 // Header files passed as explicit arguments
-#include "../include/Skimmers/CandidateTrack.h"
+#include "CandidateEvent.h"
+#include "CandidateTrack.h"
 
 // Header files passed via #pragma extra_include
+
+namespace ROOT {
+   static void *new_CandidateEvent(void *p = 0);
+   static void *newArray_CandidateEvent(Long_t size, void *p);
+   static void delete_CandidateEvent(void *p);
+   static void deleteArray_CandidateEvent(void *p);
+   static void destruct_CandidateEvent(void *p);
+
+   // Function generating the singleton type initializer
+   static TGenericClassInfo *GenerateInitInstanceLocal(const ::CandidateEvent*)
+   {
+      ::CandidateEvent *ptr = 0;
+      static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::CandidateEvent >(0);
+      static ::ROOT::TGenericClassInfo 
+         instance("CandidateEvent", ::CandidateEvent::Class_Version(), "CandidateEvent.h", 6,
+                  typeid(::CandidateEvent), ::ROOT::Internal::DefineBehavior(ptr, ptr),
+                  &::CandidateEvent::Dictionary, isa_proxy, 4,
+                  sizeof(::CandidateEvent) );
+      instance.SetNew(&new_CandidateEvent);
+      instance.SetNewArray(&newArray_CandidateEvent);
+      instance.SetDelete(&delete_CandidateEvent);
+      instance.SetDeleteArray(&deleteArray_CandidateEvent);
+      instance.SetDestructor(&destruct_CandidateEvent);
+      return &instance;
+   }
+   TGenericClassInfo *GenerateInitInstance(const ::CandidateEvent*)
+   {
+      return GenerateInitInstanceLocal((::CandidateEvent*)0);
+   }
+   // Static variable to force the class initialization
+   static ::ROOT::TGenericClassInfo *_R__UNIQUE_(Init) = GenerateInitInstanceLocal((const ::CandidateEvent*)0x0); R__UseDummy(_R__UNIQUE_(Init));
+} // end of namespace ROOT
 
 namespace ROOT {
    static void *new_CandidateTrack(void *p = 0);
@@ -55,8 +88,8 @@ namespace ROOT {
       ::CandidateTrack *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::CandidateTrack >(0);
       static ::ROOT::TGenericClassInfo 
-         instance("CandidateTrack", ::CandidateTrack::Class_Version(), "../include/Skimmers/CandidateTrack.h", 6,
-                  typeid(::CandidateTrack), DefineBehavior(ptr, ptr),
+         instance("CandidateTrack", ::CandidateTrack::Class_Version(), "CandidateTrack.h", 6,
+                  typeid(::CandidateTrack), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::CandidateTrack::Dictionary, isa_proxy, 4,
                   sizeof(::CandidateTrack) );
       instance.SetNew(&new_CandidateTrack);
@@ -73,6 +106,41 @@ namespace ROOT {
    // Static variable to force the class initialization
    static ::ROOT::TGenericClassInfo *_R__UNIQUE_(Init) = GenerateInitInstanceLocal((const ::CandidateTrack*)0x0); R__UseDummy(_R__UNIQUE_(Init));
 } // end of namespace ROOT
+
+//______________________________________________________________________________
+atomic_TClass_ptr CandidateEvent::fgIsA(0);  // static to hold class pointer
+
+//______________________________________________________________________________
+const char *CandidateEvent::Class_Name()
+{
+   return "CandidateEvent";
+}
+
+//______________________________________________________________________________
+const char *CandidateEvent::ImplFileName()
+{
+   return ::ROOT::GenerateInitInstanceLocal((const ::CandidateEvent*)0x0)->GetImplFileName();
+}
+
+//______________________________________________________________________________
+int CandidateEvent::ImplFileLine()
+{
+   return ::ROOT::GenerateInitInstanceLocal((const ::CandidateEvent*)0x0)->GetImplFileLine();
+}
+
+//______________________________________________________________________________
+TClass *CandidateEvent::Dictionary()
+{
+   fgIsA = ::ROOT::GenerateInitInstanceLocal((const ::CandidateEvent*)0x0)->GetClass();
+   return fgIsA;
+}
+
+//______________________________________________________________________________
+TClass *CandidateEvent::Class()
+{
+   if (!fgIsA.load()) { R__LOCKGUARD2(gInterpreterMutex); fgIsA = ::ROOT::GenerateInitInstanceLocal((const ::CandidateEvent*)0x0)->GetClass(); }
+   return fgIsA;
+}
 
 //______________________________________________________________________________
 atomic_TClass_ptr CandidateTrack::fgIsA(0);  // static to hold class pointer
@@ -110,6 +178,39 @@ TClass *CandidateTrack::Class()
 }
 
 //______________________________________________________________________________
+void CandidateEvent::Streamer(TBuffer &R__b)
+{
+   // Stream an object of class CandidateEvent.
+
+   if (R__b.IsReading()) {
+      R__b.ReadClassBuffer(CandidateEvent::Class(),this);
+   } else {
+      R__b.WriteClassBuffer(CandidateEvent::Class(),this);
+   }
+}
+
+namespace ROOT {
+   // Wrappers around operator new
+   static void *new_CandidateEvent(void *p) {
+      return  p ? new(p) ::CandidateEvent : new ::CandidateEvent;
+   }
+   static void *newArray_CandidateEvent(Long_t nElements, void *p) {
+      return p ? new(p) ::CandidateEvent[nElements] : new ::CandidateEvent[nElements];
+   }
+   // Wrapper around operator delete
+   static void delete_CandidateEvent(void *p) {
+      delete ((::CandidateEvent*)p);
+   }
+   static void deleteArray_CandidateEvent(void *p) {
+      delete [] ((::CandidateEvent*)p);
+   }
+   static void destruct_CandidateEvent(void *p) {
+      typedef ::CandidateEvent current_t;
+      ((current_t*)p)->~current_t();
+   }
+} // end of namespace ROOT for class ::CandidateEvent
+
+//______________________________________________________________________________
 void CandidateTrack::Streamer(TBuffer &R__b)
 {
    // Stream an object of class CandidateTrack.
@@ -143,53 +244,65 @@ namespace ROOT {
 } // end of namespace ROOT for class ::CandidateTrack
 
 namespace {
-  void TriggerDictionaryInitialization_CandidateTrackCling_Impl() {
+  void TriggerDictionaryInitialization_CintDictionary_Impl() {
     static const char* headers[] = {
-"../include/Skimmers/CandidateTrack.h",
+"CandidateEvent.h",
+"CandidateTrack.h",
 0
     };
     static const char* includePaths[] = {
-"/Users/danielbrandenburg/bnl/vendor/root-6.04.00/include",
-"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/src/",
+"/Users/jdb/bnl/local/work/muonAna/include/DataAdapters",
+"/Users/jdb/bnl/local/work/muonAna/include/EventPlane",
+"/Users/jdb/bnl/local/work/muonAna/include/ProductionUtils",
+"/Users/jdb/bnl/local/work/muonAna/include/QA",
+"/Users/jdb/bnl/local/work/muonAna/include/Skimmers",
+"/Users/jdb/bnl/local/work/muonAna/include/StRefMultCorr",
+"/Users/jdb/bnl/local/work/muonAna/include/TreeData",
+"/Users/jdb/bnl/vendor/root-6.06.02/include",
+"/Users/jdb/bnl/local/work/muonAna/",
 0
     };
-    static const char* fwdDeclCode = 
-R"DICTFWDDCLS(
+    static const char* fwdDeclCode = R"DICTFWDDCLS(
+#line 1 "CintDictionary dictionary forward declarations' payload"
 #pragma clang diagnostic ignored "-Wkeyword-compat"
 #pragma clang diagnostic ignored "-Wignored-attributes"
 #pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
 extern int __Cling_Autoloading_Map;
-class __attribute__((annotate("$clingAutoload$../include/Skimmers/CandidateTrack.h")))  CandidateTrack;
+class __attribute__((annotate("$clingAutoload$CandidateEvent.h")))  CandidateEvent;
+class __attribute__((annotate("$clingAutoload$CandidateTrack.h")))  CandidateTrack;
 )DICTFWDDCLS";
     static const char* payloadCode = R"DICTPAYLOAD(
+#line 1 "CintDictionary dictionary payload"
 
 #ifndef G__VECTOR_HAS_CLASS_ITERATOR
   #define G__VECTOR_HAS_CLASS_ITERATOR 1
 #endif
 
 #define _BACKWARD_BACKWARD_WARNING_H
-#include "../include/Skimmers/CandidateTrack.h"
+#include "CandidateEvent.h"
+#include "CandidateTrack.h"
 
 #undef  _BACKWARD_BACKWARD_WARNING_H
 )DICTPAYLOAD";
     static const char* classesHeaders[]={
+"CandidateEvent", payloadCode, "@",
 "CandidateTrack", payloadCode, "@",
 nullptr};
 
     static bool isInitialized = false;
     if (!isInitialized) {
-      TROOT::RegisterModule("CandidateTrackCling",
+      TROOT::RegisterModule("CintDictionary",
         headers, includePaths, payloadCode, fwdDeclCode,
-        TriggerDictionaryInitialization_CandidateTrackCling_Impl, {}, classesHeaders);
+        TriggerDictionaryInitialization_CintDictionary_Impl, {}, classesHeaders);
       isInitialized = true;
     }
   }
   static struct DictInit {
     DictInit() {
-      TriggerDictionaryInitialization_CandidateTrackCling_Impl();
+      TriggerDictionaryInitialization_CintDictionary_Impl();
     }
   } __TheDictionaryInitializer;
 }
-void TriggerDictionaryInitialization_CandidateTrackCling() {
-  TriggerDictionaryInitialization_CandidateTrackCling_Impl();
+void TriggerDictionaryInitialization_CintDictionary() {
+  TriggerDictionaryInitialization_CintDictionary_Impl();
 }

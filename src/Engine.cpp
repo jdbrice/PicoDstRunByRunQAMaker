@@ -15,6 +15,7 @@ using namespace jdb;
 
 #include "PicoDstSkimmer.h"
 #include "MuonCandidateMaker.h"
+#include "CandidateMaker.h"
 #include "EventPlaneMaker.h"
 
 #include "CandidateSkimmer.h"
@@ -29,6 +30,7 @@ int main( int argc, char* argv[] ) {
 
 	TaskFactory::registerTaskRunner<PicoDstSkimmer>( "PicoDstSkimmer" );
 	TaskFactory::registerTaskRunner<MuonCandidateMaker>( "MuonCandidateMaker" );
+	TaskFactory::registerTaskRunner<CandidateMaker>( "CandidateMaker" );
 
 	TaskFactory::registerTaskRunner<EventPlaneMaker>( "EventPlaneMaker" );
 	TaskFactory::registerTaskRunner<CandidateSkimmer>( "CandidateSkimmer" );

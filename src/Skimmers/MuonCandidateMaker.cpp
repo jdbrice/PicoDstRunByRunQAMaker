@@ -10,14 +10,8 @@ MuonCandidateMaker::~MuonCandidateMaker(){
 }
 
 void MuonCandidateMaker::initialize(){
-	PicoDstSkimmer::initialize();
+	CandidateMaker::initialize();
 	
-	INFO( classname(), "" );
-	event = new CandidateEvent();
-	tracks = new TClonesArray( "CandidateTrack" );
-	
-	createTree();
-
 	muonCuts.init( config, nodePath + ".MuonCandidateCuts" );
 
 	INFO( classname(), "" );
@@ -28,7 +22,17 @@ void MuonCandidateMaker::initialize(){
 }
 
 
+
+void MuonCandidateMaker::analyzeEvent(){
+	CandidateMaker::analyzeEvent();
+
+	// dont keep events by default, instead require at least 2 muon cands per event
+	keepEvent = false;
+}
+
+
 bool MuonCandidateMaker::keepTrack( int iTrack ){
+	DEBUG( classname(), fmt::format( "(iTrack={0})", iTrack ) );
 
 	double nHitsFit = abs(pico->Tracks_mNHitsFit[ iTrack ]);
 	double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
@@ -40,25 +44,28 @@ bool MuonCandidateMaker::keepTrack( int iTrack ){
 		return false;
 	}
 	if ( nHitsRatio < muonCuts[ "nHitsRatio" ]->min ){
-		// INFO( classname(), "nHitsRatio = " << nHitsRatio );
 		return false;
 	}
 	if ( nHitsDedx < muonCuts[ "nHitsDedx" ]->min ){
-		// INFO( classname(), "nHitsDedx = " << nHitsDedx );
 		return false;
 	}
 	if ( !muonCuts[ "eta" ]->inInclusiveRange( momentum.Eta() )  ){
-		// INFO( classname(), "eta = " << momentum.Eta() );
 		return false;
 	}
 	if ( !muonCuts[ "matchFlagMtd" ]->inInclusiveRange( pico->Tracks_mMtdPidTraitsIndex[iTrack] ) ){
 		return false;
 	}
-
-
-
-
-	// INFO( classname(), "pass ALL" );
-
 	return true;
+}
+
+void MuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int iCandTrack ){
+	aTrack->charge = pico->Tracks_mNHitsFit[iTrack] > 0 ? 1 : -1;
+
+	aTrack->pX = pico->Tracks_mPMomentum_mX1[iTrack];
+	aTrack->pY = pico->Tracks_mPMomentum_mX2[iTrack];
+	aTrack->pZ = pico->Tracks_mPMomentum_mX3[iTrack];
+	
+	// keep events with at least 2 tracks
+	if ( iCandTrack >= 1 )
+		keepEvent = true;
 }
