@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Logger color="true" globalLogLevel="info" />
+	
+	<Task name="TreeAnalyzer" type="SharedTreeAnalyzer" config="" nodePath="SharedTreeAnalyzer" />
+
+	<SharedTreeAnalyzer>
+		<Logger color="true" globalLogLevel="info" />
+
+		<input>
+			<dst treeName="PicoDst" url="list.lis" splitBy="200" nEvents="2000000"/>
+		</input>
+
+		<Tasks>
+			<Task name="MuonCandidateMaker" type="MuonCandidateMaker" config="config/MuonCandidateMaker/debug.xml" nodePath="MuonCandidateMaker" />
+		</Tasks>
+
+	</SharedTreeAnalyzer>
+	
+
+</config>

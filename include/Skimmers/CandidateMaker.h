@@ -33,6 +33,9 @@ protected:
 	TTree * mTree;
 	Int_t nCandTracks;
 	bool keepEvent;
+
+	bool isElectron;
+	bool isMuon;
 	
 	CandidateEvent * event;
 	TClonesArray * tracks;
@@ -52,7 +55,11 @@ protected:
 		// for instance, use to keep only events with pairs of muons
 		// default to keep all accepted events
 		keepEvent = true;
+		// and default the track level
+		isMuon = false;
+		isElectron = false;
 	}
+
 	virtual void trackLoop(){
 		nCandTracks = 0;
 		tracks->Clear();
@@ -78,6 +85,15 @@ protected:
 	}
 	virtual bool keepTrack( int iTrack ){
 		return true;
+	}
+
+	Char_t speciesMask( ){
+		Char_t mask = 0;
+		if ( isElectron )
+			mask |= 1;
+		if ( isMuon )
+			mask |= 2;
+		return mask;
 	}
 	
 };

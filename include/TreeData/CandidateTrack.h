@@ -11,11 +11,12 @@ public:
 	~CandidateTrack(){
 	}
 
- 	Char_t charge;
 	Float_t pX, pY, pZ;
+ 	Char_t charge;
+ 	Char_t species;		// BITMASK : 1 = Electron, 2 = Muon
 	
 	
-	ClassDef( CandidateTrack, 1 )
+	ClassDef( CandidateTrack, 2 )
 };
 
 #endif

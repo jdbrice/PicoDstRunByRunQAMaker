@@ -1,8 +1,8 @@
-#ifndef PICODST_SKIMMER_H
-#define PICODST_SKIMMER_H
+#ifndef SHARED_PICODST_SKIMMER_H
+#define SHARED_PICODST_SKIMMER_H
 
 // RooBarb
-#include "TreeAnalyzer.h"
+#include "SharedTreeAnalyzer.h"
 #include "CutCollection.h"
 #include "format.h"
 
@@ -13,15 +13,11 @@
 // STL
 #include <memory>
 
-
-class SharedPicoDstSkimmer;
-
-class PicoDstSkimmer : public TreeAnalyzer {
+class SharedPicoDstSkimmer : public TreeAnalyzer {
 public:
-	friend SharedPicoDstSkimmer;
-	virtual const char* classname() const { return "PicoDstSkimmer"; }
-	PicoDstSkimmer(){}
-	~PicoDstSkimmer(){}
+	virtual const char* classname() const { return "SharedPicoDstSkimmer"; }
+	SharedPicoDstSkimmer(){}
+	~SharedPicoDstSkimmer(){}
 
 	virtual void initialize(){
 
@@ -30,33 +26,31 @@ public:
 		EventBranches = config.getStringVector( nodePath + ".EventBranches" );//, (vector<string>){ "Event" } );
 		TrackBranches = config.getStringVector( nodePath + ".TrackBranches" );//, (vector<string>){"Tracks", "BTofPidTraits", "EmcPidTraits", "MtdPidTraits"} ); 
 
+		vector<string> triggers = config.getStringVector( nodePath + ":triggers" );
+		tf.setTriggers( triggers );
+
+		// eventCuts
+		eventCuts.init( config, nodePath + ".EventCuts" );
+		eventCuts.setDefault( "zVertex", -100, 100 );
+		eventCuts.setDefault( "zVertexDelta", 0, 3 );
+
+		INFO( classname(), "" );
+		INFO( classname(), "############### Event Cuts ###################"  );
+		eventCuts.report();
+		INFO( classname(), "" );
+
 	}
+
+	shared_ptr<PicoDst> getPicoDst( ) { return pico; } 
 	
 protected:
 
-	shared_ptr<PicoDst> pico;
+	static shared_ptr<PicoDst> pico;
 	vector<string> EventBranches, TrackBranches;
-	TriggerFilter tf;
-	CutCollection eventCuts;
 
 	virtual void eventLoop();
-	virtual bool keepEvent();
-	virtual void analyzeEvent();
 	
 	virtual void trackLoop();
-	virtual void analyzeTrack( int iTrack );
-
-	void passEventCut( string cut, bool passAllCuts ){
-		DEBUG( classname(), fmt::format("(cut={0}, passAllCuts={1})", cut, bts(passAllCuts) ) );
-		book->cd("eventQA");
-
-		book->fill( "event_single_cuts", cut, 1.0 );
-
-		if ( passAllCuts ){
-			book->fill( "event_cuts", cut, 1.0 );
-		}
-		return;
-	}
 
 	Long64_t readBranchList( vector<string> &list, Long64_t &iEvent ){
 		// no protection

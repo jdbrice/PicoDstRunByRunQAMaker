@@ -32,16 +32,11 @@ paths.extend( Glob( "include/*" ) )
 
 ########################### ROOT dictionary creation ##########################
 rootcint_env = Environment(ENV = {'PATH' : os.environ['PATH']})
-
 # SOURCES.file - returns the basename of each full-path source - ended up not using because root_Cint dict would compile but not run
 rootcint = Builder( action='rootcint $TARGET $_CPPINCFLAGS $SOURCES.file' )  
-
 rootcint_env.Append( BUILDERS 		= { 'RootCint' : rootcint } )
-print [ str(Dir(".").abspath) + "/" + str(p) for p in Glob( "#include/*" )  ]
-
 # hack to make the rootcint use abs path to headers
 rootcint_env[ "_CPPINCFLAGS" ] = "-I" + Dir(".").abspath + "/" + str( " -I" + Dir(".").abspath + "/").join( map( str, Glob( "#include/*" ) ) ) 
-
 root_dict = rootcint_env.RootCint( "src/TreeData/CintDictionary.cpp", Glob( "include/TreeData/*.h" ) )
 Clean( root_dict, "src/TreeData/CintDictionary_rdict.pcm" )
 rootcint_env.Alias( 'dict', root_dict )
@@ -61,6 +56,7 @@ common_env.Append(CXXFLAGS 		= "-DJDB_LOG_LEVEL=" + str(jdb_log_level) )
 
 target = common_env.Program( target='bin/app', source=[Glob( "src/*.cpp" ), Glob( "src/*/*.cpp" )] )
 Depends( target, root_dict )
+Depends( target, JDB_LIB + "/lib/libJDB.a" )
 
 # set as the default target
 Default( target )
