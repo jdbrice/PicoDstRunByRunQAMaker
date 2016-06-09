@@ -12,6 +12,11 @@ ElectronMuonCandidateMaker::~ElectronMuonCandidateMaker(){
 void ElectronMuonCandidateMaker::initialize(){
 	CandidateMaker::initialize();
 	
+	if ( !config.exists( nodePath + ".MuonCandidateCuts" ) ){
+		ERROR( classname(), "Cannot find **required** MuonCandidateCuts" );
+		chain = nullptr;
+		return;
+	}
 	muonCuts.init( config, nodePath + ".MuonCandidateCuts" );
 	INFO( classname(), "" );
 	INFO( classname(), "############### Muon Cuts ###################"  );
@@ -56,6 +61,7 @@ bool ElectronMuonCandidateMaker::keepTrack( int iTrack ){
 		nMuons ++;
 
 	return ( isElectron || isMuon );
+ 	return true;
 }
 
 void ElectronMuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int iCandTrack ){

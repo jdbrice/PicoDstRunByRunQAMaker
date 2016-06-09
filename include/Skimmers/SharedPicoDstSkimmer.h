@@ -28,7 +28,7 @@ public:
 
 	}
 
-	shared_ptr<PicoDst> getPicoDst( ) { return pico; } 
+	static shared_ptr<PicoDst> getPicoDst( ) { return pico; } 
 	
 protected:
 

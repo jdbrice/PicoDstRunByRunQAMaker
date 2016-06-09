@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Logger color="true" globalLogLevel="info" />
+	<Logger color="true" globalLogLevel="none" />
 	
 	<Task name="MuonCandidateMaker" type="MuonCandidateMaker" config="config/MuonCandidateMaker/debug.xml" nodePath="MuonCandidateMaker" />
 	

@@ -1,7 +1,36 @@
 #include "PicoDstSkimmer.h"
+#include "SharedPicoDstSkimmer.h"
 
 
+void PicoDstSkimmer::initialize(){
 
+	// create the picodst interface
+	if ( false == sharedTree ){
+		INFO( classname(), "Using private PicoDst Interface" );
+		pico = shared_ptr<PicoDst>( new PicoDst( chain ) );
+	} else {
+		INFO( classname(), "Using shared PicoDst Interface" );
+		pico = SharedPicoDstSkimmer::getPicoDst();
+		assert( pico );
+	}
+
+	EventBranches = config.getStringVector( nodePath + ".EventBranches" );//, (vector<string>){ "Event" } );
+	TrackBranches = config.getStringVector( nodePath + ".TrackBranches" );//, (vector<string>){"Tracks", "BTofPidTraits", "EmcPidTraits", "MtdPidTraits"} ); 
+
+	vector<string> triggers = config.getStringVector( nodePath + ":triggers" );
+	tf.setTriggers( triggers );
+
+	// eventCuts
+	eventCuts.init( config, nodePath + ".EventCuts" );
+	eventCuts.setDefault( "zVertex", -100, 100 );
+	eventCuts.setDefault( "zVertexDelta", 0, 3 );
+
+	INFO( classname(), "" );
+	INFO( classname(), "############### Event Cuts ###################"  );
+	eventCuts.report();
+	INFO( classname(), "" );
+
+}
 
 bool PicoDstSkimmer::keepEvent(){
 	DEBUG( classname(), "keepEvent" );
