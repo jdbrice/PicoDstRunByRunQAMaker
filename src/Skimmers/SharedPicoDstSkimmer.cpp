@@ -1,5 +1,9 @@
 #include "SharedPicoDstSkimmer.h"
 
+#include "PicoDstSkimmer.h"
+
+shared_ptr<PicoDst> SharedPicoDstSkimmer::pico = nullptr;
+
 void SharedPicoDstSkimmer::eventLoop() {
 
 	INFO( classname(), "EventLoop" );
@@ -72,7 +76,7 @@ void SharedPicoDstSkimmer::eventLoop() {
 
 
 void SharedPicoDstSkimmer::trackLoop(){
-	for ( shared_ptr<TreeAnalyzer> ta : treeAnalyzers ){
-		(static_cast<PicoDstSkimmer*> pds)->trackLoop();
+	for ( shared_ptr<TreeAnalyzer> pds : treeAnalyzers ){
+		(static_cast<PicoDstSkimmer*>(pds.get()))->trackLoop();
 	}
 }

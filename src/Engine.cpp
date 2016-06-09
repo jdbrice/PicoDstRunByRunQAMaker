@@ -19,14 +19,14 @@ using namespace jdb;
 #include "ElectronMuonCandidateMaker.h"
 #include "CandidateMaker.h"
 #include "EventPlaneMaker.h"
-
+#include "SharedPicoDstSkimmer.h"
 #include "CandidateSkimmer.h"
 
 
 int main( int argc, char* argv[] ) {
 
 
-	TaskFactory::registerTaskRunner<SharedTreeAnalyzer>( "SharedTreeAnalyzer" );
+	TaskFactory::registerTaskRunner<SharedPicoDstSkimmer>( "SharedPicoDstSkimmer" );
 	// RunByRun QA
 	TaskFactory::registerTaskRunner<RunByRunQAMaker>( "RunByRunQAMaker" );
 	TaskFactory::registerTaskRunner<RunByRunReportMaker>( "RunByRunReportMaker" );

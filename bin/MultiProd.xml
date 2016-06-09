@@ -3,9 +3,9 @@
 
 	<Logger color="true" globalLogLevel="info" />
 	
-	<Task name="TreeAnalyzer" type="SharedTreeAnalyzer" config="" nodePath="SharedTreeAnalyzer" />
+	<Task name="TreeAnalyzer" type="SharedPicoDstSkimmer" config="" nodePath="SharedPicoDstSkimmer" />
 
-	<SharedTreeAnalyzer>
+	<SharedPicoDstSkimmer track="true">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
@@ -16,7 +16,19 @@
 			<Task name="MuonCandidateMaker" type="MuonCandidateMaker" config="config/MuonCandidateMaker/debug.xml" nodePath="MuonCandidateMaker" />
 		</Tasks>
 
-	</SharedTreeAnalyzer>
+		<EventBranches>
+			Event,
+			EventPlane
+		</EventBranches>
+
+		<TrackBranches>
+			Tracks,
+			BTofPidTraits,
+			EmcPidTraits,
+			MtdPidTraits
+		</TrackBranches>
+
+	</SharedPicoDstSkimmer>
 	
 
 </config>

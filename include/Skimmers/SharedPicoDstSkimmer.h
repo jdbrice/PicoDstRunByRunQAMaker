@@ -13,7 +13,7 @@
 // STL
 #include <memory>
 
-class SharedPicoDstSkimmer : public TreeAnalyzer {
+class SharedPicoDstSkimmer : public SharedTreeAnalyzer {
 public:
 	virtual const char* classname() const { return "SharedPicoDstSkimmer"; }
 	SharedPicoDstSkimmer(){}
@@ -25,19 +25,6 @@ public:
 
 		EventBranches = config.getStringVector( nodePath + ".EventBranches" );//, (vector<string>){ "Event" } );
 		TrackBranches = config.getStringVector( nodePath + ".TrackBranches" );//, (vector<string>){"Tracks", "BTofPidTraits", "EmcPidTraits", "MtdPidTraits"} ); 
-
-		vector<string> triggers = config.getStringVector( nodePath + ":triggers" );
-		tf.setTriggers( triggers );
-
-		// eventCuts
-		eventCuts.init( config, nodePath + ".EventCuts" );
-		eventCuts.setDefault( "zVertex", -100, 100 );
-		eventCuts.setDefault( "zVertexDelta", 0, 3 );
-
-		INFO( classname(), "" );
-		INFO( classname(), "############### Event Cuts ###################"  );
-		eventCuts.report();
-		INFO( classname(), "" );
 
 	}
 
