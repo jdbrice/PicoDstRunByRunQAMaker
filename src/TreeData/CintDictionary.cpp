@@ -57,7 +57,7 @@ namespace ROOT {
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::CandidateEvent >(0);
       static ::ROOT::TGenericClassInfo 
          instance("CandidateEvent", ::CandidateEvent::Class_Version(), "CandidateEvent.h", 6,
-                  typeid(::CandidateEvent), DefineBehavior(ptr, ptr),
+                  typeid(::CandidateEvent), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::CandidateEvent::Dictionary, isa_proxy, 4,
                   sizeof(::CandidateEvent) );
       instance.SetNew(&new_CandidateEvent);
@@ -89,7 +89,7 @@ namespace ROOT {
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::CandidateTrack >(0);
       static ::ROOT::TGenericClassInfo 
          instance("CandidateTrack", ::CandidateTrack::Class_Version(), "CandidateTrack.h", 6,
-                  typeid(::CandidateTrack), DefineBehavior(ptr, ptr),
+                  typeid(::CandidateTrack), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::CandidateTrack::Dictionary, isa_proxy, 4,
                   sizeof(::CandidateTrack) );
       instance.SetNew(&new_CandidateTrack);
@@ -251,19 +251,19 @@ namespace {
 0
     };
     static const char* includePaths[] = {
-"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/DataAdapters",
-"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/EventPlane",
-"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/ProductionUtils",
-"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/QA",
-"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/Skimmers",
-"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/StRefMultCorr",
-"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/TreeData",
-"/Users/danielbrandenburg/bnl/vendor/root-6.04.00/include",
-"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/",
+"/Users/jdb/bnl/local/work/muonAna/include/DataAdapters",
+"/Users/jdb/bnl/local/work/muonAna/include/EventPlane",
+"/Users/jdb/bnl/local/work/muonAna/include/ProductionUtils",
+"/Users/jdb/bnl/local/work/muonAna/include/QA",
+"/Users/jdb/bnl/local/work/muonAna/include/Skimmers",
+"/Users/jdb/bnl/local/work/muonAna/include/StRefMultCorr",
+"/Users/jdb/bnl/local/work/muonAna/include/TreeData",
+"/Users/jdb/bnl/vendor/root-6.06.02/include",
+"/Users/jdb/bnl/local/work/muonAna/",
 0
     };
-    static const char* fwdDeclCode = 
-R"DICTFWDDCLS(
+    static const char* fwdDeclCode = R"DICTFWDDCLS(
+#line 1 "CintDictionary dictionary forward declarations' payload"
 #pragma clang diagnostic ignored "-Wkeyword-compat"
 #pragma clang diagnostic ignored "-Wignored-attributes"
 #pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
@@ -272,6 +272,7 @@ class __attribute__((annotate("$clingAutoload$CandidateEvent.h")))  CandidateEve
 class __attribute__((annotate("$clingAutoload$CandidateTrack.h")))  CandidateTrack;
 )DICTFWDDCLS";
     static const char* payloadCode = R"DICTPAYLOAD(
+#line 1 "CintDictionary dictionary payload"
 
 #ifndef G__VECTOR_HAS_CLASS_ITERATOR
   #define G__VECTOR_HAS_CLASS_ITERATOR 1

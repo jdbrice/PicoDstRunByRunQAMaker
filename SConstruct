@@ -2,8 +2,8 @@
 import subprocess
 import os
 
-
-subprocess.check_output
+SConscript('color_SConscript')
+Import( 'env' )
 
 ROOTCFLAGS    	= subprocess.check_output( ['root-config',  '--cflags'] ).rstrip().split( " " )
 ROOTLDFLAGS    	= subprocess.check_output( ["root-config",  "--ldflags"] )
@@ -43,7 +43,7 @@ rootcint_env.Alias( 'dict', root_dict )
 
 
 ########################## Project Target #####################################
-common_env = Environment()
+common_env = env.Clone() #Environment()
 common_env.Append(LIBS 			= libraries)
 common_env.Append(CPPDEFINES 	= cppDefines)
 common_env.Append(CPPFLAGS 		= cppFlags)

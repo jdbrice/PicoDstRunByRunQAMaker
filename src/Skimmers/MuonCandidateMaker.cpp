@@ -45,6 +45,10 @@ void MuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTr
 	aTrack->pZ = pico->Tracks_mPMomentum_mX3[iTrack];
 
 	aTrack->species = speciesMask();
+
+	// for ( int i = 0; i < 15; i++ ){
+	// 	aTrack->padding[ i ] = i*i* aTrack->pX / 3.5;
+	// }
 	
 	// keep events with at least 2 tracks
 	if ( iCandTrack >= 1 )
