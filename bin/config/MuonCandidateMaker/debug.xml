@@ -4,7 +4,7 @@
 	<Task name="skimmer" type="MuonCandidateMaker" config="" nodePath="MuonCandidateMaker" />
 	<Logger color="true" globalLogLevel="error" />
 	
-	<MuonCandidateMaker event="true" track="true" triggers="dimuon">
+	<MuonCandidateMaker event="true" track="true" triggers="">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
