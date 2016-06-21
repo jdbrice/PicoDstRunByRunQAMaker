@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<bins>
+		<track_cuts width="1" min="0" max="10" />
+	</bins>
+</config>

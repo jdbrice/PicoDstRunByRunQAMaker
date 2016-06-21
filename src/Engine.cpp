@@ -15,12 +15,18 @@ using namespace jdb;
 #include "RunByRunReportMaker.h"
 
 #include "PicoDstSkimmer.h"
+
+// Candidate Makers
+#include "CandidateMaker.h"
 #include "MuonCandidateMaker.h"
 #include "ElectronMuonCandidateMaker.h"
-#include "CandidateMaker.h"
+#include "ElectronCandidateMaker.h"
+
+
 #include "EventPlaneMaker.h"
 #include "SharedPicoDstSkimmer.h"
 #include "CandidateSkimmer.h"
+#include "InvariantMassPlotter.h"
 
 
 int main( int argc, char* argv[] ) {
@@ -36,10 +42,13 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<CandidateMaker>( "CandidateMaker" );
 	TaskFactory::registerTaskRunner<MuonCandidateMaker>( "MuonCandidateMaker" );
 	TaskFactory::registerTaskRunner<ElectronMuonCandidateMaker>( "ElectronMuonCandidateMaker" );
+	TaskFactory::registerTaskRunner<ElectronCandidateMaker>( "ElectronCandidateMaker" );
 	
 
 	TaskFactory::registerTaskRunner<EventPlaneMaker>( "EventPlaneMaker" );
 	TaskFactory::registerTaskRunner<CandidateSkimmer>( "CandidateSkimmer" );
+
+	TaskFactory::registerTaskRunner<InvariantMassPlotter>( "InvariantMassPlotter" );
 
 	Engine engine( argc, argv );
 

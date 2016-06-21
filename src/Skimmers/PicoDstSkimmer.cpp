@@ -90,7 +90,7 @@ void PicoDstSkimmer::eventLoop() {
 	nEventsToProcess = config.getInt( nodePath + ".input.dst:nEvents", totalNumberOfEvents );
 
 	// if neg then process all
-	if ( nEventsToProcess < 0 )
+	if ( nEventsToProcess < 0 || nEventsToProcess > totalNumberOfEvents  )
 		nEventsToProcess = totalNumberOfEvents;
 	
 	if ( showProgress ){

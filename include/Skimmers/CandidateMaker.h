@@ -76,12 +76,26 @@ protected:
 		if ( keepEvent )
 			mTree->Fill();
 	}
-	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int nCandTracks ){
+
+	virtual void fillCandidateTrack( CandidateTrack * aTrack, int iTrack ){
 		aTrack->charge = pico->Tracks_mNHitsFit[iTrack] > 0 ? 1 : -1;
 
 		aTrack->pX = pico->Tracks_mPMomentum_mX1[iTrack];
 		aTrack->pY = pico->Tracks_mPMomentum_mX2[iTrack];
 		aTrack->pZ = pico->Tracks_mPMomentum_mX3[iTrack];
+
+		aTrack->dEdx = pico->Tracks_mDedx[ iTrack ] / 1000.0;
+
+		int iBTof = pico->Tracks_mBTofPidTraitsIndex[ iTrack ];
+		if ( iBTof >= 0 )
+			aTrack->beta = pico->BTofPidTraits_mBTofBeta[ iBTof ] / 20000.0;
+		else 
+			aTrack->beta = 0;
+
+		aTrack->species = speciesMask();
+	}
+	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int nCandTracks ){
+		fillCandidateTrack( aTrack, iTrack );
 	}
 	virtual bool keepTrack( int iTrack ){
 		return true;

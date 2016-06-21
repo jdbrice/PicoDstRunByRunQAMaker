@@ -36,7 +36,7 @@ public:
 	bool isMtdTrigger( std::string trigger ){
 		if ( "dimuon" == trigger )
 			return isDiMuon();
-		if ( "singlemuon" == trigger )
+		if ( "singlemuon" == trigger || "SINGLEMUON" == trigger || "SingleMuon" == trigger || "singlemu" == trigger )
 			return isSingleMuon();
 		if ( "dimuonhft" == trigger )
 			return isDiMuonHFT();

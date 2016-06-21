@@ -9,6 +9,7 @@
 
 //RooBarb
 #include "CutCollection.h"
+#include "HistoBook.h"
 
 
 // STL
@@ -74,6 +75,129 @@ public:
 		}
 
 		return true;
+	}
+
+	static bool isTpcTofElectron( shared_ptr<PicoDst> pico, int iTrack, CutCollection &ccol, HistoBook * book = nullptr ){
+
+		bool allCuts = true;
+
+		bool makeQA = true;
+		if ( nullptr == book  )
+			makeQA = false;
+		string cutsName = "tpcTofElectron";
+
+		double nHitsFit = abs( pico->Tracks_mNHitsFit[ iTrack ] );
+		double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
+		double nHitsDedx = pico->Tracks_mNHitsDedx[ iTrack ];
+		double nHitsRatio = nHitsFit / nHitsMax;
+		double dEdx = pico->Tracks_mDedx[ iTrack ] / 1000.0;
+		TVector3 momentum( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
+
+		int iBTof = pico->Tracks_mBTofPidTraitsIndex[ iTrack ];
+		if ( iBTof < 0 ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "tofMatch", allCuts, book, cutsName );
+		}
+
+		double yLocal = -999;
+		double invBeta = -999;
+		if ( iBTof >= 0 ){
+			yLocal = pico->BTofPidTraits_mBTofYLocal[ iBTof ] / 1000.0;
+			invBeta = 1.0 / (pico->BTofPidTraits_mBTofBeta[ iBTof ] / 20000.0);		
+		}
+		
+		double gDCA = 0;
+		 
+		if ( momentum.Pt() < ccol[ "pt" ]->min ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else {
+			if ( makeQA ) passTrackCut( "pt", allCuts, book, cutsName );
+		}
+		if ( momentum.Mag() > ccol[ "momentum" ]->max ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "momentum", allCuts, book, cutsName );
+		}
+		if ( nHitsRatio < ccol[ "nHitsRatio" ]->min ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "nHitsRatio", allCuts, book, cutsName );
+		}
+		if ( nHitsDedx < ccol[ "nHitsDedx" ]->min ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "nHitsDedx", allCuts, book, cutsName );
+		}
+		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() )  ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "eta", allCuts, book, cutsName );
+		}
+		
+		if ( gDCA > ccol[ "dca" ]->max ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "dca", allCuts, book, cutsName );
+		}
+		
+		if ( !ccol[ "yLocal" ]->inInclusiveRange( yLocal ) ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "yLocal", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "invBeta" ]->inInclusiveRange( abs( 1 - invBeta ) ) ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "beta", allCuts, book, cutsName );
+		}
+
+		// INFO( "CandidateFilter", "yLocal == " << yLocal << endl );
+		
+
+		// nSigmaElectron Cuts
+		if ( !ccol[ "dEdx" ]->inInclusiveRange( dEdx ) ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "dEdx", allCuts, book, cutsName );
+		}
+
+
+
+
+		return allCuts;
+	}
+
+
+
+
+	static void passTrackCut( string cut, bool passAllCuts, HistoBook * book, string name = "track" ){
+		DEBUG( "CandidateFilter", fmt::format("(cut={0}, passAllCuts={1})", cut, bts(passAllCuts) ) );
+		book->cd("trackQA");
+		if ( !book->exists( name + "_single_cuts" ) ){
+			book->clone( "track_single_cuts", name + "_single_cuts" );
+		}
+		if ( !book->exists( name + "_cuts" ) ){
+			book->clone( "track_cuts", name + "_cuts" );
+		}
+
+		book->fill( name + "_single_cuts", cut, 1.0 );
+
+		if ( passAllCuts ){
+			book->fill( name + "_cuts", cut, 1.0 );
+		}
+		return;
 	}
 
 };

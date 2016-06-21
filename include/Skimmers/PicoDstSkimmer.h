@@ -51,6 +51,18 @@ protected:
 		return;
 	}
 
+	void passTrackCut( string cut, bool passAllCuts ){
+		DEBUG( classname(), fmt::format("(cut={0}, passAllCuts={1})", cut, bts(passAllCuts) ) );
+		book->cd("trackQA");
+
+		book->fill( "track_single_cuts", cut, 1.0 );
+
+		if ( passAllCuts ){
+			book->fill( "track_cuts", cut, 1.0 );
+		}
+		return;
+	}
+
 	Long64_t readBranchList( vector<string> &list, Long64_t &iEvent ){
 		// no protection
 		Long64_t read = 0;

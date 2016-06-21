@@ -12,9 +12,9 @@ public:
 	}
 
 	Float_t pX, pY, pZ;
+ 	Float_t dEdx, beta;
  	Char_t charge;
- 	Char_t species;		// BITMASK : 1 = Electron, 2 = Muon
- 	Float_t padding[15];
+ 	Char_t species;		// charge * BITMASK : 1 = Electron, 2 = Muon 
 	
 	
 	ClassDef( CandidateTrack, 2 )

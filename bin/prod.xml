@@ -3,7 +3,7 @@
 
 	<Logger color="true" globalLogLevel="none" />
 	
-	<Task name="MuonCandidateMaker" type="MuonCandidateMaker" config="config/MuonCandidateMaker/debug.xml" nodePath="MuonCandidateMaker" />
+	<Task name="ElectronCandidateMaker" type="ElectronCandidateMaker" config="config/ElectronCandidateMaker/debug.xml" nodePath="ElectronCandidateMaker" />
 	
 
 </config>
