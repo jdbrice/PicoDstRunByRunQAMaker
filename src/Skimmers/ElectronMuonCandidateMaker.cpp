@@ -65,14 +65,8 @@ bool ElectronMuonCandidateMaker::keepTrack( int iTrack ){
 }
 
 void ElectronMuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int iCandTrack ){
-	aTrack->charge = pico->Tracks_mNHitsFit[iTrack] > 0 ? 1 : -1;
+	fillCandidateTrack( aTrack, iTrack );
 
-	aTrack->pX = pico->Tracks_mPMomentum_mX1[iTrack];
-	aTrack->pY = pico->Tracks_mPMomentum_mX2[iTrack];
-	aTrack->pZ = pico->Tracks_mPMomentum_mX3[iTrack];
-
-	aTrack->species = speciesMask();
-	
 	// keep events with at least 2 tracks
 	if ( iCandTrack >= 1 && nElectrons >= 1 && nMuons >= 1)
 		keepEvent = true;

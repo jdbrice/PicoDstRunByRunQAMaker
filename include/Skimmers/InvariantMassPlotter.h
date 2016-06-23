@@ -48,12 +48,14 @@ protected:
 
 				lv = lv1 + lv2;
 
+				if ( lv1.P() < 3.5 && lv2.P() < 3.5   ) continue;
+
 				// like sign
-				if ( aTrack->charge * bTrack->charge == 1 ){
-					book->fill( "like_sign", lv.M() );
-				} else {
-					book->fill( "unlike_sign", lv.M() );
-				}
+				// if ( aTrack->charge * bTrack->charge == 1 ){
+				// 	book->fill( "like_sign", lv.M() );
+				// } else {
+				// 	book->fill( "unlike_sign", lv.M() );
+				// }
 			}
 		}
 

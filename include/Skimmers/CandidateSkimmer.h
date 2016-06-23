@@ -37,10 +37,10 @@ protected:
 		INFO( classname(), "daniel" );
 		
 		INFO( classname(), tracks->GetEntries() );
-		INFO( classname(), event->eventId );
+		INFO( classname(), event->mEventId );
 		if ( tracks->GetEntries() >= 20 ){
 			CandidateTrack* track = (CandidateTrack*)tracks->At( 19 );
-			cout << track->beta << endl;
+			// cout << track->beta << endl;
 		}
 
 	}

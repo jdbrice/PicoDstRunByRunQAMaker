@@ -9,10 +9,11 @@ public:
 	CandidateEvent() {}
 	~CandidateEvent() {}
 
-	Int_t runId;	//Run ID
-	Int_t eventId;	//Event Id
-	UShort_t bin16;	// centrality bin 16
-	
+	Int_t 		mRunId;			// Run ID
+	Int_t 		mEventId;		// Event Id
+	Int_t 		mPsi2;			// event plane angle
+	UShort_t 	mBin16;			// centrality bin 16
+
 	ClassDef( CandidateEvent, 1 )
 };
 

@@ -45,6 +45,18 @@ public:
 		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( iMtd ) || !ccol[ "matchFlagMtd" ]->inInclusiveRange( pico->MtdPidTraits_mMatchFlag[ iMtd ] ) ){
 			return false;
 		}
+
+		if ( !ccol[ "dTofMtd" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaTimeOfFlight[ iMtd ] ) ){
+			return false;
+		} 
+
+		if ( !ccol[ "dyMtd" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaY[ iMtd ] ) ){
+			return false;
+		}
+		if ( !ccol[ "dzMtd" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaZ[ iMtd ] ) ){
+			return false;
+		}
+
 		return true;
 	}
 
