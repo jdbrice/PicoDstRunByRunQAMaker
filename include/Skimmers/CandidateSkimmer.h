@@ -29,9 +29,12 @@ public:
 
 protected:
 
+	CandidateEvent *event;
+	CandidateEventPlane *eventPlane;
+	TClonesArray *tracks;
+	TClonesArray *btofPidTraits;
+	TClonesArray *mtdPidTraits;
 
-	TClonesArray * tracks;
-	CandidateEvent * event;
 
 	virtual void analyzeEvent(){
 		INFO( classname(), "daniel" );

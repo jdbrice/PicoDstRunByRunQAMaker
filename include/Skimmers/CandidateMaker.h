@@ -9,6 +9,9 @@
 #include "CandidateTrackBTofPidTraits.h"
 #include "CandidateTrackMtdPidTraits.h"
 
+#include "StRefMultCorr.h"
+#include "CentralityMaker.h"
+
 //ROOT
 #include "TClonesArray.h"
 #include "TVector3.h"
@@ -31,10 +34,14 @@ public:
 		mtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
 		
 		createTree();
+
+		
+		rmc = CentralityMaker::instance()->getgRefMultCorr();
 	}
 
 
 protected:
+	StRefMultCorr * rmc;
 	string treeDescription = "Generic";
 	TTree * mTree;
 	Int_t nCandTracks;
@@ -62,6 +69,15 @@ protected:
 	}
 
 	virtual void analyzeEvent(){
+
+		/*********** Initialize the RefMultCorr *************/
+		rmc->init( pico->Event_mRunId[0] );
+		rmc->initEvent( 
+			pico->Event_mGRefMult[0], 
+			pico->Event_mPrimaryVertex_mX3[0], 
+			pico->Event_mZDCx[0]
+		);
+
 		// set the event level items
 		event->mRunId 		= pico->Event_mRunId[0];
 		event->mEventId 	= pico->Event_mEventId[0];
@@ -75,6 +91,18 @@ protected:
 		// and default the track level
 		isMuon = false;
 		isElectron = false;
+	}
+
+	virtual void fillEvent() {
+		event->mRunId 		= pico->Event_mRunId[0];
+		event->mEventId 	= pico->Event_mEventId[0];
+		event->mTriggerWord = pico->Event_mTriggerWord[0];
+		event->mTriggerWordMtd = pico->Event_mTriggerWordMtd[0];
+
+		// TODO: after EventPlane is settled
+		event->mPsi2 		= 0;
+
+		// StRefMultCorr
 	}
 
 	virtual void fillEventPlane(){
