@@ -35,8 +35,8 @@ public:
 		
 		createTree();
 
-		
-		rmc = CentralityMaker::instance()->getgRefMultCorr();
+		if ( config.getBool( nodePath + ":rmc", true ) )
+			rmc = CentralityMaker::instance()->getgRefMultCorr();
 	}
 
 
@@ -71,12 +71,14 @@ protected:
 	virtual void analyzeEvent(){
 
 		/*********** Initialize the RefMultCorr *************/
-		rmc->init( pico->Event_mRunId[0] );
-		rmc->initEvent( 
-			pico->Event_mGRefMult[0], 
-			pico->Event_mPrimaryVertex_mX3[0], 
-			pico->Event_mZDCx[0]
-		);
+		if ( config.getBool( nodePath + ":rmc", true ) ){
+			rmc->init( pico->Event_mRunId[0] );
+			rmc->initEvent( 
+				pico->Event_mGRefMult[0], 
+				pico->Event_mPrimaryVertex_mX3[0], 
+				pico->Event_mZDCx[0]
+			);
+		}
 
 		// set the event level items
 		event->mRunId 		= pico->Event_mRunId[0];
