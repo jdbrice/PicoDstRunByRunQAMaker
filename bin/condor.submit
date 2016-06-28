@@ -5,5 +5,8 @@
 Executable = /home/jdb12/work/muonAna/bin/app
 Initialdir = /home/jdb12/work/muonAna/bin
 
+Log = /home/jdb12/work/muonAna/bin/log/log_$(Process).log
+Error = /home/jdb12/work/muonAna/bin/log/error_$(Process).log
+Output = /home/jdb12/work/muonAna/bin/log/output_$(Process).log
 Arguments = /home/jdb12/work/muonAna/bin/prod.xml --jobIndex=$(Process) --MuonCandidateMaker:rmc=false
 Queue 374
