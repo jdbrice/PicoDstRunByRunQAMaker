@@ -1,0 +1,8 @@
+##############
+# Muon Ana
+##############
+
+Executable = /home/jdb12/work/muonAna/bin/app
+Initialdir = /home/jdb12/work/muonAna/bin
+
+Arguments = /home/jdb12/work/muonAna/bin/prod.xml --jobIndex=$(Process) --MuonCandidateMaker:rmc=false
