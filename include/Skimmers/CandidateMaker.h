@@ -161,15 +161,34 @@ protected:
 	}
 
 	virtual void fillCandidateTrack( CandidateTrack * aTrack, int iTrack ){
-		aTrack->mNHitsFit = pico->Tracks_mNHitsFit[iTrack];
+		
 
 		aTrack->pX = pico->Tracks_mPMomentum_mX1[iTrack];
 		aTrack->pY = pico->Tracks_mPMomentum_mX2[iTrack];
 		aTrack->pZ = pico->Tracks_mPMomentum_mX3[iTrack];
 
 		aTrack->mDedx = pico->Tracks_mDedx[ iTrack ];
+		aTrack->mNHitsFit = pico->Tracks_mNHitsFit[iTrack];
+		aTrack->mNHitsMax = pico->Tracks_mNHitsMax[iTrack];
+		aTrack->mNHitsDedx = pico->Tracks_mNHitsDedx[iTrack];
 
+		aTrack->mNSigmaPion = pico->Tracks_mNSigmaPion[ iTrack ];
+		aTrack->mNSigmaKaon = pico->Tracks_mNSigmaKaon[ iTrack ];
+		aTrack->mNSigmaProton = pico->Tracks_mNSigmaProton[ iTrack ];
+		aTrack->mNSigmaElectron = pico->Tracks_mNSigmaElectron[ iTrack ];
 
+		// default out the PidTraits
+		aTrack->mBTofPidTraitsIndex = -1; 
+		aTrack->mMtdPidTraitsIndex = -1;
+
+		fillBTofPidTraits( aTrack, iTrack );
+		fillMtdPidTraits( aTrack, iTrack );
+		
+
+		// aTrack->species = speciesMask();
+	}
+
+	virtual void fillBTofPidTraits( CandidateTrack * aTrack, int iTrack ){
 		// BTofPidTraits
 		int iBTof = pico->Tracks_mBTofPidTraitsIndex[ iTrack ];
 		if ( iBTof >= 0 && isElectron){
@@ -185,7 +204,9 @@ protected:
 		}
 		else {
 		}
+	}
 
+	virtual void fillMtdPidTraits( CandidateTrack * aTrack, int iTrack ){
 		// MtdPidTraits
 		int iMtd = pico->Tracks_mMtdPidTraitsIndex[ iTrack ];
 		if ( iMtd >= 0 ){
@@ -196,14 +217,15 @@ protected:
 			mtdpid->mDeltaY 	= pico->MtdPidTraits_mDeltaY[ iMtd ];
 			mtdpid->mDeltaZ 	= pico->MtdPidTraits_mDeltaZ[ iMtd ];
 			mtdpid->mDeltaTimeOfFlight = pico->MtdPidTraits_mDeltaTimeOfFlight[ iMtd ];
+			mtdpid->mMtdHitChan = pico->MtdPidTraits_mMtdHitChan[ iMtd ];
 
 			nMtdPidTraits ++;
 		} else {
 
 		}
-
-		// aTrack->species = speciesMask();
 	}
+
+
 	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int nCandTracks ){
 		fillCandidateTrack( aTrack, iTrack );
 	}
