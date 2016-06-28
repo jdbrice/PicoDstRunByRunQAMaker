@@ -1,24 +1,27 @@
-#include "PicoDst.h"
+#include "PicoDstRun15PP200.h"
+#include <TH2.h>
+#include <TStyle.h>
+#include <TCanvas.h>
 
-
-PicoDst::PicoDst(TTree *tree) : fChain(0) 
+PicoDstRun15PP200::PicoDstRun15PP200(TTree *tree) : fChain(0) 
 {
+
    Init(tree);
 }
 
-PicoDst::~PicoDst()
+PicoDstRun15PP200::~PicoDstRun15PP200()
 {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t PicoDst::GetEntry(Long64_t entry)
+Int_t PicoDstRun15PP200::GetEntry(Long64_t entry)
 {
 // Read contents of entry.
    if (!fChain) return 0;
    return fChain->GetEntry(entry);
 }
-Long64_t PicoDst::LoadTree(Long64_t entry)
+Long64_t PicoDstRun15PP200::LoadTree(Long64_t entry)
 {
 // Set the environment to read one entry
    if (!fChain) return -5;
@@ -31,33 +34,7 @@ Long64_t PicoDst::LoadTree(Long64_t entry)
    return centry;
 }
 
-
-// {
-//   // st_mtd stream
-//   450601, // dimuon
-//   450611, // dimuon
-//   450621, // dimuon
-//   450631, // dimuon
-//   450641, // dimuon
-//   450604,    // dimuon-30-hft (production_2014)
-//   450605,    // dimuon-5-hft (production_mid_2014, production_low_2014)
-//   450606,    // dimuon-5-hft (production_mid_2014)
-//   450602,    // e-mu (production_2014)
-//   450612,    // e-mu (production_2014, production_low_2014)
-//   450622,    // e-mu (production_2014, production_low_2014)
-//   450632,    // e-mu (production_mid_2014)
-//   450642,    // e-mu (production_2014, production_low_2014)
-//   450600,    // single-muon (production_2014)
-//   450610,    // single-muon (production_2014, production_low_2014)
-//   450620,    // single-muon (production_2014, production_low_2014)
-//   450630,    // single-muon (production_mid_2014)
-//   450640     // single-muon (production_2014, production_low_2014)
-// }; // Run14 AuAu200 GeV StMtd Stream
-
-
-
-
-void PicoDst::Init(TTree *tree)
+void PicoDstRun15PP200::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
@@ -134,42 +111,51 @@ void PicoDst::Init(TTree *tree)
    fChain->SetBranchAddress("Event.mHT_Th[4]", Event_mHT_Th, &b_Event_mHT_Th);
    fChain->SetBranchAddress("Event.mJP_Th[4]", Event_mJP_Th, &b_Event_mJP_Th);
    fChain->SetBranchAddress("EventPlane", &EventPlane_, &b_EventPlane_);
-   fChain->SetBranchAddress("EventPlane.fUniqueID", EventPlane_fUniqueID, &b_EventPlane_fUniqueID);
-   fChain->SetBranchAddress("EventPlane.fBits", EventPlane_fBits, &b_EventPlane_fBits);
-   fChain->SetBranchAddress("EventPlane.mQx_eta_pos", EventPlane_mQx_eta_pos, &b_EventPlane_mQx_eta_pos);
-   fChain->SetBranchAddress("EventPlane.mQy_eta_pos", EventPlane_mQy_eta_pos, &b_EventPlane_mQy_eta_pos);
-   fChain->SetBranchAddress("EventPlane.mQx_eta_neg", EventPlane_mQx_eta_neg, &b_EventPlane_mQx_eta_neg);
-   fChain->SetBranchAddress("EventPlane.mQy_eta_neg", EventPlane_mQy_eta_neg, &b_EventPlane_mQy_eta_neg);
-   fChain->SetBranchAddress("EventPlane.mNtrk_eta_pos", EventPlane_mNtrk_eta_pos, &b_EventPlane_mNtrk_eta_pos);
-   fChain->SetBranchAddress("EventPlane.mNtrk_eta_neg", EventPlane_mNtrk_eta_neg, &b_EventPlane_mNtrk_eta_neg);
-   fChain->SetBranchAddress("EventPlane.mWeight_eta_pos", EventPlane_mWeight_eta_pos, &b_EventPlane_mWeight_eta_pos);
-   fChain->SetBranchAddress("EventPlane.mWeight_eta_neg", EventPlane_mWeight_eta_neg, &b_EventPlane_mWeight_eta_neg);
-   fChain->SetBranchAddress("EventPlane.mQx_chg_pos", EventPlane_mQx_chg_pos, &b_EventPlane_mQx_chg_pos);
-   fChain->SetBranchAddress("EventPlane.mQy_chg_pos", EventPlane_mQy_chg_pos, &b_EventPlane_mQy_chg_pos);
-   fChain->SetBranchAddress("EventPlane.mQx_chg_neg", EventPlane_mQx_chg_neg, &b_EventPlane_mQx_chg_neg);
-   fChain->SetBranchAddress("EventPlane.mQy_chg_neg", EventPlane_mQy_chg_neg, &b_EventPlane_mQy_chg_neg);
-   fChain->SetBranchAddress("EventPlane.mNtrk_chg_pos_eta_pos", EventPlane_mNtrk_chg_pos_eta_pos, &b_EventPlane_mNtrk_chg_pos_eta_pos);
-   fChain->SetBranchAddress("EventPlane.mNtrk_chg_pos_eta_neg", EventPlane_mNtrk_chg_pos_eta_neg, &b_EventPlane_mNtrk_chg_pos_eta_neg);
-   fChain->SetBranchAddress("EventPlane.mNtrk_chg_neg_eta_pos", EventPlane_mNtrk_chg_neg_eta_pos, &b_EventPlane_mNtrk_chg_neg_eta_pos);
-   fChain->SetBranchAddress("EventPlane.mNtrk_chg_neg_eta_neg", EventPlane_mNtrk_chg_neg_eta_neg, &b_EventPlane_mNtrk_chg_neg_eta_neg);
-   fChain->SetBranchAddress("EventPlane.mWeight_chg_pos", EventPlane_mWeight_chg_pos, &b_EventPlane_mWeight_chg_pos);
-   fChain->SetBranchAddress("EventPlane.mWeight_chg_neg", EventPlane_mWeight_chg_neg, &b_EventPlane_mWeight_chg_neg);
-   fChain->SetBranchAddress("EventPlane.mQx_ran_1", EventPlane_mQx_ran_1, &b_EventPlane_mQx_ran_1);
-   fChain->SetBranchAddress("EventPlane.mQy_ran_1", EventPlane_mQy_ran_1, &b_EventPlane_mQy_ran_1);
-   fChain->SetBranchAddress("EventPlane.mQx_ran_2", EventPlane_mQx_ran_2, &b_EventPlane_mQx_ran_2);
-   fChain->SetBranchAddress("EventPlane.mQy_ran_2", EventPlane_mQy_ran_2, &b_EventPlane_mQy_ran_2);
-   fChain->SetBranchAddress("EventPlane.mNtrk_ran_1_eta_pos", EventPlane_mNtrk_ran_1_eta_pos, &b_EventPlane_mNtrk_ran_1_eta_pos);
-   fChain->SetBranchAddress("EventPlane.mNtrk_ran_1_eta_neg", EventPlane_mNtrk_ran_1_eta_neg, &b_EventPlane_mNtrk_ran_1_eta_neg);
-   fChain->SetBranchAddress("EventPlane.mNtrk_ran_2_eta_pos", EventPlane_mNtrk_ran_2_eta_pos, &b_EventPlane_mNtrk_ran_2_eta_pos);
-   fChain->SetBranchAddress("EventPlane.mNtrk_ran_2_eta_neg", EventPlane_mNtrk_ran_2_eta_neg, &b_EventPlane_mNtrk_ran_2_eta_neg);
-   fChain->SetBranchAddress("EventPlane.mWeight_ran_1", EventPlane_mWeight_ran_1, &b_EventPlane_mWeight_ran_1);
-   fChain->SetBranchAddress("EventPlane.mWeight_ran_2", EventPlane_mWeight_ran_2, &b_EventPlane_mWeight_ran_2);
+   fChain->SetBranchAddress("EventPlane.fUniqueID", &EventPlane_fUniqueID, &b_EventPlane_fUniqueID);
+   fChain->SetBranchAddress("EventPlane.fBits", &EventPlane_fBits, &b_EventPlane_fBits);
+   fChain->SetBranchAddress("EventPlane.mQx_eta_pos", &EventPlane_mQx_eta_pos, &b_EventPlane_mQx_eta_pos);
+   fChain->SetBranchAddress("EventPlane.mQy_eta_pos", &EventPlane_mQy_eta_pos, &b_EventPlane_mQy_eta_pos);
+   fChain->SetBranchAddress("EventPlane.mQx_eta_neg", &EventPlane_mQx_eta_neg, &b_EventPlane_mQx_eta_neg);
+   fChain->SetBranchAddress("EventPlane.mQy_eta_neg", &EventPlane_mQy_eta_neg, &b_EventPlane_mQy_eta_neg);
+   fChain->SetBranchAddress("EventPlane.mNtrk_eta_pos", &EventPlane_mNtrk_eta_pos, &b_EventPlane_mNtrk_eta_pos);
+   fChain->SetBranchAddress("EventPlane.mNtrk_eta_neg", &EventPlane_mNtrk_eta_neg, &b_EventPlane_mNtrk_eta_neg);
+   fChain->SetBranchAddress("EventPlane.mWeight_eta_pos", &EventPlane_mWeight_eta_pos, &b_EventPlane_mWeight_eta_pos);
+   fChain->SetBranchAddress("EventPlane.mWeight_eta_neg", &EventPlane_mWeight_eta_neg, &b_EventPlane_mWeight_eta_neg);
+   fChain->SetBranchAddress("EventPlane.mQx_chg_pos", &EventPlane_mQx_chg_pos, &b_EventPlane_mQx_chg_pos);
+   fChain->SetBranchAddress("EventPlane.mQy_chg_pos", &EventPlane_mQy_chg_pos, &b_EventPlane_mQy_chg_pos);
+   fChain->SetBranchAddress("EventPlane.mQx_chg_neg", &EventPlane_mQx_chg_neg, &b_EventPlane_mQx_chg_neg);
+   fChain->SetBranchAddress("EventPlane.mQy_chg_neg", &EventPlane_mQy_chg_neg, &b_EventPlane_mQy_chg_neg);
+   fChain->SetBranchAddress("EventPlane.mNtrk_chg_pos_eta_pos", &EventPlane_mNtrk_chg_pos_eta_pos, &b_EventPlane_mNtrk_chg_pos_eta_pos);
+   fChain->SetBranchAddress("EventPlane.mNtrk_chg_pos_eta_neg", &EventPlane_mNtrk_chg_pos_eta_neg, &b_EventPlane_mNtrk_chg_pos_eta_neg);
+   fChain->SetBranchAddress("EventPlane.mNtrk_chg_neg_eta_pos", &EventPlane_mNtrk_chg_neg_eta_pos, &b_EventPlane_mNtrk_chg_neg_eta_pos);
+   fChain->SetBranchAddress("EventPlane.mNtrk_chg_neg_eta_neg", &EventPlane_mNtrk_chg_neg_eta_neg, &b_EventPlane_mNtrk_chg_neg_eta_neg);
+   fChain->SetBranchAddress("EventPlane.mWeight_chg_pos", &EventPlane_mWeight_chg_pos, &b_EventPlane_mWeight_chg_pos);
+   fChain->SetBranchAddress("EventPlane.mWeight_chg_neg", &EventPlane_mWeight_chg_neg, &b_EventPlane_mWeight_chg_neg);
+   fChain->SetBranchAddress("EventPlane.mQx_ran_1", &EventPlane_mQx_ran_1, &b_EventPlane_mQx_ran_1);
+   fChain->SetBranchAddress("EventPlane.mQy_ran_1", &EventPlane_mQy_ran_1, &b_EventPlane_mQy_ran_1);
+   fChain->SetBranchAddress("EventPlane.mQx_ran_2", &EventPlane_mQx_ran_2, &b_EventPlane_mQx_ran_2);
+   fChain->SetBranchAddress("EventPlane.mQy_ran_2", &EventPlane_mQy_ran_2, &b_EventPlane_mQy_ran_2);
+   fChain->SetBranchAddress("EventPlane.mNtrk_ran_1_eta_pos", &EventPlane_mNtrk_ran_1_eta_pos, &b_EventPlane_mNtrk_ran_1_eta_pos);
+   fChain->SetBranchAddress("EventPlane.mNtrk_ran_1_eta_neg", &EventPlane_mNtrk_ran_1_eta_neg, &b_EventPlane_mNtrk_ran_1_eta_neg);
+   fChain->SetBranchAddress("EventPlane.mNtrk_ran_2_eta_pos", &EventPlane_mNtrk_ran_2_eta_pos, &b_EventPlane_mNtrk_ran_2_eta_pos);
+   fChain->SetBranchAddress("EventPlane.mNtrk_ran_2_eta_neg", &EventPlane_mNtrk_ran_2_eta_neg, &b_EventPlane_mNtrk_ran_2_eta_neg);
+   fChain->SetBranchAddress("EventPlane.mWeight_ran_1", &EventPlane_mWeight_ran_1, &b_EventPlane_mWeight_ran_1);
+   fChain->SetBranchAddress("EventPlane.mWeight_ran_2", &EventPlane_mWeight_ran_2, &b_EventPlane_mWeight_ran_2);
    fChain->SetBranchAddress("Tracks", &Tracks_, &b_Tracks_);
    fChain->SetBranchAddress("Tracks.mId", Tracks_mId, &b_Tracks_mId);
    fChain->SetBranchAddress("Tracks.mChi2", Tracks_mChi2, &b_Tracks_mChi2);
+   fChain->SetBranchAddress("Tracks.mChi2Prob", Tracks_mChi2Prob, &b_Tracks_mChi2Prob);
+   fChain->SetBranchAddress("Tracks.mGMomentum.mX1", Tracks_mGMomentum_mX1, &b_Tracks_mGMomentum_mX1);
+   fChain->SetBranchAddress("Tracks.mGMomentum.mX2", Tracks_mGMomentum_mX2, &b_Tracks_mGMomentum_mX2);
+   fChain->SetBranchAddress("Tracks.mGMomentum.mX3", Tracks_mGMomentum_mX3, &b_Tracks_mGMomentum_mX3);
    fChain->SetBranchAddress("Tracks.mPMomentum.mX1", Tracks_mPMomentum_mX1, &b_Tracks_mPMomentum_mX1);
    fChain->SetBranchAddress("Tracks.mPMomentum.mX2", Tracks_mPMomentum_mX2, &b_Tracks_mPMomentum_mX2);
    fChain->SetBranchAddress("Tracks.mPMomentum.mX3", Tracks_mPMomentum_mX3, &b_Tracks_mPMomentum_mX3);
+   fChain->SetBranchAddress("Tracks.mFlowFlag", Tracks_mFlowFlag, &b_Tracks_mFlowFlag);
+   fChain->SetBranchAddress("Tracks.mOriginX", Tracks_mOriginX, &b_Tracks_mOriginX);
+   fChain->SetBranchAddress("Tracks.mOriginY", Tracks_mOriginY, &b_Tracks_mOriginY);
+   fChain->SetBranchAddress("Tracks.mOriginZ", Tracks_mOriginZ, &b_Tracks_mOriginZ);
+   fChain->SetBranchAddress("Tracks.mGDca", Tracks_mGDca, &b_Tracks_mGDca);
    fChain->SetBranchAddress("Tracks.mDedx", Tracks_mDedx, &b_Tracks_mDedx);
    fChain->SetBranchAddress("Tracks.mNHitsFit", Tracks_mNHitsFit, &b_Tracks_mNHitsFit);
    fChain->SetBranchAddress("Tracks.mNHitsMax", Tracks_mNHitsMax, &b_Tracks_mNHitsMax);
@@ -178,19 +164,16 @@ void PicoDst::Init(TTree *tree)
    fChain->SetBranchAddress("Tracks.mNSigmaKaon", Tracks_mNSigmaKaon, &b_Tracks_mNSigmaKaon);
    fChain->SetBranchAddress("Tracks.mNSigmaProton", Tracks_mNSigmaProton, &b_Tracks_mNSigmaProton);
    fChain->SetBranchAddress("Tracks.mNSigmaElectron", Tracks_mNSigmaElectron, &b_Tracks_mNSigmaElectron);
-   fChain->SetBranchAddress("Tracks.mMap0", Tracks_mMap0, &b_Tracks_mMap0);
-   fChain->SetBranchAddress("Tracks.mMap1", Tracks_mMap1, &b_Tracks_mMap1);
-   fChain->SetBranchAddress("Tracks.mPar[6]", Tracks_mPar, &b_Tracks_mPar);
-   fChain->SetBranchAddress("Tracks.mErrMatrix[15]", Tracks_mErrMatrix, &b_Tracks_mErrMatrix);
+   fChain->SetBranchAddress("Tracks.mNHitsMapHFT", Tracks_mNHitsMapHFT, &b_Tracks_mNHitsMapHFT);
    fChain->SetBranchAddress("Tracks.mEmcPidTraitsIndex", Tracks_mEmcPidTraitsIndex, &b_Tracks_mEmcPidTraitsIndex);
    fChain->SetBranchAddress("Tracks.mBTofPidTraitsIndex", Tracks_mBTofPidTraitsIndex, &b_Tracks_mBTofPidTraitsIndex);
    fChain->SetBranchAddress("Tracks.mMtdPidTraitsIndex", Tracks_mMtdPidTraitsIndex, &b_Tracks_mMtdPidTraitsIndex);
    fChain->SetBranchAddress("EmcTrigger", &EmcTrigger_, &b_EmcTrigger_);
-   fChain->SetBranchAddress("EmcTrigger.fUniqueID", EmcTrigger_fUniqueID, &b_EmcTrigger_fUniqueID);
-   fChain->SetBranchAddress("EmcTrigger.fBits", EmcTrigger_fBits, &b_EmcTrigger_fBits);
-   fChain->SetBranchAddress("EmcTrigger.mFlag", EmcTrigger_mFlag, &b_EmcTrigger_mFlag);
-   fChain->SetBranchAddress("EmcTrigger.mId", EmcTrigger_mId, &b_EmcTrigger_mId);
-   fChain->SetBranchAddress("EmcTrigger.mAdc", EmcTrigger_mAdc, &b_EmcTrigger_mAdc);
+   fChain->SetBranchAddress("EmcTrigger.fUniqueID", &EmcTrigger_fUniqueID, &b_EmcTrigger_fUniqueID);
+   fChain->SetBranchAddress("EmcTrigger.fBits", &EmcTrigger_fBits, &b_EmcTrigger_fBits);
+   fChain->SetBranchAddress("EmcTrigger.mFlag", &EmcTrigger_mFlag, &b_EmcTrigger_mFlag);
+   fChain->SetBranchAddress("EmcTrigger.mId", &EmcTrigger_mId, &b_EmcTrigger_mId);
+   fChain->SetBranchAddress("EmcTrigger.mAdc", &EmcTrigger_mAdc, &b_EmcTrigger_mAdc);
    fChain->SetBranchAddress("MtdTrigger", &MtdTrigger_, &b_MtdTrigger_);
    fChain->SetBranchAddress("MtdTrigger.fUniqueID", MtdTrigger_fUniqueID, &b_MtdTrigger_fUniqueID);
    fChain->SetBranchAddress("MtdTrigger.fBits", MtdTrigger_fBits, &b_MtdTrigger_fBits);
@@ -220,24 +203,24 @@ void PicoDst::Init(TTree *tree)
    fChain->SetBranchAddress("MtdHit.mTrailingEdgeTime.first", MtdHit_mTrailingEdgeTime_first, &b_MtdHit_mTrailingEdgeTime_first);
    fChain->SetBranchAddress("MtdHit.mTrailingEdgeTime.second", MtdHit_mTrailingEdgeTime_second, &b_MtdHit_mTrailingEdgeTime_second);
    fChain->SetBranchAddress("EmcPidTraits", &EmcPidTraits_, &b_EmcPidTraits_);
-   fChain->SetBranchAddress("EmcPidTraits.fUniqueID", EmcPidTraits_fUniqueID, &b_EmcPidTraits_fUniqueID);
-   fChain->SetBranchAddress("EmcPidTraits.fBits", EmcPidTraits_fBits, &b_EmcPidTraits_fBits);
-   fChain->SetBranchAddress("EmcPidTraits.mTrackIndex", EmcPidTraits_mTrackIndex, &b_EmcPidTraits_mTrackIndex);
-   fChain->SetBranchAddress("EmcPidTraits.mBEMCId", EmcPidTraits_mBEMCId, &b_EmcPidTraits_mBEMCId);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWADC0", EmcPidTraits_mBTOWADC0, &b_EmcPidTraits_mBTOWADC0);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWE0", EmcPidTraits_mBTOWE0, &b_EmcPidTraits_mBTOWE0);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWE", EmcPidTraits_mBTOWE, &b_EmcPidTraits_mBTOWE);
-   fChain->SetBranchAddress("EmcPidTraits.mBEMCDistZ", EmcPidTraits_mBEMCDistZ, &b_EmcPidTraits_mBEMCDistZ);
-   fChain->SetBranchAddress("EmcPidTraits.mBEMCDistPhi", EmcPidTraits_mBEMCDistPhi, &b_EmcPidTraits_mBEMCDistPhi);
-   fChain->SetBranchAddress("EmcPidTraits.mBSMDNEta", EmcPidTraits_mBSMDNEta, &b_EmcPidTraits_mBSMDNEta);
-   fChain->SetBranchAddress("EmcPidTraits.mBSMDNPhi", EmcPidTraits_mBSMDNPhi, &b_EmcPidTraits_mBSMDNPhi);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWId", EmcPidTraits_mBTOWId, &b_EmcPidTraits_mBTOWId);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWId23", EmcPidTraits_mBTOWId23, &b_EmcPidTraits_mBTOWId23);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWE1", EmcPidTraits_mBTOWE1, &b_EmcPidTraits_mBTOWE1);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWE2", EmcPidTraits_mBTOWE2, &b_EmcPidTraits_mBTOWE2);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWE3", EmcPidTraits_mBTOWE3, &b_EmcPidTraits_mBTOWE3);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWDistEta", EmcPidTraits_mBTOWDistEta, &b_EmcPidTraits_mBTOWDistEta);
-   fChain->SetBranchAddress("EmcPidTraits.mBTOWDistPhi", EmcPidTraits_mBTOWDistPhi, &b_EmcPidTraits_mBTOWDistPhi);
+   fChain->SetBranchAddress("EmcPidTraits.fUniqueID", &EmcPidTraits_fUniqueID, &b_EmcPidTraits_fUniqueID);
+   fChain->SetBranchAddress("EmcPidTraits.fBits", &EmcPidTraits_fBits, &b_EmcPidTraits_fBits);
+   fChain->SetBranchAddress("EmcPidTraits.mTrackIndex", &EmcPidTraits_mTrackIndex, &b_EmcPidTraits_mTrackIndex);
+   fChain->SetBranchAddress("EmcPidTraits.mBEMCId", &EmcPidTraits_mBEMCId, &b_EmcPidTraits_mBEMCId);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWADC0", &EmcPidTraits_mBTOWADC0, &b_EmcPidTraits_mBTOWADC0);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWE0", &EmcPidTraits_mBTOWE0, &b_EmcPidTraits_mBTOWE0);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWE", &EmcPidTraits_mBTOWE, &b_EmcPidTraits_mBTOWE);
+   fChain->SetBranchAddress("EmcPidTraits.mBEMCDistZ", &EmcPidTraits_mBEMCDistZ, &b_EmcPidTraits_mBEMCDistZ);
+   fChain->SetBranchAddress("EmcPidTraits.mBEMCDistPhi", &EmcPidTraits_mBEMCDistPhi, &b_EmcPidTraits_mBEMCDistPhi);
+   fChain->SetBranchAddress("EmcPidTraits.mBSMDNEta", &EmcPidTraits_mBSMDNEta, &b_EmcPidTraits_mBSMDNEta);
+   fChain->SetBranchAddress("EmcPidTraits.mBSMDNPhi", &EmcPidTraits_mBSMDNPhi, &b_EmcPidTraits_mBSMDNPhi);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWId", &EmcPidTraits_mBTOWId, &b_EmcPidTraits_mBTOWId);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWId23", &EmcPidTraits_mBTOWId23, &b_EmcPidTraits_mBTOWId23);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWE1", &EmcPidTraits_mBTOWE1, &b_EmcPidTraits_mBTOWE1);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWE2", &EmcPidTraits_mBTOWE2, &b_EmcPidTraits_mBTOWE2);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWE3", &EmcPidTraits_mBTOWE3, &b_EmcPidTraits_mBTOWE3);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWDistEta", &EmcPidTraits_mBTOWDistEta, &b_EmcPidTraits_mBTOWDistEta);
+   fChain->SetBranchAddress("EmcPidTraits.mBTOWDistPhi", &EmcPidTraits_mBTOWDistPhi, &b_EmcPidTraits_mBTOWDistPhi);
    fChain->SetBranchAddress("BTofPidTraits", &BTofPidTraits_, &b_BTofPidTraits_);
    fChain->SetBranchAddress("BTofPidTraits.fUniqueID", BTofPidTraits_fUniqueID, &b_BTofPidTraits_fUniqueID);
    fChain->SetBranchAddress("BTofPidTraits.fBits", BTofPidTraits_fBits, &b_BTofPidTraits_fBits);
@@ -288,7 +271,7 @@ void PicoDst::Init(TTree *tree)
    Notify();
 }
 
-Bool_t PicoDst::Notify()
+Bool_t PicoDstRun15PP200::Notify()
 {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
@@ -299,14 +282,14 @@ Bool_t PicoDst::Notify()
    return kTRUE;
 }
 
-void PicoDst::Show(Long64_t entry)
+void PicoDstRun15PP200::Show(Long64_t entry)
 {
 // Print contents of entry.
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
-Int_t PicoDst::Cut(Long64_t entry)
+Int_t PicoDstRun15PP200::Cut(Long64_t entry)
 {
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
@@ -314,3 +297,41 @@ Int_t PicoDst::Cut(Long64_t entry)
    return 1;
 }
 
+
+void PicoDstRun15PP200::Loop()
+{
+//   In a ROOT session, you can do:
+//      root> .L PicoDstRun15PP200.C
+//      root> PicoDstRun15PP200 t
+//      root> t.GetEntry(12); // Fill t data members with entry number 12
+//      root> t.Show();       // Show values of entry 12
+//      root> t.Show(16);     // Read and show values of entry 16
+//      root> t.Loop();       // Loop on all entries
+//
+
+//     This is the loop skeleton where:
+//    jentry is the global entry number in the chain
+//    ientry is the entry number in the current Tree
+//  Note that the argument to GetEntry must be:
+//    jentry for TChain::GetEntry
+//    ientry for TTree::GetEntry and TBranch::GetEntry
+//
+//       To read only selected branches, Insert statements like:
+// METHOD1:
+//    fChain->SetBranchStatus("*",0);  // disable all branches
+//    fChain->SetBranchStatus("branchname",1);  // activate branchname
+// METHOD2: replace line
+//    fChain->GetEntry(jentry);       //read all branches
+//by  b_branchname->GetEntry(ientry); //read only this branch
+   if (fChain == 0) return;
+
+   Long64_t nentries = fChain->GetEntriesFast();
+
+   Long64_t nbytes = 0, nb = 0;
+   for (Long64_t jentry=0; jentry<nentries;jentry++) {
+      Long64_t ientry = LoadTree(jentry);
+      if (ientry < 0) break;
+      nb = fChain->GetEntry(jentry);   nbytes += nb;
+      // if (Cut(ientry) < 0) continue;
+   }
+}

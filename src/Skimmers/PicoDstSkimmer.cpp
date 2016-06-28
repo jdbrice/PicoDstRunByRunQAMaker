@@ -1,13 +1,15 @@
 #include "PicoDstSkimmer.h"
 #include "SharedPicoDstSkimmer.h"
 
+//Data Adapters
+#include "PicoDstRun14AuAu200.h"
 
 void PicoDstSkimmer::initialize(){
 
 	// create the picodst interface
 	if ( false == sharedTree ){
 		INFO( classname(), "Using private PicoDst Interface" );
-		pico = shared_ptr<PicoDst>( new PicoDst( chain ) );
+		pico = shared_ptr<IPicoDst>( new PicoDstRun14AuAu200( chain ) );
 	} else {
 		INFO( classname(), "Using shared PicoDst Interface" );
 		pico = SharedPicoDstSkimmer::getPicoDst();

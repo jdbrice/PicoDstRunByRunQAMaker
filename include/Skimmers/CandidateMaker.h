@@ -81,9 +81,7 @@ protected:
 		}
 
 		// set the event level items
-		event->mRunId 		= pico->Event_mRunId[0];
-		event->mEventId 	= pico->Event_mEventId[0];
-		event->mBin16 		= 0;
+		fillEvent();
 
 		fillEventPlane();
 

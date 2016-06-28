@@ -7,7 +7,7 @@
 #include "format.h"
 
 // Project
-#include "PicoDst.h"
+#include "IPicoDst.h"
 #include "TriggerFilter.h"
 
 // STL
@@ -27,7 +27,7 @@ public:
 	
 protected:
 
-	shared_ptr<PicoDst> pico;
+	shared_ptr<IPicoDst> pico;
 	vector<string> EventBranches, TrackBranches;
 	TriggerFilter tf;
 	CutCollection eventCuts;

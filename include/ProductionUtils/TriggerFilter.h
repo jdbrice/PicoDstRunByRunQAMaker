@@ -1,7 +1,7 @@
 #ifndef TRIGGER_FILTER_H
 #define TRIGGER_FILTER_H
 
-#include "PicoDst.h"
+#include "IPicoDst.h"
 
 #include <string>
 #include "vector"
@@ -22,7 +22,7 @@ public:
 	}
 	~TriggerFilter(){}
 
-	bool anyTrigger( shared_ptr<PicoDst> pico ){
+	bool anyTrigger( shared_ptr<IPicoDst> pico ){
 		if ( triggerNames.size() >= 1 ){ // 0 == all triggers
 			for ( string trig : triggerNames ){
 				if ( pico->isMtdTrigger( trig ) ) {

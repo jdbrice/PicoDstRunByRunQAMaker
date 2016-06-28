@@ -3,13 +3,15 @@
 #include "TVector3.h"
 #include "StRefMultCorr.h"
 
+// Data Adapters
+#include "PicoDstRun14AuAu200.h"
 
 void RunByRunQAMaker::initialize(){
 	DEBUG( classname(), "initialize" );
 
 	// build the run map tool
 	rmf = shared_ptr<RunMapFactory>( new RunMapFactory( config.getBool( nodePath + ":noRunMap", false ) ) );
-	pico = shared_ptr<PicoDst>( new PicoDst( chain ) );
+	pico = shared_ptr<IPicoDst>( new PicoDstRun14AuAu200( chain ) );
 	rmc = CentralityMaker::instance()->getgRefMultCorr();
 
 	// so the histograms aren't so big

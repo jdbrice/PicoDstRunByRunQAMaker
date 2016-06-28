@@ -3,7 +3,7 @@
 #include "TreeAnalyzer.h"
 
 // Project
-#include "PicoDst.h"
+#include "IPicoDst.h"
 #include "CentralityMaker.h"
 #include "RunMapFactory.h"
 #include "ProductionFilter.h"
@@ -25,7 +25,7 @@ protected:
 
 	bool makeTrackQA, makeEventQA;
 
-	shared_ptr<PicoDst> pico;
+	shared_ptr<IPicoDst> pico;
 	StRefMultCorr * rmc;
 	shared_ptr<RunMapFactory> rmf;
 

@@ -7,7 +7,7 @@
 #include "format.h"
 
 // Project
-#include "PicoDst.h"
+#include "IPicoDst.h"
 #include "TriggerFilter.h"
 
 // STL
@@ -19,20 +19,13 @@ public:
 	SharedPicoDstSkimmer(){}
 	~SharedPicoDstSkimmer(){}
 
-	virtual void initialize(){
+	virtual void initialize();
 
-		pico = shared_ptr<PicoDst>( new PicoDst( chain ) );
-
-		EventBranches = config.getStringVector( nodePath + ".EventBranches" );//, (vector<string>){ "Event" } );
-		TrackBranches = config.getStringVector( nodePath + ".TrackBranches" );//, (vector<string>){"Tracks", "BTofPidTraits", "EmcPidTraits", "MtdPidTraits"} ); 
-
-	}
-
-	static shared_ptr<PicoDst> getPicoDst( ) { return pico; } 
+	static shared_ptr<IPicoDst> getPicoDst( ) { return pico; } 
 	
 protected:
 
-	static shared_ptr<PicoDst> pico;
+	static shared_ptr<IPicoDst> pico;
 	vector<string> EventBranches, TrackBranches;
 
 	virtual void eventLoop();

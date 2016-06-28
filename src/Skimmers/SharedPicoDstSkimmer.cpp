@@ -2,7 +2,19 @@
 
 #include "PicoDstSkimmer.h"
 
-shared_ptr<PicoDst> SharedPicoDstSkimmer::pico = nullptr;
+#include "PicoDstRun14AuAu200.h"
+
+shared_ptr<IPicoDst> SharedPicoDstSkimmer::pico = nullptr;
+
+void SharedPicoDstSkimmer::initialize(){
+
+	pico = shared_ptr<IPicoDst>( new PicoDstRun14AuAu200( chain ) );
+
+	EventBranches = config.getStringVector( nodePath + ".EventBranches" );//, (vector<string>){ "Event" } );
+	TrackBranches = config.getStringVector( nodePath + ".TrackBranches" );//, (vector<string>){"Tracks", "BTofPidTraits", "EmcPidTraits", "MtdPidTraits"} ); 
+}
+
+
 
 void SharedPicoDstSkimmer::eventLoop() {
 

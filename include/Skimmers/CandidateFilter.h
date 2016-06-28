@@ -2,7 +2,7 @@
 #define CANDIDATE_FILTER_H
 
 //Project
-#include "PicoDst.h"
+#include "IPicoDst.h"
 
 // ROOT
 #include "TVector3.h"
@@ -21,7 +21,7 @@ public:
 	CandidateFilter();
 	~CandidateFilter();
 	
-	static bool isMuon( shared_ptr<PicoDst> pico, int iTrack, CutCollection &ccol ){
+	static bool isMuon( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol ){
 
 		double nHitsFit = abs(pico->Tracks_mNHitsFit[ iTrack ]);
 		double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
@@ -61,7 +61,7 @@ public:
 	}
 
 
-	static bool isElectron( shared_ptr<PicoDst> pico, int iTrack, CutCollection &ccol ){
+	static bool isElectron( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol ){
 
 		double nHitsFit = abs(pico->Tracks_mNHitsFit[ iTrack ]);
 		double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
@@ -89,7 +89,7 @@ public:
 		return true;
 	}
 
-	static bool isTpcTofElectron( shared_ptr<PicoDst> pico, int iTrack, CutCollection &ccol, HistoBook * book = nullptr ){
+	static bool isTpcTofElectron( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol, HistoBook * book = nullptr ){
 
 		bool allCuts = true;
 
