@@ -37,6 +37,8 @@ public:
 		double nHitsRatio = nHitsFit / nHitsMax;
 		TVector3 momentum( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
 
+		passTrackCut( "All", allCuts, book, cutsName );
+
 		if ( momentum.Pt() < ccol[ "pt" ]->min ){
 			allCuts = false;
 		} else {
@@ -81,7 +83,7 @@ public:
 			passTrackCut( "dz", allCuts, book, cutsName );
 		}
 
-		return true;
+		return allCuts;
 	}
 
 

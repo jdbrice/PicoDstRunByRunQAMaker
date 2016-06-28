@@ -41,6 +41,8 @@ bool PicoDstSkimmer::keepEvent(){
 	double zVertex = pico->Event_mPrimaryVertex_mX3[0];
 	double zVpd = (pico->Event_mVzVpd[0] / 100.0 );
 
+	passEventCut( "All", passAllCuts );
+
 	// Trigger selection
 	if ( !tf.anyTrigger( pico ) ){
 		passAllCuts = false;
