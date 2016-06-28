@@ -2,7 +2,7 @@
 <config>
 
 	<Task name="skimmer" type="MuonCandidateMaker" config="" nodePath="MuonCandidateMaker" />
-	<Logger color="true" globalLogLevel="error" />
+	<Logger color="true" globalLogLevel="trace" />
 	
 	<MuonCandidateMaker event="true" track="true" triggers="dimuon" rmc="true">
 		<Logger color="true" globalLogLevel="info" />
