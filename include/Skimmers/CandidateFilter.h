@@ -21,7 +21,15 @@ public:
 	CandidateFilter();
 	~CandidateFilter();
 	
-	static bool isMuon( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol ){
+	static bool isMuon( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol, HistoBook * book = nullptr ){
+
+
+		bool allCuts = true;
+
+		bool makeQA = true;
+		if ( nullptr == book  )
+			makeQA = false;
+		string cutsName = "MtdMuon";
 
 		double nHitsFit = abs(pico->Tracks_mNHitsFit[ iTrack ]);
 		double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
@@ -30,31 +38,47 @@ public:
 		TVector3 momentum( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
 
 		if ( momentum.Pt() < ccol[ "pt" ]->min ){
-			return false;
+			allCuts = false;
+		} else {
+			passTrackCut( "mom", allCuts, book, cutsName );
 		}
 		if ( nHitsRatio < ccol[ "nHitsRatio" ]->min ){
-			return false;
+			allCuts = false;
+		} else {
+			passTrackCut( "nHitsRatio", allCuts, book, cutsName );
 		}
 		if ( nHitsDedx < ccol[ "nHitsDedx" ]->min ){
-			return false;
+			allCuts = false;
+		} else {
+			passTrackCut( "nHitsDedx", allCuts, book, cutsName );
 		}
 		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() )  ){
-			return false;
+			allCuts = false;
+		} else {
+			passTrackCut( "eta", allCuts, book, cutsName );
 		}
 		int iMtd = pico->Tracks_mMtdPidTraitsIndex[iTrack];
 		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( iMtd ) || !ccol[ "matchFlagMtd" ]->inInclusiveRange( pico->MtdPidTraits_mMatchFlag[ iMtd ] ) ){
-			return false;
+			allCuts = false;
+		} else {
+			passTrackCut( "mtdMatch", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "dTofMtd" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaTimeOfFlight[ iMtd ] ) ){
-			return false;
-		} 
+			allCuts = false;
+		} else {
+			passTrackCut( "dTof", allCuts, book, cutsName );
+		}
 
 		if ( !ccol[ "dyMtd" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaY[ iMtd ] ) ){
-			return false;
+			allCuts = false;
+		} else {
+			passTrackCut( "dy", allCuts, book, cutsName );
 		}
 		if ( !ccol[ "dzMtd" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaZ[ iMtd ] ) ){
-			return false;
+			allCuts = false;
+		} else {
+			passTrackCut( "dz", allCuts, book, cutsName );
 		}
 
 		return true;

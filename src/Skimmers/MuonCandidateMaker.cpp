@@ -33,7 +33,7 @@ void MuonCandidateMaker::analyzeEvent(){
 
 bool MuonCandidateMaker::keepTrack( int iTrack ){
 	DEBUG( classname(), fmt::format( "(iTrack={0})", iTrack ) );
-	isMuon = CandidateFilter::isMuon( pico, iTrack, muonCuts );
+	isMuon = CandidateFilter::isMuon( pico, iTrack, muonCuts, book );
 	return isMuon;
 }
 
