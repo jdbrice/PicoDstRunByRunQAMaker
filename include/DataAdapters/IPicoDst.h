@@ -8,6 +8,7 @@
 #include "TClonesArray.h"
 #include "TObject.h"
 #include "utility"
+#include "TVector3.h"
 
 #include <string>
 #include <limits>

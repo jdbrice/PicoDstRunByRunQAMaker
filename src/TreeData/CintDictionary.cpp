@@ -557,15 +557,15 @@ namespace {
 0
     };
     static const char* includePaths[] = {
-"/Users/jdb/bnl/local/work/muonAna/include/DataAdapters",
-"/Users/jdb/bnl/local/work/muonAna/include/EventPlane",
-"/Users/jdb/bnl/local/work/muonAna/include/ProductionUtils",
-"/Users/jdb/bnl/local/work/muonAna/include/QA",
-"/Users/jdb/bnl/local/work/muonAna/include/Skimmers",
-"/Users/jdb/bnl/local/work/muonAna/include/StRefMultCorr",
-"/Users/jdb/bnl/local/work/muonAna/include/TreeData",
-"/Users/jdb/bnl/vendor/root-6.06.02/include",
-"/Users/jdb/bnl/local/work/muonAna/",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/DataAdapters",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/EventPlane",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/ProductionUtils",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/QA",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/Skimmers",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/StRefMultCorr",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/TreeData",
+"/Users/danielbrandenburg/bnl/vendor/root-6.06.04/include",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/",
 0
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(

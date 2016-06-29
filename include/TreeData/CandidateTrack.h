@@ -11,6 +11,8 @@ public:
 	~CandidateTrack(){
 	}
 
+	int charge() { return mNHitsFit > 0 ? 1 : -1; }
+
 	Float_t 	pX;					// primary track px
 	Float_t 	pY;					// primary track py
 	Float_t 	pZ;					// primary track pz

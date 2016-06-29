@@ -9,17 +9,17 @@
 		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="candidates" url="muon_candidates.root" splitBy="200" nEvents="200000"/>
+			<dst treeName="FemtoDst" url="muon_femto.root" splitBy="200" nEvents="200000000"/>
 		</input>
 
 		<output path="" >
-			<data>mumu2.root</data>
+			<data>mumu.root</data>
 		</output>
 
 		<histograms>
 			<Histo name="like_sign" title="like sign" bins_x="bins.invMass" />
+			<Histo name="like_sign_pT" title="like sign" bins_x="bins.invMass" bins_y="bins.pT" />
 			<Histo name="unlike_sign" title="unlike sign" bins_x="bins.invMass" />
-
 		</histograms>
 
 		<Particles mass1="0.105" mass2="0.105" />
@@ -27,7 +27,8 @@
 	</InvariantMassPlotter>
 
 	<bins>
-		<invMass width="0.025" min="0.0" max="5.0" />
+		<invMass width="0.1" min="0.0" max="5.0" />
+		<pT width="0.1" min="0.0" max="5.0" />
 	</bins>
 
 </config>

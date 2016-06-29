@@ -7,5 +7,7 @@
 		<Histo name="zVertex" title="Z Vertex" bins_x="bins.zVertex" />
 		<Histo name="zVpd" title="VPD Z Vertex" bins_x="bins.zVertex" />
 		<Histo name="zVertexDelta" title="Z Vertex - VPD Z Vertex" bins_x="bins.zVertexDelta" />
+
+		<Histo name="nTracks" title="Num Tracks" bins_x="bins.nTracks" />
 	</EventQAHistos>
 </config>

@@ -53,6 +53,9 @@ protected:
 
 	void passTrackCut( string cut, bool passAllCuts ){
 		DEBUG( classname(), fmt::format("(cut={0}, passAllCuts={1})", cut, bts(passAllCuts) ) );
+		
+		book->cd("eventQA");
+		book->fill( "nTracks", pico->Tracks_ );
 		book->cd("trackQA");
 
 		book->fill( "track_single_cuts", cut, 1.0 );
