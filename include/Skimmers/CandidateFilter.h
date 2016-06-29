@@ -31,14 +31,25 @@ public:
 			makeQA = false;
 		string cutsName = "MtdMuon";
 
+
+
 		double nHitsFit = abs(pico->Tracks_mNHitsFit[ iTrack ]);
 		double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
 		double nHitsDedx = pico->Tracks_mNHitsDedx[ iTrack ];
 		double nHitsRatio = nHitsFit / nHitsMax;
 		TVector3 momentum( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
 
-		if ( makeQA )
+		if ( makeQA ){
+			book->cd("trackQA");
+			// if ( !book->exists( cutsName + "_single_cuts" ) ){
+			// 	book->clone( "track_single_cuts", cutsName + "_single_cuts" );
+			// }
+			// if ( !book->exists( cutsName + "_cuts" ) ){
+			// 	book->clone( "track_cuts", cutsName + "_cuts" );
+			// }
+
 			passTrackCut( "All", allCuts, book, cutsName );
+		}
 
 		if ( momentum.Pt() < ccol[ "pt" ]->min ){
 			allCuts = false;
@@ -61,7 +72,7 @@ public:
 			passTrackCut( "eta", allCuts, book, cutsName );
 		}
 		int iMtd = pico->Tracks_mMtdPidTraitsIndex[iTrack];
-		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( iMtd ) || !ccol[ "matchFlagMtd" ]->inInclusiveRange( pico->MtdPidTraits_mMatchFlag[ iMtd ] ) ){
+		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( iMtd+1 ) || !ccol[ "matchFlagMtd" ]->inInclusiveRange( pico->MtdPidTraits_mMatchFlag[ iMtd ] ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdMatch", allCuts, book, cutsName );
@@ -223,18 +234,12 @@ public:
 
 	static void passTrackCut( string cut, bool passAllCuts, HistoBook * book, string name = "track" ){
 		DEBUG( "CandidateFilter", fmt::format("(cut={0}, passAllCuts={1})", cut, bts(passAllCuts) ) );
+		
 		book->cd("trackQA");
-		if ( !book->exists( name + "_single_cuts" ) ){
-			book->clone( "track_single_cuts", name + "_single_cuts" );
-		}
-		if ( !book->exists( name + "_cuts" ) ){
-			book->clone( "track_cuts", name + "_cuts" );
-		}
-
-		book->fill( name + "_single_cuts", cut, 1.0 );
+		book->fill( name + "_single_cuts", cut, 1 );
 
 		if ( passAllCuts ){
-			book->fill( name + "_cuts", cut, 1.0 );
+			book->fill( name + "_cuts", cut, 1 );
 		}
 		return;
 	}

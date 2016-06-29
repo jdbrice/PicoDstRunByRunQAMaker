@@ -10,4 +10,10 @@
 
 		<Histo name="nTracks" title="Num Tracks" bins_x="bins.nTracks" />
 	</EventQAHistos>
+
+	<TrackQAHistos dir="trackQA" >
+		<Histo name="MtdMuon_cuts" title="Sequential Track Cuts" bins_x="bins.event_cuts" />
+		<Histo name="MtdMuon_single_cuts" title="Invidiual Track Cuts" bins_x="bins.event_cuts" />
+	</TrackQAHistos>
+
 </config>
