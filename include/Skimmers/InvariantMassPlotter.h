@@ -32,15 +32,41 @@ protected:
 
 	double m1, m2;
 
+
+	bool keepTrack( CandidateTrack *aTrack ){
+		if ( aTrack->mNSigmaPion / 100.0 < -1.5 || aTrack->mNSigmaPion / 100.0 > 2.5 )
+			return false;
+		CandidateTrackMtdPidTraits *mtdpid = (CandidateTrackMtdPidTraits*) mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
+		if ( mtdpid->mDeltaTimeOfFlight > 0.4 )
+			return false;
+
+		if ( fabs(mtdpid->mDeltaZ) > 50 )
+			return false;
+
+		if ( fabs(mtdpid->mDeltaY) > 40 )
+			return false;
+
+		return true;
+
+	}
+
 	virtual void analyzeEvent(){
 		// INFO( classname(), tracks->GetEntries() );
 		// INFO( classname(), event->eventId );
 		int nTracks = tracks->GetEntries();
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
 			CandidateTrack* aTrack = (CandidateTrack*)tracks->At( iTrack );
+			if ( !keepTrack( aTrack ) ) continue;
+
 			for ( int jTrack = iTrack; jTrack < nTracks; jTrack++ ){
 				if ( iTrack == jTrack ) continue;
 				CandidateTrack* bTrack = (CandidateTrack*)tracks->At( jTrack );
+				if ( !keepTrack( bTrack ) ) continue;
+				
+
+
+
+
 
 				TLorentzVector lv1, lv2, lv;
 				lv1.SetXYZM( aTrack->pX, aTrack->pY, aTrack->pZ, m1 );
@@ -50,9 +76,13 @@ protected:
 
 				// if ( lv1.P() < 3.5 && lv2.P() < 3.5   ) continue;
 
+				int iBin = book->get( "like_sign" )->GetXaxis()->FindBin( lv.M() );
+				double bw = book->get( "like_sign" )->GetBinWidth( iBin );
+
 				// like sign
 				if ( aTrack->charge() * bTrack->charge() == 1 ){
 					book->fill( "like_sign", lv.M() );
+					book->fill( "like_sign_pT", lv.M(), lv.Pt() );
 				} else {
 					book->fill( "unlike_sign", lv.M() );
 					book->fill( "unlike_sign_pT", lv.M(), lv.Pt() );
