@@ -142,6 +142,9 @@ protected:
 		nBTofPidTraits = 0;
 		nMtdPidTraits = 0;
 
+		book->cd("eventQA");
+		book->fill( "nTracks", pico->Tracks_ );
+
 		// Clear TClones Arrays
 		tracks->Clear();
 		btofPidTraits->Clear();
