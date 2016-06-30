@@ -32,6 +32,8 @@ protected:
 	TriggerFilter tf;
 	CutCollection eventCuts;
 
+	string picoDstAdapter;
+
 	virtual void eventLoop();
 	virtual bool keepEvent();
 	virtual void analyzeEvent();

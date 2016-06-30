@@ -40,11 +40,18 @@ protected:
 		if ( mtdpid->mDeltaTimeOfFlight > 0.4 )
 			return false;
 
-		if ( fabs(mtdpid->mDeltaZ) > 50 )
+		if ( fabs(mtdpid->mDeltaZ) > 20 )
 			return false;
 
-		if ( fabs(mtdpid->mDeltaY) > 40 )
+		if ( fabs(mtdpid->mDeltaY) > 20 )
 			return false;
+
+		if ( aTrack->gDCA() > 1.0  )
+			return false;
+
+		if ( mtdpid->mMatchFlag != 7 ){
+			return false;
+		}
 
 		return true;
 
@@ -62,11 +69,6 @@ protected:
 				if ( iTrack == jTrack ) continue;
 				CandidateTrack* bTrack = (CandidateTrack*)tracks->At( jTrack );
 				if ( !keepTrack( bTrack ) ) continue;
-				
-
-
-
-
 
 				TLorentzVector lv1, lv2, lv;
 				lv1.SetXYZM( aTrack->pX, aTrack->pY, aTrack->pZ, m1 );
@@ -74,7 +76,7 @@ protected:
 
 				lv = lv1 + lv2;
 
-				// if ( lv1.P() < 3.5 && lv2.P() < 3.5   ) continue;
+				if ( lv1.Pt() < 1.5 && lv2.Pt() < 1.5   ) continue;
 
 				int iBin = book->get( "like_sign" )->GetXaxis()->FindBin( lv.M() );
 				double bw = book->get( "like_sign" )->GetBinWidth( iBin );

@@ -61,7 +61,8 @@ protected:
 	void createTree(){
 		mTree = new TTree("FemtoDst", (treeDescription + " Candidates").c_str(), 99);
 		mTree->Branch( "Event", &event, 256000, 99 );
-		mTree->Branch( "EventPlane", &eventPlane, 256000, 99 );
+		if ( "PicoDstRun15PP200" != picoDstAdapter )
+			mTree->Branch( "EventPlane", &eventPlane, 256000, 99 );
 		mTree->Branch( "Tracks", &tracks, 256000, 99 );
 
 		mTree->Branch( "BTofPidTraits", &btofPidTraits, 256000, 99 );
@@ -96,6 +97,7 @@ protected:
 	virtual void fillEvent() {
 		event->mRunId 		= pico->Event_mRunId[0];
 		event->mEventId 	= pico->Event_mEventId[0];
+		event->mGRefMult 	= pico->Event_mGRefMult[0];
 		event->mTriggerWord = pico->Event_mTriggerWord[0];
 		event->mTriggerWordMtd = pico->Event_mTriggerWordMtd[0];
 
@@ -106,6 +108,7 @@ protected:
 	}
 
 	virtual void fillEventPlane(){
+
 		eventPlane->mQx_eta_pos = pico->EventPlane_mQx_eta_pos[0];
 		eventPlane->mQy_eta_pos = pico->EventPlane_mQy_eta_pos[0];
 		eventPlane->mQx_eta_neg = pico->EventPlane_mQx_eta_neg[0];

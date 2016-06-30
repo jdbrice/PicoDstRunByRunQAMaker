@@ -15,11 +15,12 @@ public:
 	Int_t 		mPsi2;			// event plane angle
 	UInt_t 		mTriggerWord;	// Trigger word
 	UInt_t 		mTriggerWordMtd;	// MTD trigger word
+	UShort_t 	mGRefMult;		// global RefMult
 	UChar_t 	mBin16;			// centrality bin 16
 
 
 
-	ClassDef( CandidateEvent, 1 )
+	ClassDef( CandidateEvent, 2 )
 };
 
 

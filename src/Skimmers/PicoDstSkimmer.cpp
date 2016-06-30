@@ -10,13 +10,14 @@ void PicoDstSkimmer::initialize(){
 	// create the picodst interface
 	if ( false == sharedTree ){
 		INFO( classname(), "Using private PicoDst Interface" );
-		string adapter = config.getString( nodePath + ".input.dst:adapter", "PicoDstRun14AuAu200" );
-		INFO( classname(), "PicoDst Adapter : " << adapter );
-		if ( "PicoDstRun15PP200" == adapter )
+		picoDstAdapter = config.getString( nodePath + ".input.dst:adapter", "PicoDstRun14AuAu200" );
+		INFO( classname(), "PicoDst Adapter : " << picoDstAdapter );
+		if ( "PicoDstRun15PP200" == picoDstAdapter )
 			pico = shared_ptr<IPicoDst>( new PicoDstRun15PP200( chain ) );
 		else 
 			pico = shared_ptr<IPicoDst>( new PicoDstRun14AuAu200( chain ) );
 	} else {
+		picoDstAdapter="";
 		INFO( classname(), "Using shared PicoDst Interface" );
 		pico = SharedPicoDstSkimmer::getPicoDst();
 		assert( pico );
