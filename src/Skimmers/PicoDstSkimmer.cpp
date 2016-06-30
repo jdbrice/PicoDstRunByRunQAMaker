@@ -3,13 +3,19 @@
 
 //Data Adapters
 #include "PicoDstRun14AuAu200.h"
+#include "PicoDstRun15PP200.h"
 
 void PicoDstSkimmer::initialize(){
 
 	// create the picodst interface
 	if ( false == sharedTree ){
 		INFO( classname(), "Using private PicoDst Interface" );
-		pico = shared_ptr<IPicoDst>( new PicoDstRun14AuAu200( chain ) );
+		string adapter = config.getString( nodePath + ".input.dst:adapter", "PicoDstRun14AuAu200" );
+		INFO( classname(), "PicoDst Adapter : " << adapter );
+		if ( "PicoDstRun15PP200" == adapter )
+			pico = shared_ptr<IPicoDst>( new PicoDstRun15PP200( chain ) );
+		else 
+			pico = shared_ptr<IPicoDst>( new PicoDstRun14AuAu200( chain ) );
 	} else {
 		INFO( classname(), "Using shared PicoDst Interface" );
 		pico = SharedPicoDstSkimmer::getPicoDst();
@@ -38,8 +44,8 @@ bool PicoDstSkimmer::keepEvent(){
 	DEBUG( classname(), "keepEvent" );
 	bool passAllCuts = true;
 
-	double zVertex = pico->Event_mPrimaryVertex_mX3[0];
-	double zVpd = (pico->Event_mVzVpd[0] / 100.0 );
+	double zVertex = pico->vz();
+	double zVpd = pico->vzVpd();
 
 	passEventCut( "All", passAllCuts );
 

@@ -111,6 +111,31 @@ public:
 		return 0;
 	}
 
+	/************************************************************************************************************************************************/
+	// Event Accessors
+	virtual float vx(){
+		return Event_mPrimaryVertex_mX1[0];
+	}
+	virtual float vy(){
+		return Event_mPrimaryVertex_mX2[0];
+	}
+	virtual float vz(){
+		return Event_mPrimaryVertex_mX3[0];
+	}
+	virtual float vzVpd(){
+		return (float)Event_mVzVpd[0] / 100.0;
+	}
+
+	// Track Accessors
+	virtual UShort_t mGDCA( int iTrack ) {
+		return 99;
+	}
+	virtual float gDCA( int iTrack ) {
+		return 99.0;
+	}
+
+
+
 	TTree          *fChain;   //!pointer to the analyzed TTree or TChain
 	Int_t           fCurrent; //!current Tree number in a TChain
 

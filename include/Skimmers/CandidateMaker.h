@@ -180,6 +180,8 @@ protected:
 		aTrack->mNSigmaProton = pico->Tracks_mNSigmaProton[ iTrack ];
 		aTrack->mNSigmaElectron = pico->Tracks_mNSigmaElectron[ iTrack ];
 
+		aTrack->mDCA = pico->mGDCA( iTrack );
+
 		// default out the PidTraits
 		aTrack->mBTofPidTraitsIndex = -1; 
 		aTrack->mMtdPidTraitsIndex = -1;

@@ -41,13 +41,6 @@ public:
 
 		if ( makeQA ){
 			book->cd("trackQA");
-			// if ( !book->exists( cutsName + "_single_cuts" ) ){
-			// 	book->clone( "track_single_cuts", cutsName + "_single_cuts" );
-			// }
-			// if ( !book->exists( cutsName + "_cuts" ) ){
-			// 	book->clone( "track_cuts", cutsName + "_cuts" );
-			// }
-
 			passTrackCut( "All", allCuts, book, cutsName );
 		}
 
@@ -71,6 +64,13 @@ public:
 		} else if ( makeQA ) {
 			passTrackCut( "eta", allCuts, book, cutsName );
 		}
+
+		if ( !ccol[ "gDCA" ]->inInclusiveRange( pico->gDCA( iTrack ) ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "gDCA", allCuts, book, cutsName );
+		}
+
 		int iMtd = pico->Tracks_mMtdPidTraitsIndex[iTrack];
 		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( iMtd+1 ) || !ccol[ "matchFlagMtd" ]->inInclusiveRange( pico->MtdPidTraits_mMatchFlag[ iMtd ] ) ){
 			allCuts = false;

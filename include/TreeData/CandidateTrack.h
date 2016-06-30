@@ -12,6 +12,13 @@ public:
 	}
 
 	int charge() { return mNHitsFit > 0 ? 1 : -1; }
+	float nSigmaPion() { return mNSigmaPion / 100.0; }
+	float nSigmaKaon() { return mNSigmaKaon / 100.0; }
+	float nSigmaProton() { return mNSigmaProton / 100.0; }
+	float nSigmaElectron() { return mNSigmaElectron / 100.0; }
+
+	float gDCA() { return mDCA / 1000.0; }
+	
 
 	Float_t 	pX;					// primary track px
 	Float_t 	pY;					// primary track py

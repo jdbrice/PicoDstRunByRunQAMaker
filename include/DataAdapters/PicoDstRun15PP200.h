@@ -21,8 +21,22 @@
 
 class PicoDstRun15PP200 : public IPicoDst {
 public :
+
+   /************************************************************************************************************************************************/
+   // Accessors
+   virtual UShort_t mGDCA( int iTrack ) {
+      return Tracks_mGDca[ iTrack ];
+   }
+   virtual float gDCA( int iTrack ) {
+      return (float)Tracks_mGDca[ iTrack ] / 1000.0;
+   }
+
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
+
+
+
+
 
    
    UShort_t        Tracks_mChi2Prob[kMaxTracks];   //[Tracks_]
