@@ -127,6 +127,9 @@ public:
 	}
 
 	// Track Accessors
+	virtual TVector3 pMomentum( int iTrack ){
+		return TVector3( Tracks_mPMomentum_mX1[iTrack], Tracks_mPMomentum_mX2[iTrack], Tracks_mPMomentum_mX3[iTrack] );
+	}
 	virtual UShort_t mGDCA( int iTrack ) {
 		return 99;
 	}

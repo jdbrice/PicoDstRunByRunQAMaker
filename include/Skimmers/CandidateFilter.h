@@ -31,13 +31,11 @@ public:
 			makeQA = false;
 		string cutsName = "MtdMuon";
 
-
-
 		double nHitsFit = abs(pico->Tracks_mNHitsFit[ iTrack ]);
 		double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
 		double nHitsDedx = pico->Tracks_mNHitsDedx[ iTrack ];
 		double nHitsRatio = nHitsFit / nHitsMax;
-		TVector3 momentum( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
+		TVector3 momentum = pico->pMomentum( iTrack );//( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
 
 		if ( makeQA ){
 			book->cd("trackQA");
