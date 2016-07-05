@@ -9,6 +9,14 @@ public:
 	CandidateTrackBTofPidTraits(){ }
 	~CandidateTrackBTofPidTraits(){ }
 
+	void copy( CandidateTrackBTofPidTraits * that){
+		this->mBTofBeta      = that->mBTofBeta;
+		this->mTrackIndex    = that->mTrackIndex;
+		this->mBTofYLocal    = that->mBTofYLocal;
+		this->mBTofZLocal    = that->mBTofZLocal;
+		this->mBTofMatchFlag = that->mBTofMatchFlag;
+	}
+
 	UShort_t mBTofBeta;			// beta * 20000
 	Short_t  mTrackIndex;		// Index to the associated track in the event
 	Short_t  mBTofYLocal;		// ylocal * 1000

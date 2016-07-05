@@ -71,8 +71,8 @@ protected:
 				if ( !keepTrack( bTrack ) ) continue;
 
 				TLorentzVector lv1, lv2, lv;
-				lv1.SetXYZM( aTrack->pX, aTrack->pY, aTrack->pZ, m1 );
-				lv2.SetXYZM( bTrack->pX, bTrack->pY, bTrack->pZ, m2 );
+				lv1.SetXYZM( aTrack->mPMomentum_mX1, aTrack->mPMomentum_mX2, aTrack->mPMomentum_mX3, m1 );
+				lv2.SetXYZM( bTrack->mPMomentum_mX1, bTrack->mPMomentum_mX2, bTrack->mPMomentum_mX3, m2 );
 
 				lv = lv1 + lv2;
 

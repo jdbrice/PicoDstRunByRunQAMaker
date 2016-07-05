@@ -21,6 +21,7 @@ using namespace jdb;
 #include "MuonCandidateMaker.h"
 #include "ElectronMuonCandidateMaker.h"
 #include "ElectronCandidateMaker.h"
+#include "MixedEventTreeMaker.h"
 
 
 #include "EventPlaneMaker.h"
@@ -40,6 +41,7 @@ int main( int argc, char* argv[] ) {
 
 	TaskFactory::registerTaskRunner<PicoDstSkimmer>( "PicoDstSkimmer" );
 	TaskFactory::registerTaskRunner<CandidateMaker>( "CandidateMaker" );
+	TaskFactory::registerTaskRunner<MixedEventTreeMaker>( "MixedEventTreeMaker" );
 	TaskFactory::registerTaskRunner<MuonCandidateMaker>( "MuonCandidateMaker" );
 	TaskFactory::registerTaskRunner<ElectronMuonCandidateMaker>( "ElectronMuonCandidateMaker" );
 	TaskFactory::registerTaskRunner<ElectronCandidateMaker>( "ElectronCandidateMaker" );

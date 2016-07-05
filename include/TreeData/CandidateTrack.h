@@ -11,6 +11,25 @@ public:
 	~CandidateTrack(){
 	}
 
+	void copy( CandidateTrack * that ) {
+		this->mPMomentum_mX1  = that->mPMomentum_mX1;
+		this->mPMomentum_mX2  = that->mPMomentum_mX2;
+		this->mPMomentum_mX3  = that->mPMomentum_mX3;
+		this->mId             = that->mId;
+		this->mDedx           = that->mDedx;
+		this->mNHitsFit       = that->mNHitsFit;
+		this->mNHitsMax       = that->mNHitsMax;
+		this->mNHitsDedx      = that->mNHitsDedx;
+		this->mNSigmaPion     = that->mNSigmaPion;
+		this->mNSigmaKaon     = that->mNSigmaKaon;
+		this->mNSigmaProton   = that->mNSigmaProton;
+		this->mNSigmaElectron = that->mNSigmaElectron;
+		this->mDCA            = that->mDCA;
+
+		this->mBTofPidTraitsIndex 	= that->mBTofPidTraitsIndex;
+		this->mMtdPidTraitsIndex 	= that->mMtdPidTraitsIndex;
+	}
+
 	int charge() { return mNHitsFit > 0 ? 1 : -1; }
 	float nSigmaPion() { return mNSigmaPion / 100.0; }
 	float nSigmaKaon() { return mNSigmaKaon / 100.0; }
@@ -19,10 +38,13 @@ public:
 
 	float gDCA() { return mDCA / 1000.0; }
 	
+	// pidTraits
+	Long64_t 	mBTofPidTraitsIndex; // index of the BTOF pidTratis in the event
+	Long64_t 	mMtdPidTraitsIndex;  // index of the MTD  pidTratis in the event
 
-	Float_t 	pX;					// primary track px
-	Float_t 	pY;					// primary track py
-	Float_t 	pZ;					// primary track pz
+	Float_t 	mPMomentum_mX1;					// primary track px
+	Float_t 	mPMomentum_mX2;					// primary track py
+	Float_t 	mPMomentum_mX3;					// primary track pz
 	UShort_t 	mId;				// track Id
 	UShort_t 	mDedx;				// dEdx*1000
 	Char_t 		mNHitsFit;			// q*nHitsFit - TPC
@@ -34,9 +56,7 @@ public:
 	Short_t 	mNSigmaElectron;	// nsigmaE * 100
 	Short_t 	mDCA;				// global track gDCA
 	
-	// pidTraits
-	Short_t mBTofPidTraitsIndex; // index of the BTOF pidTratis in the event
-	Short_t mMtdPidTraitsIndex;  // index of the MTD  pidTratis in the event
+	
 	
 	
 	ClassDef( CandidateTrack, 2 )

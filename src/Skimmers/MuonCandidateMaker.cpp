@@ -27,14 +27,13 @@ void MuonCandidateMaker::analyzeEvent(){
 	CandidateMaker::analyzeEvent();
 
 	// dont keep events by default, instead require at least 2 muon cands per event
-	keepEvent = false;
+	keepCandidateEvent = false;
 }
-
 
 bool MuonCandidateMaker::keepTrack( int iTrack ){
 	DEBUG( classname(), fmt::format( "(iTrack={0})", iTrack ) );
 
-	isMuon = CandidateFilter::isMuon( pico, iTrack, muonCuts, book );
+	isMuon = CandidateFilter::isMuon( pico, iTrack, muonCuts/*, book*/ );
 	return isMuon;
 }
 
@@ -43,5 +42,5 @@ void MuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTr
 	
 	// keep events with at least 2 tracks
 	if ( iCandTrack >= 1 )
-		keepEvent = true;
+		keepCandidateEvent = true;
 }

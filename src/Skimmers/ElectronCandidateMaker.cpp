@@ -41,7 +41,7 @@ void ElectronCandidateMaker::analyzeEvent(){
 	CandidateMaker::analyzeEvent();
 
 	// dont keep events by default, instead require at least 2 electrons cands per event
-	keepEvent = false;
+	keepCandidateEvent = false;
 }
 
 
@@ -76,5 +76,5 @@ void ElectronCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int
 	
 	// keep events with at least 2 tracks
 	if ( iCandTrack >= 1 && nElectrons >= 2 )
-		keepEvent = true;
+		keepCandidateEvent = true;
 }

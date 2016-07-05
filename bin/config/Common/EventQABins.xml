@@ -7,6 +7,6 @@
 		<nTracks width="1" min="0" max="10" />
 
 
-		<track_cuts width="1" min="0" max="10" />
+		<track_cuts width="1" min="0" max="1000" />
 	</bins>
 </config>

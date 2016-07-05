@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="skimmer" type="MuonCandidateMaker" config="" nodePath="MuonCandidateMaker" />
-	<Logger color="true" globalLogLevel="trace" />
+	<Task name="skimmer" type="MixedEventTreeMaker" config="" nodePath="MixedEventTreeMaker" />
+	<Logger color="true" globalLogLevel="all" />
 	
-	<MuonCandidateMaker event="true" track="true" triggers="dimuon" rmc="false">
+	<MixedEventTreeMaker event="true" track="true" triggers="">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
-			<dst treeName="PicoDst" url="list.lis" splitBy="200" maxFiles="20" />
+			<dst treeName="FemtoDst" url="muon_candidates.root" splitBy="200" nEvents="2000000"/>
 		</input>
 
 		<output path="" >
-			<data>muon_candidates.root</data>
+			<data>me_candidates.root</data>
 		</output>
 
 		<histograms>
@@ -20,7 +20,6 @@
 		</histograms>
 		
 		<Include url="../Common/EventCuts.xml" />
-		<Include url="../Common/MuonCandidateCuts.xml" />
 
 		<EventBranches>
 			Event,
@@ -29,12 +28,10 @@
 
 		<TrackBranches>
 			Tracks,
-			BTofPidTraits,
-			EmcPidTraits,
 			MtdPidTraits
 		</TrackBranches>
 
-	</MuonCandidateMaker>
+	</MixedEventTreeMaker>
 
 	<Include url="../Common/EventQABins.xml" />
 

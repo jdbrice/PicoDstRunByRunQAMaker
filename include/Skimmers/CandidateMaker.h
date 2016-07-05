@@ -9,6 +9,8 @@
 #include "CandidateTrackBTofPidTraits.h"
 #include "CandidateTrackMtdPidTraits.h"
 
+#include "ICandidateTreeMaker.h"
+
 #include "StRefMultCorr.h"
 #include "CentralityMaker.h"
 
@@ -16,7 +18,7 @@
 #include "TClonesArray.h"
 #include "TVector3.h"
 
-class CandidateMaker : public PicoDstSkimmer
+class CandidateMaker : public PicoDstSkimmer, public ICandidateTreeMaker
 {
 public:
 	virtual const char *classname() const { return "CandidateMaker"; }
@@ -27,13 +29,13 @@ public:
 		INFO( classname(), "" );
 		PicoDstSkimmer::initialize();
 
-		event = new CandidateEvent();
-		eventPlane = new CandidateEventPlane();
-		tracks = new TClonesArray( "CandidateTrack" );
-		btofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
-		mtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
+		// event = new CandidateEvent();
+		// eventPlane = new CandidateEventPlane();
+		// tracks = new TClonesArray( "CandidateTrack" );
+		// btofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
+		// mtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
 		
-		createTree();
+		createTree( "PicoDstRun15PP200" != picoDstAdapter );
 
 		if ( config.getBool( nodePath + ":rmc", true ) )
 			rmc = CentralityMaker::instance()->getgRefMultCorr();
@@ -41,33 +43,33 @@ public:
 
 
 protected:
-	StRefMultCorr * rmc;
-	string treeDescription = "Generic";
-	TTree * mTree;
-	Int_t nCandTracks;
-	Int_t nBTofPidTraits;
-	Int_t nMtdPidTraits;
-	bool keepEvent;
+	StRefMultCorr * rmc = nullptr;
+	// string treeDescription = "Generic";
+	// TTree * mTree;
+	// Int_t nCandTracks;
+	// Int_t nBTofPidTraits;
+	// Int_t nMtdPidTraits;
+	// bool keepCandidateEvent;
 
-	bool isElectron;
-	bool isMuon;
+	// bool isElectron;
+	// bool isMuon;
 	
-	CandidateEvent * event;
-	CandidateEventPlane * eventPlane;
-	TClonesArray * tracks;
-	TClonesArray * btofPidTraits;
-	TClonesArray * mtdPidTraits;
+	// CandidateEvent * event;
+	// CandidateEventPlane * eventPlane;
+	// TClonesArray * tracks;
+	// TClonesArray * btofPidTraits;
+	// TClonesArray * mtdPidTraits;
 
-	void createTree(){
-		mTree = new TTree("FemtoDst", (treeDescription + " Candidates").c_str(), 99);
-		mTree->Branch( "Event", &event, 256000, 99 );
-		if ( "PicoDstRun15PP200" != picoDstAdapter )
-			mTree->Branch( "EventPlane", &eventPlane, 256000, 99 );
-		mTree->Branch( "Tracks", &tracks, 256000, 99 );
+	// void createTree(){
+	// 	mTree = new TTree("FemtoDst", (treeDescription + " Candidates").c_str(), 99);
+	// 	mTree->Branch( "Event", &event, 256000, 99 );
+	// 	if ( "PicoDstRun15PP200" != picoDstAdapter )
+	// 		mTree->Branch( "EventPlane", &eventPlane, 256000, 99 );
+	// 	mTree->Branch( "Tracks", &tracks, 256000, 99 );
 
-		mTree->Branch( "BTofPidTraits", &btofPidTraits, 256000, 99 );
-		mTree->Branch( "MtdPidTraits", &mtdPidTraits, 256000, 99 );
-	}
+	// 	mTree->Branch( "BTofPidTraits", &btofPidTraits, 256000, 99 );
+	// 	mTree->Branch( "MtdPidTraits", &mtdPidTraits, 256000, 99 );
+	// }
 
 	virtual void analyzeEvent(){
 
@@ -82,24 +84,33 @@ protected:
 		}
 
 		// set the event level items
-		fillEvent();
+		fillCandidateEvent();
 
-		fillEventPlane();
+		fillCandidateEventPlane();
 
 		// for instance, use to keep only events with pairs of muons
 		// default to keep all accepted events
-		keepEvent = true;
+		keepCandidateEvent = true;
 		// and default the track level
 		isMuon = false;
 		isElectron = false;
 	}
 
-	virtual void fillEvent() {
-		event->mRunId 		= pico->Event_mRunId[0];
-		event->mEventId 	= pico->Event_mEventId[0];
-		event->mGRefMult 	= pico->Event_mGRefMult[0];
-		event->mTriggerWord = pico->Event_mTriggerWord[0];
-		event->mTriggerWordMtd = pico->Event_mTriggerWordMtd[0];
+	virtual void fillCandidateEvent() {
+		event->mRunId 				= pico->Event_mRunId[0];
+		event->mEventId 			= pico->Event_mEventId[0];
+		event->mGRefMult 			= pico->Event_mGRefMult[0];
+		event->mTriggerWord 		= pico->Event_mTriggerWord[0];
+		event->mTriggerWordMtd 		= pico->Event_mTriggerWordMtd[0];
+		event->mPrimaryVertex_mX1 	= pico->vx();
+		event->mPrimaryVertex_mX2 	= pico->vy();
+		event->mPrimaryVertex_mX3 	= pico->vz();
+
+		if ( rmc ){
+			event->mBin16 			= rmc->getCentralityBin16();
+		} else {
+			event->mBin16 			= 0;
+		}
 
 		// TODO: after EventPlane is settled
 		event->mPsi2 		= 0;
@@ -107,7 +118,7 @@ protected:
 		// StRefMultCorr
 	}
 
-	virtual void fillEventPlane(){
+	virtual void fillCandidateEventPlane(){
 
 		eventPlane->mQx_eta_pos = pico->EventPlane_mQx_eta_pos[0];
 		eventPlane->mQy_eta_pos = pico->EventPlane_mQy_eta_pos[0];
@@ -141,17 +152,19 @@ protected:
 
 	virtual void trackLoop(){
 		// counters
-		nCandTracks = 0;
-		nBTofPidTraits = 0;
-		nMtdPidTraits = 0;
+		// nCandTracks = 0;
+		// nBTofPidTraits = 0;
+		// nMtdPidTraits = 0;
 
+		reset();
+		
 		book->cd("eventQA");
 		book->fill( "nTracks", pico->Tracks_ );
 
 		// Clear TClones Arrays
-		tracks->Clear();
-		btofPidTraits->Clear();
-		mtdPidTraits->Clear();
+		// tracks->Clear();
+		// btofPidTraits->Clear();
+		// mtdPidTraits->Clear();
 
 		for ( int iTrack = 0; iTrack < pico->Tracks_; iTrack++ ){
 
@@ -161,17 +174,20 @@ protected:
 			analyzeCandidateTrack( aTrack, iTrack, nCandTracks );
 			nCandTracks ++;
 		}
+		postTrackLoop();
+	}
 
-		if ( keepEvent )
+	virtual void postTrackLoop(){
+		if ( keepCandidateEvent )
 			mTree->Fill();
 	}
 
 	virtual void fillCandidateTrack( CandidateTrack * aTrack, int iTrack ){
 		
 
-		aTrack->pX = pico->Tracks_mPMomentum_mX1[iTrack];
-		aTrack->pY = pico->Tracks_mPMomentum_mX2[iTrack];
-		aTrack->pZ = pico->Tracks_mPMomentum_mX3[iTrack];
+		aTrack->mPMomentum_mX1 = pico->Tracks_mPMomentum_mX1[iTrack];
+		aTrack->mPMomentum_mX2 = pico->Tracks_mPMomentum_mX2[iTrack];
+		aTrack->mPMomentum_mX3 = pico->Tracks_mPMomentum_mX3[iTrack];
 
 		aTrack->mDedx = pico->Tracks_mDedx[ iTrack ];
 		aTrack->mNHitsFit = pico->Tracks_mNHitsFit[iTrack];
@@ -189,14 +205,14 @@ protected:
 		aTrack->mBTofPidTraitsIndex = -1; 
 		aTrack->mMtdPidTraitsIndex = -1;
 
-		fillBTofPidTraits( aTrack, iTrack );
-		fillMtdPidTraits( aTrack, iTrack );
+		fillCandidateBTofPidTraits( aTrack, iTrack );
+		fillCandidateMtdPidTraits( aTrack, iTrack );
 		
 
 		// aTrack->species = speciesMask();
 	}
 
-	virtual void fillBTofPidTraits( CandidateTrack * aTrack, int iTrack ){
+	virtual void fillCandidateBTofPidTraits( CandidateTrack * aTrack, int iTrack ){
 		// BTofPidTraits
 		int iBTof = pico->Tracks_mBTofPidTraitsIndex[ iTrack ];
 		if ( iBTof >= 0 && isElectron){
@@ -214,7 +230,7 @@ protected:
 		}
 	}
 
-	virtual void fillMtdPidTraits( CandidateTrack * aTrack, int iTrack ){
+	virtual void fillCandidateMtdPidTraits( CandidateTrack * aTrack, int iTrack ){
 		// MtdPidTraits
 		int iMtd = pico->Tracks_mMtdPidTraitsIndex[ iTrack ];
 		if ( iMtd >= 0 ){

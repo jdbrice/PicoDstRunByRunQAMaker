@@ -12,7 +12,7 @@
 		</input>
 
 		<output path="" >
-			<data>skimmer.root</data>
+			<data>EventPlane.root</data>
 		</output>
 
 		<EventBranches>
@@ -20,13 +20,21 @@
 			EventPlane
 		</EventBranches>
 
-		<EventPlane v1="eta_neg" v2="">
-		</EventPlane>
+		<EventPlane v1="eta_neg" v2="eta_pos"></EventPlane>
 
 		<Include url="config/EventPlaneMaker/EventPlaneCorr.xml" />
+
+		<histograms>
+			<Include url="../Common/EventQAHistos.xml" />
+		</histograms>
+		
+		<Include url="../Common/EventCuts.xml" />
 		
 
 		<!-- <fitQxQy nSig_qx="3.0" nSig_qy="3.0" /> -->
 
 	</EventPlaneMaker>
+
+	<Include url="../Common/EventQABins.xml" />
+
 </config>

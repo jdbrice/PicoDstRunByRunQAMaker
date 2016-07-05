@@ -7,7 +7,7 @@
 		
 		<Range name="pt" min="1.0" />
 		<Range name="nSigmaPion" min="-10.5" max="20.5" />
-		<Range name="gDCA" min="0.0" max="10.0" />
+		<Range name="gDCA" min="0.0" max="100.0" />
 		
 		<Range name="matchFlagMtd" min="1" max="15"/> 
 		<Range name="dzMtd" min="-200" max="200" />

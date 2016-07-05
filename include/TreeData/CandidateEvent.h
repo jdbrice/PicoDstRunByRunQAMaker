@@ -8,7 +8,23 @@ class CandidateEvent : public TObject
 public:
 	CandidateEvent() {}
 	~CandidateEvent() {}
+	void copy( CandidateEvent * that ){
+		this->mPrimaryVertex_mX1 = that->mPrimaryVertex_mX1;
+		this->mPrimaryVertex_mX2 = that->mPrimaryVertex_mX2;
+		this->mPrimaryVertex_mX3 = that->mPrimaryVertex_mX3;
+		this->mWeight            = that->mWeight;
+		this->mRunId             = that->mRunId;
+		this->mEventId           = that->mEventId;
+		this->mPsi2              = that->mPsi2;
+		this->mTriggerWord       = that->mTriggerWord;
+		this->mTriggerWordMtd    = that->mTriggerWordMtd;
+		this->mGRefMult          = that->mGRefMult;
+		this->mBin16             = that->mBin16;
+	}
 
+	Float_t 	mPrimaryVertex_mX1;		// Event VertexX
+	Float_t 	mPrimaryVertex_mX2;		// Event VertexY
+	Float_t 	mPrimaryVertex_mX3;		// Event VertexZ
 	Float_t 	mWeight;		// Event weight from StRefMultCorr
 	Int_t 		mRunId;			// Run ID
 	Int_t 		mEventId;		// Event Id

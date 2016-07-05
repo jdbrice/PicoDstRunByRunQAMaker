@@ -45,7 +45,7 @@ void ElectronMuonCandidateMaker::analyzeEvent(){
 	CandidateMaker::analyzeEvent();
 
 	// dont keep events by default, instead require at least 2 muon cands per event
-	keepEvent = false;
+	keepCandidateEvent = false;
 }
 
 
@@ -69,5 +69,5 @@ void ElectronMuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack,
 
 	// keep events with at least 2 tracks
 	if ( iCandTrack >= 1 && nElectrons >= 1 && nMuons >= 1)
-		keepEvent = true;
+		keepCandidateEvent = true;
 }

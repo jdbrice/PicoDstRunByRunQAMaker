@@ -9,6 +9,14 @@ public:
 	CandidateTrackMtdPidTraits(){ }
 	~CandidateTrackMtdPidTraits(){ }
 
+	void copy( CandidateTrackMtdPidTraits * that ){
+		this->mDeltaY            = that->mDeltaY;
+		this->mDeltaZ            = that->mDeltaZ;
+		this->mDeltaTimeOfFlight = that->mDeltaTimeOfFlight;
+		this->mMatchFlag         = that->mMatchFlag;
+		this->mMtdHitChan        = that->mMtdHitChan;
+	}
+
 	Float_t   mDeltaY;					// DeltaY between matched track-hit pair
 	Float_t   mDeltaZ;					// DeltaZ between matched track-hit pair
 	Float_t   mDeltaTimeOfFlight;		// Difference between measured and expected time-of-flight

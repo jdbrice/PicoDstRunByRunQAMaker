@@ -31,30 +31,20 @@ protected:
 	virtual void analyzeEvent();
 	virtual void postEventLoop();
 
-	void task_rawEventPlane();
-	void task_centeredEventPlane();
-	void task_centerFlattenEventPlane();
-
-	void fitQxQy();
-	void fitPsi();
-
-
-	virtual void overrideConfig(){
-
-		string name = "EventPlane_" +  config.getString( nodePath + ".EventPlane:v1" );
-		string v2 = config.getString( nodePath + ".EventPlane:v2", "" );
-		if ( "" != v2 )
-			name += "_" + v2 + ".root";
-		else 
-			name += ".root";
-
-		config.set( nodePath + ".output.data", name );
-
+	float getQx() {
+		return pico->EventPlane_mQx_eta_neg[0] + pico->EventPlane_mQx_eta_pos[0];
+	}
+	float getQy() {
+		return pico->EventPlane_mQy_eta_neg[0] + pico->EventPlane_mQy_eta_pos[0];
+	}
+	int getNtrk(){
+		return pico->EventPlane_mNtrk_eta_neg[0] + pico->EventPlane_mNtrk_eta_pos[0];
 	}
 
+
 	// gets the desired raw value from the pico
-	double getQ( string value, string var1, string var2="" );
-	int getNtrk( string mod1, string mod2="" );
+	// double getQ( string value, string var1, string var2="" );
+	// int getNtrk( string mod1, string mod2="" );
 
 
 
