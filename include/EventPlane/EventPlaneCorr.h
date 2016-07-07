@@ -53,7 +53,7 @@ public:
 	// void load(  );
 	string toXml( ){
 		string line = "<EventPlaneCorr>\n";
-		line += centeringPoint.toXml();
+		// line += centeringPoint.toXml();
 		line += "\n </EventPlaneCorr>";
 		return line;
 	}

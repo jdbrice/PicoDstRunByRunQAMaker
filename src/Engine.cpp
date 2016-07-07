@@ -25,6 +25,7 @@ using namespace jdb;
 
 
 #include "EventPlaneMaker.h"
+#include "EventPlaneOffsetFitter.h"
 #include "SharedPicoDstSkimmer.h"
 #include "CandidateSkimmer.h"
 #include "InvariantMassPlotter.h"
@@ -48,6 +49,7 @@ int main( int argc, char* argv[] ) {
 	
 
 	TaskFactory::registerTaskRunner<EventPlaneMaker>( "EventPlaneMaker" );
+	TaskFactory::registerTaskRunner<EventPlaneOffsetFitter>( "EventPlaneOffsetFitter" );
 	TaskFactory::registerTaskRunner<CandidateSkimmer>( "CandidateSkimmer" );
 
 	TaskFactory::registerTaskRunner<InvariantMassPlotter>( "InvariantMassPlotter" );

@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="skimmer" type="EventPlaneOffsetMaker" config="" nodePath="EventPlaneOffsetMaker" />
+	<Task name="skimmer" type="EventPlaneOffsetFitter" config="" nodePath="EventPlaneOffsetFitter" />
 	<Logger color="true" globalLogLevel="all" />
-	
-	<EventPlaneOffsetMaker triggers="">
-		<Logger color="true" globalLogLevel="info" />
-		<CWD in="/Users/jdb/bnl/local/data/Run14/dimuon/" out="">
-		
+	<CWD in="/Users/danielbrandenburg/bnl/local/data/Run14/dimuon/" out=""/>
 
+	<EventPlaneOffsetFitter triggers="">
+		<Logger color="true" globalLogLevel="info" />
+		
 		<input path="">
-			<TFile url="EventPlane_dimuon.root" mode="READ" />
+			<TFile url="{CWD:in}EventPlane/EventPlane_dimuon.root" />
 		</input>
 
 
 		<output path="" >
-			<TFile url="EventPlane_{jobIndex}_fitQxQy.root" mode="RECREATE" />
+			<TFile url="EventPlane_fitQxQy.root" />
 		</output>
 
 		<EventBranches>
@@ -34,7 +33,7 @@
 
 		<!-- <fitQxQy nSig_qx="3.0" nSig_qy="3.0" /> -->
 
-	</EventPlaneOffsetMaker>
+	</EventPlaneOffsetFitter>
 
 	<Include url="../Common/EventQABins.xml" />
 

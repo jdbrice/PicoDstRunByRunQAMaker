@@ -10,13 +10,40 @@ using namespace jdb;
 #include "EventPlaneCorr.h"
 
 
+
 class EventPlaneOffsetFitter : public HistoAnalyzer {
 public:
 	virtual const char * classname() const { return "EventPlaneOffsetFitter"; }
-	EventPlaneOffsetFitter();
-	~EventPlaneOffsetFitter();
+	EventPlaneOffsetFitter() {}
+	~EventPlaneOffsetFitter() {}
 
-	virtual void make();
+	virtual void make() {
+		DEBUG( classname(), "" );
+		TH2D *hQxQy = (TH2D*)inFile->Get( "QxQy" ); 
+		TH1D* qy = (TH1D*)hQxQy->ProjectionY( "qy" );
+		TH1D* qx = (TH1D*)hQxQy->ProjectionX( "qx" );
+
+		double nSig_qx = config.getDouble( nodePath + ".fitQxQy:nSig_qx", 3.0 );
+		double nSig_qy = config.getDouble( nodePath + ".fitQxQy:nSig_qy", 3.0 );
+
+		TF1 fgaus( "fgaus", "gaus" );
+		qx->Fit( &fgaus, "R", "", qx->GetMean() - nSig_qx * qx->GetStdDev(), qx->GetMean() + nSig_qx * qx->GetStdDev() );
+		double m_qx = fgaus.GetParameter(1);
+		qy->Fit( &fgaus, "R", "", qy->GetMean() - nSig_qy * qy->GetStdDev(), qy->GetMean() + nSig_qy * qy->GetStdDev() );
+		double m_qy = fgaus.GetParameter(1);
+
+		INFO( classname(), "x = " << m_qx );
+		INFO( classname(), "y = " << m_qy );
+		epc.setMeans( m_qx, m_qy );
+		//epc.export params
+
+		ofstream outfile( "daniel.xml" );
+		outfile << epc.toXml();
+		outfile.close();
+	}
+
+protected:
+	EventPlaneCorr epc;
 };
 
 #endif
