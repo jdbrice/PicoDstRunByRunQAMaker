@@ -38,9 +38,7 @@ public:
 
 	float gDCA() { return mDCA / 1000.0; }
 	
-	// pidTraits
-	Long64_t 	mBTofPidTraitsIndex; // index of the BTOF pidTratis in the event
-	Long64_t 	mMtdPidTraitsIndex;  // index of the MTD  pidTratis in the event
+	
 
 	Float_t 	mPMomentum_mX1;					// primary track px
 	Float_t 	mPMomentum_mX2;					// primary track py
@@ -56,7 +54,9 @@ public:
 	Short_t 	mNSigmaElectron;	// nsigmaE * 100
 	Short_t 	mDCA;				// global track gDCA
 	
-	
+	// pidTraits
+	Short_t 	mBTofPidTraitsIndex; // index of the BTOF pidTratis in the event
+	Short_t 	mMtdPidTraitsIndex;  // index of the MTD  pidTratis in the event
 	
 	
 	ClassDef( CandidateTrack, 2 )

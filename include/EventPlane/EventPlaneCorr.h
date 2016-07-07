@@ -24,7 +24,7 @@ public:
 	~EventPlaneCorr(){}
 
 	void load( XmlConfig &cfg, string nodePath ){
-		centeringPoint.set( cfg, nodePath + ".CenteringPoint" );
+		centeringPoint.set( cfg, nodePath + ".CenteringOffset" );
 		flatteningFunction.set( cfg, nodePath + ".FlatteningFunction" );
 
 
@@ -52,10 +52,17 @@ public:
 
 	// void load(  );
 	string toXml( ){
-		string line = "<EventPlaneCorr>\n";
-		// line += centeringPoint.toXml();
-		line += "\n </EventPlaneCorr>";
+		string line = XmlConfig::declarationV1 + "\n";
+		line += "<config>\n";
+		line += "\t<EventPlaneCorr>\n";
+		line += "\t\t" + centeringPoint.toXml( "CenteringOffset" ) + "\n";
+		line += "\t</EventPlaneCorr>\n";
+		line += "</config>\n";
 		return line;
+	}
+
+	string toString(){
+		return "CenterintOffset=" + centeringPoint.toString();
 	}
 
 protected:

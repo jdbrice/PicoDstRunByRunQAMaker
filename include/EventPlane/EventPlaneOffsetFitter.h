@@ -3,6 +3,7 @@
 
 // RooBarb
 #include "HistoAnalyzer.h"
+#include "XmlString.h"
 using namespace jdb;
 
 
@@ -18,8 +19,10 @@ public:
 	~EventPlaneOffsetFitter() {}
 
 	virtual void make() {
+
 		DEBUG( classname(), "" );
 		TH2D *hQxQy = (TH2D*)inFile->Get( "QxQy" ); 
+		book->cd();
 		TH1D* qy = (TH1D*)hQxQy->ProjectionY( "qy" );
 		TH1D* qx = (TH1D*)hQxQy->ProjectionX( "qx" );
 
@@ -34,10 +37,12 @@ public:
 
 		INFO( classname(), "x = " << m_qx );
 		INFO( classname(), "y = " << m_qy );
+		
 		epc.setMeans( m_qx, m_qy );
-		//epc.export params
-
-		ofstream outfile( "daniel.xml" );
+		// export the parameters
+		string outfn = XmlString( config ).format( config[ nodePath + ".output.File:url" ] );
+		INFO( classname(), "Writing correction parameters to: " << outfn );
+		ofstream outfile( outfn.c_str() );
 		outfile << epc.toXml();
 		outfile.close();
 	}

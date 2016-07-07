@@ -9,6 +9,7 @@
 // Project
 #include "IPicoDst.h"
 #include "TriggerFilter.h"
+#include "EventPlaneCorr.h"
 
 // STL
 #include <memory>
@@ -31,6 +32,7 @@ protected:
 	vector<string> EventBranches, TrackBranches;
 	TriggerFilter tf;
 	CutCollection eventCuts;
+	EventPlaneCorr epc;
 
 	string picoDstAdapter;
 
@@ -73,11 +75,6 @@ protected:
 		}
 		return read;
 	}
-
-
-
-
-
 
 };
 

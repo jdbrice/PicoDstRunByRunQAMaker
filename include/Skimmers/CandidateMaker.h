@@ -17,6 +17,7 @@
 //ROOT
 #include "TClonesArray.h"
 #include "TVector3.h"
+#include "TMath.h"
 
 class CandidateMaker : public PicoDstSkimmer, public ICandidateTreeMaker
 {
@@ -35,10 +36,14 @@ public:
 		// btofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
 		// mtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
 		
-		createTree( "PicoDstRun15PP200" != picoDstAdapter );
+		createTree( false );
 
-		if ( config.getBool( nodePath + ":rmc", true ) )
+		if ( config.getBool( nodePath + ":rmc", true ) ){
+			INFO( classname(), "Setting up RMC" );
 			rmc = CentralityMaker::instance()->getgRefMultCorr();
+		} else {
+			INFO( classname(), "NOT setting up RMC" );
+		}
 	}
 
 
@@ -108,14 +113,42 @@ protected:
 
 		if ( rmc ){
 			event->mBin16 			= rmc->getCentralityBin16();
+			event->mWeight 			= rmc->getWeight();
 		} else {
 			event->mBin16 			= 0;
 		}
 
 		// TODO: after EventPlane is settled
-		event->mPsi2 		= 0;
+		event->mPsi2 		= (calcPsi2() * 10000) ;
 
 		// StRefMultCorr
+	}
+
+	virtual float calcPsi2(){
+
+		double nTracks = pico->ntrk();
+		TRACE( classname(), "mNtrk = " << nTracks );
+		if ( nTracks == 0 ) return -99;
+
+		double qx = pico->qx();
+		double qy = pico->qy();
+
+		if (qx == 0) return -99;
+		if (qy == 0) return -99;
+
+		qx = qx / nTracks;
+		qy = qy / nTracks;
+
+		TRACE( classname(), "Qx = " << qx << ", Qy = " << qy );
+		double psi = TMath::ATan2( qy, qx ); // raw
+		// recenter
+		qx = epc.center_qx( qx );
+		qy = epc.center_qy( qy );
+		psi = TMath::ATan2( qy, qx );
+		// TODO: apply flattening
+
+		return psi;
+
 	}
 
 	virtual void fillCandidateEventPlane(){

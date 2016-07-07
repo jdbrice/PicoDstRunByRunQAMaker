@@ -64,6 +64,7 @@ target = common_env.Program( target='bin/app', source=[Glob( "src/*.cpp" ), Glob
 
 Depends( target, root_dict )
 Depends( target, JDB_LIB + "/lib/libJDB.a" )
+Depends( target, Glob( JDB_LIB + "/include/jdb/*" ) )
 
 # set as the default target
 Default( target )

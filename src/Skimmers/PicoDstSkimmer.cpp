@@ -39,6 +39,16 @@ void PicoDstSkimmer::initialize(){
 	eventCuts.report();
 	INFO( classname(), "" );
 
+	if ( config.exists( nodePath + ".EventPlaneCorr" ) ){
+		INFO( classname(), "" );
+		INFO( classname(), "############### EventPlaneCorr ###################"  );
+		epc.load( config, nodePath + ".EventPlaneCorr" );
+	} else {
+		WARN( classname(), "No EventPlane Corrections found" );
+	}
+
+	config.toXmlFile( "out_config.xml" );
+
 }
 
 bool PicoDstSkimmer::keepEvent(){

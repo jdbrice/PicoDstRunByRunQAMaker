@@ -127,6 +127,18 @@ public:
 		return (float)Event_mVzVpd[0] / 100.0;
 	}
 
+	/************************************************************************************************************************************************/
+	// EventPlane Accessors
+	virtual float qx(){
+		return EventPlane_mQx_eta_neg[0] + EventPlane_mQx_eta_pos[0];
+	}
+	virtual float qy(){
+		return EventPlane_mQy_eta_neg[0] + EventPlane_mQy_eta_pos[0];
+	}
+	virtual int ntrk(){
+		return EventPlane_mNtrk_eta_neg[0] + EventPlane_mNtrk_eta_pos[0];
+	}
+
 	// Track Accessors
 	virtual TVector3 pMomentum( int iTrack ){
 		return TVector3( Tracks_mPMomentum_mX1[iTrack], Tracks_mPMomentum_mX2[iTrack], Tracks_mPMomentum_mX3[iTrack] );

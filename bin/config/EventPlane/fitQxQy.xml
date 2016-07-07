@@ -3,10 +3,11 @@
 
 	<Task name="skimmer" type="EventPlaneOffsetFitter" config="" nodePath="EventPlaneOffsetFitter" />
 	<Logger color="true" globalLogLevel="all" />
-	<CWD in="/Users/danielbrandenburg/bnl/local/data/Run14/dimuon/" out=""/>
+	
+	<CWD in="/Users/jdb/bnl/local/data/Run14/dimuon/" out="/Users/jdb/bnl/local/data/Run14/dimuon/" xmlOut="/Users/jdb/bnl/local/work/muonAna/bin/config/Params/"/>
 
-	<EventPlaneOffsetFitter triggers="">
-		<Logger color="true" globalLogLevel="info" />
+	<EventPlaneOffsetFitter>
+		<Logger color="true" globalLogLevel="all" />
 		
 		<input path="">
 			<TFile url="{CWD:in}EventPlane/EventPlane_dimuon.root" />
@@ -14,7 +15,8 @@
 
 
 		<output path="" >
-			<TFile url="EventPlane_fitQxQy.root" />
+			<TFile url="{CWD:out}EventPlane_fitQxQy.root" />
+			<File url="{CWD:xmlOut}EventPlaneCorr.xml" />
 		</output>
 
 		<EventBranches>
@@ -29,9 +31,6 @@
 		</histograms>
 		
 		<Include url="../Common/EventCuts.xml" />
-		
-
-		<!-- <fitQxQy nSig_qx="3.0" nSig_qy="3.0" /> -->
 
 	</EventPlaneOffsetFitter>
 
