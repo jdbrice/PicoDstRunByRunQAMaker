@@ -12,11 +12,6 @@ void EventPlaneMaker::initialize(){
 
 	hPsi2Flattened = new TH1D("Psi2Flattened","",640,-3.2,3.2);
 
-	// get the values for which variables we are using
-	// DEFAULTS: eta_pos, eta_neg
-	v1 = config.getString( nodePath + ".EventPlane:v1", "eta_pos" );
-	v2 = config.getString( nodePath + ".EventPlane:v2", "eta_neg" );
-
 	// load in the parameters
 	epc.load( config, nodePath + ".EventPlaneCorr" );
 
@@ -24,72 +19,15 @@ void EventPlaneMaker::initialize(){
 	
 }
 
-
-// gets the desired raw value from the pico
-// double EventPlaneMaker::getQ( string value, string var1, string var2 ){
-
-// 	if ( "mQx" != value && "mQy" != value ){
-// 		ERROR( classname(), "value must be either \"mQx\" or \"mQy\" " );
-// 		return 0;
-// 	}
-
-// 	string v1 = "EventPlane." + value + "_" + var1;
-// 	string v2 = "EventPlane." + value + "_" + var2;
-	
-// 	TRACE( classname(), "v1 = " << v1 );
-// 	TRACE( classname(), "v2 = " << v2 );
-
-// 	double dv1 = 0, dv2 = 0;
-
-// 	dv1 = pico->get<Float_t>( v1 );
-// 	dv2 = pico->get<Float_t>( v2 );
-	
-// 	if ( "" != var2 )
-// 		return dv1 + dv2;
-// 	else 
-// 		return dv1;
-// }
-
-// int EventPlaneMaker::getNtrk( string mod1, string mod2 ){
-
-// 	string v1 = "EventPlane.mNtrk_" + mod1;
-// 	string v2 = "EventPlane.mNtrk_" + mod2;
-// 	TRACE( classname(), "v1 = " << v1 );
-// 	TRACE( classname(), "v2 = " << v2 );
-// 	int dv1 = 0, dv2 = 0;
-
-// 	if ( "eta_neg" == mod1 || "eta_pos" == mod1 ){
-// 		dv1 = pico->get<Short_t>( v1 );
-// 		dv2 = pico->get<Short_t>( v2 );	
-		
-// 	} else {
-
-// 		dv1 = pico->get<Short_t>( v1 + "_eta_pos" ) + pico->get<Short_t>( v1 + "_eta_neg" );
-// 		dv2 = pico->get<Short_t>( v2 + "_eta_pos" ) + pico->get<Short_t>( v2 + "_eta_neg" );
-
-// 	}
-
-// 	TRACE( classname(), "Direct v1 = " << pico->get<Short_t>( "EventPlane.mNtrk_eta_neg" ) );
-// 	TRACE( classname(), "dv1 = " << dv1  );
-
-// 	if ( "" != mod2 )
-// 		return dv1 + dv2;	
-// 	else 
-// 		return dv1;
-
-// }
-
-
-
 void EventPlaneMaker::analyzeEvent(){
 	DEBUG( classname(), "" );
 
-	double nTracks = getNtrk();//( v1, v2 );
+	double nTracks = getNtrk();
 	TRACE( classname(), "mNtrk = " << nTracks );
 	if ( nTracks == 0 ) return;
 
-	double qx = getQx();//( "mQx", v1, v2 ) ;
-	double qy = getQy();//( "mQy", v1, v2 ) ;
+	double qx = getQx();
+	double qy = getQy();
 
 	if (qx == 0) return;
 	if (qy == 0) return;

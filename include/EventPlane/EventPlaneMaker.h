@@ -23,10 +23,6 @@ public:
 
 protected:
 	EventPlaneCorr epc;
-	string v1, v2;
-
-	XmlPoint centeringPoint;
-	XmlFunction fWeight;
 
 	virtual void analyzeEvent();
 	virtual void postEventLoop();

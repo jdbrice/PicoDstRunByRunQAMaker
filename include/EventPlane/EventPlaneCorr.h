@@ -51,20 +51,12 @@ public:
 
 
 	// void load(  );
-	// string toXml( ){
-
-	// 	string line = "<EventPlaneCorr ";
-	// 	line += "mean_qx=\"";
-	// 	line += dts( mean_qx );
-	// 	line += "\"";
-	// 	line += "mean_qy=\"";
-	// 	line += dts( mean_qy );
-	// 	line += "\"";
-
-	// 	line += " >";
-	// 	line += "\n </EventPlaneCorr>";
-	// 	return line;
-	// }
+	string toXml( ){
+		string line = "<EventPlaneCorr>\n";
+		line += centeringPoint.toXml();
+		line += "\n </EventPlaneCorr>";
+		return line;
+	}
 
 protected:
 
@@ -72,8 +64,6 @@ protected:
 	XmlPoint centeringPoint;
 	XmlFunction flatteningFunction;
 
-
-	
 };
 
 
