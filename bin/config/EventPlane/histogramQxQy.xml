@@ -22,14 +22,13 @@
 
 		<EventPlane v1="eta_neg" v2="eta_pos"></EventPlane>
 
-		<Include url="config/EventPlaneMaker/EventPlaneCorr.xml" />
-
 		<histograms>
 			<Include url="../Common/EventQAHistos.xml" />
 		</histograms>
 		
 		<Include url="../Common/EventCuts.xml" />
 		
+		<Include url="../Params/EventPlaneCorr.xml" />
 
 		<!-- <fitQxQy nSig_qx="3.0" nSig_qy="3.0" /> -->
 

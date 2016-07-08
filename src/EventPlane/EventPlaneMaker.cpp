@@ -12,10 +12,10 @@ void EventPlaneMaker::initialize(){
 
 	hPsi2Flattened = new TH1D("Psi2Flattened","",640,-3.2,3.2);
 
-	// load in the parameters
-	epc.load( config, nodePath + ".EventPlaneCorr" );
+	// // load in the parameters
+	// epc.load( config, nodePath + ".EventPlaneCorr" );
 
-	config.toXmlFile( "configOut.xml" );
+	// config.toXmlFile( "configOut.xml" );
 	
 }
 
