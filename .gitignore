@@ -23,3 +23,6 @@ StRefMultCorr
 
 .sconsign.dblite
 test.py
+
+bin/config/Common/cwd.xml
+bin/config/Params

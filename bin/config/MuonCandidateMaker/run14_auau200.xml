@@ -22,6 +22,8 @@
 		
 		<Include url="../Common/EventCuts.xml" />
 		<Include url="../Common/MuonCandidateCuts.xml" />
+		
+		<!-- Parameter imports -->
 		<Include url="../Params/EventPlaneCorr.xml" />
 
 		<EventBranches>

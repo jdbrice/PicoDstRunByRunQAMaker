@@ -12,7 +12,7 @@ ROOTGLIBS     	= subprocess.check_output( ["root-config",  "--glibs"] )
 ROOTLIBPATH 	= subprocess.check_output( ["root-config", "--libdir" ] )
 ROOT_SYS 		= os.environ[ "ROOTSYS" ]
 JDB_LIB			= os.environ[ "JDB_LIB" ]
-
+JDB_LIB_NAME 	= 'libRooBarb.a'
 
 cppDefines 		= {}
 cppFlags 		= ['-Wall' ]#, '-Werror']
@@ -55,7 +55,7 @@ common_env.Append(CXXFLAGS 		= cxxFlags)
 common_env.Append(LINKFLAGS 	= cxxFlags ) #ROOTLIBS + " " + JDB_LIB + "/lib/libJDB.a"
 common_env.Append(CPPPATH		= paths)
 
-common_env[ "_LIBFLAGS" ] = common_env[ "_LIBFLAGS" ] + " " + JDB_LIB + "/lib/libJDB.a" + " " + ROOTLIBS + " "
+common_env[ "_LIBFLAGS" ] = common_env[ "_LIBFLAGS" ] + " " + JDB_LIB + "/lib/" +JDB_LIB_NAME  + " " + ROOTLIBS + " "
 
 jdb_log_level = ARGUMENTS.get( "ll", 60 )
 common_env.Append(CXXFLAGS 		= "-DJDB_LOG_LEVEL=" + str(jdb_log_level) )
@@ -63,7 +63,7 @@ common_env.Append(CXXFLAGS 		= "-DJDB_LOG_LEVEL=" + str(jdb_log_level) )
 target = common_env.Program( target='bin/app', source=[Glob( "src/*.cpp" ), Glob( "src/*/*.cpp" )] )
 
 Depends( target, root_dict )
-Depends( target, JDB_LIB + "/lib/libJDB.a" )
+Depends( target, JDB_LIB + "/lib/" + JDB_LIB_NAME )
 Depends( target, Glob( JDB_LIB + "/include/jdb/*" ) )
 
 # set as the default target
