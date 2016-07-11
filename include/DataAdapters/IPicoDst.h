@@ -30,6 +30,8 @@ public:
 	}
 
 	virtual bool isMtdTrigger( std::string trigger ){
+		if ( "all" == trigger )
+			return true;
 		if ( "dimuon" == trigger )
 			return isDiMuon();
 		if ( "singlemuon" == trigger || "SINGLEMUON" == trigger || "SingleMuon" == trigger || "singlemu" == trigger )
