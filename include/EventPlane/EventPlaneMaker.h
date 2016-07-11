@@ -22,7 +22,7 @@ public:
 	virtual void initialize();
 
 protected:
-	EventPlaneCorr epc;
+	// EventPlaneCorr epc;
 
 	virtual void analyzeEvent();
 	virtual void postEventLoop();

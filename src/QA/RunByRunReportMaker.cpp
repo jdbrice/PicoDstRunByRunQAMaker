@@ -107,7 +107,7 @@ void RunByRunReportMaker::profile( string name, bool draw ){
 			// only draw bands if used for bad run finding
 			if ( find( badRunHistos.begin(), badRunHistos.end(), name ) != badRunHistos.end() ){
 				drawBands( hp, name, nSig, r );
-				latex.DrawLatexNDC(.25,.86, ("n#sigma = " + dts( nSig )).c_str() );
+				// latex.DrawLatexNDC(.25,.86, ("n#sigma = " + dts( nSig )).c_str() );
 			}
 		}
 
@@ -122,7 +122,7 @@ void RunByRunReportMaker::profile( string name, bool draw ){
 				.set( "draw", "same pe" )
 				.draw();
 			
-			latex.DrawLatexNDC(.3,.96,config[ nodePath + ".Reporter.title" ].c_str() );
+			// latex.DrawLatexNDC(.3,.96,config[ nodePath + ".Reporter.title" ].c_str() );
 			
 			gStyle->SetOptStat(0);
 			reporter->savePage();
