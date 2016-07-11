@@ -6,7 +6,7 @@
 class EventPlaneCandidateMaker : public CandidateMaker
 {
 public:
-	virtual const char* classname() const { return "EventPlaneCandidateMaker.h"; }
+	virtual const char* classname() const { return "EventPlaneCandidateMaker"; }
 	EventPlaneCandidateMaker() {}
 	~EventPlaneCandidateMaker() {}
 

@@ -13,7 +13,7 @@
 		</input>
 
 		<output path="" >
-			<data>eventplane_candidates.root</data>
+			<TFile url="eventplane_candidates_triggers_{EventPlaneCandidateMaker:triggers}.root" />
 		</output>
 
 		<histograms>
