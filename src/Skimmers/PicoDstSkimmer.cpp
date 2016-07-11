@@ -33,6 +33,7 @@ void PicoDstSkimmer::initialize(){
 	eventCuts.init( config, nodePath + ".EventCuts" );
 	eventCuts.setDefault( "zVertex", -100, 100 );
 	eventCuts.setDefault( "zVertexDelta", 0, 3 );
+	eventCuts.setDefault( "EventPlane_nTracks", 1, 10000000 );
 
 	INFO( classname(), "" );
 	INFO( classname(), "############### Event Cuts ###################"  );
@@ -55,23 +56,27 @@ bool PicoDstSkimmer::keepEvent(){
 	DEBUG( classname(), "keepEvent" );
 	bool passAllCuts = true;
 
+	bool makeQA = config.getBool( nodePath +".MakeQA:event", false );
+
 	double zVertex = pico->vz();
 	double zVpd = pico->vzVpd();
 
-	passEventCut( "All", passAllCuts );
-	tf.fillTriggerQA( pico, "all_triggers", "eventQA", book );
-
+	if (makeQA) {
+		passEventCut( "All", passAllCuts );
+		tf.fillTriggerQA( pico, "all_triggers", "eventQA", book );
+	}
+	
 	// Trigger selection
 	if ( !tf.anyTrigger( pico ) ){
 		passAllCuts = false;
-	} else {
+	} else if ( makeQA ) {
 		passEventCut( "trigger", passAllCuts );
 	}
 
 	// zVertex Selection
 	if ( !eventCuts[ "zVertex" ]->inInclusiveRange( zVertex ) ){
 		passAllCuts = false;
-	} else {
+	} else if ( makeQA ) {
 		passEventCut( "zVertex", passAllCuts );
 	}
 
@@ -79,11 +84,19 @@ bool PicoDstSkimmer::keepEvent(){
 	double zDelta = zVertex - zVpd;
 	if ( zDelta > eventCuts[ "zVertexDelta" ]->max ){
 		passAllCuts = false;
-	} else {
+	} else if ( makeQA ) {
 		passEventCut( "zVertexDelta", passAllCuts );
 	}
 
-	if ( passAllCuts ){
+	double nTracks = pico->ntrk();
+	if ( nTracks < eventCuts[ "EventPlane_nTracks" ]->min ){
+		passAllCuts = false;
+	} else if ( makeQA ) {
+		passEventCut( "nEvtPlTrks", passAllCuts );
+	}
+
+
+	if ( passAllCuts && makeQA ){
 		tf.fillTriggerQA( pico, "pass_triggers", "eventQA", book );
 		book->fill("zVertex", zVertex);
 		book->fill( "zVpd", zVpd );

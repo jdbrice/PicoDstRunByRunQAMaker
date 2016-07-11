@@ -30,13 +30,7 @@ public:
 		INFO( classname(), "" );
 		PicoDstSkimmer::initialize();
 
-		// event = new CandidateEvent();
-		// eventPlane = new CandidateEventPlane();
-		// tracks = new TClonesArray( "CandidateTrack" );
-		// btofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
-		// mtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
-		
-		createTree( false );
+		createTree();
 
 		if ( config.getBool( nodePath + ":rmc", true ) ){
 			INFO( classname(), "Setting up RMC" );
@@ -49,32 +43,6 @@ public:
 
 protected:
 	StRefMultCorr * rmc = nullptr;
-	// string treeDescription = "Generic";
-	// TTree * mTree;
-	// Int_t nCandTracks;
-	// Int_t nBTofPidTraits;
-	// Int_t nMtdPidTraits;
-	// bool keepCandidateEvent;
-
-	// bool isElectron;
-	// bool isMuon;
-	
-	// CandidateEvent * event;
-	// CandidateEventPlane * eventPlane;
-	// TClonesArray * tracks;
-	// TClonesArray * btofPidTraits;
-	// TClonesArray * mtdPidTraits;
-
-	// void createTree(){
-	// 	mTree = new TTree("FemtoDst", (treeDescription + " Candidates").c_str(), 99);
-	// 	mTree->Branch( "Event", &event, 256000, 99 );
-	// 	if ( "PicoDstRun15PP200" != picoDstAdapter )
-	// 		mTree->Branch( "EventPlane", &eventPlane, 256000, 99 );
-	// 	mTree->Branch( "Tracks", &tracks, 256000, 99 );
-
-	// 	mTree->Branch( "BTofPidTraits", &btofPidTraits, 256000, 99 );
-	// 	mTree->Branch( "MtdPidTraits", &mtdPidTraits, 256000, 99 );
-	// }
 
 	virtual void analyzeEvent(){
 

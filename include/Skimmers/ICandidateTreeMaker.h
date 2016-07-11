@@ -16,12 +16,18 @@ class ICandidateTreeMaker
 
 protected:
 
-	TTree * mTree;
-	CandidateEvent * event;
-	CandidateEventPlane * eventPlane;
-	TClonesArray * tracks;
-	TClonesArray * btofPidTraits;
-	TClonesArray * mtdPidTraits;
+	TTree               * mTree         = nullptr;
+	CandidateEvent      * event         = nullptr;
+	CandidateEventPlane * eventPlane    = nullptr;
+	TClonesArray        * tracks        = nullptr;
+	TClonesArray        * btofPidTraits = nullptr;
+	TClonesArray        * mtdPidTraits  = nullptr;
+
+	bool makeEventPlane    = false;
+	bool makeTracks        = false;
+	bool makeBTofPidTraits = false;
+	bool makeMtdPidTraits  = false;
+	bool makeEmcPidTraits  = false;
 
 	string treeDescription = "Generic";
 
@@ -38,23 +44,45 @@ public:
 	~ICandidateTreeMaker() {}
 
 
-	void createTree( bool _eventPlane = true, bool _btofPidTraits = true, bool _mtdPidTraits = true, bool _emcPidTraits = true ){
+	void createTree( bool _makeEventPlane = false, bool _makeTracks = false, bool _makeBTofPidTraits = false, bool _makeMtdPidTraits = false, bool _makeEmcPidTraits = false){
 
-		event = new CandidateEvent();
+		// once it has been set to true you can't unset it
+		// ie remove the branch after it is made is not possible
+		
+		makeEventPlane    |= _makeEventPlane;
+		makeTracks        |= _makeTracks;
+		makeBTofPidTraits |= _makeBTofPidTraits;
+		makeMtdPidTraits  |= _makeMtdPidTraits;
+		makeEmcPidTraits  |= _makeEmcPidTraits;
+
+		// makes it safe to call multiple times
+		if ( nullptr == event )
+			event = new CandidateEvent();
+
+		if ( nullptr == eventPlane )
 		eventPlane = new CandidateEventPlane();
-		tracks = new TClonesArray( "CandidateTrack" );
-		btofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
-		mtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
 
-		mTree = new TTree("FemtoDst", (treeDescription + " Candidates").c_str(), 99);
+		if ( nullptr == tracks )
+			tracks = new TClonesArray( "CandidateTrack" );
+		if ( nullptr == btofPidTraits )
+			btofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
+		
+		if ( nullptr == mtdPidTraits )
+			mtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
+
+		if ( nullptr == mTree )
+			mTree = new TTree("FemtoDst", (treeDescription + " Candidates").c_str(), 99);
+		
 		mTree->Branch( "Event", &event, 256000, 99 );
-		if ( _eventPlane )
-			mTree->Branch( "EventPlane", &eventPlane, 256000, 99 );
-		mTree->Branch( "Tracks", &tracks, 256000, 99 );
 
-		if ( _btofPidTraits )
+		if ( makeEventPlane )
+			mTree->Branch( "EventPlane", &eventPlane, 256000, 99 );
+		
+		if ( makeTracks )
+			mTree->Branch( "Tracks", &tracks, 256000, 99 );
+		if ( makeBTofPidTraits )
 			mTree->Branch( "BTofPidTraits", &btofPidTraits, 256000, 99 );
-		if ( _mtdPidTraits )
+		if ( makeMtdPidTraits )
 			mTree->Branch( "MtdPidTraits", &mtdPidTraits, 256000, 99 );
 	}
 
@@ -66,8 +94,6 @@ public:
 		tracks->Clear();
 		btofPidTraits->Clear();
 		mtdPidTraits->Clear();
-
-
 	}
 
 	virtual void fillCandidateEvent() = 0;
