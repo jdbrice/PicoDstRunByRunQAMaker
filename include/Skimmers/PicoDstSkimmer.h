@@ -71,6 +71,7 @@ protected:
 		// no protection
 		Long64_t read = 0;
 		for (string s : list ){
+			TRACE( classname(), "Reading Branch : " << s );
 			read += chain->GetBranch( s.c_str() )->GetEntry( iEvent );
 		}
 		return read;

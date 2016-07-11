@@ -83,6 +83,7 @@ bool PicoDstSkimmer::keepEvent(){
 	}
 
 	if ( passAllCuts ){
+		passEventCut( "All", passAllCuts );
 		book->fill("zVertex", zVertex);
 		book->fill( "zVpd", zVpd );
 		book->fill( "zVertexDelta", zDelta );
