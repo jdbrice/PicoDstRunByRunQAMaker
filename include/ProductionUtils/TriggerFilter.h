@@ -2,6 +2,7 @@
 #define TRIGGER_FILTER_H
 
 #include "IPicoDst.h"
+#include "HistoBook.h"
 
 #include <string>
 #include "vector"
@@ -34,6 +35,23 @@ public:
 		}
 
 		return false;
+	}
+
+	void fillTriggerQA( const shared_ptr<IPicoDst>& pico, string hName, string sdir, const shared_ptr<HistoBook>& book ){
+		book->cd( sdir );
+		if ( pico->isDiMuon() ){
+			book->fill( hName, "dimuon" );
+		}
+		if ( pico->isDiMuonHFT() ){
+			book->fill( hName, "dimuonHFT" );
+		}
+		if ( pico->isSingleMuon() ){
+			book->fill( hName, "singleMu" );
+		}
+		if ( pico->isEMuon() ){
+			book->fill( hName, "emu" );
+		}
+
 	}
 	
 };

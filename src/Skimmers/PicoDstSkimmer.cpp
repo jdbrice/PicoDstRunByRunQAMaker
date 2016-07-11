@@ -59,6 +59,7 @@ bool PicoDstSkimmer::keepEvent(){
 	double zVpd = pico->vzVpd();
 
 	passEventCut( "All", passAllCuts );
+	tf.fillTriggerQA( pico, "all_triggers", "eventQA", book );
 
 	// Trigger selection
 	if ( !tf.anyTrigger( pico ) ){
@@ -83,6 +84,7 @@ bool PicoDstSkimmer::keepEvent(){
 	}
 
 	if ( passAllCuts ){
+		tf.fillTriggerQA( pico, "pass_triggers", "eventQA", book );
 		book->fill("zVertex", zVertex);
 		book->fill( "zVpd", zVpd );
 		book->fill( "zVertexDelta", zDelta );
