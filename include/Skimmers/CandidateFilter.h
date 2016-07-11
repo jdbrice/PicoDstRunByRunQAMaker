@@ -21,7 +21,7 @@ public:
 	CandidateFilter();
 	~CandidateFilter();
 	
-	static bool isMuon( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol, HistoBook * book = nullptr ){
+	static bool isMuon( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol, shared_ptr<HistoBook> book = nullptr ){
 
 
 		bool allCuts = true;
