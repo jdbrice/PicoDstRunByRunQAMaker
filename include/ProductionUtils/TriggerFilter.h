@@ -39,17 +39,27 @@ public:
 
 	void fillTriggerQA( const shared_ptr<IPicoDst>& pico, string hName, string sdir, const shared_ptr<HistoBook>& book ){
 		book->cd( sdir );
+		bool knownTrigger = false;
+
 		if ( pico->isDiMuon() ){
 			book->fill( hName, "dimuon" );
+			knownTrigger = true;
 		}
 		if ( pico->isDiMuonHFT() ){
 			book->fill( hName, "dimuonHFT" );
+			knownTrigger = true;
 		}
 		if ( pico->isSingleMuon() ){
 			book->fill( hName, "singleMu" );
+			knownTrigger = true;
 		}
 		if ( pico->isEMuon() ){
 			book->fill( hName, "emu" );
+			knownTrigger = true;
+		}
+
+		if ( false == knownTrigger ){
+			book->fill( hName, "unknown" );
 		}
 
 	}
