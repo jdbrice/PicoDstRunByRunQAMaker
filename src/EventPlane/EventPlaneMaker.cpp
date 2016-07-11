@@ -22,12 +22,16 @@ void EventPlaneMaker::initialize(){
 void EventPlaneMaker::analyzeEvent(){
 	DEBUG( classname(), "" );
 
+	book->cd( "eventPlaneQA" );
 	double nTracks = pico->ntrk();
 	TRACE( classname(), "mNtrk = " << nTracks );
 	if ( nTracks == 0 ) return;
 
 	double qx = pico->qx();
 	double qy = pico->qy();
+
+
+	book->fill( "nTracks", nTracks );
 
 	if (qx == 0) return;
 	if (qy == 0) return;

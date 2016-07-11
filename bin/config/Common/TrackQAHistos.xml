@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<TrackQAHistos dir="trackQA" >
-		<Histo name="track_cuts" title="Sequential Track Cuts" bins_x="bins.track_cuts" />
-		<Histo name="track_single_cuts" title="Individual Track Cuts" bins_x="bins.track_cuts" />
+		<Histo name="track_cuts" title="Sequential Track Cuts" bins_x="TrackQABins.track_cuts" />
+		<Histo name="track_single_cuts" title="Individual Track Cuts" bins_x="TrackQABins.track_cuts" />
 	</TrackQAHistos>
 </config>

@@ -24,6 +24,7 @@
 
 		<histograms>
 			<Include url="../Common/EventQAHistos.xml" />
+			<Include url="EventPlaneQAHistos.xml" />
 		</histograms>
 		
 		<Include url="../Common/EventCuts.xml" />
@@ -35,5 +36,6 @@
 	</EventPlaneMaker>
 
 	<Include url="../Common/EventQABins.xml" />
+	<Include url="EventPlaneQABins.xml" />
 
 </config>
