@@ -21,7 +21,7 @@ public:
 	CandidateFilter();
 	~CandidateFilter();
 	
-	static bool isMuon( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol, shared_ptr<HistoBook> book = nullptr ){
+	static bool isMuon( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr ){
 
 
 		bool allCuts = true;
@@ -125,7 +125,7 @@ public:
 		return true;
 	}
 
-	static bool isTpcTofElectron( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol, HistoBook * book = nullptr ){
+	static bool isTpcTofElectron( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr ){
 
 		bool allCuts = true;
 
@@ -230,7 +230,7 @@ public:
 
 
 
-	static void passTrackCut( string cut, bool passAllCuts, HistoBook * book, string name = "track" ){
+	static void passTrackCut( string cut, bool passAllCuts, const shared_ptr<HistoBook>& book, string name = "track" ){
 		DEBUG( "CandidateFilter", fmt::format("(cut={0}, passAllCuts={1})", cut, bts(passAllCuts) ) );
 		
 		book->cd("trackQA");
