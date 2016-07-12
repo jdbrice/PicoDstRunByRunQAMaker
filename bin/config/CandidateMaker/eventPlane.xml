@@ -4,7 +4,7 @@
 	<Task name="skimmer" type="EventPlaneCandidateMaker" config="" nodePath="EventPlaneCandidateMaker" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<EventPlaneCandidateMaker event="true" track="false" triggers="">
+	<EventPlaneCandidateMaker event="true" track="false" triggers="dimuon">
 		<Logger color="true" globalLogLevel="info" />
 		<MakeQA event="true" />
 
@@ -13,7 +13,7 @@
 		</input>
 
 		<output path="" >
-			<TFile url="eventplane_candidates_triggers_{EventPlaneCandidateMaker:triggers}.root" />
+			<TFile url="eventplane_candidates_triggers_{EventPlaneCandidateMaker:triggers}_{jobIndex}.root" />
 		</output>
 
 		<histograms>
