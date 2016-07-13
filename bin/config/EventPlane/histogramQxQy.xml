@@ -4,6 +4,7 @@
 	<Task name="skimmer" type="EventPlaneHistoMaker" config="" nodePath="EventPlaneHistoMaker" />
 	<Logger color="true" globalLogLevel="all" />
 	
+	<Include url="../Common/cwd.xml" />
 	<EventPlaneHistoMaker triggers="">
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="false" />
