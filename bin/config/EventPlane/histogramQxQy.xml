@@ -6,7 +6,7 @@
 	
 	<EventPlaneHistoMaker triggers="">
 		<Logger color="true" globalLogLevel="info" />
-		<EventLoop progress="true" />
+		<EventLoop progress="false" />
 
 		<input>
 			<dst treeName="FemtoDst" url="femtoEventPlane.lis" splitBy="64" nEvents="20000000"/>
