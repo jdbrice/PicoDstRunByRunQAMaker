@@ -12,6 +12,8 @@
 /src/*.o
 *.o
 /src/app
+/src/CintDictionary.cpp
+*.pcm
 
 #remove items in bin used for managing different jobs
 /bin/*.dat

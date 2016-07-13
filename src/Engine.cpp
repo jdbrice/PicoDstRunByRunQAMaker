@@ -25,7 +25,7 @@ using namespace jdb;
 #include "MixedEventTreeMaker.h"
 
 
-#include "EventPlaneMaker.h"
+#include "EventPlaneHistoMaker.h"
 #include "EventPlaneOffsetFitter.h"
 #include "SharedPicoDstSkimmer.h"
 #include "CandidateSkimmer.h"
@@ -49,7 +49,7 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<ElectronCandidateMaker>( "ElectronCandidateMaker" );
 	
 	TaskFactory::registerTaskRunner<EventPlaneCandidateMaker>( "EventPlaneCandidateMaker" );
-	TaskFactory::registerTaskRunner<EventPlaneMaker>( "EventPlaneMaker" );
+	TaskFactory::registerTaskRunner<EventPlaneHistoMaker>( "EventPlaneHistoMaker" );
 	TaskFactory::registerTaskRunner<EventPlaneOffsetFitter>( "EventPlaneOffsetFitter" );
 	TaskFactory::registerTaskRunner<CandidateSkimmer>( "CandidateSkimmer" );
 

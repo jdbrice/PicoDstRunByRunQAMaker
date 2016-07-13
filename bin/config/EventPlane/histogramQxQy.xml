@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="skimmer" type="EventPlaneMaker" config="" nodePath="EventPlaneMaker" />
+	<Task name="skimmer" type="EventPlaneHistoMaker" config="" nodePath="EventPlaneHistoMaker" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<EventPlaneMaker triggers="">
+	<EventPlaneHistoMaker triggers="">
 		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="PicoDst" url="list.lis" splitBy="200" nEvents="200000"/>
+			<dst treeName="FemtoDst" url="femtoEventPlane.lis" splitBy="200" nEvents="20000000"/>
 		</input>
 
 		<output path="" >
-			<data>EventPlane.root</data>
+			<TFile url="EventPlane.root" />
 		</output>
-
-		<EventBranches>
-			Event,
-			EventPlane
-		</EventBranches>
-
-		<EventPlane v1="eta_neg" v2="eta_pos"></EventPlane>
 
 		<histograms>
 			<Include url="../Common/EventQAHistos.xml" />
 			<Include url="EventPlaneQAHistos.xml" />
+
+			
+			<Histo name="QxQyCentered" title="Centered QxQy" bins_x="bins.Qx" bins_y="bins.Qy" />
+			<Histo name="Psi" title="psi" bins_x="bins.Psi" />
+			<Histo name="PsiCentered" title="Centered psi" bins_x="bins.Psi" />
+			<Histo name="QxQy" title="QxQy" bins_x="bins.Qx" bins_y="bins.Qy" />
 		</histograms>
 		
 		<Include url="../Common/EventCuts.xml" />
 		
 		<Include url="../Params/EventPlaneCorr.xml" />
 
-		<!-- <fitQxQy nSig_qx="3.0" nSig_qy="3.0" /> -->
 
-	</EventPlaneMaker>
+	</EventPlaneHistoMaker>
 
 	<Include url="../Common/EventQABins.xml" />
 	<Include url="EventPlaneQABins.xml" />
+
+	<bins>
+		<Qx width="0.002" min="-1" max="1" />
+		<Qy width="0.002" min="-1" max="1" />
+		<Psi width="0.01" min="-3.2" max="3.2" />
+	</bins>
 
 </config>

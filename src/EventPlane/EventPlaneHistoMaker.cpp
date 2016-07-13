@@ -1,34 +1,30 @@
-#include "EventPlaneMaker.h"
+#include "EventPlaneHistoMaker.h"
 #include "TMath.h"
 
 
-void EventPlaneMaker::initialize(){
-	PicoDstSkimmer::initialize();
+void EventPlaneHistoMaker::initialize(){
+	CandidateSkimmer::initialize();
 
-	hPsi2 = new TH1D("Psi2","",640,-3.2,3.2);
-	hQxQy = new TH2D("QxQy","",1000,-1,1,1000,-1,1);
-	hPsi2Centered = new TH1D("Psi2Centered","",640,-3.2,3.2);
-	hQxQyCentered = new TH2D("QxQyCentered","",1000,-1,1,1000,-1,1);
-
-	hPsi2Flattened = new TH1D("Psi2Flattened","",640,-3.2,3.2);
-
-	// // load in the parameters
-	// epc.load( config, nodePath + ".EventPlaneCorr" );
-
-	// config.toXmlFile( "configOut.xml" );
+	if ( config.exists( nodePath + ".EventPlaneCorr" ) ){
+		INFO( classname(), "" );
+		INFO( classname(), "############### EventPlaneCorr ###################"  );
+		epc.load( config, nodePath + ".EventPlaneCorr" );
+	} else {
+		WARN( classname(), "No EventPlane Corrections found" );
+	}
 	
 }
 
-void EventPlaneMaker::analyzeEvent(){
+void EventPlaneHistoMaker::analyzeEvent(){
 	DEBUG( classname(), "" );
 
 	book->cd( "eventPlaneQA" );
-	double nTracks = pico->ntrk();
+	double nTracks = eventPlane->mNtrk_eta_pos + eventPlane->mNtrk_eta_neg;
 	TRACE( classname(), "mNtrk = " << nTracks );
 	if ( nTracks == 0 ) return;
 
-	double qx = pico->qx();
-	double qy = pico->qy();
+	double qx = eventPlane->mQx_eta_pos + eventPlane->mQx_eta_neg;
+	double qy = eventPlane->mQy_eta_pos + eventPlane->mQy_eta_neg;
 
 
 	book->fill( "nTracks", nTracks );
@@ -39,27 +35,28 @@ void EventPlaneMaker::analyzeEvent(){
 	qx = qx / nTracks;
 	qy = qy / nTracks;
 
-	double psi = TMath::ATan2( qy, qx );
+	double psi = TMath::ATan2( qy, qx ) / 2.0;
 
-	hQxQy->Fill( qx, qy );
-	hPsi2->Fill( psi );	
+	book->cd();
+	book->fill( "QxQy", qx, qy );
+	book->fill( "Psi", psi );	
 
 	// apply centering
 	qx = epc.center_qx( qx );
 	qy = epc.center_qy( qy );
-	psi = TMath::ATan2( qy, qx );
+	psi = TMath::ATan2( qy, qx ) / 2.0;
 
 	// plot the centered version
-	hQxQyCentered->Fill( epc.center_qx( qx ), epc.center_qy( qy ) );
-	hPsi2Centered->Fill( psi );
+	book->fill( "QxQyCentered", qx, qy );
+	book->fill( "PsiCentered", psi );	
 
 	// now flatten if given a flattening function
 	double psi_weight = epc.flatten( psi );
-	hPsi2Flattened->Fill( psi, psi_weight );
+	// hPsi2Flattened->Fill( psi, psi_weight );
 }
  
 
-void EventPlaneMaker::postEventLoop(){
+void EventPlaneHistoMaker::postEventLoop(){
 
 	// if ( 0 == iEventLoop ){
 	// 	fitQxQy();
@@ -69,7 +66,7 @@ void EventPlaneMaker::postEventLoop(){
 
 }
 
-// void EventPlaneMaker::fitQxQy(){
+// void EventPlaneHistoMaker::fitQxQy(){
 // 	DEBUG( classname(), "" );
 // 	TH1D* qy = (TH1D*)hQxQy->ProjectionY( "qy" );
 // 	TH1D* qx = (TH1D*)hQxQy->ProjectionX( "qx" );
@@ -87,7 +84,7 @@ void EventPlaneMaker::postEventLoop(){
 // }
 
 
-// void EventPlaneMaker::fitPsi(){
+// void EventPlaneHistoMaker::fitPsi(){
 // 	DEBUG( classname(), "");
 
 // 	// double psi = 1;
