@@ -4,15 +4,16 @@
 	<Task name="skimmer" type="MuonCandidateMaker" config="" nodePath="MuonCandidateMaker" />
 	<Logger color="true" globalLogLevel="trace" />
 	
+	<Include url="../Common/cwd.xml" />
 	<MuonCandidateMaker event="true" track="true" triggers="dimuon" rmc="true">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
-			<dst treeName="PicoDst" url="list.lis" splitBy="200" maxFiles="10" />
+			<dst treeName="PicoDst" url="list.lis" splitBy="200" />
 		</input>
 
 		<output path="" >
-			<TFile url="muon_candidates.root" />
+			<TFile url="muon_candidates_{jobIndex}.root" />
 			<!-- <data>muon_candidates.root</data> -->
 		</output>
 
@@ -33,8 +34,6 @@
 
 		<TrackBranches>
 			Tracks,
-			BTofPidTraits,
-			EmcPidTraits,
 			MtdPidTraits
 		</TrackBranches>
 

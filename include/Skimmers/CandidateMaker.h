@@ -121,34 +121,34 @@ protected:
 
 	virtual void fillCandidateEventPlane(){
 
-		eventPlane->mQx_eta_pos = pico->EventPlane_mQx_eta_pos[0];
-		eventPlane->mQy_eta_pos = pico->EventPlane_mQy_eta_pos[0];
-		eventPlane->mQx_eta_neg = pico->EventPlane_mQx_eta_neg[0];
-		eventPlane->mQy_eta_neg = pico->EventPlane_mQy_eta_neg[0];
-		eventPlane->mNtrk_eta_pos = pico->EventPlane_mNtrk_eta_pos[0];
-		eventPlane->mNtrk_eta_neg = pico->EventPlane_mNtrk_eta_neg[0];
-		eventPlane->mWeight_eta_pos = pico->EventPlane_mWeight_eta_pos[0];
-		eventPlane->mWeight_eta_neg = pico->EventPlane_mWeight_eta_neg[0];
-		eventPlane->mQx_chg_pos = pico->EventPlane_mQx_chg_pos[0];
-		eventPlane->mQy_chg_pos = pico->EventPlane_mQy_chg_pos[0];
-		eventPlane->mQx_chg_neg = pico->EventPlane_mQx_chg_neg[0];
-		eventPlane->mQy_chg_neg = pico->EventPlane_mQy_chg_neg[0];
+		eventPlane->mQx_eta_pos           = pico->EventPlane_mQx_eta_pos[0];
+		eventPlane->mQy_eta_pos           = pico->EventPlane_mQy_eta_pos[0];
+		eventPlane->mQx_eta_neg           = pico->EventPlane_mQx_eta_neg[0];
+		eventPlane->mQy_eta_neg           = pico->EventPlane_mQy_eta_neg[0];
+		eventPlane->mNtrk_eta_pos         = pico->EventPlane_mNtrk_eta_pos[0];
+		eventPlane->mNtrk_eta_neg         = pico->EventPlane_mNtrk_eta_neg[0];
+		eventPlane->mWeight_eta_pos       = pico->EventPlane_mWeight_eta_pos[0];
+		eventPlane->mWeight_eta_neg       = pico->EventPlane_mWeight_eta_neg[0];
+		eventPlane->mQx_chg_pos           = pico->EventPlane_mQx_chg_pos[0];
+		eventPlane->mQy_chg_pos           = pico->EventPlane_mQy_chg_pos[0];
+		eventPlane->mQx_chg_neg           = pico->EventPlane_mQx_chg_neg[0];
+		eventPlane->mQy_chg_neg           = pico->EventPlane_mQy_chg_neg[0];
 		eventPlane->mNtrk_chg_pos_eta_pos = pico->EventPlane_mNtrk_chg_pos_eta_pos[0];
 		eventPlane->mNtrk_chg_pos_eta_neg = pico->EventPlane_mNtrk_chg_pos_eta_neg[0];
 		eventPlane->mNtrk_chg_neg_eta_pos = pico->EventPlane_mNtrk_chg_neg_eta_pos[0];
 		eventPlane->mNtrk_chg_neg_eta_neg = pico->EventPlane_mNtrk_chg_neg_eta_neg[0];
-		eventPlane->mWeight_chg_pos = pico->EventPlane_mWeight_chg_pos[0];
-		eventPlane->mWeight_chg_neg = pico->EventPlane_mWeight_chg_neg[0];
-		eventPlane->mQx_ran_1 = pico->EventPlane_mQx_ran_1[0];
-		eventPlane->mQy_ran_1 = pico->EventPlane_mQy_ran_1[0];
-		eventPlane->mQx_ran_2 = pico->EventPlane_mQx_ran_2[0];
-		eventPlane->mQy_ran_2 = pico->EventPlane_mQy_ran_2[0];
-		eventPlane->mNtrk_ran_1_eta_pos = pico->EventPlane_mNtrk_ran_1_eta_pos[0];
-		eventPlane->mNtrk_ran_1_eta_neg = pico->EventPlane_mNtrk_ran_1_eta_neg[0];
-		eventPlane->mNtrk_ran_2_eta_pos = pico->EventPlane_mNtrk_ran_2_eta_pos[0];
-		eventPlane->mNtrk_ran_2_eta_neg = pico->EventPlane_mNtrk_ran_2_eta_neg[0];
-		eventPlane->mWeight_ran_1 = pico->EventPlane_mWeight_ran_1[0];
-		eventPlane->mWeight_ran_2 = pico->EventPlane_mWeight_ran_2[0];
+		eventPlane->mWeight_chg_pos       = pico->EventPlane_mWeight_chg_pos[0];
+		eventPlane->mWeight_chg_neg       = pico->EventPlane_mWeight_chg_neg[0];
+		eventPlane->mQx_ran_1             = pico->EventPlane_mQx_ran_1[0];
+		eventPlane->mQy_ran_1             = pico->EventPlane_mQy_ran_1[0];
+		eventPlane->mQx_ran_2             = pico->EventPlane_mQx_ran_2[0];
+		eventPlane->mQy_ran_2             = pico->EventPlane_mQy_ran_2[0];
+		eventPlane->mNtrk_ran_1_eta_pos   = pico->EventPlane_mNtrk_ran_1_eta_pos[0];
+		eventPlane->mNtrk_ran_1_eta_neg   = pico->EventPlane_mNtrk_ran_1_eta_neg[0];
+		eventPlane->mNtrk_ran_2_eta_pos   = pico->EventPlane_mNtrk_ran_2_eta_pos[0];
+		eventPlane->mNtrk_ran_2_eta_neg   = pico->EventPlane_mNtrk_ran_2_eta_neg[0];
+		eventPlane->mWeight_ran_1         = pico->EventPlane_mWeight_ran_1[0];
+		eventPlane->mWeight_ran_2         = pico->EventPlane_mWeight_ran_2[0];
 	}
 
 	virtual void trackLoop(){
@@ -186,25 +186,26 @@ protected:
 	virtual void fillCandidateTrack( CandidateTrack * aTrack, int iTrack ){
 		
 
-		aTrack->mPMomentum_mX1 = pico->Tracks_mPMomentum_mX1[iTrack];
-		aTrack->mPMomentum_mX2 = pico->Tracks_mPMomentum_mX2[iTrack];
-		aTrack->mPMomentum_mX3 = pico->Tracks_mPMomentum_mX3[iTrack];
+		aTrack->mId                 = pico->Tracks_mId[iTrack];
+		aTrack->mPMomentum_mX1      = pico->Tracks_mPMomentum_mX1[iTrack];
+		aTrack->mPMomentum_mX2      = pico->Tracks_mPMomentum_mX2[iTrack];
+		aTrack->mPMomentum_mX3      = pico->Tracks_mPMomentum_mX3[iTrack];
 
-		aTrack->mDedx = pico->Tracks_mDedx[ iTrack ];
-		aTrack->mNHitsFit = pico->Tracks_mNHitsFit[iTrack];
-		aTrack->mNHitsMax = pico->Tracks_mNHitsMax[iTrack];
-		aTrack->mNHitsDedx = pico->Tracks_mNHitsDedx[iTrack];
+		aTrack->mDedx               = pico->Tracks_mDedx[ iTrack ];
+		aTrack->mNHitsFit           = pico->Tracks_mNHitsFit[iTrack];
+		aTrack->mNHitsMax           = pico->Tracks_mNHitsMax[iTrack];
+		aTrack->mNHitsDedx          = pico->Tracks_mNHitsDedx[iTrack];
 
-		aTrack->mNSigmaPion = pico->Tracks_mNSigmaPion[ iTrack ];
-		aTrack->mNSigmaKaon = pico->Tracks_mNSigmaKaon[ iTrack ];
-		aTrack->mNSigmaProton = pico->Tracks_mNSigmaProton[ iTrack ];
-		aTrack->mNSigmaElectron = pico->Tracks_mNSigmaElectron[ iTrack ];
+		aTrack->mNSigmaPion         = pico->Tracks_mNSigmaPion[ iTrack ];
+		aTrack->mNSigmaKaon         = pico->Tracks_mNSigmaKaon[ iTrack ];
+		aTrack->mNSigmaProton       = pico->Tracks_mNSigmaProton[ iTrack ];
+		aTrack->mNSigmaElectron     = pico->Tracks_mNSigmaElectron[ iTrack ];
 
-		aTrack->mDCA = pico->mGDCA( iTrack );
+		aTrack->mDCA                = pico->mGDCA( iTrack );
 
 		// default out the PidTraits
-		aTrack->mBTofPidTraitsIndex = -1; 
-		aTrack->mMtdPidTraitsIndex = -1;
+		aTrack->mBTofPidTraitsIndex = -1;
+		aTrack->mMtdPidTraitsIndex  = -1;
 
 		fillCandidateBTofPidTraits( aTrack, iTrack );
 		fillCandidateMtdPidTraits( aTrack, iTrack );

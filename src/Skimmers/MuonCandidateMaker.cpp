@@ -12,6 +12,14 @@ MuonCandidateMaker::~MuonCandidateMaker(){
 
 void MuonCandidateMaker::initialize(){
 	CandidateMaker::initialize();
+
+	// add the EventPlane Branch
+		createTree( 
+					false, // EventPlane branch
+					true,  // Tracks
+					false, // bTof
+					true   // MTD
+					 );
 	
 	muonCuts.init( config, nodePath + ".MuonCandidateCuts" );
 
