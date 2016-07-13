@@ -9,7 +9,7 @@
 		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="femtoEventPlane.lis" splitBy="200" nEvents="20000000"/>
+			<dst treeName="FemtoDst" url="femtoEventPlane.lis" splitBy="64" nEvents="20000000"/>
 		</input>
 
 		<output path="" >
