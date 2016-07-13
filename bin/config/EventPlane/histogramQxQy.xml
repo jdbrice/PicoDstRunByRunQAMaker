@@ -13,7 +13,7 @@
 		</input>
 
 		<output path="" >
-			<TFile url="EventPlane.root" />
+			<TFile url="EventPlane_{jobIndex}.root" />
 		</output>
 
 		<histograms>
