@@ -12,7 +12,7 @@
 /src/*.o
 *.o
 /src/app
-/src/CintDictionary.cpp
+/src/TreeData/CintDictionary.cpp
 *.pcm
 
 #remove items in bin used for managing different jobs

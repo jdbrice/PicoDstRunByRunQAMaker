@@ -19,8 +19,13 @@ public:
 	~EventPlaneOffsetFitter() {}
 
 	virtual void make() {
-
 		DEBUG( classname(), "" );
+
+		if ( nullptr == inFile || !inFile->IsOpen() ){
+			ERROR( classname(), "Invalid inFile, aborting" );
+			return;
+		}
+
 		TH2D *hQxQy = (TH2D*)inFile->Get( "QxQy" ); 
 		book->cd();
 		TH1D* qy = (TH1D*)hQxQy->ProjectionY( "qy" );

@@ -11,7 +11,7 @@
 		<Logger color="true" globalLogLevel="trace" />
 		
 		<input path="">
-			<TFile url="{CWD:in}EventPlane/EventPlane_dimuon.root" />
+			<TFile url="{CWD:in}EventPlane.root" />
 		</input>
 
 

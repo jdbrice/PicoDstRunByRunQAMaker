@@ -13,7 +13,7 @@
 		</input>
 
 		<output path="" >
-			<TFile url="EventPlane_{jobIndex}.root" />
+			<TFile url="{CWD:out}EventPlane_{jobIndex}.root" />
 		</output>
 
 		<histograms>
