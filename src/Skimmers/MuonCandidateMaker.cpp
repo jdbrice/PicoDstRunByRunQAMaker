@@ -28,6 +28,8 @@ void MuonCandidateMaker::initialize(){
 	muonCuts.report();
 	INFO( classname(), "" );
 
+	gErrorIgnoreLevel = kError;
+
 }
 
 
