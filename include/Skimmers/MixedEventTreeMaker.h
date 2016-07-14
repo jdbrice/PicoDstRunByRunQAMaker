@@ -64,6 +64,7 @@ protected:
 				CandidateTrackMtdPidTraits * aMtdPidTraits = (CandidateTrackMtdPidTraits*) mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
 				wMtdPidTraits->copy( aMtdPidTraits );
 			}
+			TRACE( classname(), "Filling Tree" );
 			mTree->Fill();
 		} // iTrack
 	}
