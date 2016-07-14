@@ -13,7 +13,7 @@
 		</input>
 
 		<output path="" >
-			<data>mumu.root</data>
+			<TFile url="{CWD:out}inv_mass_mumu_{jobIndex}.root" />
 		</output>
 
 		<histograms>
