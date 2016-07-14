@@ -2,11 +2,10 @@
 #define MIXED_EVENT_TREE_MAKER_H
 
 //RooBarb
-#include "TreeAnalyzer.h"
 #include "CandidateSkimmer.h"
 #include "ICandidateTreeMaker.h"
 
-class MixedEventTreeMaker : public TreeAnalyzer, ICandidateTreeMaker
+class MixedEventTreeMaker : public CandidateSkimmer
 {
 public:
 	virtual const char* classname() const { return "MixedEventTreeMaker"; }
@@ -14,119 +13,61 @@ public:
 	~MixedEventTreeMaker(){}
 
 	virtual void initialize(){
-		TreeAnalyzer::initialize();
+		CandidateSkimmer::initialize();
 
-		chain->SetBranchStatus( "*", 1 );
-
-		rTracks = new TClonesArray( "CandidateTrack" );
-		rBtofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
-		rMtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
-
-		chain->GetBranch( "Tracks" )->SetAutoDelete( kFALSE );
-		chain->GetBranch( "BTofPidTraits" )->SetAutoDelete( kFALSE );
-		chain->GetBranch( "MtdPidTraits" )->SetAutoDelete( kFALSE );
-		
-		chain->SetBranchAddress( "Tracks", &rTracks );
-		chain->SetBranchAddress( "BTofPidTraits", &rBtofPidTraits );
-		chain->SetBranchAddress( "MtdPidTraits", &rMtdPidTraits );
-		chain->SetBranchAddress( "Event", &rEvent );
-		chain->SetBranchAddress( "EventPlane", &rEventPlane );
-
-
-		// setup the output tree
 		createTree();
+
 	}
 
 
 protected:
 
 	// READ
-	CandidateEvent *rEvent;
-	CandidateEventPlane *rEventPlane;
-	TClonesArray *rTracks;
-	TClonesArray *rBtofPidTraits;
-	TClonesArray *rMtdPidTraits;
+	TTree                      * mTree          = nullptr;
+	CandidateEvent             * wEvent         = nullptr;
+	CandidateTrack             * wTracks        = nullptr;
+	CandidateTrackMtdPidTraits * wMtdPidTraits  = nullptr;
 
 
-	virtual void preEventLoop(){
-		TreeAnalyzer::preEventLoop();
+	void createTree( ){
 
-		reset();
+		// makes it safe to call multiple times
+		if ( nullptr == wEvent )
+			wEvent = new CandidateEvent();
+
+		if ( nullptr == wTracks )
+			wTracks = new CandidateTrack();
+		
+		if ( nullptr == wMtdPidTraits )
+			wMtdPidTraits = new CandidateTrackMtdPidTraits();
+
+		if ( nullptr == mTree )
+			mTree = new TTree("FemtoDst", "MixedEvent Candidates", 99);
+		
+		mTree->Branch( "Event", &wEvent, 256000, 99 );
+		mTree->Branch( "Tracks", &wTracks, 256000, 99 );
+		mTree->Branch( "MtdPidTraits", &wMtdPidTraits, 256000, 99 );
 	}
 
-	virtual void postEventLoop(){
-		INFO( classname(), "Filling Tree" );
-		TreeAnalyzer::postEventLoop();
-
-		mTree->Fill();
-	}
 
 	virtual void analyzeEvent(){
 
-		fillCandidateEvent();
-		fillCandidateEventPlane();
+		// Set the Event Data
+		wEvent->copy( event );
 
-		trackLoop();
-	}
-
-	CandidateTrack              * currentTrack;
-	CandidateTrackBTofPidTraits * currentBTofPidTraits;
-	CandidateTrackMtdPidTraits  * currentMtdPidTraits;
-
-
-	virtual void trackLoop(){
-		int nTracks = rTracks->GetEntries();
+		int nTracks = tracks->GetEntries();
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
-			currentTrack = (CandidateTrack*)rTracks->At( iTrack );
-			CandidateTrack * aTrack =  new ((*tracks)[nCandTracks]) CandidateTrack( );
+			CandidateTrack* aTrack = (CandidateTrack*)tracks->At( iTrack );
 
-			fillCandidateTrack( aTrack, nCandTracks );
-			fillCandidateBTofPidTraits( aTrack, nCandTracks );
-			fillCandidateMtdPidTraits( aTrack, nCandTracks );
-
-			nCandTracks++;
-		}
+			wTracks->copy( aTrack );
+			if ( aTrack->mMtdPidTraitsIndex >= 0 ){
+				CandidateTrackMtdPidTraits * aMtdPidTraits = (CandidateTrackMtdPidTraits*) mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
+				wMtdPidTraits->copy( aMtdPidTraits );
+			}
+			mTree->Fill();
+		} // iTrack
 	}
-
-	virtual void fillCandidateEvent(){
-		event->copy( rEvent );
-	}
-	virtual void fillCandidateEventPlane(){
-		eventPlane->copy( rEventPlane );
-	}
-	virtual void fillCandidateTrack( CandidateTrack * aTrack, int iTrack ){
-		aTrack->copy( currentTrack );
-	}
-	virtual void fillCandidateBTofPidTraits( CandidateTrack * aTrack, int iTrack ) {
-		// BTofPidTraits
-		int iBTof = currentTrack->mBTofPidTraitsIndex;//pico->Tracks_mBTofPidTraitsIndex[ iTrack ];
-		if ( iBTof >= 0 ){
-			CandidateTrackBTofPidTraits *rbtpid = (CandidateTrackBTofPidTraits*)rBtofPidTraits->At( ( iBTof ) );
-			aTrack->mBTofPidTraitsIndex = nBTofPidTraits;
-
-			CandidateTrackBTofPidTraits * btpid = new ((*btofPidTraits)[nBTofPidTraits]) CandidateTrackBTofPidTraits( );
-			btpid->copy( rbtpid );
-			nBTofPidTraits++;
-		}
-		else {
-			aTrack->mBTofPidTraitsIndex = -1;
-		}
-	}
-	virtual void fillCandidateMtdPidTraits( CandidateTrack * aTrack, int iTrack ) {
-		// BTofPidTraits
-		int iMtd = currentTrack->mMtdPidTraitsIndex;//pico->Tracks_mBTofPidTraitsIndex[ iTrack ];
-		if ( iMtd >= 0 ){
-			CandidateTrackMtdPidTraits *rmtdpid = (CandidateTrackMtdPidTraits*)rMtdPidTraits->At( ( iMtd ) );
-			aTrack->mMtdPidTraitsIndex = nMtdPidTraits;
-
-			CandidateTrackMtdPidTraits * mtdpid = new ((*mtdPidTraits)[nMtdPidTraits]) CandidateTrackMtdPidTraits( );
-			mtdpid->copy( rmtdpid );
-			nMtdPidTraits++;
-		}
-		else {
-			aTrack->mMtdPidTraitsIndex = -1;
-		}
-	}
+	
 
 };
 

@@ -16,12 +16,12 @@ class ICandidateTreeMaker
 
 protected:
 
-	TTree               * mTree         = nullptr;
-	CandidateEvent      * event         = nullptr;
-	CandidateEventPlane * eventPlane    = nullptr;
-	TClonesArray        * tracks        = nullptr;
-	TClonesArray        * btofPidTraits = nullptr;
-	TClonesArray        * mtdPidTraits  = nullptr;
+	TTree               * mTree          = nullptr;
+	CandidateEvent      * wEvent         = nullptr;
+	CandidateEventPlane * wEventPlane    = nullptr;
+	TClonesArray        * wTracks        = nullptr;
+	TClonesArray        * wBTofPidTraits = nullptr;
+	TClonesArray        * wMtdPidTraits  = nullptr;
 
 	bool makeEventPlane    = false;
 	bool makeTracks        = false;
@@ -56,44 +56,44 @@ public:
 		makeEmcPidTraits  |= _makeEmcPidTraits;
 
 		// makes it safe to call multiple times
-		if ( nullptr == event )
-			event = new CandidateEvent();
+		if ( nullptr == wEvent )
+			wEvent = new CandidateEvent();
 
-		if ( nullptr == eventPlane )
-		eventPlane = new CandidateEventPlane();
+		if ( nullptr == wEventPlane )
+			wEventPlane = new CandidateEventPlane();
 
-		if ( nullptr == tracks )
-			tracks = new TClonesArray( "CandidateTrack" );
-		if ( nullptr == btofPidTraits )
-			btofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
+		if ( nullptr == wTracks )
+			wTracks = new TClonesArray( "CandidateTrack" );
+		if ( nullptr == wBTofPidTraits )
+			wBTofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
 		
-		if ( nullptr == mtdPidTraits )
-			mtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
+		if ( nullptr == wMtdPidTraits )
+			wMtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
 
 		if ( nullptr == mTree )
 			mTree = new TTree("FemtoDst", (treeDescription + " Candidates").c_str(), 99);
 		
-		mTree->Branch( "Event", &event, 256000, 99 );
+		mTree->Branch( "Event", &wEvent, 256000, 99 );
 
 		if ( makeEventPlane )
-			mTree->Branch( "EventPlane", &eventPlane, 256000, 99 );
+			mTree->Branch( "EventPlane", &wEventPlane, 256000, 99 );
 		
 		if ( makeTracks )
-			mTree->Branch( "Tracks", &tracks, 256000, 99 );
+			mTree->Branch( "Tracks", &wTracks, 256000, 99 );
 		if ( makeBTofPidTraits )
-			mTree->Branch( "BTofPidTraits", &btofPidTraits, 256000, 99 );
+			mTree->Branch( "BTofPidTraits", &wBTofPidTraits, 256000, 99 );
 		if ( makeMtdPidTraits )
-			mTree->Branch( "MtdPidTraits", &mtdPidTraits, 256000, 99 );
+			mTree->Branch( "MtdPidTraits", &wMtdPidTraits, 256000, 99 );
 	}
 
-	virtual void reset(){
+	virtual void resetTracks(){
 		nCandTracks    = 0;
 		nBTofPidTraits = 0;
 		nMtdPidTraits  = 0;
 
-		tracks->Clear();
-		btofPidTraits->Clear();
-		mtdPidTraits->Clear();
+		wTracks->Clear();
+		wBTofPidTraits->Clear();
+		wMtdPidTraits->Clear();
 	}
 
 	virtual void fillCandidateEvent() = 0;

@@ -24,38 +24,37 @@ public:
 		DEBUG( classname(), "Setting Branch Status" );
 		chain->SetBranchStatus( "*", 1 );
 
-		DEBUG( classname(), "Creating TClonesArrays" );
-		
-		
-		
+		chain->SetBranchAddress( "Event", &event );
 
-		DEBUG( classname(), "Setting Autodelete" );
+		DEBUG( classname(), "Checking for EventPlan Branch" );
+		if ( chain->GetBranch( "EventPlane" ) ){
+			chain->SetBranchAddress( "EventPlane", &eventPlane );
+			DEBUG( classname(), "Got EventPlane Branch" );
+		}
+
+		DEBUG( classname(), "Checking for Track Branch" );
 		if ( chain->GetBranch( "Tracks" ) ){
 			chain->SetBranchAddress( "Tracks", &tracks );
 			tracks = new TClonesArray( "CandidateTrack" );
 			chain->GetBranch( "Tracks" )->SetAutoDelete( kFALSE );	
+			DEBUG( classname(), "Got Tracks Branch" );
 		}
 		
+		DEBUG( classname(), "Checking for BTofPidTraits Branch" );
 		if ( chain->GetBranch( "BTofPidTraits" ) ){
 			btofPidTraits = new TClonesArray( "CandidateTrackBTofPidTraits" );
 			chain->GetBranch( "BTofPidTraits" )->SetAutoDelete( kFALSE );
 			chain->SetBranchAddress( "BTofPidTraits", &btofPidTraits );
+			DEBUG( classname(), "Got BTofPidTraits Branch" );
 		} 
 		
+		DEBUG( classname(), "Checking for MtdPidTraits Branch" );
 		if (chain->GetBranch( "MtdPidTraits" ) ) {
 			mtdPidTraits = new TClonesArray( "CandidateTrackMtdPidTraits" );
 			chain->GetBranch( "MtdPidTraits" )->SetAutoDelete( kFALSE );
 			chain->SetBranchAddress( "MtdPidTraits", &mtdPidTraits );
+			DEBUG( classname(), "Got MtdPidTraits Branch" );
 		}
-		
-		
-		
-		DEBUG( classname(), "Setting Branch Address" );
-		
-		
-		
-		chain->SetBranchAddress( "Event", &event );
-		chain->SetBranchAddress( "EventPlane", &eventPlane );
 	}
 
 
@@ -69,15 +68,7 @@ protected:
 
 
 	virtual void analyzeEvent(){
-		// INFO( classname(), "daniel" );
-		
-		// INFO( classname(), tracks->GetEntries() );
-		// INFO( classname(), event->mEventId );
-		// if ( tracks->GetEntries() >= 20 ){
-		// 	CandidateTrack* track = (CandidateTrack*)tracks->At( 19 );
-		// 	// cout << track->beta << endl;
-		// }
-
+		DEBUG( classname(), "" );
 	}
 
 	

@@ -5,11 +5,11 @@
 	<Logger color="true" globalLogLevel="all" />
 	
 	<InvariantMassPlotter >
-		<Logger color="true" globalLogLevel="trace" />
+		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="muon_femto.root" splitBy="200" nEvents="200000000"/>
+			<dst treeName="FemtoDst" url="femtoMuonCandidates.lis" splitBy="200" maxFiles="10"/>
 		</input>
 
 		<output path="" >

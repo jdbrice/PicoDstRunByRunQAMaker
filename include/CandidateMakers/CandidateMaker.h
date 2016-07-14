@@ -70,24 +70,24 @@ protected:
 	}
 
 	virtual void fillCandidateEvent() {
-		event->mRunId 				= pico->Event_mRunId[0];
-		event->mEventId 			= pico->Event_mEventId[0];
-		event->mGRefMult 			= pico->Event_mGRefMult[0];
-		event->mTriggerWord 		= pico->Event_mTriggerWord[0];
-		event->mTriggerWordMtd 		= pico->Event_mTriggerWordMtd[0];
-		event->mPrimaryVertex_mX1 	= pico->vx();
-		event->mPrimaryVertex_mX2 	= pico->vy();
-		event->mPrimaryVertex_mX3 	= pico->vz();
+		wEvent->mRunId 				= pico->Event_mRunId[0];
+		wEvent->mEventId 			= pico->Event_mEventId[0];
+		wEvent->mGRefMult 			= pico->Event_mGRefMult[0];
+		wEvent->mTriggerWord 		= pico->Event_mTriggerWord[0];
+		wEvent->mTriggerWordMtd 	= pico->Event_mTriggerWordMtd[0];
+		wEvent->mPrimaryVertex_mX1 	= pico->vx();
+		wEvent->mPrimaryVertex_mX2 	= pico->vy();
+		wEvent->mPrimaryVertex_mX3 	= pico->vz();
 
 		if ( rmc ){
-			event->mBin16 			= rmc->getCentralityBin16();
-			event->mWeight 			= rmc->getWeight();
+			wEvent->mBin16 			= rmc->getCentralityBin16();
+			wEvent->mWeight 		= rmc->getWeight();
 		} else {
-			event->mBin16 			= 0;
+			wEvent->mBin16 			= 0;
 		}
 
 		// TODO: after EventPlane is settled
-		event->mPsi2 		= (calcPsi2() * 10000) ;
+		wEvent->mPsi2 		= (calcPsi2() * 10000) ;
 
 		// StRefMultCorr
 	}
@@ -121,57 +121,50 @@ protected:
 
 	virtual void fillCandidateEventPlane(){
 
-		eventPlane->mQx_eta_pos           = pico->EventPlane_mQx_eta_pos[0];
-		eventPlane->mQy_eta_pos           = pico->EventPlane_mQy_eta_pos[0];
-		eventPlane->mQx_eta_neg           = pico->EventPlane_mQx_eta_neg[0];
-		eventPlane->mQy_eta_neg           = pico->EventPlane_mQy_eta_neg[0];
-		eventPlane->mNtrk_eta_pos         = pico->EventPlane_mNtrk_eta_pos[0];
-		eventPlane->mNtrk_eta_neg         = pico->EventPlane_mNtrk_eta_neg[0];
-		eventPlane->mWeight_eta_pos       = pico->EventPlane_mWeight_eta_pos[0];
-		eventPlane->mWeight_eta_neg       = pico->EventPlane_mWeight_eta_neg[0];
-		eventPlane->mQx_chg_pos           = pico->EventPlane_mQx_chg_pos[0];
-		eventPlane->mQy_chg_pos           = pico->EventPlane_mQy_chg_pos[0];
-		eventPlane->mQx_chg_neg           = pico->EventPlane_mQx_chg_neg[0];
-		eventPlane->mQy_chg_neg           = pico->EventPlane_mQy_chg_neg[0];
-		eventPlane->mNtrk_chg_pos_eta_pos = pico->EventPlane_mNtrk_chg_pos_eta_pos[0];
-		eventPlane->mNtrk_chg_pos_eta_neg = pico->EventPlane_mNtrk_chg_pos_eta_neg[0];
-		eventPlane->mNtrk_chg_neg_eta_pos = pico->EventPlane_mNtrk_chg_neg_eta_pos[0];
-		eventPlane->mNtrk_chg_neg_eta_neg = pico->EventPlane_mNtrk_chg_neg_eta_neg[0];
-		eventPlane->mWeight_chg_pos       = pico->EventPlane_mWeight_chg_pos[0];
-		eventPlane->mWeight_chg_neg       = pico->EventPlane_mWeight_chg_neg[0];
-		eventPlane->mQx_ran_1             = pico->EventPlane_mQx_ran_1[0];
-		eventPlane->mQy_ran_1             = pico->EventPlane_mQy_ran_1[0];
-		eventPlane->mQx_ran_2             = pico->EventPlane_mQx_ran_2[0];
-		eventPlane->mQy_ran_2             = pico->EventPlane_mQy_ran_2[0];
-		eventPlane->mNtrk_ran_1_eta_pos   = pico->EventPlane_mNtrk_ran_1_eta_pos[0];
-		eventPlane->mNtrk_ran_1_eta_neg   = pico->EventPlane_mNtrk_ran_1_eta_neg[0];
-		eventPlane->mNtrk_ran_2_eta_pos   = pico->EventPlane_mNtrk_ran_2_eta_pos[0];
-		eventPlane->mNtrk_ran_2_eta_neg   = pico->EventPlane_mNtrk_ran_2_eta_neg[0];
-		eventPlane->mWeight_ran_1         = pico->EventPlane_mWeight_ran_1[0];
-		eventPlane->mWeight_ran_2         = pico->EventPlane_mWeight_ran_2[0];
+		wEventPlane->mQx_eta_pos           = pico->EventPlane_mQx_eta_pos[0];
+		wEventPlane->mQy_eta_pos           = pico->EventPlane_mQy_eta_pos[0];
+		wEventPlane->mQx_eta_neg           = pico->EventPlane_mQx_eta_neg[0];
+		wEventPlane->mQy_eta_neg           = pico->EventPlane_mQy_eta_neg[0];
+		wEventPlane->mNtrk_eta_pos         = pico->EventPlane_mNtrk_eta_pos[0];
+		wEventPlane->mNtrk_eta_neg         = pico->EventPlane_mNtrk_eta_neg[0];
+		wEventPlane->mWeight_eta_pos       = pico->EventPlane_mWeight_eta_pos[0];
+		wEventPlane->mWeight_eta_neg       = pico->EventPlane_mWeight_eta_neg[0];
+		wEventPlane->mQx_chg_pos           = pico->EventPlane_mQx_chg_pos[0];
+		wEventPlane->mQy_chg_pos           = pico->EventPlane_mQy_chg_pos[0];
+		wEventPlane->mQx_chg_neg           = pico->EventPlane_mQx_chg_neg[0];
+		wEventPlane->mQy_chg_neg           = pico->EventPlane_mQy_chg_neg[0];
+		wEventPlane->mNtrk_chg_pos_eta_pos = pico->EventPlane_mNtrk_chg_pos_eta_pos[0];
+		wEventPlane->mNtrk_chg_pos_eta_neg = pico->EventPlane_mNtrk_chg_pos_eta_neg[0];
+		wEventPlane->mNtrk_chg_neg_eta_pos = pico->EventPlane_mNtrk_chg_neg_eta_pos[0];
+		wEventPlane->mNtrk_chg_neg_eta_neg = pico->EventPlane_mNtrk_chg_neg_eta_neg[0];
+		wEventPlane->mWeight_chg_pos       = pico->EventPlane_mWeight_chg_pos[0];
+		wEventPlane->mWeight_chg_neg       = pico->EventPlane_mWeight_chg_neg[0];
+		wEventPlane->mQx_ran_1             = pico->EventPlane_mQx_ran_1[0];
+		wEventPlane->mQy_ran_1             = pico->EventPlane_mQy_ran_1[0];
+		wEventPlane->mQx_ran_2             = pico->EventPlane_mQx_ran_2[0];
+		wEventPlane->mQy_ran_2             = pico->EventPlane_mQy_ran_2[0];
+		wEventPlane->mNtrk_ran_1_eta_pos   = pico->EventPlane_mNtrk_ran_1_eta_pos[0];
+		wEventPlane->mNtrk_ran_1_eta_neg   = pico->EventPlane_mNtrk_ran_1_eta_neg[0];
+		wEventPlane->mNtrk_ran_2_eta_pos   = pico->EventPlane_mNtrk_ran_2_eta_pos[0];
+		wEventPlane->mNtrk_ran_2_eta_neg   = pico->EventPlane_mNtrk_ran_2_eta_neg[0];
+		wEventPlane->mWeight_ran_1         = pico->EventPlane_mWeight_ran_1[0];
+		wEventPlane->mWeight_ran_2         = pico->EventPlane_mWeight_ran_2[0];
 	}
 
 	virtual void trackLoop(){
-		// counters
-		// nCandTracks = 0;
-		// nBTofPidTraits = 0;
-		// nMtdPidTraits = 0;
+		
+		// Reset the Tracks TClonesArrays and counters
 
-		reset();
+		resetTracks();
 		
 		book->cd("eventQA");
 		book->fill( "nTracks", pico->Tracks_ );
-
-		// Clear TClones Arrays
-		// tracks->Clear();
-		// btofPidTraits->Clear();
-		// mtdPidTraits->Clear();
 
 		for ( int iTrack = 0; iTrack < pico->Tracks_; iTrack++ ){
 
 			if ( !keepTrack( iTrack ) ) continue;
 
-			CandidateTrack * aTrack =  new ((*tracks)[nCandTracks]) CandidateTrack( );
+			CandidateTrack * aTrack =  new ((*wTracks)[nCandTracks]) CandidateTrack( );
 			analyzeCandidateTrack( aTrack, iTrack, nCandTracks );
 			nCandTracks ++;
 		}
@@ -220,7 +213,7 @@ protected:
 		if ( iBTof >= 0 && isElectron){
 			aTrack->mBTofPidTraitsIndex = nBTofPidTraits;
 
-			CandidateTrackBTofPidTraits * btpid = new ((*btofPidTraits)[nBTofPidTraits]) CandidateTrackBTofPidTraits( );
+			CandidateTrackBTofPidTraits * btpid = new ((*wBTofPidTraits)[nBTofPidTraits]) CandidateTrackBTofPidTraits( );
 			btpid->mBTofBeta 		= pico->BTofPidTraits_mBTofBeta[ iBTof ];
 			btpid->mBTofYLocal 		= pico->BTofPidTraits_mBTofYLocal[ iBTof ];
 			btpid->mBTofZLocal 		= pico->BTofPidTraits_mBTofZLocal[ iBTof ];
@@ -237,7 +230,7 @@ protected:
 		int iMtd = pico->Tracks_mMtdPidTraitsIndex[ iTrack ];
 		if ( iMtd >= 0 ){
 			aTrack->mMtdPidTraitsIndex = nMtdPidTraits;
-			CandidateTrackMtdPidTraits * mtdpid = new ((*mtdPidTraits)[nMtdPidTraits]) CandidateTrackMtdPidTraits( );
+			CandidateTrackMtdPidTraits * mtdpid = new ((*wMtdPidTraits)[nMtdPidTraits]) CandidateTrackMtdPidTraits( );
 
 			mtdpid->mMatchFlag 	= pico->MtdPidTraits_mMatchFlag[ iMtd ];
 			mtdpid->mDeltaY 	= pico->MtdPidTraits_mDeltaY[ iMtd ];

@@ -46,8 +46,8 @@ protected:
 		if ( fabs(mtdpid->mDeltaY) > 20 )
 			return false;
 
-		if ( aTrack->gDCA() > 1.0  )
-			return false;
+		// if ( aTrack->gDCA() > 1.0  )
+		// 	return false;
 
 		if ( mtdpid->mMatchFlag != 7 ){
 			return false;

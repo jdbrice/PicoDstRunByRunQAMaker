@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="MEskimmer" type="MixedEventTreeMaker" config="" nodePath="MixedEventTreeMaker" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<MixedEventTreeMaker event="true" track="true" triggers="">
+		<Logger color="true" globalLogLevel="info" />
+
+		<input>
+			<dst treeName="FemtoDst" url="femtoMuonCandidates.lis" splitBy="200" nEvents="2000000"/>
+		</input>
+
+		<output>
+			<TFile url="me_candidates.root" />
+		</output>
+
+	</MixedEventTreeMaker>
+
+</config>
