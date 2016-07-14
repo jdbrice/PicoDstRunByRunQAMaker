@@ -6,4 +6,4 @@ Log        = /data/star2/jdb12/dileptonAna/logs/mixed_muon_$(Process).log
 Output     = /data/star2/jdb12/dileptonAna/logs/mixed_muon_$(Process).out
 Error      = /data/star2/jdb12/dileptonAna/logs/mixed_muon_$(Process).error
 
-Queue 60
+Queue 3788
