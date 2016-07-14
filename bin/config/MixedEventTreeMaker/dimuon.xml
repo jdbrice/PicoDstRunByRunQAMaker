@@ -4,15 +4,16 @@
 	<Task name="MEskimmer" type="MixedEventTreeMaker" config="" nodePath="MixedEventTreeMaker" />
 	<Logger color="true" globalLogLevel="all" />
 	
+	<Include url="../Common/cwd.xml" />
 	<MixedEventTreeMaker event="true" track="true" triggers="">
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
-			<dst treeName="FemtoDst" url="femtoMuonCandidates.lis" splitBy="200" nEvents="2000000"/>
+			<dst treeName="FemtoDst" url="femtoMuonCandidates.lis" splitBy="64" />
 		</input>
 
 		<output>
-			<TFile url="me_candidates.root" />
+			<TFile url="{CWD:out}mixed_muon_candidates_{jobIndex}.root" />
 		</output>
 
 	</MixedEventTreeMaker>
