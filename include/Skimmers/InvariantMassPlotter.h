@@ -3,11 +3,14 @@
 
 //RooBarb
 #include "TreeAnalyzer.h"
+#include "CutCollection.h"
 
 //ROOT
-#include "TClonesArray.h"
-
 #include "TLorentzVector.h"
+
+// Project
+#include "CandidateSkimmer.h"
+#include "CandidateFilter.h"
 
 class InvariantMassPlotter : public CandidateSkimmer
 {
@@ -25,36 +28,28 @@ public:
 		INFO( classname(), "mass1 = " << m1 );
 		INFO( classname(), "mass2 = " << m2 );
 
+		if ( config.exists( nodePath + ".MuonCandidateCuts" ) ){
+			trackCuts.init( config, nodePath + ".MuonCandidateCuts" );
+
+			INFO( classname(), "" );
+			INFO( classname(), "############### Muon Cuts ###################"  );
+			trackCuts.report();
+			INFO( classname(), "" );
+		}
+
 	}
 
 
 protected:
 
 	double m1, m2;
+	CutCollection trackCuts;
+	bool makeTrackCutQA = false;
 
 
 	bool keepTrack( CandidateTrack *aTrack ){
-		if ( aTrack->mNSigmaPion / 100.0 < -1.5 || aTrack->mNSigmaPion / 100.0 > 2.5 )
-			return false;
-		CandidateTrackMtdPidTraits *mtdpid = (CandidateTrackMtdPidTraits*) mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
-		if ( mtdpid->mDeltaTimeOfFlight > 0.4 )
-			return false;
-
-		if ( fabs(mtdpid->mDeltaZ) > 20 )
-			return false;
-
-		if ( fabs(mtdpid->mDeltaY) > 20 )
-			return false;
-
-		// if ( aTrack->gDCA() > 1.0  )
-		// 	return false;
-
-		if ( mtdpid->mMatchFlag != 7 ){
-			return false;
-		}
-
-		return true;
-
+		CandidateTrackMtdPidTraits *mtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
+		return CandidateFilter::isMuon( aTrack, mtdPid, trackCuts,  makeTrackCutQA ? book : nullptr );
 	}
 
 	virtual void analyzeEvent(){
@@ -76,8 +71,9 @@ protected:
 
 				lv = lv1 + lv2;
 
-				if ( lv1.Pt() < 1.5 && lv2.Pt() < 1.5   ) continue;
+				// if ( lv1.Pt() < 1.5 && lv2.Pt() < 1.5   ) continue;
 
+				book->cd("");
 				int iBin = book->get( "like_sign" )->GetXaxis()->FindBin( lv.M() );
 				double bw = book->get( "like_sign" )->GetBinWidth( iBin );
 

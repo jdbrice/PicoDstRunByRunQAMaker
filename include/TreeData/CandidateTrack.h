@@ -2,6 +2,7 @@
 #define CANDIDATE_TRACK_H
 
 #include "TObject.h"
+#include "TVector3.h"
 
 class CandidateTrack : public TObject
 {
@@ -37,6 +38,7 @@ public:
 	float nSigmaElectron() { return mNSigmaElectron / 100.0; }
 
 	float gDCA() { return mDCA / 1000.0; }
+	TVector3 pMomentum() { return TVector3( mPMomentum_mX1, mPMomentum_mX2, mPMomentum_mX3 ); }
 	
 	
 

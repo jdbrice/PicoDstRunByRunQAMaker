@@ -3,6 +3,9 @@
 
 //Project
 #include "IPicoDst.h"
+#include "CandidateTrack.h"
+#include "CandidateTrackMtdPidTraits.h"
+
 
 // ROOT
 #include "TVector3.h"
@@ -18,9 +21,97 @@
 class CandidateFilter
 {
 public:
-	CandidateFilter();
-	~CandidateFilter();
+	CandidateFilter() {}
+	~CandidateFilter() {}
 	
+	static bool isMuon( CandidateTrack *_aTrack, CandidateTrackMtdPidTraits * _mtdPidTraits, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr ){
+		
+
+		if ( nullptr == _aTrack || nullptr == _mtdPidTraits ){
+			ERROR( "CandidateFilter", "Null Track" );
+			return false;
+		}
+
+
+		bool allCuts = true;
+
+		bool makeQA = true;
+		if ( nullptr == book  )
+			makeQA = false;
+		string cutsName = "MtdMuon";
+
+		double nHitsFit = abs( _aTrack->mNHitsFit);
+		double nHitsMax = _aTrack->mNHitsMax;
+		double nHitsDedx = _aTrack->mNHitsDedx;
+		double nHitsRatio = nHitsFit / nHitsMax;
+		double nSigmaPion = _aTrack->mNSigmaPion / 100.0;
+		TVector3 momentum = _aTrack->pMomentum();
+
+		if ( makeQA ){
+			book->cd("trackQA");
+			passTrackCut( "All", allCuts, book, cutsName );
+		}
+
+		if ( momentum.Pt() < ccol[ "pt" ]->min ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "mom", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "nSigmaPion" ]->inInclusiveRange( nSigmaPion ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "nSigPi", allCuts, book, cutsName );
+		}
+
+		if ( nHitsRatio < ccol[ "nHitsRatio" ]->min ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "nHitsRatio", allCuts, book, cutsName );
+		}
+		if ( nHitsDedx < ccol[ "nHitsDedx" ]->min ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "nHitsDedx", allCuts, book, cutsName );
+		}
+		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() )  ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "eta", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "gDCA" ]->inInclusiveRange( _aTrack->gDCA() ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "gDCA", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( _mtdPidTraits->mMatchFlag ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "mtdMatch", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "dTofMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaTimeOfFlight ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "dTof", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "dyMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "dy", allCuts, book, cutsName );
+		}
+		if ( !ccol[ "dzMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaZ ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "dz", allCuts, book, cutsName );
+		}
+
+		return allCuts;
+	}
+
 	static bool isMuon( shared_ptr<IPicoDst> pico, int iTrack, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr ){
 
 

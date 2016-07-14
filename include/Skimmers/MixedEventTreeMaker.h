@@ -14,9 +14,7 @@ public:
 
 	virtual void initialize(){
 		CandidateSkimmer::initialize();
-
 		createTree();
-
 	}
 
 
