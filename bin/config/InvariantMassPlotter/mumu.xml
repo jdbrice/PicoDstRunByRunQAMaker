@@ -9,7 +9,7 @@
 		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="femtoMuonCandidates.lis" splitBy="200" maxFiles="10"/>
+			<dst treeName="FemtoDst" url="femtoMuonCandidates.lis" splitBy="64"/>
 		</input>
 
 		<output path="" >
