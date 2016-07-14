@@ -37,8 +37,8 @@ public:
 		DEBUG( classname(), "Checking for Track Branch" );
 		if ( chain->GetBranch( "Tracks" ) ){
 			chain->SetBranchStatus( "Tracks", 1 );
-			chain->SetBranchAddress( "Tracks", &tracks );
 			tracks = new TClonesArray( "CandidateTrack" );
+			chain->SetBranchAddress( "Tracks", &tracks );
 			chain->GetBranch( "Tracks" )->SetAutoDelete( kFALSE );	
 			DEBUG( classname(), "Got Tracks Branch" );
 		}
