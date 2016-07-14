@@ -4,6 +4,7 @@
 	<Task name="skimmer" type="InvariantMassPlotter" config="" nodePath="InvariantMassPlotter" />
 	<Logger color="true" globalLogLevel="all" />
 	
+	<Include url="../Common/cwd.xml" />
 	<InvariantMassPlotter >
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />

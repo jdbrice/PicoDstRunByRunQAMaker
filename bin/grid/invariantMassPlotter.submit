@@ -1,6 +1,7 @@
 
 InitialDir = /home/jdb12/work/muonAna/bin/
 Executable = /home/jdb12/work/muonAna/bin/app
-Arguments = /home/jdb12/work/muonAna/bin/config/InvariantMassPlotter/mumu.xml --jobIndex=$(Process)
+Arguments  = /home/jdb12/work/muonAna/bin/config/InvariantMassPlotter/mumu.xml --jobIndex=$(Process)
+Output     = /data/star2/jdb12/dilepton/logs/inv_mass_mumu_$(Process).log
 
 Queue 60
