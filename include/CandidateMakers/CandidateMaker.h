@@ -254,6 +254,7 @@ protected:
 
 
 	virtual void postMake() {
+		INFO( classname(), "Writing Tree out" );
 		mTree->Write();
 	}
 
