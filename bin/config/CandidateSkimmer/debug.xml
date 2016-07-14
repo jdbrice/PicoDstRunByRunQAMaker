@@ -4,11 +4,11 @@
 	<Task name="skimmer" type="CandidateSkimmer" config="" nodePath="CandidateSkimmer" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<CandidateSkimmer event="true" track="true" triggers="emu">
+	<CandidateSkimmer>
 		<Logger color="true" globalLogLevel="trace" />
 
 		<input>
-			<dst treeName="FemtoDst" url="muon_femto.root" splitBy="200" nEvents="2000000"/>
+			<dst treeName="FemtoDst" url="femtoMuonCandidates.lis" splitBy="200" nEvents="2000000"/>
 		</input>
 
 		<output path="" >

@@ -57,16 +57,14 @@ protected:
 
 		int nTracks = tracks->GetEntries();
 		DEBUG( classname(), "# of Tracks = " << nTracks );
-		
+
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
 			CandidateTrack* aTrack = (CandidateTrack*)tracks->At( iTrack );
-
 			wTracks->copy( aTrack );
 			if ( aTrack->mMtdPidTraitsIndex >= 0 ){
 				CandidateTrackMtdPidTraits * aMtdPidTraits = (CandidateTrackMtdPidTraits*) mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
 				wMtdPidTraits->copy( aMtdPidTraits );
 			}
-			TRACE( classname(), "Filling Tree" );
 			mTree->Fill();
 		} // iTrack
 	}

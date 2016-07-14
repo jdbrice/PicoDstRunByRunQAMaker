@@ -22,21 +22,17 @@ public:
 		TreeAnalyzer::initialize();
 
 		DEBUG( classname(), "Setting Branch Status" );
-		chain->SetBranchStatus( "*", 0 );
-		chain->SetBranchStatus( "Event", 1 );
-
+	
 		chain->SetBranchAddress( "Event", &event );
 
 		DEBUG( classname(), "Checking for EventPlane Branch" );
-		if ( chain->GetBranch( "EventPlane" ) ){
-			chain->SetBranchStatus( "EventPlane", 1 );
+		if ( chain->GetBranch( "EventPlane*" ) ){
 			chain->SetBranchAddress( "EventPlane", &eventPlane );
 			DEBUG( classname(), "Got EventPlane Branch" );
 		}
 
 		DEBUG( classname(), "Checking for Track Branch" );
 		if ( chain->GetBranch( "Tracks" ) ){
-			chain->SetBranchStatus( "Tracks", 1 );
 			tracks = new TClonesArray( "CandidateTrack" );
 			chain->SetBranchAddress( "Tracks", &tracks );
 			chain->GetBranch( "Tracks" )->SetAutoDelete( kFALSE );	
@@ -72,6 +68,8 @@ protected:
 
 	virtual void analyzeEvent(){
 		DEBUG( classname(), "" );
+
+		INFO( classname(), "Event vz = " << event->mPrimaryVertex_mX3 );
 	}
 
 	
