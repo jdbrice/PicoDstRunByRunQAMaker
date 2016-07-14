@@ -67,6 +67,11 @@ protected:
 			mTree->Fill();
 		} // iTrack
 	}
+
+	virtual void postMake() {
+		INFO( classname(), "Writing Tree out" );
+		mTree->Write();
+	} 
 	
 
 };
