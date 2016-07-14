@@ -252,6 +252,11 @@ protected:
 		return true;
 	}
 
+
+	virtual void postMake() {
+		mTree->Write();
+	}
+
 	Char_t speciesMask( ){
 		Char_t mask = 0;
 		if ( isElectron )
