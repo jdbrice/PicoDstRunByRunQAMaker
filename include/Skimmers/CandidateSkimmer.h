@@ -26,7 +26,7 @@ public:
 
 		chain->SetBranchAddress( "Event", &event );
 
-		DEBUG( classname(), "Checking for EventPlan Branch" );
+		DEBUG( classname(), "Checking for EventPlane Branch" );
 		if ( chain->GetBranch( "EventPlane" ) ){
 			chain->SetBranchAddress( "EventPlane", &eventPlane );
 			DEBUG( classname(), "Got EventPlane Branch" );

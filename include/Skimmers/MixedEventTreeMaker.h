@@ -56,6 +56,7 @@ protected:
 		wEvent->copy( event );
 
 		int nTracks = tracks->GetEntries();
+		DEBUG( classname(), "# of Tracks = " << nTracks );
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
 			CandidateTrack* aTrack = (CandidateTrack*)tracks->At( iTrack );
 
