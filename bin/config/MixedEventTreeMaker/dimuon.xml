@@ -6,7 +6,7 @@
 	
 	<Include url="../Common/cwd.xml" />
 	<MixedEventTreeMaker event="true" track="true" triggers="">
-		<Logger color="true" globalLogLevel="info" />
+		<Logger color="true" globalLogLevel="debug" />
 
 		<input>
 			<dst treeName="FemtoDst" url="femtoMuonCandidates.lis" splitBy="1" />
