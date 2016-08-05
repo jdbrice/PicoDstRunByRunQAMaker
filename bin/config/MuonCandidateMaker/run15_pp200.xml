@@ -4,15 +4,17 @@
 	<Task name="skimmer" type="MuonCandidateMaker" config="" nodePath="MuonCandidateMaker" />
 	<Logger color="true" globalLogLevel="trace" />
 	
+	<Include url="../Common/cwd15.xml" />
 	<MuonCandidateMaker event="true" track="true" triggers="" rmc="false">
 		<Logger color="true" globalLogLevel="info" />
+		<MakeQA event="true" track="true" />
 
 		<input>
 			<dst treeName="PicoDst" adapter="PicoDstRun15PP200" url="list.lis" splitBy="200" maxFiles="20" />
 		</input>
 
 		<output path="" >
-			<data>muon_candidates.root</data>
+			<TFile url="{CWD:out}muon_candidates_{jobIndex}.root" />
 		</output>
 
 		<histograms>
@@ -20,17 +22,14 @@
 		</histograms>
 		
 		<Include url="../Common/EventCuts.xml" />
-		<Include url="../Common/MuonCandidateCuts.xml" />
+		<Include url="../Common/LooseMuonCandidateCuts.xml" />
 
 		<EventBranches>
-			Event,
-			EventPlane
+			Event
 		</EventBranches>
 
 		<TrackBranches>
 			Tracks,
-			BTofPidTraits,
-			EmcPidTraits,
 			MtdPidTraits
 		</TrackBranches>
 

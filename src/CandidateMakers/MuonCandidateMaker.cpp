@@ -13,13 +13,14 @@ MuonCandidateMaker::~MuonCandidateMaker(){
 void MuonCandidateMaker::initialize(){
 	CandidateMaker::initialize();
 
+	book->cd();
 	// add the EventPlane Branch
-		createTree( 
-					false, // EventPlane branch
-					true,  // Tracks
-					false, // bTof
-					true   // MTD
-					 );
+	createTree( 
+				false, // EventPlane branch
+				true,  // Tracks
+				false, // bTof
+				true   // MTD
+				 );
 	
 	muonCuts.init( config, nodePath + ".MuonCandidateCuts" );
 
@@ -43,11 +44,18 @@ void MuonCandidateMaker::analyzeEvent(){
 bool MuonCandidateMaker::keepTrack( int iTrack ){
 	DEBUG( classname(), fmt::format( "(iTrack={0})", iTrack ) );
 
-	isMuon = CandidateFilter::isMuon( pico, iTrack, muonCuts/*, book*/ );
+	shared_ptr<HistoBook> qaBook = nullptr;
+	if ( config.getBool( nodePath + ".MakeQA:track" ) )
+		qaBook = book;
+	isMuon = CandidateFilter::isMuon( pico, iTrack, muonCuts, qaBook );
+	if ( isMuon ){
+		TRACE( classname(), "Muon Found" );
+	}
 	return isMuon;
 }
 
 void MuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int iCandTrack ){
+	TRACE( classname(), "" );
 	fillCandidateTrack( aTrack, iTrack );
 	
 	// keep events with at least 2 tracks

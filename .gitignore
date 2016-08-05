@@ -19,6 +19,7 @@
 /bin/*.dat
 /bin/*.pdf
 /bin/app
+/bin/filelists
 
 bin/*.lis
 StRefMultCorr

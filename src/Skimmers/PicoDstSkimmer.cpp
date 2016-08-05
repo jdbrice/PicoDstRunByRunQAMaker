@@ -89,7 +89,7 @@ bool PicoDstSkimmer::keepEvent(){
 	}
 
 	double nTracks = pico->ntrk();
-	if ( nTracks < eventCuts[ "EventPlane_nTracks" ]->min ){
+	if ( "PicoDstRun15PP200" != picoDstAdapter && nTracks < eventCuts[ "EventPlane_nTracks" ]->min ){
 		passAllCuts = false;
 	} else if ( makeQA ) {
 		passEventCut( "nEvtPlTrks", passAllCuts );

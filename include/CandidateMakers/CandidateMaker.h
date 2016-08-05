@@ -30,6 +30,7 @@ public:
 		INFO( classname(), "" );
 		PicoDstSkimmer::initialize();
 
+		book->cd();
 		createTree();
 
 		if ( config.getBool( nodePath + ":rmc", true ) ){
@@ -160,6 +161,7 @@ protected:
 		book->cd("eventQA");
 		book->fill( "nTracks", pico->Tracks_ );
 
+		TRACE( classname(), "# of Tracks = " << pico->Tracks_ );
 		for ( int iTrack = 0; iTrack < pico->Tracks_; iTrack++ ){
 
 			if ( !keepTrack( iTrack ) ) continue;
@@ -172,8 +174,10 @@ protected:
 	}
 
 	virtual void postTrackLoop(){
-		if ( keepCandidateEvent )
+		if ( keepCandidateEvent ){
+			TRACE( classname(), "Filling Tree" );
 			mTree->Fill();
+		}
 	}
 
 	virtual void fillCandidateTrack( CandidateTrack * aTrack, int iTrack ){
@@ -255,6 +259,7 @@ protected:
 
 	virtual void postMake() {
 		INFO( classname(), "Writing Tree out" );
+		book->cd();
 		mTree->Write();
 	}
 

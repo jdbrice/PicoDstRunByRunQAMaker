@@ -23,6 +23,7 @@ using namespace jdb;
 #include "ElectronMuonCandidateMaker.h"
 #include "ElectronCandidateMaker.h"
 #include "MixedEventTreeMaker.h"
+#include "MixedEventMassPlotter.h"
 
 
 #include "EventPlaneHistoMaker.h"
@@ -30,6 +31,7 @@ using namespace jdb;
 #include "SharedPicoDstSkimmer.h"
 #include "CandidateSkimmer.h"
 #include "InvariantMassPlotter.h"
+#include "InvariantMassPlotMaker.h"
 
 
 int main( int argc, char* argv[] ) {
@@ -54,6 +56,10 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<CandidateSkimmer>( "CandidateSkimmer" );
 
 	TaskFactory::registerTaskRunner<InvariantMassPlotter>( "InvariantMassPlotter" );
+	TaskFactory::registerTaskRunner<MixedEventMassPlotter>( "MixedEventMassPlotter" );
+
+	// Plot Makers
+	TaskFactory::registerTaskRunner<InvariantMassPlotMaker>( "InvariantMassPlotMaker" );
 
 	Engine engine( argc, argv );
 

@@ -55,6 +55,11 @@ protected:
 	virtual void analyzeEvent(){
 		// INFO( classname(), tracks->GetEntries() );
 		// INFO( classname(), event->eventId );
+
+		book->cd("");
+		TAxis * axis = book->get( "unlike_sign" )->GetXaxis();
+
+
 		int nTracks = tracks->GetEntries();
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
 			CandidateTrack* aTrack = (CandidateTrack*)tracks->At( iTrack );
@@ -79,11 +84,18 @@ protected:
 
 				// like sign
 				if ( aTrack->charge() * bTrack->charge() == 1 ){
-					book->fill( "like_sign", lv.M() );
+					book->fill( "like_sign", lv.M(), 1.0 / bw );
 					book->fill( "like_sign_pT", lv.M(), lv.Pt() );
+					if ( 1 == aTrack->charge()  ){
+						book->fill( "like_sign_Pos", lv.M(), 1.0 / bw );
+						book->fill( "like_sign_Pos_pT", lv.M(), lv.Pt(), 1.0/ bw );
+					} else if ( -1 == aTrack->charge()  ){
+						book->fill( "like_sign_Neg", lv.M(), 1.0 / bw );
+						book->fill( "like_sign_Neg_pT", lv.M(), lv.Pt(), 1.0/ bw );
+					}
 				} else {
-					book->fill( "unlike_sign", lv.M() );
-					book->fill( "unlike_sign_pT", lv.M(), lv.Pt() );
+					book->fill( "unlike_sign", lv.M(), 1.0/bw );
+					book->fill( "unlike_sign_pT", lv.M(), lv.Pt(), 1.0/bw );
 				}
 			}
 		}
