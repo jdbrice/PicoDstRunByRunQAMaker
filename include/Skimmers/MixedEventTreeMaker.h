@@ -5,6 +5,8 @@
 #include "CandidateSkimmer.h"
 #include "ICandidateTreeMaker.h"
 
+#include "EventHasher.h"
+
 class MixedEventTreeMaker : public CandidateSkimmer
 {
 public:
@@ -15,6 +17,16 @@ public:
 	virtual void initialize(){
 		CandidateSkimmer::initialize();
 		createTree();
+
+		eventHash = config.getInt( nodePath + ".EventHash" );
+		eht.load( config, nodePath + ".MixedEventBins" );
+
+		INFO( classname(), "EventHash = " << eventHash );
+
+		book->cd();
+		long int maxHash = eht.maxPossibleHash();
+		book->add( "eventHash", new TH1I( "eventHash", "", maxHash + 10, 0, maxHash + 10 ) );
+
 	}
 
 
@@ -26,6 +38,17 @@ protected:
 	CandidateTrack             * wTracks        = nullptr;
 	CandidateTrackMtdPidTraits * wMtdPidTraits  = nullptr;
 
+	int eventHash 				= -1;
+	EventHasher 				eht;
+
+	void overrideConfig(){
+		DEBUG( classname(), "" );
+
+		map<string, string> opts;
+		int jIndex = config.getInt( "jobIndex", -1 );
+		if ( !config.exists( nodePath + ".EventHash" ) )
+			config.set( nodePath + ".EventHash",  ts( jIndex ) );
+	}
 
 	void createTree( ){
 
@@ -49,6 +72,13 @@ protected:
 
 
 	virtual void analyzeEvent(){
+
+		// skip events that don't matche the desired hash if we are not looking at everything
+		int aEventHash = eht.hash( event );
+		TRACE( classname(), "current Event = " << aEventHash );
+		if ( 0 <= eventHash && eventHash != aEventHash ) return;
+
+		book->fill( "eventHash", aEventHash );
 
 		// Set the Event Data
 		wEvent->copy( event );

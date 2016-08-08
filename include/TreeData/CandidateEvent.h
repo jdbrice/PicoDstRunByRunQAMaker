@@ -22,6 +22,8 @@ public:
 		this->mBin16             = that->mBin16;
 	}
 
+	float psi() { return mPsi2 / 10000.0; }
+
 	Float_t 	mPrimaryVertex_mX1;		// Event VertexX
 	Float_t 	mPrimaryVertex_mX2;		// Event VertexY
 	Float_t 	mPrimaryVertex_mX3;		// Event VertexZ

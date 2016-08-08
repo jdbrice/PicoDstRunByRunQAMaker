@@ -20,6 +20,7 @@
 /bin/*.pdf
 /bin/app
 /bin/filelists
+/bin/config/Common/cwd*.xml
 
 bin/*.lis
 StRefMultCorr

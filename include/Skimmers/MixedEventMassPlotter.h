@@ -11,7 +11,7 @@
 // Project
 #include "MixedCandidateSkimmer.h"
 #include "CandidateFilter.h"
-#include "MixedEventBin.h"
+#include "EventHasher.h"
 
 class MixedEventMassPlotter : public MixedCandidateSkimmer
 {
@@ -57,7 +57,7 @@ protected:
 	bool makeTrackCutQA = false;
 
 	int nToMix = 10;
-	MixedEventBin meb;
+	EventHasher meb;
 
 
 	shared_ptr<CandidateEvent> eventA, eventB;
@@ -72,7 +72,7 @@ protected:
 		trackA->copy( tracks );
 		// INFO( classname(), "EventA Bin = " << meb.eventBin( eventA.get() ) );
 
-		int eventABin = meb.eventBin( eventA.get() );
+		int eventABin = meb.hash( eventA.get() );
 		int nFound = 0;
 		for ( Long64_t iEventB = iEventA + 1; iEventB <= iEventA + 1000; iEventB++ ){
 			Long64_t read = chain->GetEntry(iEventB);
@@ -85,7 +85,7 @@ protected:
 			if ( eventA->mRunId == event->mRunId && eventA->mEventId == event->mEventId ) continue;
 
 
-			if ( meb.eventBin( event ) == eventABin ){
+			if ( meb.hash( event ) == eventABin ){
 				eventB->copy( event );
 				trackB->copy( tracks );
 
