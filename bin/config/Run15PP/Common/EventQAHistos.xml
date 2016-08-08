@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<EventQAHistos dir="eventQA" >
+		<Histo name="event_cuts" title="Sequential Event Cuts" bins_x="EventQABins.event_cuts" />
+		<Histo name="event_single_cuts" title="Individual Event Cuts" bins_x="EventQABins.event_cuts" />
+
+		<Histo name="all_triggers" title="Triggers Present" bins_x="EventQABins.event_cuts" />
+		<Histo name="pass_triggers" title="Triggers Present (After Cuts) " bins_x="EventQABins.event_cuts" />
+
+		<Histo name="zVertex" title="Z Vertex" bins_x="EventQABins.zVertex" />
+		<Histo name="zVpd" title="VPD Z Vertex" bins_x="EventQABins.zVertex" />
+		<Histo name="zVertexDelta" title="Z Vertex - VPD Z Vertex" bins_x="EventQABins.zVertexDelta" />
+
+		<Histo name="nTracks" title="Num Tracks" bins_x="EventQABins.nTracks" />
+	</EventQAHistos>
+
+	<TrackQAHistos dir="trackQA" >
+		<Histo name="MtdMuon_cuts" title="Sequential Track Cuts" bins_x="EventQABins.event_cuts" />
+		<Histo name="MtdMuon_single_cuts" title="Invidiual Track Cuts" bins_x="EventQABins.event_cuts" />
+	</TrackQAHistos>
+
+</config>
