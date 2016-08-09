@@ -21,6 +21,7 @@
 /bin/app
 /bin/filelists
 /bin/config/Common/cwd*.xml
+/bin/config/Run15PP/Common/cwd*.xml
 
 bin/*.lis
 StRefMultCorr
