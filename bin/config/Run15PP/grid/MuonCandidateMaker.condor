@@ -1,13 +1,14 @@
 ######################################################################
-# 			PicoDsts ---> MuonCandidates
+# 				MuonCandidateMaker
+#			PicoDsts ---> MuonCandidates
 ######################################################################
 
 InitialDir = /home/jdb12/work/muonAna/bin/
 Executable = /home/jdb12/work/muonAna/bin/app
 Arguments  = /home/jdb12/work/muonAna/bin/config/Run15PP/MuonCandidateMaker.xml --jobIndex=$(Process)
 
-Log        = /data/star2/jdb12/dileptonAna/logs/mixed_muon_$(Process).log
-Output     = /data/star2/jdb12/dileptonAna/logs/mixed_muon_$(Process).out
-Error      = /data/star2/jdb12/dileptonAna/logs/mixed_muon_$(Process).error
+Log        = /data/star2/jdb12/Run15PP200/logs/muon_candidates_$(Process).log
+Output     = /data/star2/jdb12/Run15PP200/logs/muon_candidates_$(Process).out
+Error      = /data/star2/jdb12/Run15PP200/logs/muon_candidates_$(Process).error
 
-Queue 3788
+Queue 374
