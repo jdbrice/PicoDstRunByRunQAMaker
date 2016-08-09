@@ -45,7 +45,7 @@ public:
 		
 		epc.setMeans( m_qx, m_qy );
 		// export the parameters
-		string outfn = XmlString( config ).format( config[ nodePath + ".output.File:url" ] );
+		string outfn = XmlString().format( config, config[ nodePath + ".output.File:url" ] );
 		INFO( classname(), "Writing correction parameters to: " << outfn );
 		ofstream outfile( outfn.c_str() );
 		outfile << epc.toXml();
