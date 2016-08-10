@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="flm" type="FileListMaker" config="" nodePath="muonFLM" />
+	<Task name="flm" type="CommandRunner" config="" nodePath="muonFLM" />
 	<Logger color="true" globalLogLevel="all" />
 	
 	<CWD out="/Users/jdb/bnl/local/data/Run14/dimuon/" />
 	<muonFLM glob="{CWD:out}/MuonCandidates/muon_candidate*.root">
 		<Logger color="true" globalLogLevel="trace" />
+
+		<hadder url="/full/path/to/hadder.py" />
+		
+		<command> python {muonFLM.hadder:url} "{muonFLM:glob}" 50 {muonFLM.output.File:url} </command>
 
 		<output>
 			<File url="{CWD:out}/filelists/MuonCandidates.lis" />

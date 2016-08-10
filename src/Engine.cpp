@@ -34,6 +34,7 @@ using namespace jdb;
 #include "InvariantMassPlotMaker.h"
 
 #include "FileListMaker.h"
+#include "CommandRunner.h"
 
 
 int main( int argc, char* argv[] ) {
@@ -65,6 +66,7 @@ int main( int argc, char* argv[] ) {
 
 	//TaskUtils
 	TaskFactory::registerTaskRunner<FileListMaker>( "FileListMaker" );
+	TaskFactory::registerTaskRunner<CommandRunner>( "CommandRunner" );
 
 	Engine engine( argc, argv );
 
