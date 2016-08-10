@@ -5,13 +5,12 @@
 	<Logger color="true" globalLogLevel="all" />
 	
 	<CWD out="/Users/jdb/bnl/local/data/Run14/dimuon/" />
-	<muonFLM glob="{CWD:out}/MuonCandidates/muon_candidate*.root">
+	
+	<muonFLM>
 		<Logger color="true" globalLogLevel="trace" />
-
-		<hadder url="/full/path/to/hadder.py" />
 		
-		<command> python {muonFLM.hadder:url} "{muonFLM:glob}" 50 {muonFLM.output.File:url} </command>
-
+		<command> ls -1 {CWD:out}/MuonCandidates/*.root &gt; {muonFLM.output.File:url} </command>  
+		
 		<output>
 			<File url="{CWD:out}/filelists/MuonCandidates.lis" />
 		</output>
