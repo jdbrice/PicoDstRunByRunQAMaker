@@ -10,7 +10,7 @@
 		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:filelists}/MuonCandidates.lis" splitBy="6" />
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="6" />
 		</input>
 
 		<output path="" >
