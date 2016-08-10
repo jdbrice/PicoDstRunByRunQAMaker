@@ -17,7 +17,7 @@
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}muon_candidates_{jobIndex}.root" />
+			<TFile url="{CWD:out}MuonCandidates/muon_candidates_{jobIndex}.root" />
 		</output>
 
 		<histograms>
