@@ -13,7 +13,7 @@
 		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="PicoDst" adapter="PicoDstRun15PP200" url="{CWD:in}/filelists/PicoDst.lis" splitBy="200" maxFiles="20" />
+			<dst treeName="PicoDst" adapter="PicoDstRun15PP200" url="{CWD:in}/filelists/PicoDst.lis" splitBy="200" />
 		</input>
 
 		<output path="" >
