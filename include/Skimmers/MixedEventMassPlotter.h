@@ -149,16 +149,11 @@ protected:
 			if ( showProgress )
 				tp.showProgress( iEvent );
 
-			// analyzeEventBeforeCuts();
-
 			if ( !keepEvent() ){
-				// analyzeRejectedEvent();
 				iEvent++;
 				continue;
 			}
 
-			// innerLoop( iEvent );
-				// analyzeEvent();
 			iEvent = fillBuffer( iEvent );
 			INFO( classname(), "iEvent = " << iEvent );
 			makePairs();
