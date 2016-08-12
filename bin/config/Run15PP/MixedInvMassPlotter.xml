@@ -10,7 +10,7 @@
 		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/MixedMuonCandidates/mixed_muon_candidates_{jobIndex}" />
+			<dst treeName="FemtoDst" url="{CWD:out}/MixedMuonCandidates/mixed_muon_candidates_{jobIndex}.root" />
 		</input>
 
 		<output path="" >
