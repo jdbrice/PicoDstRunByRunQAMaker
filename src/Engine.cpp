@@ -32,6 +32,8 @@ using namespace jdb;
 #include "CandidateSkimmer.h"
 #include "InvariantMassPlotter.h"
 #include "InvariantMassPlotMaker.h"
+#include "BackgroundMaker.h"
+
 
 #include "FileListMaker.h"
 #include "CommandRunner.h"

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="BackgroundMaker" config="" nodePath="BGM" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<Include url="./Common/cwd.xml" />
+	<BGM >
+		<Logger color="true" globalLogLevel="info" />
+
+		<output path="" >
+			<TFile url="{CWD:out}/bg_inv_mass_mumu.root" />
+		</output>
+
+	</BGM>
+
+	<Include url="./Common/dimuonBins.xml" />
+
+</config>
