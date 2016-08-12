@@ -42,10 +42,15 @@ protected:
 		for ( int iBin = 1; iBin <= mixed_pos_1d->GetNbinsX(); iBin++ ){
 
 			int n_mixed_pos = mixed_pos_1d->GetBinContent( iBin );
+			INFO( classname(), "got " << n_mixed_pos );
 			int n_mixed_neg = mixed_neg_1d->GetBinContent( iBin );
+			INFO( classname(), "got " << n_mixed_neg );
 			int n_same_pos = same_pos_1d->GetBinContent( iBin );
+			INFO( classname(), "got " << n_same_pos );
 			int n_same_neg = same_neg_1d->GetBinContent( iBin );
+			INFO( classname(), "got " << n_same_neg );
 			int n_mixed_us = mixed_us_1d->GetBinContent( iBin );
+			INFO( classname(), "got " << n_mixed_us );
 			
 
 			double geom_bg = sqrt( n_same_pos * n_same_neg ) * ( n_mixed_us / sqrt( n_mixed_pos * n_mixed_neg ) );
