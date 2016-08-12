@@ -47,6 +47,7 @@ protected:
 			double geom_bg = sqrt( n_same_pos * n_same_neg ) * ( n_mixed_us / sqrt( n_mixed_pos * n_mixed_neg ) );
 			double direct_sum_bg = (n_same_pos + n_same_neg) * ( n_mixed_us / ( n_mixed_pos + n_mixed_neg ) );
 
+			INFO( classname(), "assign bg" );
 			book->setBinContent( "geom_mean_bg", iBin, geom_bg );
 			book->setBinContent( "direct_sum_bg", iBin, direct_sum_bg );
 
