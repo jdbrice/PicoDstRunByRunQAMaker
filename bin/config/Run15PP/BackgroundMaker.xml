@@ -8,9 +8,13 @@
 	<BGM >
 		<Logger color="true" globalLogLevel="info" />
 
+		<input>
+			<TFile url="{CWD:out}/mixed_mass_mumu.root" name="mixed"/>
+			<TFile url="{CWD:out}/InvMassMuMu/inv_mass_mumu.root" name="same" />
+		</input>
 		<output path="" >
 			<TFile url="{CWD:out}/bg_inv_mass_mumu.root" />
-		</output>
+		</output> 
 
 	</BGM>
 
