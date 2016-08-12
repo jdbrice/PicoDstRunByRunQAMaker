@@ -62,7 +62,8 @@ int main( int argc, char* argv[] ) {
 
 	TaskFactory::registerTaskRunner<InvariantMassPlotter>( "InvariantMassPlotter" );
 	TaskFactory::registerTaskRunner<MixedEventMassPlotter>( "MixedEventMassPlotter" );
-
+	TaskFactory::registerTaskRunner<BackgroundMaker>( "BackgroundMaker" );
+	
 	// Plot Makers
 	TaskFactory::registerTaskRunner<InvariantMassPlotMaker>( "InvariantMassPlotMaker" );
 
