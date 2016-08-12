@@ -14,7 +14,7 @@
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}/inv_mass_mumu_{InvMP.EventHash}.root" />
+			<TFile url="{CWD:out}/InvMassMuMu/inv_mass_mumu_{InvMP.EventHash}.root" />
 		</output>
 
 		<histograms>
