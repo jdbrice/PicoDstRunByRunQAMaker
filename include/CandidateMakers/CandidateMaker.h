@@ -236,11 +236,11 @@ protected:
 			aTrack->mMtdPidTraitsIndex = nMtdPidTraits;
 			CandidateTrackMtdPidTraits * mtdpid = new ((*wMtdPidTraits)[nMtdPidTraits]) CandidateTrackMtdPidTraits( );
 
-			mtdpid->mMatchFlag 	= pico->MtdPidTraits_mMatchFlag[ iMtd ];
-			mtdpid->mDeltaY 	= pico->MtdPidTraits_mDeltaY[ iMtd ];
-			mtdpid->mDeltaZ 	= pico->MtdPidTraits_mDeltaZ[ iMtd ];
-			mtdpid->mDeltaTimeOfFlight = pico->MtdPidTraits_mDeltaTimeOfFlight[ iMtd ];
-			mtdpid->mMtdHitChan = pico->MtdPidTraits_mMtdHitChan[ iMtd ];
+			mtdpid->mMatchFlag 			= pico->MtdPidTraits_mMatchFlag[ iMtd ];
+			mtdpid->mDeltaY 			= pico->MtdPidTraits_mDeltaY[ iMtd ];
+			mtdpid->mDeltaZ 			= pico->MtdPidTraits_mDeltaZ[ iMtd ];
+			mtdpid->mDeltaTimeOfFlight 	= pico->MtdPidTraits_mDeltaTimeOfFlight[ iMtd ];
+			mtdpid->mMtdHitChan 		= pico->MtdPidTraits_mMtdHitChan[ iMtd ];
 
 			nMtdPidTraits ++;
 		} else {

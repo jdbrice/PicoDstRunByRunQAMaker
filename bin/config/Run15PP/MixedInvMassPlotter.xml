@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="MixedEventMassPlotter" config="" nodePath="MEMP" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<Include url="./Common/cwd.xml" />
+	<MEMP >
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+
+		<input>
+			<dst treeName="FemtoDst" url="{CWD:out}/MixedMuonCandidates/" splitBy="1" />
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}/mixed_mass_mumu_{jobIndex}.root" />
+		</output>
+
+		<histograms>
+			<Plots dir="">
+				<Histo name="like_sign" title="like sign" bins_x="bins.invMass" />
+				<Histo name="like_sign_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="bins.invMass" bins_y="bins.pT" />
+
+				<Histo name="like_sign_Pos" title="like sign" bins_x="bins.invMass" />
+				<Histo name="like_sign_Pos_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="bins.invMass" bins_y="bins.pT" />
+
+				<Histo name="like_sign_Neg" title="like sign" bins_x="bins.invMass" />
+				<Histo name="like_sign_Neg_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="bins.invMass" bins_y="bins.pT" />
+
+				<Histo name="unlike_sign" title="unlike sign" bins_x="bins.invMass" />
+				<Histo name="unlike_sign_pT" title="unlike sign; M_{#mu #mu}; pT [GeV/c]" bins_x="bins.invMass" bins_y="bins.pT" />
+			</Plots>
+			<MtdCuts dir="trackQA" >
+				<Histo name="MtdMuon_cuts" title="Sequential Track Cuts" bins_x="TrackQABins.track_cuts" />
+				<Histo name="MtdMuon_single_cuts" title="Individual Track Cuts" bins_x="TrackQABins.track_cuts" />
+			</MtdCuts>
+			
+		</histograms>
+
+		<Particles mass1="0.105" mass2="0.105" />
+
+		<Include url="./Common/MuonCandidateCuts.xml" />
+
+	</MEMP>
+
+	<bins>
+		<invMass width="0.005" min="0.0" max="15.0" />
+		<pT width="0.05" min="0.0" max="15.0" />
+	</bins>
+
+</config>

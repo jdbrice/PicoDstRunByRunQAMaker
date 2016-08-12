@@ -27,14 +27,14 @@ public:
 	Float_t 	mPrimaryVertex_mX1;		// Event VertexX
 	Float_t 	mPrimaryVertex_mX2;		// Event VertexY
 	Float_t 	mPrimaryVertex_mX3;		// Event VertexZ
-	Float_t 	mWeight;		// Event weight from StRefMultCorr
-	Int_t 		mRunId;			// Run ID
-	Int_t 		mEventId;		// Event Id
-	UInt_t 		mTriggerWord;	// Trigger word
-	UInt_t 		mTriggerWordMtd;	// MTD trigger word
-	UShort_t 	mGRefMult;		// global RefMult
-	Short_t 	mPsi2;			// event plane angle * 10000
-	UChar_t 	mBin16;			// centrality bin 16
+	Float_t 	mWeight;				// Event weight from StRefMultCorr
+	Int_t 		mRunId;					// Run ID
+	Int_t 		mEventId;				// Event Id
+	UInt_t 		mTriggerWord;			// Trigger word
+	UInt_t 		mTriggerWordMtd;		// MTD trigger word
+	UShort_t 	mGRefMult;				// global RefMult
+	Short_t 	mPsi2;					// event plane angle * 10000
+	UChar_t 	mBin16;					// centrality bin 16
 
 
 
