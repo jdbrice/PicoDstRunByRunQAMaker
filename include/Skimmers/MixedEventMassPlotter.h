@@ -64,7 +64,6 @@ protected:
 	// 	shared_ptr< CandidateEvent > event;
 	// 	shared_ptr< CandidateTrack > track;
 	// };
-
 	double m1, m2;
 	CutCollection trackCuts;
 	bool makeTrackCutQA = false;
@@ -72,17 +71,20 @@ protected:
 	int maxToMix = 10;
 	vector<shared_ptr<CandidateEvent>> eventBuffer;
 	vector<shared_ptr<CandidateTrack>> trackBuffer;
+	vector<shared_ptr<CandidateTrackMtdPidTraits>> mtdPidTraitsBuffer;
 	EventHasher meb;
 
 
 	shared_ptr<CandidateEvent> eventA, eventB;
 	shared_ptr<CandidateTrack> trackA, trackB;
+	shared_ptr<CandidateTrackMtdPidTraits> mtdPidA, mtdPidB;
 
 	void initializeBuffers(){
 		for ( int i = 0; i < maxToMix; i++ ){
 
 			eventBuffer.push_back( shared_ptr<CandidateEvent>( new CandidateEvent() ) );
 			trackBuffer.push_back( shared_ptr<CandidateTrack>( new CandidateTrack() ) );
+			mtdPidTraitsBuffer.push_back( shared_ptr<CandidateTrackMtdPidTraits>( new CandidateTrackMtdPidTraits() ) );
 
 		}
 	}
@@ -103,24 +105,9 @@ protected:
 				break;
 			}
 
-			// skip same event pairs
-			// if ( eventA->mRunId == event->mRunId && eventA->mEventId == event->mEventId ) { 
-			// 	iEvent++;
-			// 	continue;
-			// }
-
-
-			// if ( meb.hash( event ) == eventABin ){
-			// 	eventB->copy( event );
-			// 	trackB->copy( tracks );
-
-			// 	analyzeEvent();	
-			// 	nFound ++;
-			// }
-
-
 			eventBuffer[ nFound ]->copy( event );
 			trackBuffer[ nFound ]->copy( tracks );
+			mtdPidTraitsBuffer[ nFound ]->copy( mtdPidTraits );
 			nFound++;
 
 			INFO( classname(), "Filling buffer with iEvent =" << iEvent);
@@ -139,57 +126,6 @@ protected:
 		return iEvent;
 
 	}
-
-
-
-	void innerLoop( Long64_t iEventA ){
-
-
-		// save eventA first
-		eventA->copy( event );
-		trackA->copy( tracks );
-		// INFO( classname(), "EventA Bin = " << meb.eventBin( eventA.get() ) );
-
-		int eventABin = meb.hash( eventA.get() );
-		int nFound = 0;
-		// for ( Long64_t iEventB = iEventA + 1; iEventB <= iEventA + 1000; iEventB++ ){
-		
-		DEBUG( classname(),"============================ Inner Loop =================================== " );
-		Long64_t iEventB = iEventA + 1;
-		while( true ) {
-			Long64_t read = chain->GetEntry(iEventB);
-			DEBUG( classname(),"Inner Event " << iEventB );
-
-			if ( read <= 0 ){ // break if we read past end or hit limit
-				break;
-			}
-
-			// skip same event pairs
-			if ( eventA->mRunId == event->mRunId && eventA->mEventId == event->mEventId ) { 
-				iEventB++;
-				continue;
-			}
-
-
-			if ( meb.hash( event ) == eventABin ){
-				eventB->copy( event );
-				trackB->copy( tracks );
-
-				analyzeEvent();	
-				nFound ++;
-			}
-
-			iEventB ++;
-
-			if ( nFound >= maxToMix ){
-				break;
-			}
-			
-		}
-
-
-	}
-
 
 	virtual void eventLoop( ){
 		DEBUG( classname(), "EventLoop" );
@@ -235,10 +171,9 @@ protected:
 	}
 
 
-	bool keepTrack( CandidateTrack *aTrack ){
-		// CandidateTrackMtdPidTraits *mtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
-		// return CandidateFilter::isMuon( aTrack, mtdPid, trackCuts,  makeTrackCutQA ? book : nullptr );
-		return true;
+	bool keepTrack( CandidateTrack *aTrack, CandidateTrackMtdPidTraits * aMtdPid ){
+		return CandidateFilter::isMuon( aTrack, aMtdPid, trackCuts,  makeTrackCutQA ? book : nullptr );
+		// return true;
 	}
 
 
@@ -247,10 +182,12 @@ protected:
 		for ( int a = 0; a < maxToMix; a++ ){
 			eventA = eventBuffer[ a ];
 			trackA = trackBuffer[ a ];
+			mtdPidA = mtdPidTraitsBuffer[ a ];
 			for ( int b = a; b < maxToMix; b++ ){ // don't double count
 				if ( a == b ) continue; // skip self-same pair
 				eventB = eventBuffer[ b ];
 				trackB = trackBuffer[ b ];
+				mtdPidB = mtdPidTraitsBuffer[ b ];
 
 				// analyse this pair
 				analyzePair();
@@ -264,8 +201,8 @@ protected:
 		// reject pairs from same event
 		if ( eventA->mRunId == eventB->mRunId && eventA->mEventId == eventB->mEventId ) return;
 
-		if ( !keepTrack( trackA.get() ) ) return;
-		if ( !keepTrack( trackB.get() ) ) return;
+		if ( !keepTrack( trackA.get(), mtdPidA.get() ) ) return;
+		if ( !keepTrack( trackB.get(), mtdPidB.get() ) ) return;
 
 
 		TLorentzVector lv1, lv2, lv;
@@ -298,95 +235,6 @@ protected:
 
 	}
 
-
-	virtual void analyzeEvent(){
-		// INFO( classname(), "" );
-
-		// INFO( classname(), "EventA " << eventA->mEventId );
-		// INFO( classname(), "EventB " << eventB->mEventId );
-
-		if ( !keepTrack( trackA.get() ) ) return;
-		if ( !keepTrack( trackB.get() ) ) return;
-
-
-		TLorentzVector lv1, lv2, lv;
-		lv1.SetXYZM( trackA->mPMomentum_mX1, trackA->mPMomentum_mX2, trackA->mPMomentum_mX3, m1 );
-		lv2.SetXYZM( trackB->mPMomentum_mX1, trackB->mPMomentum_mX2, trackB->mPMomentum_mX3, m2 );
-
-		lv = lv1 + lv2;
-
-		// if ( lv1.Pt() < 1.5 && lv2.Pt() < 1.5   ) continue;
-
-		book->cd("");
-		int iBin = book->get( "like_sign" )->GetXaxis()->FindBin( lv.M() );
-		double bw = book->get( "like_sign" )->GetBinWidth( iBin );
-
-		// like sign
-		if ( trackA->charge() * trackB->charge() == 1 ){
-			book->fill( "like_sign", lv.M(), 1.0 / bw );
-			book->fill( "like_sign_pT", lv.M(), lv.Pt() );
-			if ( 1 == trackA->charge()  ){
-				book->fill( "like_sign_Pos", lv.M(), 1.0 / bw );
-				book->fill( "like_sign_Pos_pT", lv.M(), lv.Pt(), 1.0/ bw );
-			} else if ( -1 == trackA->charge()  ){
-				book->fill( "like_sign_Neg", lv.M(), 1.0 / bw );
-				book->fill( "like_sign_Neg_pT", lv.M(), lv.Pt(), 1.0/ bw );
-			}
-		} else {
-			book->fill( "unlike_sign", lv.M(), 1.0/bw );
-			book->fill( "unlike_sign_pT", lv.M(), lv.Pt(), 1.0/bw );
-		}
-
-
-		// INFO( classname(), event->eventId );
-
-		// book->cd("");
-		// TAxis * axis = book->get( "unlike_sign" )->GetXaxis();
-
-
-		// int nTracks = tracks->GetEntries();
-		// for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
-		// 	CandidateTrack* trackA = (CandidateTrack*)tracks->At( iTrack );
-		// 	if ( !keepTrack( trackA ) ) continue;
-
-		// 	for ( int jTrack = iTrack; jTrack < nTracks; jTrack++ ){
-		// 		if ( iTrack == jTrack ) continue;
-		// 		CandidateTrack* trackB = (CandidateTrack*)tracks->At( jTrack );
-		// 		if ( !keepTrack( trackB ) ) continue;
-
-		// 		TLorentzVector lv1, lv2, lv;
-		// 		lv1.SetXYZM( aTrack->mPMomentum_mX1, aTrack->mPMomentum_mX2, aTrack->mPMomentum_mX3, m1 );
-		// 		lv2.SetXYZM( trackB->mPMomentum_mX1, trackB->mPMomentum_mX2, trackB->mPMomentum_mX3, m2 );
-
-		// 		lv = lv1 + lv2;
-
-		// 		// if ( lv1.Pt() < 1.5 && lv2.Pt() < 1.5   ) continue;
-
-		// 		book->cd("");
-		// 		int iBin = book->get( "like_sign" )->GetXaxis()->FindBin( lv.M() );
-		// 		double bw = book->get( "like_sign" )->GetBinWidth( iBin );
-
-		// 		// like sign
-		// 		if ( aTrack->charge() * trackB->charge() == 1 ){
-		// 			book->fill( "like_sign", lv.M(), 1.0 / bw );
-		// 			book->fill( "like_sign_pT", lv.M(), lv.Pt() );
-		// 			if ( 1 == aTrack->charge()  ){
-		// 				book->fill( "like_sign_Pos", lv.M(), 1.0 / bw );
-		// 				book->fill( "like_sign_Pos_pT", lv.M(), lv.Pt(), 1.0/ bw );
-		// 			} else if ( -1 == aTrack->charge()  ){
-		// 				book->fill( "like_sign_Neg", lv.M(), 1.0 / bw );
-		// 				book->fill( "like_sign_Neg_pT", lv.M(), lv.Pt(), 1.0/ bw );
-		// 			}
-		// 		} else {
-		// 			book->fill( "unlike_sign", lv.M(), 1.0/bw );
-		// 			book->fill( "unlike_sign_pT", lv.M(), lv.Pt(), 1.0/bw );
-		// 		}
-		// 	}
-		// }
-
-	}
-
-	
 };
 
 #endif
