@@ -87,7 +87,10 @@ protected:
 			}
 
 			// skip same event pairs
-			if ( eventA->mRunId == event->mRunId && eventA->mEventId == event->mEventId ) continue;
+			if ( eventA->mRunId == event->mRunId && eventA->mEventId == event->mEventId ) { 
+				iEventB++;
+				continue;
+			}
 
 
 			if ( meb.hash( event ) == eventABin ){
