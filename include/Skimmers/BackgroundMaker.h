@@ -4,8 +4,8 @@
 class BackgroundMaker : public HistoAnalyzer {
 public:
 	virtual const char* classname() const { return "BackgroundMaker"; }
-	BackgroundMaker();
-	~BackgroundMaker();
+	BackgroundMaker() {}
+	~BackgroundMaker() {}
 
 	virtual void initialize(){
 		HistoAnalyzer::initialize();
@@ -18,7 +18,7 @@ protected:
 
 	virtual void make(){
 
-		
+
 	}
 	
 };
