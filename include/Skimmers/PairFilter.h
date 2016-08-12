@@ -21,7 +21,7 @@ public:
 								shared_ptr<CandidateTrackMtdPidTraits> &bMtdPid ){
 
 		if ( aMtdPid->mMtdHitChan == bMtdPid->mMtdHitChan ) return false;
-
+		return true;
 	}
 	
 };
