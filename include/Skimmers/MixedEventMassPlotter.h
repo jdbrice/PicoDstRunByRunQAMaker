@@ -122,6 +122,8 @@ protected:
 			eventBuffer[ nFound ]->copy( event );
 			trackBuffer[ nFound ]->copy( tracks );
 
+			INFO( classname(), "Filling buffer with iEvent =" << iEvent);
+
 
 			iEvent ++;
 
