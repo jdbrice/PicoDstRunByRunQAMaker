@@ -11,6 +11,7 @@
 // Project
 #include "CandidateSkimmer.h"
 #include "CandidateFilter.h"
+#include "EventHasher.h"
 
 class InvariantMassPlotter : public CandidateSkimmer
 {
@@ -37,6 +38,11 @@ public:
 			INFO( classname(), "" );
 		}
 
+		eventHash = config.getInt( nodePath + ".EventHash", -1 );
+		eht.load( config, nodePath + ".MixedEventBins" );
+
+		INFO( classname(), "EventHash = " << eventHash );
+
 	}
 
 
@@ -45,6 +51,8 @@ protected:
 	double m1, m2;
 	CutCollection trackCuts;
 	bool makeTrackCutQA = false;
+	EventHasher eht;
+	int eventHash = -1;
 
 
 	bool keepTrack( CandidateTrack *aTrack ){
@@ -58,6 +66,10 @@ protected:
 
 		book->cd("");
 		TAxis * axis = book->get( "unlike_sign" )->GetXaxis();
+
+		int aEventHash = eht.hash( event );
+		TRACE( classname(), "current Event = " << aEventHash );
+		if ( 0 <= eventHash && eventHash != aEventHash ) return;
 
 
 		int nTracks = tracks->GetEntries();

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<dimuonBins>
+		<invMass width="0.1" min="0.0" max="10.0" />
+		<pT width="0.05" min="0.0" max="10.0" />
+	</dimuonBins>
+</config>

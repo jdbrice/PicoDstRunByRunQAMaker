@@ -18,24 +18,7 @@
 		</output>
 
 		<histograms>
-			<Plots dir="">
-				<Histo name="like_sign" title="like sign" bins_x="bins.invMass" />
-				<Histo name="like_sign_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="bins.invMass" bins_y="bins.pT" />
-
-				<Histo name="like_sign_Pos" title="like sign" bins_x="bins.invMass" />
-				<Histo name="like_sign_Pos_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="bins.invMass" bins_y="bins.pT" />
-
-				<Histo name="like_sign_Neg" title="like sign" bins_x="bins.invMass" />
-				<Histo name="like_sign_Neg_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="bins.invMass" bins_y="bins.pT" />
-
-				<Histo name="unlike_sign" title="unlike sign" bins_x="bins.invMass" />
-				<Histo name="unlike_sign_pT" title="unlike sign; M_{#mu #mu}; pT [GeV/c]" bins_x="bins.invMass" bins_y="bins.pT" />
-			</Plots>
-			<MtdCuts dir="trackQA" >
-				<Histo name="MtdMuon_cuts" title="Sequential Track Cuts" bins_x="TrackQABins.track_cuts" />
-				<Histo name="MtdMuon_single_cuts" title="Individual Track Cuts" bins_x="TrackQABins.track_cuts" />
-			</MtdCuts>
-			
+			<Include url="./Common/dimuonHistos.xml" />
 		</histograms>
 
 		<Particles mass1="0.105" mass2="0.105" />
@@ -44,9 +27,6 @@
 
 	</MEMP>
 
-	<bins>
-		<invMass width="0.1" min="0.0" max="10.0" />
-		<pT width="0.05" min="0.0" max="10.0" />
-	</bins>
+	<Include url="./Common/dimuonBins.xml" />
 
 </config>
