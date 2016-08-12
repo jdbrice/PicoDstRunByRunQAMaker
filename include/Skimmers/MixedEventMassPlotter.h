@@ -13,7 +13,7 @@
 #include "CandidateFilter.h"
 #include "EventHasher.h"
 
-
+#include "PairFilter.h"
 
 
 class MixedEventMassPlotter : public MixedCandidateSkimmer
@@ -196,8 +196,11 @@ protected:
 		// reject pairs from same event
 		if ( eventA->mRunId == eventB->mRunId && eventA->mEventId == eventB->mEventId ) return;
 
+		if ( !PairFilter::keepMixedPair( trackA, mtdPidA, trackB, mtdPidB ) ) return;
 		if ( !keepTrack( trackA.get(), mtdPidA.get() ) ) return;
 		if ( !keepTrack( trackB.get(), mtdPidB.get() ) ) return;
+
+
 
 
 		TLorentzVector lv1, lv2, lv;
