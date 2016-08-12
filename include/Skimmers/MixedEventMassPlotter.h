@@ -225,7 +225,7 @@ protected:
 				// analyzeEvent();
 			iEvent = fillBuffer( iEvent );
 			INFO( classname(), "iEvent = " << iEvent );
-
+			makePairs();
 			// iEvent++;
 		} // Event Loop
 		
