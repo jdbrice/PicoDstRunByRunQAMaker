@@ -110,7 +110,7 @@ protected:
 			mtdPidTraitsBuffer[ nFound ]->copy( mtdPidTraits );
 			nFound++;
 
-			INFO( classname(), "Filling buffer with iEvent =" << iEvent);
+			DEBUG( classname(), "Filling buffer with iEvent =" << iEvent);
 
 
 			iEvent ++;
