@@ -46,6 +46,8 @@ public:
 
 		meb.load( config, nodePath + ".MixedEventBins" );
 
+		maxToMix = config.getInt( nodePath + ":maxToMix", 10 );
+		INFO( classname(), "Max # to mix = " << maxToMix );
 
 	}
 
@@ -56,7 +58,7 @@ protected:
 	CutCollection trackCuts;
 	bool makeTrackCutQA = false;
 
-	int nToMix = 10;
+	int maxToMix = 10;
 	EventHasher meb;
 
 
@@ -103,9 +105,9 @@ protected:
 
 			iEventB ++;
 
-			// if ( nFound >= nToMix ){
-			// 	break;
-			// }
+			if ( nFound >= maxToMix ){
+				break;
+			}
 			
 		}
 
