@@ -74,7 +74,10 @@ protected:
 
 		int eventABin = meb.hash( eventA.get() );
 		int nFound = 0;
-		for ( Long64_t iEventB = iEventA + 1; iEventB <= iEventA + 1000; iEventB++ ){
+		// for ( Long64_t iEventB = iEventA + 1; iEventB <= iEventA + 1000; iEventB++ ){
+		
+		Long64_t iEventB = iEventA + 1;
+		while( true ) {
 			Long64_t read = chain->GetEntry(iEventB);
 			
 			if ( read <= 0 ){ // break if we read past end or hit limit
@@ -93,9 +96,11 @@ protected:
 				nFound ++;
 			}
 
-			if ( nFound >= nToMix ){
-				break;
-			}
+			iEventB ++;
+
+			// if ( nFound >= nToMix ){
+			// 	break;
+			// }
 			
 		}
 
