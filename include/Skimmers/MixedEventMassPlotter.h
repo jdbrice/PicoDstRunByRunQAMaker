@@ -221,6 +221,7 @@ protected:
 			// innerLoop( iEvent );
 				// analyzeEvent();
 			iEvent = fillBuffer( iEvent );
+			INFO( classname(), "iEvent = " << iEvent );
 
 			// iEvent++;
 		} // Event Loop
