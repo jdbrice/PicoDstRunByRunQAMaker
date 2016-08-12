@@ -76,11 +76,11 @@ protected:
 		int nFound = 0;
 		// for ( Long64_t iEventB = iEventA + 1; iEventB <= iEventA + 1000; iEventB++ ){
 		
-		INFO( classname(),"============================ Inner Loop =================================== " );
+		DEBUG( classname(),"============================ Inner Loop =================================== " );
 		Long64_t iEventB = iEventA + 1;
 		while( true ) {
 			Long64_t read = chain->GetEntry(iEventB);
-			INFO( classname(),"Inner Event " << iEventB );
+			DEBUG( classname(),"Inner Event " << iEventB );
 
 			if ( read <= 0 ){ // break if we read past end or hit limit
 				break;
