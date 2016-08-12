@@ -25,6 +25,8 @@ protected:
 		TH1 * same_pos_1d = get1D( "like_sign_Pos", "same" );
 		TH1 * same_neg_1d = get1D( "like_sign_Neg", "same" );
 
+		INFO( classname(), "got " << mixed_pos_1d );
+
 		book->cd();
 		book->add( "geom_mean_bg", mixed_pos_1d->Clone( "geom_mean_bg" ) );
 		book->add( "geom_mean_acorr", mixed_pos_1d->Clone( "geom_mean_acorr" ) );
