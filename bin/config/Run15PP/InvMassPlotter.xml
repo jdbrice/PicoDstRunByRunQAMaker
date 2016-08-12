@@ -45,8 +45,8 @@
 	</InvariantMassPlotter>
 
 	<bins>
-		<invMass width="0.005" min="0.0" max="15.0" />
-		<pT width="0.05" min="0.0" max="15.0" />
+		<invMass width="0.1" min="0.0" max="10.0" />
+		<pT width="0.05" min="0.0" max="10.0" />
 	</bins>
 
 </config>
