@@ -104,10 +104,10 @@ protected:
 			}
 
 			// skip same event pairs
-			if ( eventA->mRunId == event->mRunId && eventA->mEventId == event->mEventId ) { 
-				iEvent++;
-				continue;
-			}
+			// if ( eventA->mRunId == event->mRunId && eventA->mEventId == event->mEventId ) { 
+			// 	iEvent++;
+			// 	continue;
+			// }
 
 
 			// if ( meb.hash( event ) == eventABin ){
@@ -239,6 +239,63 @@ protected:
 		// CandidateTrackMtdPidTraits *mtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
 		// return CandidateFilter::isMuon( aTrack, mtdPid, trackCuts,  makeTrackCutQA ? book : nullptr );
 		return true;
+	}
+
+
+	virtual void makePairs(){
+
+		for ( int a = 0; a < maxToMix; a++ ){
+			eventA = eventBuffer[ a ];
+			trackA = trackBuffer[ a ];
+			for ( int b = a; b < maxToMix; b++ ){ // don't double count
+				if ( a == b ) continue; // skip self-same pair
+				eventB = eventBuffer[ b ];
+				trackB = trackBuffer[ b ];
+
+				// analyse this pair
+				analyzePair();
+			}
+		}
+
+	}
+
+	virtual void analyzePair(){
+
+		// reject pairs from same event
+		if ( eventA->mRunId == eventB->mRunId && eventA->mEventId == eventB->mEventId ) return;
+
+		if ( !keepTrack( trackA.get() ) ) return;
+		if ( !keepTrack( trackB.get() ) ) return;
+
+
+		TLorentzVector lv1, lv2, lv;
+		lv1.SetXYZM( trackA->mPMomentum_mX1, trackA->mPMomentum_mX2, trackA->mPMomentum_mX3, m1 );
+		lv2.SetXYZM( trackB->mPMomentum_mX1, trackB->mPMomentum_mX2, trackB->mPMomentum_mX3, m2 );
+
+		lv = lv1 + lv2;
+
+		// if ( lv1.Pt() < 1.5 && lv2.Pt() < 1.5   ) continue;
+
+		book->cd("");
+		int iBin = book->get( "like_sign" )->GetXaxis()->FindBin( lv.M() );
+		double bw = book->get( "like_sign" )->GetBinWidth( iBin );
+
+		// like sign
+		if ( trackA->charge() * trackB->charge() == 1 ){
+			book->fill( "like_sign", lv.M(), 1.0 / bw );
+			book->fill( "like_sign_pT", lv.M(), lv.Pt() );
+			if ( 1 == trackA->charge()  ){
+				book->fill( "like_sign_Pos", lv.M(), 1.0 / bw );
+				book->fill( "like_sign_Pos_pT", lv.M(), lv.Pt(), 1.0/ bw );
+			} else if ( -1 == trackA->charge()  ){
+				book->fill( "like_sign_Neg", lv.M(), 1.0 / bw );
+				book->fill( "like_sign_Neg_pT", lv.M(), lv.Pt(), 1.0/ bw );
+			}
+		} else {
+			book->fill( "unlike_sign", lv.M(), 1.0/bw );
+			book->fill( "unlike_sign_pT", lv.M(), lv.Pt(), 1.0/bw );
+		}
+
 	}
 
 
