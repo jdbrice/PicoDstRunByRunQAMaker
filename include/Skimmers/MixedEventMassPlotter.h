@@ -13,6 +13,9 @@
 #include "CandidateFilter.h"
 #include "EventHasher.h"
 
+
+
+
 class MixedEventMassPlotter : public MixedCandidateSkimmer
 {
 public:
@@ -49,21 +52,91 @@ public:
 		maxToMix = config.getInt( nodePath + ":maxToMix", 10 );
 		INFO( classname(), "Max # to mix = " << maxToMix );
 
+		// build the buffers
+		initializeBuffers();
+
 	}
 
 
 protected:
+
+	// class CandidateClone {
+	// 	shared_ptr< CandidateEvent > event;
+	// 	shared_ptr< CandidateTrack > track;
+	// };
 
 	double m1, m2;
 	CutCollection trackCuts;
 	bool makeTrackCutQA = false;
 
 	int maxToMix = 10;
+	vector<shared_ptr<CandidateEvent>> eventBuffer;
+	vector<shared_ptr<CandidateTrack>> trackBuffer;
 	EventHasher meb;
 
 
 	shared_ptr<CandidateEvent> eventA, eventB;
 	shared_ptr<CandidateTrack> trackA, trackB;
+
+	void initializeBuffers(){
+		for ( int i = 0; i < maxToMix; i++ ){
+
+			eventBuffer.push_back( shared_ptr<CandidateEvent>( new CandidateEvent() ) );
+			trackBuffer.push_back( shared_ptr<CandidateTrack>( new CandidateTrack() ) );
+
+		}
+	}
+
+
+	Long64_t fillBuffer( Long64_t eventStart = 0 ){
+
+		int nFound = 0;
+
+		Long64_t iEvent = eventStart;
+
+		while( true ) {
+			Long64_t read = chain->GetEntry(iEvent);
+			DEBUG( classname(),"Inner Event " << iEvent );
+
+			if ( read <= 0 ){ // break if we read past end or hit limit
+				// TODO: maybe wrap to ensure fully filled buffers
+				break;
+			}
+
+			// skip same event pairs
+			if ( eventA->mRunId == event->mRunId && eventA->mEventId == event->mEventId ) { 
+				iEvent++;
+				continue;
+			}
+
+
+			// if ( meb.hash( event ) == eventABin ){
+			// 	eventB->copy( event );
+			// 	trackB->copy( tracks );
+
+			// 	analyzeEvent();	
+			// 	nFound ++;
+			// }
+
+
+			eventBuffer[ nFound ]->copy( event );
+			trackBuffer[ nFound ]->copy( tracks );
+
+
+			iEvent ++;
+
+			if ( nFound >= maxToMix ){
+				break;
+			}
+			
+		}
+
+		// return the next event index to read
+		// break happens after ++ so this event has not been read yet
+		return iEvent;
+
+	}
+
 
 
 	void innerLoop( Long64_t iEventA ){
@@ -137,18 +210,19 @@ protected:
 			if ( showProgress )
 				tp.showProgress( iEvent );
 
-			analyzeEventBeforeCuts();
+			// analyzeEventBeforeCuts();
 
 			if ( !keepEvent() ){
-				analyzeRejectedEvent();
+				// analyzeRejectedEvent();
 				iEvent++;
 				continue;
 			}
 
-			innerLoop( iEvent );
+			// innerLoop( iEvent );
 				// analyzeEvent();
+			iEvent = fillBuffer( iEvent );
 
-			iEvent++;
+			// iEvent++;
 		} // Event Loop
 		
 		if ( false == showProgress ){
