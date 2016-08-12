@@ -33,6 +33,8 @@ protected:
 		book->add( "direct_sum_bg", mixed_pos_1d->Clone( "direct_sum_bg" ) );
 		book->add( "direct_sum_acorr", mixed_pos_1d->Clone( "direct_sum_acorr" ) );
 
+		INFO( classname(), "cloned " << mixed_pos_1d );
+
 		for ( int iBin = 1; iBin <= mixed_pos_1d->GetNbinsX(); iBin++ ){
 
 			int n_mixed_pos = mixed_pos_1d->GetBinContent( iBin );
