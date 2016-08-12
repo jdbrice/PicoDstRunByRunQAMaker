@@ -52,6 +52,7 @@ protected:
 			int n_mixed_us = mixed_us_1d->GetBinContent( iBin );
 			INFO( classname(), "got " << n_mixed_us );
 			
+			if ( 0 == n_mixed_pos || 0 == n_mixed_neg ) continue;
 
 			double geom_bg = sqrt( n_same_pos * n_same_neg ) * ( n_mixed_us / sqrt( n_mixed_pos * n_mixed_neg ) );
 			double direct_sum_bg = (n_same_pos + n_same_neg) * ( n_mixed_us / ( n_mixed_pos + n_mixed_neg ) );
