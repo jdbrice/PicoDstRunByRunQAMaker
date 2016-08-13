@@ -139,6 +139,7 @@ public:
 		double nHitsDedx = pico->Tracks_mNHitsDedx[ iTrack ];
 		double nHitsRatio = nHitsFit / nHitsMax;
 		TVector3 momentum = pico->pMomentum( iTrack );//( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
+		double deltaR = sqrt( pow(pico->MtdPidTraits_mDeltaY[ iMtd ], 2) + pow(pico->MtdPidTraits_mDeltaZ[ iMtd ], 2) );
 
 		if ( makeQA ){
 			book->cd("trackQA");
@@ -159,6 +160,11 @@ public:
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "nHitsDedx", allCuts, book, cutsName );
+		}
+		if ( nHitsFit < ccol[ "nHitsFit" ]->min ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "nHitsFit", allCuts, book, cutsName );
 		}
 		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() )  ){
 			allCuts = false;
@@ -194,6 +200,11 @@ public:
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "dz", allCuts, book, cutsName );
+		}
+		if ( !ccol[ "drMtd" ]->inInclusiveRange( deltaR ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "dr", allCuts, book, cutsName );
 		}
 
 		return allCuts;
