@@ -1,6 +1,9 @@
 #ifndef BACKGROUND_MAKER_H
 #define BACKGROUND_MAKER_H
 
+#include "HistoAnalyzer.h"
+#include "RooPlotLib.h"
+
 class BackgroundMaker : public HistoAnalyzer {
 public:
 	virtual const char* classname() const { return "BackgroundMaker"; }
@@ -9,8 +12,6 @@ public:
 
 	virtual void initialize(){
 		HistoAnalyzer::initialize();
-
-
 	}
 
 protected:
@@ -25,43 +26,64 @@ protected:
 		TH1 * same_pos_1d = get1D( "like_sign_Pos", "same" );
 		TH1 * same_neg_1d = get1D( "like_sign_Neg", "same" );
 
-		INFO( classname(), "got " << mixed_pos_1d );
-		INFO( classname(), "got " << mixed_neg_1d );
-		INFO( classname(), "got " << mixed_us_1d );
-		INFO( classname(), "got " << same_pos_1d );
-		INFO( classname(), "got " << same_neg_1d );
-
 		book->cd();
-		book->add( "geom_mean_bg", mixed_pos_1d->Clone( "geom_mean_bg" ) );
-		book->add( "geom_mean_acorr", mixed_pos_1d->Clone( "geom_mean_acorr" ) );
-		book->add( "direct_sum_bg", mixed_pos_1d->Clone( "direct_sum_bg" ) );
-		book->add( "direct_sum_acorr", mixed_pos_1d->Clone( "direct_sum_acorr" ) );
+		book->add( "geom_mean_bg",     (TH1*) mixed_pos_1d->Clone( "geom_mean_bg" ) );
+		book->add( "geom_mean_acorr",  (TH1*) mixed_pos_1d->Clone( "geom_mean_acorr" ) );
+		book->add( "arith_mean_bg",    (TH1*) mixed_pos_1d->Clone( "arith_mean_bg" ) );
+		book->add( "arith_mean_acorr", (TH1*) mixed_pos_1d->Clone( "arith_mean_acorr" ) );
+		book->add( "direct_sum_bg",    (TH1*) mixed_pos_1d->Clone( "direct_sum_bg" ) );
 
-		INFO( classname(), "cloned " << mixed_pos_1d );
+		RooPlotLib rpl;
+		rpl.link( book );
+
+		// set the titles and colors for easy drawing
+		rpl.style( "geom_mean_bg" )
+			.set( "title", "Geometric Mean BG; M_{#mu#mu} [GeV/c]; dN/dM" )
+			.set( "color", kRed );
+		rpl.style( "arith_mean_bg" )
+			.set( "title", "Arithmetic Mean BG; M_{#mu#mu} [GeV/c]; dN/dM" )
+			.set( "color", kBlue );
+		rpl.style( "direct_sum_bg" )
+			.set( "title", "Direct Sum BG; M_{#mu#mu} [GeV/c]; dN/dM" )
+			.set( "color", kGreen );
 
 		for ( int iBin = 1; iBin <= mixed_pos_1d->GetNbinsX(); iBin++ ){
 
-			int n_mixed_pos = mixed_pos_1d->GetBinContent( iBin );
-			INFO( classname(), "got " << n_mixed_pos );
-			int n_mixed_neg = mixed_neg_1d->GetBinContent( iBin );
-			INFO( classname(), "got " << n_mixed_neg );
-			int n_same_pos = same_pos_1d->GetBinContent( iBin );
-			INFO( classname(), "got " << n_same_pos );
-			int n_same_neg = same_neg_1d->GetBinContent( iBin );
-			INFO( classname(), "got " << n_same_neg );
-			int n_mixed_us = mixed_us_1d->GetBinContent( iBin );
-			INFO( classname(), "got " << n_mixed_us );
+			double n_mixed_pos = mixed_pos_1d->GetBinContent( iBin );
+			double n_mixed_neg = mixed_neg_1d->GetBinContent( iBin );
+			double n_same_pos  = same_pos_1d->GetBinContent( iBin );
+			double n_same_neg  = same_neg_1d->GetBinContent( iBin );
+			double n_mixed_us  = mixed_us_1d->GetBinContent( iBin );
 			
-			if ( 0 == n_mixed_pos || 0 == n_mixed_neg ) continue;
+			double geom_acorr = 1.0;
+			if ( 0 < n_mixed_pos * n_mixed_neg )
+				geom_acorr = ( n_mixed_us / sqrt( n_mixed_pos * n_mixed_neg ) );
+			double geom_bg = sqrt( n_same_pos * n_same_neg ) * geom_acorr;
 
-			double geom_bg = sqrt( n_same_pos * n_same_neg ) * ( n_mixed_us / sqrt( n_mixed_pos * n_mixed_neg ) );
-			double direct_sum_bg = (n_same_pos + n_same_neg) * ( n_mixed_us / ( n_mixed_pos + n_mixed_neg ) );
+			double arith_acorr = 1.0;
+			if (  0 < n_mixed_pos + n_mixed_neg )
+				arith_acorr = ( n_mixed_us / ( n_mixed_pos + n_mixed_neg ) );
+			double arith_mean_bg = (n_same_pos + n_same_neg) * arith_acorr;
 
-			INFO( classname(), "assign bg" );
-			book->setBinContent( "geom_mean_bg", iBin, geom_bg );
-			book->setBinContent( "direct_sum_bg", iBin, direct_sum_bg );
-
+			book->setBin( "geom_mean_bg", iBin, geom_bg, sqrt( geom_bg ) );
+			book->setBin( "geom_mean_acorr", iBin, geom_acorr, sqrt( geom_acorr ) );
+			book->setBin( "arith_mean_bg", iBin, arith_mean_bg, sqrt( arith_mean_bg ) );
+			book->setBin( "arith_mean_acorr", iBin, arith_acorr, sqrt( arith_acorr ) );
+			book->setBin( "direct_sum_bg", iBin, n_same_pos + n_same_neg, sqrt( n_same_pos + n_same_neg ) );
 		}
+
+
+		book->clone( "geom_mean_bg", "geom_over_arith_bg" );
+		book->clone( "geom_mean_bg", "geom_over_sum_bg" );
+		book->clone( "arith_mean_bg", "arith_over_sum_bg" );
+
+		rpl.style( "geom_over_arith_bg" ).set( "title", ";M_{#mu#mu} [GeV/c];Geometric / Arithmetic" );
+		rpl.style( "geom_over_sum_bg" ).set( "title", ";M_{#mu#mu} [GeV/c];Geometric / Sum" );
+		rpl.style( "arith_over_sum_bg" ).set( "title", ";M_{#mu#mu} [GeV/c];Arithmetic / Sum" );
+
+		book->get( "geom_over_arith_bg" )->Divide( book->get( "arith_mean_bg" ) );
+		book->get( "geom_over_sum_bg" )->Divide( book->get( "direct_sum_bg" ) );
+		book->get( "arith_over_sum_bg" )->Divide( book->get( "direct_sum_bg" ) );
 
 
 	}

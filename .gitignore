@@ -31,3 +31,6 @@ test.py
 
 bin/config/Common/cwd.xml
 bin/config/Params
+
+#possible data dirs
+/data*

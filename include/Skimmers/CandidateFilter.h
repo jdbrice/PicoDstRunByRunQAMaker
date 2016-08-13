@@ -47,6 +47,8 @@ public:
 		double nSigmaPion = _aTrack->mNSigmaPion / 100.0;
 		TVector3 momentum = _aTrack->pMomentum();
 
+		double deltaR = sqrt( _mtdPidTraits->mDeltaY*_mtdPidTraits->mDeltaY + _mtdPidTraits->mDeltaZ*_mtdPidTraits->mDeltaZ );
+
 		if ( makeQA ){
 			book->cd("trackQA");
 			passTrackCut( "All", allCuts, book, cutsName );
@@ -73,6 +75,11 @@ public:
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "nHitsDedx", allCuts, book, cutsName );
+		}
+		if ( nHitsFit < ccol[ "nHitsFit" ]->min ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "nHitsFit", allCuts, book, cutsName );
 		}
 		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() )  ){
 			allCuts = false;
@@ -107,6 +114,11 @@ public:
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "dz", allCuts, book, cutsName );
+		}
+		if ( !ccol[ "drMtd" ]->inInclusiveRange( deltaR ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "dr", allCuts, book, cutsName );
 		}
 
 		return allCuts;
