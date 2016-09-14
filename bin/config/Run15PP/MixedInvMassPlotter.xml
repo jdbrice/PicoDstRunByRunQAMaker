@@ -14,7 +14,7 @@
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}/mixed_mass_mumu_{jobIndex}.root" />
+			<TFile url="{CWD:out}/MixedInvMassMuMu/mixed_mass_mumu_{jobIndex}.root" />
 		</output>
 
 		<histograms>

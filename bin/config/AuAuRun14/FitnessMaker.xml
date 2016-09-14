@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<iFitness>{ANA_ITERATION}</iFitness>
+	<Task name="skimmer" type="FitnessMaker" config="" nodePath="FitM" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<Include url="./Common/cwd.xml" />
+	<FitM >
+		<Logger color="true" globalLogLevel="info" />
+
+		<input>
+			<TFile url="{CWD:out}/InvMassMuMu/inv_mass_mumu_{CWD:variant}.root" name="data" />
+		</input>
+		<output >
+			<TFile url="{CWD:out}/fitness_mumu{CWD:variant}.root" />
+		</output> 
+
+		<Include url="./Common/MuonCandidateCuts.xml" />
+	</FitM>
+
+	<Include url="./Common/dimuonBins.xml" />
+
+</config>

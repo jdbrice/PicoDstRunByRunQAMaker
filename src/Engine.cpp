@@ -2,7 +2,7 @@
 
 // RooBarb
 #include "XmlConfig.h"
-#include "Engine.h"
+#include "TaskEngine.h"
 #include "SharedTreeAnalyzer.h"
 using namespace jdb;
 
@@ -13,6 +13,7 @@ using namespace jdb;
 // Project
 #include "RunByRunQAMaker.h"
 #include "RunByRunReportMaker.h"
+#include "RunByRunCandidateQAMaker.h"
 
 #include "PicoDstSkimmer.h"
 
@@ -30,13 +31,14 @@ using namespace jdb;
 #include "EventPlaneOffsetFitter.h"
 #include "SharedPicoDstSkimmer.h"
 #include "CandidateSkimmer.h"
-#include "InvariantMassPlotter.h"
+#include "InvariantMassMaker.h"
 #include "InvariantMassPlotMaker.h"
 #include "BackgroundMaker.h"
+#include "FitnessMaker.h"
 
-
-#include "FileListMaker.h"
 #include "CommandRunner.h"
+
+#include "UnitTestProductionUtils.h"
 
 
 int main( int argc, char* argv[] ) {
@@ -46,6 +48,7 @@ int main( int argc, char* argv[] ) {
 	// RunByRun QA
 	TaskFactory::registerTaskRunner<RunByRunQAMaker>( "RunByRunQAMaker" );
 	TaskFactory::registerTaskRunner<RunByRunReportMaker>( "RunByRunReportMaker" );
+	TaskFactory::registerTaskRunner<RunByRunCandidateQAMaker>( "RunByRunCandidateQAMaker" );
 
 
 	TaskFactory::registerTaskRunner<PicoDstSkimmer>( "PicoDstSkimmer" );
@@ -60,18 +63,22 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<EventPlaneOffsetFitter>( "EventPlaneOffsetFitter" );
 	TaskFactory::registerTaskRunner<CandidateSkimmer>( "CandidateSkimmer" );
 
-	TaskFactory::registerTaskRunner<InvariantMassPlotter>( "InvariantMassPlotter" );
+	TaskFactory::registerTaskRunner<InvariantMassMaker>( "InvariantMassMaker" );
 	TaskFactory::registerTaskRunner<MixedEventMassPlotter>( "MixedEventMassPlotter" );
 	TaskFactory::registerTaskRunner<BackgroundMaker>( "BackgroundMaker" );
-	
+	TaskFactory::registerTaskRunner<FitnessMaker>( "FitnessMaker" );
+
 	// Plot Makers
 	TaskFactory::registerTaskRunner<InvariantMassPlotMaker>( "InvariantMassPlotMaker" );
 
 	//TaskUtils
-	TaskFactory::registerTaskRunner<FileListMaker>( "FileListMaker" );
 	TaskFactory::registerTaskRunner<CommandRunner>( "CommandRunner" );
 
-	Engine engine( argc, argv );
+
+	// UnitTests
+	TaskFactory::registerTaskRunner<UnitTestProductionUtils>( "UnitTestProductionUtils" );
+
+	TaskEngine engine( argc, argv );
 
 	return 0;
 }

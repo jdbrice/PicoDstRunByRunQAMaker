@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<MixedEventBins>
-		<VertexX nBins="1" min="-1.5" max="1.5" />
-		<VertexY nBins="1" min="-1.5" max="1.5" />
-		<VertexZ nBins="20" min="-100" max="100" />
+		<!-- <VertexX nBins="1" min="-1.5" max="1.5" />
+		<VertexY nBins="1" min="-1.5" max="1.5" /> -->
+		<VertexZ nBins="10" min="-100" max="100" />
+		<GRefMult nBins="10" min="0" max="60" />
+		<RunIndex nBins="4" min="0" max="2500" />
 	</MixedEventBins>
 </config>

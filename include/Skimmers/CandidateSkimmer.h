@@ -54,6 +54,14 @@ public:
 			chain->SetBranchAddress( "MtdPidTraits", &mtdPidTraits );
 			DEBUG( classname(), "Got MtdPidTraits Branch" );
 		}
+
+
+		makeEventCutQA = config.getBool( nodePath + ".MakeQA:event" );
+		makeTrackCutQA = config.getBool( nodePath + ".MakeQA:track" );
+		DEBUG( classname(), "Making Event Cut QA : " << bts( makeEventCutQA ) );
+		DEBUG( classname(), "Making Track Cut QA : " << bts( makeTrackCutQA ) );
+
+
 	}
 
 
@@ -65,11 +73,19 @@ protected:
 	TClonesArray        * btofPidTraits = nullptr;
 	TClonesArray        * mtdPidTraits  = nullptr;
 
+	bool makeTrackCutQA = false;
+	bool makeEventCutQA = false;
+
 
 	virtual void analyzeEvent(){
 		DEBUG( classname(), "" );
 
 		INFO( classname(), "Event vz = " << event->mPrimaryVertex_mX3 );
+	}
+
+
+	virtual void postMake(){
+		config.toXmlFile( "freeze_config.xml" );
 	}
 
 	

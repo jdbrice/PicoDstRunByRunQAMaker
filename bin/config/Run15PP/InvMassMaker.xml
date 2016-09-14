@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="InvariantMassMaker" config="" nodePath="InvMP" />
+	<Logger color="true" globalLogLevel="info" />
+	
+	<Include url="./Common/cwd.xml" />
+	<InvMP >
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+		<MakeQA event="true" track="false" />
+
+		<input>
+			<dst treeName="FemtoDst" url="{CWD:out}/MuonCandidates/" />
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}/InvMassMuMu/inv_mass_mumu_{InvMP.EventHash}.root" />
+		</output>
+
+		<histograms>
+			<Include url="./Common/dimuonHistos.xml" />
+			<Include url="./Common/TrackQAHistos.xml" />
+		</histograms>
+
+		<Particles mass1="0.105" mass2="0.105" />
+		<!-- <Particles mass1="0.1395" mass2="0.1395" /> -->
+		<!-- <Particles mass1="0.493" mass2="0.493" /> -->
+
+		<Include url="./Common/MuonCandidateCuts.xml" />
+		<Include url="./Common/SameEventPairCuts.xml" />
+		<Include url="./Common/MixedEventBins.xml" />
+
+	</InvMP>
+
+	<Include url="./Common/dimuonBins.xml" />
+	<Include url="./Common/TrackQABins.xml" />
+
+</config>

@@ -1,0 +1,14 @@
+######################################################################
+# 				InvMassPlotter
+#			MuonCandidates --> InvMassPlots
+######################################################################
+
+InitialDir = /home/jdb12/work/muonAna/bin/
+Executable = /home/jdb12/work/muonAna/bin/app
+Arguments  = /home/jdb12/work/muonAna/bin/config/Run15PP/InvMassPlotter.xml --InvMP.EventHash=$(Process)
+
+# Log        = /data/star2/jdb12/Run15PP200/logs/muon_candidates_$(Process).log
+# Output     = /data/star2/jdb12/Run15PP200/logs/muon_candidates_$(Process).out
+# Error      = /data/star2/jdb12/Run15PP200/logs/muon_candidates_$(Process).error
+
+Queue 20

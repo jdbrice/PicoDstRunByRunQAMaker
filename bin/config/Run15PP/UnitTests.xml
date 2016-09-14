@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="UnitTest ProductionUtils" type="UnitTestProductionUtils" config="" nodePath="UTPU" />
+
+	<UTPU subject="ProductionUtils">
+		
+	</UTPU>
+
+</config>

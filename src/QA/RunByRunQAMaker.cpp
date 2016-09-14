@@ -10,7 +10,7 @@ void RunByRunQAMaker::initialize(){
 	DEBUG( classname(), "initialize" );
 
 	// build the run map tool
-	rmf = shared_ptr<RunMapFactory>( new RunMapFactory( config.getBool( nodePath + ":noRunMap", false ) ) );
+	rmf = shared_ptr<RunMapFactory>( new RunMapFactory( "Run14AuAu200", config.getBool( nodePath + ":noRunMap", false ) ) );
 	pico = shared_ptr<IPicoDst>( new PicoDstRun14AuAu200( chain ) );
 	rmc = CentralityMaker::instance()->getgRefMultCorr();
 

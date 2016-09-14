@@ -7,17 +7,18 @@
 	<Include url="./Common/cwd.xml" />
 
 
-	<MuonCandidateMaker event="true" track="true" triggers="" rmc="false">
+	<MuonCandidateMaker event="true" track="false" triggers="" rmc="false">
 		<Logger color="true" globalLogLevel="info" />
 		<MakeQA event="true" track="true" />
 		<EventLoop progress="true" />
+		<EventHash split="false" />
 
 		<input>
-			<dst treeName="PicoDst" adapter="PicoDstRun15PP200" url="{CWD:in}/filelists/PicoDst.lis" splitBy="200" />
+			<dst treeName="PicoDst" adapter="PicoDstRun15PP200" url="{CWD:in}/filelists/PicoDst.lis" splitBy="2000" />
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}MuonCandidates/muon_candidates_{jobIndex}.root" />
+			<TFile url="{CWD:out}MuonCandidates/muon_candidates_EventHash_{MuonCandidateMaker.EventHash}_{jobIndex}.root" />
 		</output>
 
 		<histograms>
@@ -26,6 +27,7 @@
 		
 		<Include url="./Common/EventCuts.xml" />
 		<Include url="./Common/LooseMuonCandidateCuts.xml" />
+		<Include url="./Common/MixedEventBins.xml" />
 
 		<EventBranches>
 			Event

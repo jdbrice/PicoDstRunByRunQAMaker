@@ -27,7 +27,6 @@ protected:
 	virtual bool keepTrack( int iTrack );
 	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int iCandTrack );
 
-
 };
 
 

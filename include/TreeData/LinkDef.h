@@ -10,4 +10,6 @@
 #pragma link C++ class CandidateTrackBTofPidTraits+;
 #pragma link C++ class CandidateTrackMtdPidTraits+;
 
+#pragma link C++ class CandidatePair+;
+
 #endif 

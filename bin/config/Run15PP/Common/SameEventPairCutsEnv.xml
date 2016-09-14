@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	
+	<SameEventPairCuts>
+		<Range name="leadingPt" min="{TRACK_PAIR_CUT_leadingPt_min}" />
+	</SameEventPairCuts>
+</config>

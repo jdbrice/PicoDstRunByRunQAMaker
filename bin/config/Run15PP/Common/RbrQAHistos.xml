@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<RbrQAHistos >
+		<Histo name="runIndex" title="Run Index" bins_x="RbrQABins.run_index" />
+		<!-- Event Level -->
+		<Histo name="vertexX" title="Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.vertexX" />
+		<Histo name="vertexY" title="Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.vertexY" />
+		<Histo name="vertexZ" title="Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.vertexZ" />
+		<Histo name="gRefMult" title="Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.gRefMult" />
+		
+		<!-- TrackLevel -->
+		<Histo name="nTracks"        title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.nTracks" />
+		<Histo name="momentum"       title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.momentum" />
+		<Histo name="pt"             title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.pt" />
+		<Histo name="dedx"           title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.dedx" />
+		<Histo name="nHitsFit"       title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.nHitsFit" />
+		<Histo name="nHitsMax"       title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.nHitsMax" />
+		<Histo name="nHitsDedx"      title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.nHitsDedx" />
+		<Histo name="nSigmaPion"     title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.nSigmaPion" />
+		<Histo name="nSigmaKaon"     title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.nSigmaKaon" />
+		<Histo name="nSigmaProton"   title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.nSigmaProton" />
+		<Histo name="nSigmaElectron" title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.nSigmaElectron" />
+		<Histo name="gDCA"           title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.gDCA" />
+		<Histo name="mtdDeltaY"      title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.mtdDeltaY" />
+		<Histo name="mtdDeltaZ"      title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.mtdDeltaZ" />
+		<Histo name="mtdDeltaTof"    title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.mtdDeltaTof" />
+		<Histo name="mtdMatchFlag"   title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.mtdMatchFlag" />
+		<Histo name="mtdHitChan"     title= "Run Index" bins_x="RbrQABins.run_index" bins_y="RbrQABins.mtdHitChan" />
+
+
+	</RbrQAHistos>
+</config>

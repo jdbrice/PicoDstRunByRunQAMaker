@@ -39,7 +39,7 @@ public:
 
 	float gDCA() { return mDCA / 1000.0; }
 	TVector3 pMomentum() { return TVector3( mPMomentum_mX1, mPMomentum_mX2, mPMomentum_mX3 ); }
-	
+	float dEdx() { return mDedx / 1000.0; }
 	
 
 	Float_t 	mPMomentum_mX1;					// primary track px

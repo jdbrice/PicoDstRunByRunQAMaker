@@ -1,0 +1,10 @@
+######################################################################
+#			SingleInvMassMaker
+######################################################################
+
+InitialDir = /home/jdb12/work/muonAna/bin/
+Executable = /home/jdb12/work/muonAna/bin/app
+Arguments  = /home/jdb12/work/muonAna/bin/config/Run15PP/InvMassPlotter.xml
+GetEnv     = True
+
+Queue 1

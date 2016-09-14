@@ -3,23 +3,21 @@
 
 //Project
 #include "PicoDstSkimmer.h"
-#include "CandidateEvent.h"
-#include "CandidateEventPlane.h"
-#include "CandidateTrack.h"
-#include "CandidateTrackBTofPidTraits.h"
-#include "CandidateTrackMtdPidTraits.h"
 
-#include "ICandidateTreeMaker.h"
+#include "CandidateTreeMaker.h"
+#include "EventHasher.h"
+#include "RunMapFactory.h"
 
 #include "StRefMultCorr.h"
 #include "CentralityMaker.h"
+
 
 //ROOT
 #include "TClonesArray.h"
 #include "TVector3.h"
 #include "TMath.h"
 
-class CandidateMaker : public PicoDstSkimmer, public ICandidateTreeMaker
+class CandidateMaker : public PicoDstSkimmer
 {
 public:
 	virtual const char *classname() const { return "CandidateMaker"; }
@@ -39,16 +37,78 @@ public:
 		} else {
 			INFO( classname(), "NOT setting up RMC" );
 		}
+
+
+		if ( config.exists( nodePath + ".MixedEventBins" ) ){
+			INFO( classname(), "Creating Event Hash" );
+			eht.load( config, nodePath + ".MixedEventBins" );
+			eventHash = config.getInt( nodePath + ".EventHash", -1 );
+		} else {
+			WARN( classname(), "Could not find MixedEventBins" );
+			eventHash = -1;
+		}
+
+		if ( "PicoDstRun15PP200" == picoDstAdapter ){
+			calcEventPlane = false;
+			rmf = shared_ptr<RunMapFactory>( new RunMapFactory( "Run15PP200", false ) );
+		}
+		else {
+			WARN( classname(), "NO BAD RUN REJECTION FOR AUAU YET" );
+			rmf = shared_ptr<RunMapFactory>( new RunMapFactory( ) );
+		}
+
+
+		useRefMultCorr = config.getBool( nodePath + ":rmc", true );
+
 	}
 
 
 protected:
 	StRefMultCorr * rmc = nullptr;
+	EventHasher eht;
+	int eventHash;
+	shared_ptr<RunMapFactory> rmf;
+	bool useRefMultCorr = false;
+	bool calcEventPlane = true;
 
-	virtual void analyzeEvent(){
 
+	virtual void overrideConfig(){
+		INFO( classname(), "" );
+		int _jobIndex = config.getInt( "jobIndex", -1 );
+		INFO( classname(), "jobIndex = " << _jobIndex );
+
+		if ( -1 < jobIndex && config.exists( nodePath + ".MixedEventBins" ) && config.getBool( nodePath + ".EventHash:split" ) ){
+			EventHasher evtHasher;
+			evtHasher.load( config, nodePath + ".MixedEventBins" );
+			
+			INFO( classname(), "max Hash = " << evtHasher.maxPossibleHash() );
+			int maxHash = evtHasher.maxPossibleHash();
+			map<string, string> overrides;
+			int newJobIndex = _jobIndex / maxHash;
+			int newEventHash = _jobIndex % maxHash;
+			
+			overrides[ "jobIndex" ] = ts( newJobIndex );
+			overrides[ nodePath + ".EventHash" ] = ts( newEventHash );
+			INFO( classname(), "JobIndex = " << newJobIndex << ", EventHash = " << newEventHash );
+			config.applyOverrides( overrides );
+		} else {
+			INFO( classname(), "Not splitting by EventHash" );
+			map<string, string> overrides;
+			overrides[ "jobIndex" ] = ts( _jobIndex );
+			overrides[ nodePath + ".EventHash" ] = ts( -1 );
+			INFO( classname(), "JobIndex = " << _jobIndex << ", EventHash = " << -1 );
+			config.applyOverrides( overrides );
+		}
+	}
+
+	virtual bool keepEvent(){
+
+		bool skeep = PicoDstSkimmer::keepEvent();
+		if ( false == skeep )
+			return false;
+		
 		/*********** Initialize the RefMultCorr *************/
-		if ( config.getBool( nodePath + ":rmc", true ) ){
+		if ( useRefMultCorr ){
 			rmc->init( pico->Event_mRunId[0] );
 			rmc->initEvent( 
 				pico->Event_mGRefMult[0], 
@@ -57,8 +117,28 @@ protected:
 			);
 		}
 
-		// set the event level items
 		fillCandidateEvent();
+
+		/*********** Initialize the RefMultCorr *************/
+		if ( rmf->isRunBad( wEvent->mRunId ) ){
+			INFO( classname(), wEvent->mRunId << " is BAD" );
+			return false;
+		}
+
+		if ( eventHash > -1 ){
+			int evtHash = eht.hash( wEvent );
+			DEBUG( classname(), "Event Hash = " << evtHash );
+			if ( eventHash != evtHash ){
+				return false;
+			}
+		} else {
+			DEBUG( classname(), "Event" )
+		}
+
+		return true;
+	}
+
+	virtual void analyzeEvent(){
 
 		fillCandidateEventPlane();
 
@@ -79,16 +159,21 @@ protected:
 		wEvent->mPrimaryVertex_mX1 	= pico->vx();
 		wEvent->mPrimaryVertex_mX2 	= pico->vy();
 		wEvent->mPrimaryVertex_mX3 	= pico->vz();
+		wEvent->mRunIndex			= rmf->indexForRun( pico->Event_mRunId[0] );
 
 		if ( rmc ){
 			wEvent->mBin16 			= rmc->getCentralityBin16();
 			wEvent->mWeight 		= rmc->getWeight();
 		} else {
 			wEvent->mBin16 			= 0;
+			wEvent->mWeight 		= 1.0;
 		}
 
 		// TODO: after EventPlane is settled
-		wEvent->mPsi2 		= (calcPsi2() * 10000) ;
+		if ( calcEventPlane )
+			wEvent->mPsi2 		= (calcPsi2() * 10000) ;
+		else 
+			wEvent->mPsi2 		= 0.0;
 
 		// StRefMultCorr
 	}

@@ -20,6 +20,7 @@ public:
 		this->mTriggerWordMtd    = that->mTriggerWordMtd;
 		this->mGRefMult          = that->mGRefMult;
 		this->mBin16             = that->mBin16;
+		this->mRunIndex          = that->mRunIndex;
 	}
 
 	float psi() { return mPsi2 / 10000.0; }
@@ -35,10 +36,11 @@ public:
 	UShort_t 	mGRefMult;				// global RefMult
 	Short_t 	mPsi2;					// event plane angle * 10000
 	UChar_t 	mBin16;					// centrality bin 16
+	UShort_t 	mRunIndex;				// the run index
 
 
 
-	ClassDef( CandidateEvent, 2 )
+	ClassDef( CandidateEvent, 3 )
 };
 
 

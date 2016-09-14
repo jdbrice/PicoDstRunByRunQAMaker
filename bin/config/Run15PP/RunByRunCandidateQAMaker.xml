@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="RunByRunCandidateQAMaker" config="" nodePath="RbrQA" />
+	<Logger color="true" globalLogLevel="debug" />
+	
+	<Include url="./Common/cwd.xml" />
+	<RbrQA >
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+		<MakeQA event="true" track="false" />
+
+		<input>
+			<dst treeName="FemtoDst" url="{CWD:out}/MuonCandidates/" />
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}/RunByRunCandidateQA/qa.root" />
+		</output>
+
+		<histograms>
+			<Include url="./Common/RbrQAHistos.xml" />
+		</histograms>
+
+	</RbrQA>
+
+	<Include url="./Common/RbrQABins.xml" />
+
+</config>

@@ -25,10 +25,10 @@ public:
 
 		book->cd();
 		long int maxHash = eht.maxPossibleHash();
+		INFO( classname(), "Max Hash = " << maxHash );
 		book->add( "eventHash", new TH1I( "eventHash", "", maxHash + 10, 0, maxHash + 10 ) );
 
 	}
-
 
 protected:
 

@@ -38,13 +38,13 @@ protected:
 
 		// set the titles and colors for easy drawing
 		rpl.style( "geom_mean_bg" )
-			.set( "title", "Geometric Mean BG; M_{#mu#mu} [GeV/c]; dN/dM" )
+			.set( "title", "Geometric Mean BG; M_{#mu#mu} [GeV/c^{2}]; dN/dM" )
 			.set( "color", kRed );
 		rpl.style( "arith_mean_bg" )
-			.set( "title", "Arithmetic Mean BG; M_{#mu#mu} [GeV/c]; dN/dM" )
+			.set( "title", "Arithmetic Mean BG; M_{#mu#mu} [GeV/c^{2}]; dN/dM" )
 			.set( "color", kBlue );
 		rpl.style( "direct_sum_bg" )
-			.set( "title", "Direct Sum BG; M_{#mu#mu} [GeV/c]; dN/dM" )
+			.set( "title", "Direct Sum BG; M_{#mu#mu} [GeV/c^{2}]; dN/dM" )
 			.set( "color", kGreen );
 
 		for ( int iBin = 1; iBin <= mixed_pos_1d->GetNbinsX(); iBin++ ){
@@ -77,9 +77,9 @@ protected:
 		book->clone( "geom_mean_bg", "geom_over_sum_bg" );
 		book->clone( "arith_mean_bg", "arith_over_sum_bg" );
 
-		rpl.style( "geom_over_arith_bg" ).set( "title", ";M_{#mu#mu} [GeV/c];Geometric / Arithmetic" );
-		rpl.style( "geom_over_sum_bg" ).set( "title", ";M_{#mu#mu} [GeV/c];Geometric / Sum" );
-		rpl.style( "arith_over_sum_bg" ).set( "title", ";M_{#mu#mu} [GeV/c];Arithmetic / Sum" );
+		rpl.style( "geom_over_arith_bg" ).set( "title", ";M_{#mu#mu} [GeV/c^{2}];Geometric / Arithmetic" );
+		rpl.style( "geom_over_sum_bg" ).set( "title", ";M_{#mu#mu} [GeV/c^{2}];Geometric / Sum" );
+		rpl.style( "arith_over_sum_bg" ).set( "title", ";M_{#mu#mu} [GeV/c^{2}];Arithmetic / Sum" );
 
 		book->get( "geom_over_arith_bg" )->Divide( book->get( "arith_mean_bg" ) );
 		book->get( "geom_over_sum_bg" )->Divide( book->get( "direct_sum_bg" ) );

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<MuonCandidateCuts>
+		<Range name="nHitsRatio" min="{TRACK_CUT_nHitsRatio_min}" />
+		<Range name="nHitsDedx" min="{TRACK_CUT_nHitsDedx_min}" />
+		<Range name="nHitsFit" min="{TRACK_CUT_nHitsFit_min}" />
+		<Range name="eta" min="{TRACK_CUT_eta_min}" max="{TRACK_CUT_eta_max}" />
+		
+		<Range name="pt" min="{TRACK_CUT_pt_min}" />
+		<Range name="nSigmaPion" min="{TRACK_CUT_nSigmaPion_min}" max="{TRACK_CUT_nSigmaPion_max}" />
+		<Range name="gDCA" min="{TRACK_CUT_gDCA_max}" max="{TRACK_CUT_gDCA_max}" />
+		
+		<Range name="mtdPidTraitsIndex" min="0" />
+		<Range name="matchFlagMtd" min="{TRACK_CUT_matchFlagMtd_min}" max="{TRACK_CUT_matchFlagMtd_max}"/> 
+		<Range name="dzMtd" min="{TRACK_CUT_dzMtd_min}" max="{TRACK_CUT_dzMtd_max}" />
+		<Range name="dyMtd" min="{TRACK_CUT_dyMtd_min}" max="{TRACK_CUT_dyMtd_max}" />
+		<Range name="drMtd" min="{TRACK_CUT_drMtd_min}" max="{TRACK_CUT_drMtd_max}" />
+		
+		<Range name="dTofMtd" min="{TRACK_CUT_dTofMtd_min}" max="{TRACK_CUT_dTofMtd_max}" />
+	</MuonCandidateCuts>
+</config>

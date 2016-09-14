@@ -17,19 +17,17 @@ public:
 	CommandRunner() {}
 	~CommandRunner(){}
 
-	virtual void init(XmlConfig &_config, string _nodePath="", int _jobIndex = -1) {
-		TaskRunner::init( _config, _nodePath, _jobIndex );
+	virtual void init(XmlConfig &_config, string _nodePath ) {
+		TaskRunner::init( _config, _nodePath );
 		initialize();
 	}
-	virtual void init(XmlConfig &_config, string _nodePath="", string _fileList = "", string _jobPostfix = "") {
-		TaskRunner::init( _config, _nodePath, _fileList, _jobPostfix );
-		initialize();
-	}
+	// virtual void init(XmlConfig &_config, string _nodePath="", string _fileList = "", string _jobPostfix = "") {
+	// 	TaskRunner::init( _config, _nodePath, _fileList, _jobPostfix );
+	// 	initialize();
+	// }
 
 	virtual void initialize(){
-
 		globStr = config.getXString( nodePath + ":glob" );
-
 	}
 protected:
 	string globStr = "";

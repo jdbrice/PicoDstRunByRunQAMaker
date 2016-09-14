@@ -32,6 +32,7 @@ public:
 			return false;
 		}
 
+		preTrackCuts( _aTrack, _mtdPidTraits, book );
 
 		bool allCuts = true;
 
@@ -139,7 +140,11 @@ public:
 		double nHitsDedx = pico->Tracks_mNHitsDedx[ iTrack ];
 		double nHitsRatio = nHitsFit / nHitsMax;
 		TVector3 momentum = pico->pMomentum( iTrack );//( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
-		double deltaR = sqrt( pow(pico->MtdPidTraits_mDeltaY[ iMtd ], 2) + pow(pico->MtdPidTraits_mDeltaZ[ iMtd ], 2) );
+		int iMtd = pico->Tracks_mMtdPidTraitsIndex[iTrack];
+		double deltaR = 3000;
+		
+		if ( iMtd >= 0 )
+			deltaR = sqrt( pow(pico->MtdPidTraits_mDeltaY[ iMtd ], 2) + pow(pico->MtdPidTraits_mDeltaZ[ iMtd ], 2) );
 
 		if ( makeQA ){
 			book->cd("trackQA");
@@ -178,7 +183,6 @@ public:
 			passTrackCut( "gDCA", allCuts, book, cutsName );
 		}
 
-		int iMtd = pico->Tracks_mMtdPidTraitsIndex[iTrack];
 		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( iMtd+1 ) || !ccol[ "matchFlagMtd" ]->inInclusiveRange( pico->MtdPidTraits_mMatchFlag[ iMtd ] ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
@@ -354,6 +358,15 @@ public:
 			book->fill( name + "_cuts", cut, 1 );
 		}
 		return;
+	}
+
+	static void preTrackCuts( CandidateTrack *_aTrack, CandidateTrackMtdPidTraits * _mtdPidTraits, const shared_ptr<HistoBook>& book ){
+		if ( nullptr == book )
+			return;
+		book->cd("trackQA");
+		book->fill( "dTofMtd", _mtdPidTraits->mDeltaTimeOfFlight );
+		book->fill( "deltaYMtd", _mtdPidTraits->mDeltaY );
+		book->fill( "deltaZMtd", _mtdPidTraits->mDeltaZ );
 	}
 
 };

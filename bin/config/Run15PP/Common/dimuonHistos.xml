@@ -12,6 +12,12 @@
 
 		<Histo name="unlike_sign" title="unlike sign" bins_x="dimuonBins.invMass" />
 		<Histo name="unlike_sign_pT" title="unlike sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
+
+		<Histo name="unlike_sign_dR" title="unlike sign; M_{#mu #mu}; deltaR" bins_x="dimuonBins.invMass" bins_y="dimuonBins.deltaR" />
+		<Histo name="like_sign_dR" title="unlike sign; M_{#mu #mu}; deltaR" bins_x="dimuonBins.invMass" bins_y="dimuonBins.deltaR" />
+
+		<Histo name="unlike_sign_dPhi" title="unlike sign; M_{#mu #mu}; deltaR" bins_x="dimuonBins.invMass" bins_y="dimuonBins.deltaPhi" />
+		<Histo name="like_sign_dPhi" title="unlike sign; M_{#mu #mu}; deltaR" bins_x="dimuonBins.invMass" bins_y="dimuonBins.deltaPhi" />
 	</Plots>
 	<MtdCuts dir="trackQA" >
 		<Histo name="MtdMuon_cuts" title="Sequential Track Cuts" bins_x="TrackQABins.track_cuts" />

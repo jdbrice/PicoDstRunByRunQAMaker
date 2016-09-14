@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="skimmer" type="InvariantMassPlotter" config="" nodePath="InvMP" />
+	<Task name="skimmer" type="MixedEventMassPlotter" config="" nodePath="MEMP" />
 	<Logger color="true" globalLogLevel="all" />
 	
 	<Include url="./Common/cwd.xml" />
-	<InvMP >
+	<MEMP maxToMix="10" >
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" />
+			<dst treeName="FemtoDst" url="{CWD:out}/MixedMuonCandidates/mixed_muon_candidates_{jobIndex}.root" />
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}/InvMassMuMu/inv_mass_mumu_{InvMP.EventHash}.root" />
+			<TFile url="{CWD:out}/mixed_mass_mumu_{jobIndex}.root" />
 		</output>
 
 		<histograms>
@@ -24,9 +24,8 @@
 		<Particles mass1="0.105" mass2="0.105" />
 
 		<Include url="./Common/MuonCandidateCuts.xml" />
-		<Include url="./Common/MixedEventBins.xml" />
 
-	</InvMP>
+	</MEMP>
 
 	<Include url="./Common/dimuonBins.xml" />
 
