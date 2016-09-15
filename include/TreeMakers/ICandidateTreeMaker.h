@@ -36,8 +36,8 @@ protected:
 	Int_t nMtdPidTraits;
 	bool keepCandidateEvent;
 
-	bool isElectron;
-	bool isMuon;
+	// bool isElectron;
+	// bool isMuon;
 
 public:
 	ICandidateTreeMaker() {}
@@ -96,7 +96,7 @@ public:
 		wMtdPidTraits->Clear();
 	}
 
-	virtual void fillCandidateEvent() = 0;
+	virtual void fillCandidateEvent(int runIndex, int bin16, float weight, float psi) = 0;
 	virtual void fillCandidateEventPlane() = 0;
 	virtual void fillCandidateTrack( CandidateTrack * aTrack, int iTrack ) = 0;
 	virtual void fillCandidateBTofPidTraits( CandidateTrack * aTrack, int iTrack ) = 0;

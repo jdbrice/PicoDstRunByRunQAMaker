@@ -3,7 +3,7 @@
 
 // project
 #include "CandidateMaker.h"
-
+#include "CandidateTreeMaker.h"
 
 //RooBarb
 #include "CutCollection.h"
@@ -23,9 +23,17 @@ public:
 protected:
 	CutCollection muonCuts;
 
+	virtual void makeTree( int iTree ){
+		forest[ iTree ]->createTree( 
+				false, // EventPlane branch
+				true,  // Tracks
+				false, // bTof
+				true   // MTD
+				 );
+	}
 	virtual void analyzeEvent();
 	virtual bool keepTrack( int iTrack );
-	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int iCandTrack );
+	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack );
 
 };
 

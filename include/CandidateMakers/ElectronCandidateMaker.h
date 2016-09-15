@@ -3,7 +3,7 @@
 
 // project
 #include "CandidateMaker.h"
-
+#include "CandidateTreeMaker.h"
 
 //RooBarb
 #include "CutCollection.h"
@@ -11,7 +11,7 @@
 #include "TClonesArray.h"
 #include "TVector3.h"
 
-class ElectronCandidateMaker : public CandidateMaker
+class ElectronCandidateMaker : public CandidateMaker, public CandidateTreeMaker
 {
 public:
 	virtual const char *classname() const { return "ElectronCandidateMaker"; }

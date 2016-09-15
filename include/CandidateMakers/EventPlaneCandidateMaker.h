@@ -2,8 +2,9 @@
 #define EVENT_PLANE_CANDIDATE_MAKER_H
 
 #include "CandidateMaker.h"
+#include "CandidateTreeMaker.h"
 
-class EventPlaneCandidateMaker : public CandidateMaker
+class EventPlaneCandidateMaker : public CandidateMaker, public CandidateTreeMaker
 {
 public:
 	virtual const char* classname() const { return "EventPlaneCandidateMaker"; }

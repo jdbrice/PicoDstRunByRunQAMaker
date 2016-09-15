@@ -14,13 +14,6 @@ void MuonCandidateMaker::initialize(){
 	CandidateMaker::initialize();
 
 	book->cd();
-	// add the EventPlane Branch
-	createTree( 
-				false, // EventPlane branch
-				true,  // Tracks
-				false, // bTof
-				true   // MTD
-				 );
 	
 	muonCuts.init( config, nodePath + ".MuonCandidateCuts" );
 
@@ -38,7 +31,7 @@ void MuonCandidateMaker::analyzeEvent(){
 	CandidateMaker::analyzeEvent();
 
 	// dont keep events by default, instead require at least 2 muon cands per event
-	keepCandidateEvent = false;
+	// keepCandidateEvent = false;
 }
 
 bool MuonCandidateMaker::keepTrack( int iTrack ){
@@ -54,11 +47,10 @@ bool MuonCandidateMaker::keepTrack( int iTrack ){
 	return isMuon;
 }
 
-void MuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int iCandTrack ){
-	TRACE( classname(), "" );
-	fillCandidateTrack( aTrack, iTrack );
+void MuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack ){
+	candidateTree->fillCandidateTrack( aTrack, iTrack );
 	
 	// keep events with at least 2 tracks
-	if ( iCandTrack >= 1 )
-		keepCandidateEvent = true;
+	if ( candidateTree->numberOfTracks() >= 2 )
+		candidateTree->keepEvent( true );
 }

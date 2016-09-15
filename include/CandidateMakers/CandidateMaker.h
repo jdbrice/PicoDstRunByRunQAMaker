@@ -1,6 +1,8 @@
 #ifndef CANDIDATE_MAKER_H
 #define CANDIDATE_MAKER_H
 
+#include "XmlRange.h"
+
 //Project
 #include "PicoDstSkimmer.h"
 
@@ -29,7 +31,7 @@ public:
 		PicoDstSkimmer::initialize();
 
 		book->cd();
-		createTree();
+		// createTree();
 
 		if ( config.getBool( nodePath + ":rmc", true ) ){
 			INFO( classname(), "Setting up RMC" );
@@ -47,6 +49,7 @@ public:
 			WARN( classname(), "Could not find MixedEventBins" );
 			eventHash = -1;
 		}
+		eventHashRange.loadConfig( config, nodePath + ".EventHash" );
 
 		if ( "PicoDstRun15PP200" == picoDstAdapter ){
 			calcEventPlane = false;
@@ -57,48 +60,44 @@ public:
 			rmf = shared_ptr<RunMapFactory>( new RunMapFactory( ) );
 		}
 
-
 		useRefMultCorr = config.getBool( nodePath + ":rmc", true );
 
+		eventSplit = config.getBool( nodePath + ".EventHash:split" );
+		INFO( classname(), "Splitting by Event Hash : " << bts( eventSplit ) );
+		makeForest();
 	}
 
 
 protected:
 	StRefMultCorr * rmc = nullptr;
 	EventHasher eht;
+	XmlRange eventHashRange;
 	int eventHash;
+	bool eventSplit = false;
 	shared_ptr<RunMapFactory> rmf;
 	bool useRefMultCorr = false;
 	bool calcEventPlane = true;
+	map< int, shared_ptr<CandidateTreeMaker> > forest;
+	shared_ptr<CandidateTreeMaker> candidateTree;
 
+	bool isMuon = false;
+	bool isElectron = false;
 
-	virtual void overrideConfig(){
-		INFO( classname(), "" );
-		int _jobIndex = config.getInt( "jobIndex", -1 );
-		INFO( classname(), "jobIndex = " << _jobIndex );
-
-		if ( -1 < jobIndex && config.exists( nodePath + ".MixedEventBins" ) && config.getBool( nodePath + ".EventHash:split" ) ){
-			EventHasher evtHasher;
-			evtHasher.load( config, nodePath + ".MixedEventBins" );
-			
-			INFO( classname(), "max Hash = " << evtHasher.maxPossibleHash() );
-			int maxHash = evtHasher.maxPossibleHash();
-			map<string, string> overrides;
-			int newJobIndex = _jobIndex / maxHash;
-			int newEventHash = _jobIndex % maxHash;
-			
-			overrides[ "jobIndex" ] = ts( newJobIndex );
-			overrides[ nodePath + ".EventHash" ] = ts( newEventHash );
-			INFO( classname(), "JobIndex = " << newJobIndex << ", EventHash = " << newEventHash );
-			config.applyOverrides( overrides );
-		} else {
-			INFO( classname(), "Not splitting by EventHash" );
-			map<string, string> overrides;
-			overrides[ "jobIndex" ] = ts( _jobIndex );
-			overrides[ nodePath + ".EventHash" ] = ts( -1 );
-			INFO( classname(), "JobIndex = " << _jobIndex << ", EventHash = " << -1 );
-			config.applyOverrides( overrides );
+	virtual void makeForest(  ){
+		if ( eventSplit ){
+			for ( int i = eventHashRange.min; i < eventHashRange.max; i++ ){
+				INFO( classname(), "Creating Tree for EventHash == " << i );
+				forest[ i ] = shared_ptr<CandidateTreeMaker>( new CandidateTreeMaker(  ) );
+				config.set( nodePath + ".EventHash", ts(i) );
+				forest[ i ]->createFile( config.getXString( nodePath + ".EventHash:url" ) );
+				forest[ i ]->setPicoDst( pico );
+				makeTree( i );
+			}
 		}
+	}
+
+	virtual void makeTree( int iTree ) {
+		forest[ iTree ]->createTree( );
 	}
 
 	virtual bool keepEvent(){
@@ -117,66 +116,61 @@ protected:
 			);
 		}
 
-		fillCandidateEvent();
-
 		/*********** Initialize the RefMultCorr *************/
-		if ( rmf->isRunBad( wEvent->mRunId ) ){
-			INFO( classname(), wEvent->mRunId << " is BAD" );
+		if ( rmf->isRunBad( pico->Event_mRunId[0] ) ){
+			INFO( classname(), pico->Event_mRunId[0]  << " is BAD" );
 			return false;
 		}
 
-		if ( eventHash > -1 ){
-			int evtHash = eht.hash( wEvent );
-			DEBUG( classname(), "Event Hash = " << evtHash );
-			if ( eventHash != evtHash ){
-				return false;
-			}
-		} else {
-			DEBUG( classname(), "Event" )
-		}
+		
 
 		return true;
 	}
 
 	virtual void analyzeEvent(){
 
-		fillCandidateEventPlane();
+		CandidateEvent * cEvent = new CandidateEvent();
+		// TODO : add back switched for RMC and EventPlane
+		CandidateTreeMaker::fillCandidateEvent( pico, cEvent, rmf->indexForRun( pico->Event_mRunId[0] ), 0, 1.0, 0.0 );
+
+		// Calculate the event hash
+		int evtHash = eht.hash( cEvent );
+		candidateTree = nullptr;
+		if ( forest.count( evtHash ) >= 1 )
+			candidateTree = forest[ evtHash ];
+		else {
+			// ERROR( classname(), "!!! " << evtHash );
+		}
+
+		if ( candidateTree ){
+			candidateTree->fillCandidateEvent( rmf->indexForRun( pico->Event_mRunId[0] ), 0, 1.0, 0.0 );
+
+			candidateTree->keepEvent( false );
+		}
+		
+		/*********** Initialize the Event Hash *************/
+		// if ( eventHash > -1 ){
+			
+		// 	DEBUG( classname(), "Event Hash = " << evtHash );
+		// 	if ( eventHash != evtHash ){
+		// 		return false;
+		// 	}
+		// } else {
+		// 	DEBUG( classname(), "Event" )
+		// }
+
+		// fillCandidateEvent()
+		// fillCandidateEventPlane();
 
 		// for instance, use to keep only events with pairs of muons
 		// default to keep all accepted events
-		keepCandidateEvent = true;
+		// keepCandidateEvent = true;
 		// and default the track level
-		isMuon = false;
-		isElectron = false;
+		// isMuon = false;
+		// isElectron = false;
 	}
 
-	virtual void fillCandidateEvent() {
-		wEvent->mRunId 				= pico->Event_mRunId[0];
-		wEvent->mEventId 			= pico->Event_mEventId[0];
-		wEvent->mGRefMult 			= pico->Event_mGRefMult[0];
-		wEvent->mTriggerWord 		= pico->Event_mTriggerWord[0];
-		wEvent->mTriggerWordMtd 	= pico->Event_mTriggerWordMtd[0];
-		wEvent->mPrimaryVertex_mX1 	= pico->vx();
-		wEvent->mPrimaryVertex_mX2 	= pico->vy();
-		wEvent->mPrimaryVertex_mX3 	= pico->vz();
-		wEvent->mRunIndex			= rmf->indexForRun( pico->Event_mRunId[0] );
-
-		if ( rmc ){
-			wEvent->mBin16 			= rmc->getCentralityBin16();
-			wEvent->mWeight 		= rmc->getWeight();
-		} else {
-			wEvent->mBin16 			= 0;
-			wEvent->mWeight 		= 1.0;
-		}
-
-		// TODO: after EventPlane is settled
-		if ( calcEventPlane )
-			wEvent->mPsi2 		= (calcPsi2() * 10000) ;
-		else 
-			wEvent->mPsi2 		= 0.0;
-
-		// StRefMultCorr
-	}
+	
 
 	virtual float calcPsi2(){
 
@@ -205,44 +199,19 @@ protected:
 
 	}
 
-	virtual void fillCandidateEventPlane(){
-
-		wEventPlane->mQx_eta_pos           = pico->EventPlane_mQx_eta_pos[0];
-		wEventPlane->mQy_eta_pos           = pico->EventPlane_mQy_eta_pos[0];
-		wEventPlane->mQx_eta_neg           = pico->EventPlane_mQx_eta_neg[0];
-		wEventPlane->mQy_eta_neg           = pico->EventPlane_mQy_eta_neg[0];
-		wEventPlane->mNtrk_eta_pos         = pico->EventPlane_mNtrk_eta_pos[0];
-		wEventPlane->mNtrk_eta_neg         = pico->EventPlane_mNtrk_eta_neg[0];
-		wEventPlane->mWeight_eta_pos       = pico->EventPlane_mWeight_eta_pos[0];
-		wEventPlane->mWeight_eta_neg       = pico->EventPlane_mWeight_eta_neg[0];
-		wEventPlane->mQx_chg_pos           = pico->EventPlane_mQx_chg_pos[0];
-		wEventPlane->mQy_chg_pos           = pico->EventPlane_mQy_chg_pos[0];
-		wEventPlane->mQx_chg_neg           = pico->EventPlane_mQx_chg_neg[0];
-		wEventPlane->mQy_chg_neg           = pico->EventPlane_mQy_chg_neg[0];
-		wEventPlane->mNtrk_chg_pos_eta_pos = pico->EventPlane_mNtrk_chg_pos_eta_pos[0];
-		wEventPlane->mNtrk_chg_pos_eta_neg = pico->EventPlane_mNtrk_chg_pos_eta_neg[0];
-		wEventPlane->mNtrk_chg_neg_eta_pos = pico->EventPlane_mNtrk_chg_neg_eta_pos[0];
-		wEventPlane->mNtrk_chg_neg_eta_neg = pico->EventPlane_mNtrk_chg_neg_eta_neg[0];
-		wEventPlane->mWeight_chg_pos       = pico->EventPlane_mWeight_chg_pos[0];
-		wEventPlane->mWeight_chg_neg       = pico->EventPlane_mWeight_chg_neg[0];
-		wEventPlane->mQx_ran_1             = pico->EventPlane_mQx_ran_1[0];
-		wEventPlane->mQy_ran_1             = pico->EventPlane_mQy_ran_1[0];
-		wEventPlane->mQx_ran_2             = pico->EventPlane_mQx_ran_2[0];
-		wEventPlane->mQy_ran_2             = pico->EventPlane_mQy_ran_2[0];
-		wEventPlane->mNtrk_ran_1_eta_pos   = pico->EventPlane_mNtrk_ran_1_eta_pos[0];
-		wEventPlane->mNtrk_ran_1_eta_neg   = pico->EventPlane_mNtrk_ran_1_eta_neg[0];
-		wEventPlane->mNtrk_ran_2_eta_pos   = pico->EventPlane_mNtrk_ran_2_eta_pos[0];
-		wEventPlane->mNtrk_ran_2_eta_neg   = pico->EventPlane_mNtrk_ran_2_eta_neg[0];
-		wEventPlane->mWeight_ran_1         = pico->EventPlane_mWeight_ran_1[0];
-		wEventPlane->mWeight_ran_2         = pico->EventPlane_mWeight_ran_2[0];
-	}
-
 	virtual void trackLoop(){
 		
+		if ( nullptr == candidateTree ) return;
 		// Reset the Tracks TClonesArrays and counters
 
-		resetTracks();
+		// resetTracks();
+		// for ( int i = eventHashRange.min; i < eventHashRange.max; i++ ){
+		// 	forest[ i ]->resetTracks();
+		// }
 		
+		candidateTree->resetTracks();
+
+
 		book->cd("eventQA");
 		book->fill( "nTracks", pico->Tracks_ );
 
@@ -251,111 +220,36 @@ protected:
 
 			if ( !keepTrack( iTrack ) ) continue;
 
-			CandidateTrack * aTrack =  new ((*wTracks)[nCandTracks]) CandidateTrack( );
-			analyzeCandidateTrack( aTrack, iTrack, nCandTracks );
-			nCandTracks ++;
+			 // =  new ((*wTracks)[nCandTracks]) CandidateTrack( );
+			CandidateTrack * aTrack = candidateTree->makeCandidateTrack();
+			analyzeCandidateTrack( aTrack, iTrack );
+			// nCandTracks ++;
 		}
 		postTrackLoop();
 	}
 
 	virtual void postTrackLoop(){
-		if ( keepCandidateEvent ){
-			TRACE( classname(), "Filling Tree" );
-			mTree->Fill();
-		}
-	}
-
-	virtual void fillCandidateTrack( CandidateTrack * aTrack, int iTrack ){
-		
-
-		aTrack->mId                 = pico->Tracks_mId[iTrack];
-		aTrack->mPMomentum_mX1      = pico->Tracks_mPMomentum_mX1[iTrack];
-		aTrack->mPMomentum_mX2      = pico->Tracks_mPMomentum_mX2[iTrack];
-		aTrack->mPMomentum_mX3      = pico->Tracks_mPMomentum_mX3[iTrack];
-
-		aTrack->mDedx               = pico->Tracks_mDedx[ iTrack ];
-		aTrack->mNHitsFit           = pico->Tracks_mNHitsFit[iTrack];
-		aTrack->mNHitsMax           = pico->Tracks_mNHitsMax[iTrack];
-		aTrack->mNHitsDedx          = pico->Tracks_mNHitsDedx[iTrack];
-
-		aTrack->mNSigmaPion         = pico->Tracks_mNSigmaPion[ iTrack ];
-		aTrack->mNSigmaKaon         = pico->Tracks_mNSigmaKaon[ iTrack ];
-		aTrack->mNSigmaProton       = pico->Tracks_mNSigmaProton[ iTrack ];
-		aTrack->mNSigmaElectron     = pico->Tracks_mNSigmaElectron[ iTrack ];
-
-		aTrack->mDCA                = pico->mGDCA( iTrack );
-
-		// default out the PidTraits
-		aTrack->mBTofPidTraitsIndex = -1;
-		aTrack->mMtdPidTraitsIndex  = -1;
-
-		fillCandidateBTofPidTraits( aTrack, iTrack );
-		fillCandidateMtdPidTraits( aTrack, iTrack );
-		
-
-		// aTrack->species = speciesMask();
-	}
-
-	virtual void fillCandidateBTofPidTraits( CandidateTrack * aTrack, int iTrack ){
-		// BTofPidTraits
-		int iBTof = pico->Tracks_mBTofPidTraitsIndex[ iTrack ];
-		if ( iBTof >= 0 && isElectron){
-			aTrack->mBTofPidTraitsIndex = nBTofPidTraits;
-
-			CandidateTrackBTofPidTraits * btpid = new ((*wBTofPidTraits)[nBTofPidTraits]) CandidateTrackBTofPidTraits( );
-			btpid->mBTofBeta 		= pico->BTofPidTraits_mBTofBeta[ iBTof ];
-			btpid->mBTofYLocal 		= pico->BTofPidTraits_mBTofYLocal[ iBTof ];
-			btpid->mBTofZLocal 		= pico->BTofPidTraits_mBTofZLocal[ iBTof ];
-			btpid->mBTofMatchFlag 	= pico->BTofPidTraits_mBTofMatchFlag[ iBTof ];
-
-			nBTofPidTraits++;
-		}
-		else {
-		}
-	}
-
-	virtual void fillCandidateMtdPidTraits( CandidateTrack * aTrack, int iTrack ){
-		// MtdPidTraits
-		int iMtd = pico->Tracks_mMtdPidTraitsIndex[ iTrack ];
-		if ( iMtd >= 0 ){
-			aTrack->mMtdPidTraitsIndex = nMtdPidTraits;
-			CandidateTrackMtdPidTraits * mtdpid = new ((*wMtdPidTraits)[nMtdPidTraits]) CandidateTrackMtdPidTraits( );
-
-			mtdpid->mMatchFlag 			= pico->MtdPidTraits_mMatchFlag[ iMtd ];
-			mtdpid->mDeltaY 			= pico->MtdPidTraits_mDeltaY[ iMtd ];
-			mtdpid->mDeltaZ 			= pico->MtdPidTraits_mDeltaZ[ iMtd ];
-			mtdpid->mDeltaTimeOfFlight 	= pico->MtdPidTraits_mDeltaTimeOfFlight[ iMtd ];
-			mtdpid->mMtdHitChan 		= pico->MtdPidTraits_mMtdHitChan[ iMtd ];
-
-			nMtdPidTraits ++;
-		} else {
-
-		}
+		candidateTree->fillTree();
 	}
 
 
 	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int nCandTracks ){
-		fillCandidateTrack( aTrack, iTrack );
+		// fillCandidateTrack( aTrack, iTrack );
+	}
+	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack ){
+		// fillCandidateTrack( aTrack, iTrack );
 	}
 	virtual bool keepTrack( int iTrack ){
 		return true;
 	}
 
-
-	virtual void postMake() {
-		INFO( classname(), "Writing Tree out" );
-		book->cd();
-		mTree->Write();
+	virtual void postMake(){
+		for ( int i = eventHashRange.min; i < eventHashRange.max; i++ ){
+			forest[ i ]->close();
+		}
 	}
 
-	Char_t speciesMask( ){
-		Char_t mask = 0;
-		if ( isElectron )
-			mask |= 1;
-		if ( isMuon )
-			mask |= 2;
-		return mask;
-	}
+
 	
 };
 

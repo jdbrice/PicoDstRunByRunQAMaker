@@ -8,6 +8,7 @@ class CandidateEvent : public TObject
 public:
 	CandidateEvent() {}
 	~CandidateEvent() {}
+
 	void copy( CandidateEvent * that ){
 		this->mPrimaryVertex_mX1 = that->mPrimaryVertex_mX1;
 		this->mPrimaryVertex_mX2 = that->mPrimaryVertex_mX2;
