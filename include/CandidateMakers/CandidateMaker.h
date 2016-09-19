@@ -64,7 +64,13 @@ public:
 
 		splitEvents = config.getBool( nodePath + ".EventHash:split" );
 		INFO( classname(), "Splitting by Event Hash : " << bts( splitEvents ) );
-		makeForest();
+		
+		// Create the TreeMaker
+		candidateTree = shared_ptr<CandidateTreeMaker>( new CandidateTreeMaker(  ) );
+		// TODO: Change the config lookup path for this to make more sense since it no longer has anything to do with even mixing/splitting
+		candidateTree->createFile( config.getXString( nodePath + ".EventHash:url" ) );
+		candidateTree->setPicoDst( pico );
+		makeTree( candidateTree );
 	}
 
 
@@ -84,29 +90,24 @@ protected:
 	bool isMuon = false;
 	bool isElectron = false;
 
-	virtual void makeForest(  ){
-		if ( splitEvents ){
-			for ( int i = eventHashRange.min; i < eventHashRange.max; i++ ){
-				INFO( classname(), "Creating Tree for EventHash == " << i );
-				forest[ i ] = shared_ptr<CandidateTreeMaker>( new CandidateTreeMaker(  ) );
-				config.set( nodePath + ".EventHash", ts(i) );
-				forest[ i ]->createFile( config.getXString( nodePath + ".EventHash:url" ) );
-				forest[ i ]->setPicoDst( pico );
-				makeTree( forest[ i ] );
-			}
-		} else {
-			candidateTree = shared_ptr<CandidateTreeMaker>( new CandidateTreeMaker(  ) );
-			config.set( nodePath + ".EventHash", ts( -1 ) );
-			candidateTree->createFile( config.getXString( nodePath + ".EventHash:url" ) );
-			candidateTree->setPicoDst( pico );
-			makeTree( candidateTree );
-		}
-	}
 
+	/* Creates the CandidateTree with certain branches
+	 *
+	 * Subclasses should override this to make the branches that they want.
+	 *
+	 * @_tree 	The CandiateTreeMaker object to act on, set p this way so that it can be used in a forest context
+	 * @return void 
+	 */
 	virtual void makeTree( shared_ptr<CandidateTreeMaker> _tree ) {
 		_tree->createTree( );
 	}
 
+	/* Applys event level cuts
+	 * 
+	 * @return 
+	 *		True : keep event
+	 *		False : reject event
+	 */
 	virtual bool keepEvent(){
 
 		bool skeep = PicoDstSkimmer::keepEvent();
@@ -129,37 +130,16 @@ protected:
 			return false;
 		}
 
-		
-
 		return true;
 	}
 
 	virtual void analyzeEvent(){
-
-		if ( splitEvents ){
-			CandidateEvent * cEvent = new CandidateEvent();
-			
-			// TODO : add back switched for RMC and EventPlane
-			CandidateTreeMaker::fillCandidateEvent( pico, cEvent, rmf->indexForRun( pico->Event_mRunId[0] ), 0, 1.0, 0.0 );
-
-			// Calculate the event hash
-			int evtHash = eht.hash( cEvent );
-			candidateTree = nullptr;
-			if ( forest.count( evtHash ) >= 1 )
-				candidateTree = forest[ evtHash ];
-			else {
-				// ERROR( classname(), "!!! " << evtHash );
-			}
-		}
-
 		if ( candidateTree ){
 			candidateTree->fillCandidateEvent( rmf->indexForRun( pico->Event_mRunId[0] ), 0, 1.0, 0.0 );
 
 			candidateTree->keepEvent( false );
 
-			//  TODO REincorporate
-			// fillCandidateEventPlane();
-
+			// TODO:  Re-incorporate RMC, EventPlane etc. to logic of filling the tres
 			// for instance, use to keep only events with pairs of muons
 			// default to keep all accepted events
 			// keepCandidateEvent = true;
@@ -236,13 +216,7 @@ protected:
 	}
 
 	virtual void postMake(){
-		if ( splitEvents ){
-			for ( int i = eventHashRange.min; i < eventHashRange.max; i++ ){
-				forest[ i ]->close();
-			}
-		} else {
-			candidateTree->close();
-		}
+		candidateTree->close();
 	}
 
 

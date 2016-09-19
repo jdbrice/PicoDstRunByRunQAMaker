@@ -11,14 +11,15 @@
 		<Logger color="true" globalLogLevel="info" />
 		<MakeQA event="true" track="true" />
 		<EventLoop progress="true" />
-		<EventHash split="true" min="0" max="200" url="{CWD:out}MuonCandidates/muon_candidates_EventHash_{MuonCandidateMaker.EventHash}_{jobIndex}.root" />
+		
+		<EventHash split="true" min="0" max="200" url="{CWD:out}MuonCandidates/muon_candidates_Tree_{jobIndex}.root" />
 
 		<input>
 			<dst treeName="PicoDst" adapter="PicoDstRun15PP200" url="{CWD:in}/filelists/PicoDst.lis" splitBy="200" />
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}MuonCandidates/muon_candidates_EventHash_{MuonCandidateMaker.EventHash:min}_to_{MuonCandidateMaker.EventHash:max}_{jobIndex}_QA.root" />
+			<TFile url="{CWD:out}MuonCandidates/QA/muon_candidates_QA_{jobIndex}.root" />
 
 		</output>
 
