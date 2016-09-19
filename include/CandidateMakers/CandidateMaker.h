@@ -62,8 +62,8 @@ public:
 
 		useRefMultCorr = config.getBool( nodePath + ":rmc", true );
 
-		eventSplit = config.getBool( nodePath + ".EventHash:split" );
-		INFO( classname(), "Splitting by Event Hash : " << bts( eventSplit ) );
+		splitEvents = config.getBool( nodePath + ".EventHash:split" );
+		INFO( classname(), "Splitting by Event Hash : " << bts( splitEvents ) );
 		makeForest();
 	}
 
@@ -73,10 +73,11 @@ protected:
 	EventHasher eht;
 	XmlRange eventHashRange;
 	int eventHash;
-	bool eventSplit = false;
+	bool splitEvents = false;
 	shared_ptr<RunMapFactory> rmf;
 	bool useRefMultCorr = false;
 	bool calcEventPlane = true;
+	
 	map< int, shared_ptr<CandidateTreeMaker> > forest;
 	shared_ptr<CandidateTreeMaker> candidateTree;
 
@@ -84,20 +85,26 @@ protected:
 	bool isElectron = false;
 
 	virtual void makeForest(  ){
-		if ( eventSplit ){
+		if ( splitEvents ){
 			for ( int i = eventHashRange.min; i < eventHashRange.max; i++ ){
 				INFO( classname(), "Creating Tree for EventHash == " << i );
 				forest[ i ] = shared_ptr<CandidateTreeMaker>( new CandidateTreeMaker(  ) );
 				config.set( nodePath + ".EventHash", ts(i) );
 				forest[ i ]->createFile( config.getXString( nodePath + ".EventHash:url" ) );
 				forest[ i ]->setPicoDst( pico );
-				makeTree( i );
+				makeTree( forest[ i ] );
 			}
+		} else {
+			candidateTree = shared_ptr<CandidateTreeMaker>( new CandidateTreeMaker(  ) );
+			config.set( nodePath + ".EventHash", ts( -1 ) );
+			candidateTree->createFile( config.getXString( nodePath + ".EventHash:url" ) );
+			candidateTree->setPicoDst( pico );
+			makeTree( candidateTree );
 		}
 	}
 
-	virtual void makeTree( int iTree ) {
-		forest[ iTree ]->createTree( );
+	virtual void makeTree( shared_ptr<CandidateTreeMaker> _tree ) {
+		_tree->createTree( );
 	}
 
 	virtual bool keepEvent(){
@@ -118,7 +125,7 @@ protected:
 
 		/*********** Initialize the RefMultCorr *************/
 		if ( rmf->isRunBad( pico->Event_mRunId[0] ) ){
-			INFO( classname(), pico->Event_mRunId[0]  << " is BAD" );
+			DEBUG( classname(), pico->Event_mRunId[0]  << " is BAD" );
 			return false;
 		}
 
@@ -129,45 +136,37 @@ protected:
 
 	virtual void analyzeEvent(){
 
-		CandidateEvent * cEvent = new CandidateEvent();
-		// TODO : add back switched for RMC and EventPlane
-		CandidateTreeMaker::fillCandidateEvent( pico, cEvent, rmf->indexForRun( pico->Event_mRunId[0] ), 0, 1.0, 0.0 );
+		if ( splitEvents ){
+			CandidateEvent * cEvent = new CandidateEvent();
+			
+			// TODO : add back switched for RMC and EventPlane
+			CandidateTreeMaker::fillCandidateEvent( pico, cEvent, rmf->indexForRun( pico->Event_mRunId[0] ), 0, 1.0, 0.0 );
 
-		// Calculate the event hash
-		int evtHash = eht.hash( cEvent );
-		candidateTree = nullptr;
-		if ( forest.count( evtHash ) >= 1 )
-			candidateTree = forest[ evtHash ];
-		else {
-			// ERROR( classname(), "!!! " << evtHash );
+			// Calculate the event hash
+			int evtHash = eht.hash( cEvent );
+			candidateTree = nullptr;
+			if ( forest.count( evtHash ) >= 1 )
+				candidateTree = forest[ evtHash ];
+			else {
+				// ERROR( classname(), "!!! " << evtHash );
+			}
 		}
 
 		if ( candidateTree ){
 			candidateTree->fillCandidateEvent( rmf->indexForRun( pico->Event_mRunId[0] ), 0, 1.0, 0.0 );
 
 			candidateTree->keepEvent( false );
+
+			//  TODO REincorporate
+			// fillCandidateEventPlane();
+
+			// for instance, use to keep only events with pairs of muons
+			// default to keep all accepted events
+			// keepCandidateEvent = true;
+			// and default the track level
+			// isMuon = false;
+			// isElectron = false;
 		}
-		
-		/*********** Initialize the Event Hash *************/
-		// if ( eventHash > -1 ){
-			
-		// 	DEBUG( classname(), "Event Hash = " << evtHash );
-		// 	if ( eventHash != evtHash ){
-		// 		return false;
-		// 	}
-		// } else {
-		// 	DEBUG( classname(), "Event" )
-		// }
-
-		// fillCandidateEvent()
-		// fillCandidateEventPlane();
-
-		// for instance, use to keep only events with pairs of muons
-		// default to keep all accepted events
-		// keepCandidateEvent = true;
-		// and default the track level
-		// isMuon = false;
-		// isElectron = false;
 	}
 
 	
@@ -202,13 +201,7 @@ protected:
 	virtual void trackLoop(){
 		
 		if ( nullptr == candidateTree ) return;
-		// Reset the Tracks TClonesArrays and counters
 
-		// resetTracks();
-		// for ( int i = eventHashRange.min; i < eventHashRange.max; i++ ){
-		// 	forest[ i ]->resetTracks();
-		// }
-		
 		candidateTree->resetTracks();
 
 
@@ -220,10 +213,9 @@ protected:
 
 			if ( !keepTrack( iTrack ) ) continue;
 
-			 // =  new ((*wTracks)[nCandTracks]) CandidateTrack( );
 			CandidateTrack * aTrack = candidateTree->makeCandidateTrack();
 			analyzeCandidateTrack( aTrack, iTrack );
-			// nCandTracks ++;
+			
 		}
 		postTrackLoop();
 	}
@@ -244,8 +236,12 @@ protected:
 	}
 
 	virtual void postMake(){
-		for ( int i = eventHashRange.min; i < eventHashRange.max; i++ ){
-			forest[ i ]->close();
+		if ( splitEvents ){
+			for ( int i = eventHashRange.min; i < eventHashRange.max; i++ ){
+				forest[ i ]->close();
+			}
+		} else {
+			candidateTree->close();
 		}
 	}
 

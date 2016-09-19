@@ -34,7 +34,7 @@ public:
 		if ( nullptr == output )  return;
 		output->cd();
 		mTree->Write();
-		output->close();
+		output->Close();
 		output = nullptr;
 		isFileOpen = false;
 	}

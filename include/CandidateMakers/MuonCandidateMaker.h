@@ -23,8 +23,8 @@ public:
 protected:
 	CutCollection muonCuts;
 
-	virtual void makeTree( int iTree ){
-		forest[ iTree ]->createTree( 
+	virtual void makeTree( shared_ptr<CandidateTreeMaker> _tree ){
+		_tree->createTree( 
 				false, // EventPlane branch
 				true,  // Tracks
 				false, // bTof

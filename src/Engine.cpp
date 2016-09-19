@@ -37,6 +37,7 @@ using namespace jdb;
 #include "FitnessMaker.h"
 
 #include "CommandRunner.h"
+#include "CandidateMakerProxy.h"
 
 #include "UnitTestProductionUtils.h"
 
@@ -73,6 +74,7 @@ int main( int argc, char* argv[] ) {
 
 	//TaskUtils
 	TaskFactory::registerTaskRunner<CommandRunner>( "CommandRunner" );
+	TaskFactory::registerTaskRunner<CandidateMakerProxy>( "CandidateMakerProxy" );
 
 
 	// UnitTests
