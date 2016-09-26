@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="MMTM" type="MixedEventTreeMaker" config="" nodePath="MixedEventTreeMaker" />
+	<Task name="MMTM" type="MixedEventCandidateSkimmer" config="" nodePath="MEMuons" />
 	<Logger color="true" globalLogLevel="warn" />
 	
 	<Include url="./Common/cwd.xml" />
-	<MixedEventTreeMaker event="true" track="true" triggers="">
-		<Logger color="true" globalLogLevel="info" />
 
+	<MEMuons event="true" track="true" triggers="">
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+		<Mixing max="400" nPerEventHash="200" />
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis"/>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="50"/>
 		</input>
 
 		<output>
-			<TFile url="{CWD:out}/MixedMuonCandidates/mixed_muon_candidates_{MixedEventTreeMaker.EventHash}.root" />
+			<TFile url="{CWD:out}/MixedEventMuMuPairs/mixed_muon_pairs_{jobIndex}.root" />
 		</output>
 
 		<Include url="./Common/MixedEventBins.xml" />
+		<Include url="./Common/SameEventPairCuts.xml" />
+		<Include url="./Common/MuonCandidateCuts.xml" />
 
-	</MixedEventTreeMaker>
+		<histograms>
+			<Histo name="EventHash" title="EventHash" bins_x="bins.EventHash"/>
+			<Histo name="EventHashN" title="EventHashN" bins_x="bins.EventHash"/>
+		</histograms>
+
+	</MEMuons>
+
+	<bins>
+		<EventHash width="1" min="0" max="400" />
+	</bins>
 
 </config>

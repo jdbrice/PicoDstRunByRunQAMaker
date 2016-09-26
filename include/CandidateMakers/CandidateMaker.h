@@ -68,7 +68,7 @@ public:
 		// Create the TreeMaker
 		candidateTree = shared_ptr<CandidateTreeMaker>( new CandidateTreeMaker(  ) );
 		// TODO: Change the config lookup path for this to make more sense since it no longer has anything to do with even mixing/splitting
-		candidateTree->createFile( config.getXString( nodePath + ".EventHash:url" ) );
+		candidateTree->createFile( config.getXString( nodePath + ".output.TTree:url" ) );
 		candidateTree->setPicoDst( pico );
 		makeTree( candidateTree );
 	}

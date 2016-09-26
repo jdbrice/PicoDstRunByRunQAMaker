@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="flm" type="FileListMaker" config="" nodePath="muonFLM" />
+	<Task name="flm" type="CommandRunner" config="" nodePath="muonFLM" />
 	<Logger color="true" globalLogLevel="info" />
 	
 	<Include url="./Common/cwd.xml" />
-	<muonFLM glob="{CWD:out}/MuonCandidates/muon_candidate*.root">
+	<muonFLM>
 		<Logger color="true" globalLogLevel="trace" />
 
 		<output>
 			<File url="{CWD:out}/filelists/MuonCandidates.lis" />
 		</output>
+
+		<command>ls -1 {CWD:out}/MuonCandidates/muon_candidate*.root &gt; {CWD:out}/filelists/MuonCandidates.lis</command>
 	</muonFLM>
 
 </config>

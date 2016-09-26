@@ -4,7 +4,7 @@
 // RooBarb
 #include "TreeAnalyzer.h"
 #include "CutCollection.h"
-#include "format.h"
+#include "Extra/format.h"
 
 // Project
 #include "IPicoDst.h"

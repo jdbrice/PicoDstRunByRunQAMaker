@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="flm" type="CommandRunner" config="" nodePath="muonFLM" />
+	<Task name="flm" type="InvMassHistoMaker" config="" nodePath="MECS" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<CWD out="/Users/jdb/bnl/local/data/Run14/dimuon/" />
+	<CWD variant="{ANA_VARIANT}" in="/data/star2/jdb12/Run15PP200" out="/home/jdb12/work/muonAna/bin/" exe="/home/jdb12/work/muonAna/bin/" cfg="/home/jdb12/work/muonAna/bin/config/Run15PP/"/>
 	
-	<muonFLM>
+	<MECS>
 		<Logger color="true" globalLogLevel="trace" />
+		<EventLoop progress="true" />
 		
-		<command> ls -1 {CWD:out}/MuonCandidates/*.root &gt; {muonFLM.output.File:url} </command>  
-		
+		<input>
+			<dst splitBy="20" treeName="FemtoDst" url="{CWD:in}/MixedEventMuMuPairs/mixed_muon_pairs_-1.root" nEvents="-1"/>
+		</input>
+
 		<output>
-			<File url="{CWD:out}/filelists/MuonCandidates.lis" />
+			<TFile url="{CWD:out}/test.root" />
 		</output>
 
-	</muonFLM>
+		<histograms>
+			<Include url="config/Run15PP/Common/dimuonHistos.xml" />	
+		</histograms>
+
+	</MECS>
+
+	<Include url="config/Run15PP/Common/dimuonBins.xml" />
 
 </config>

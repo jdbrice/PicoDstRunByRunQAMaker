@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="skimmer" type="InvariantMassMaker" config="" nodePath="InvMP" />
+	<!-- TASKS -->
+	<Task name="skimmer" type="SameEventPairMaker" config="" nodePath="InvMP" />
+	<Task name="flm" type="InvMassHistoMaker" config="{CWD:cfg}/SameEventInvMassHistoMaker.xml" nodePath="IMHM" />
+
+
+
 	<Logger color="true" globalLogLevel="info" />
 	
 	<Include url="./Common/cwd.xml" />
@@ -15,11 +20,11 @@
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}/InvMassMuMu/inv_mass_mumu_{InvMP.EventHash}.root" />
+			<TFile url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_{InvMP.EventHash}.root" />
 		</output>
 
 		<histograms>
-			<Include url="./Common/dimuonHistos.xml" />
+			<!-- <Include url="./Common/dimuonHistos.xml" /> -->
 			<Include url="./Common/TrackQAHistos.xml" />
 		</histograms>
 
@@ -33,7 +38,7 @@
 
 	</InvMP>
 
-	<Include url="./Common/dimuonBins.xml" />
+	<!-- <Include url="./Common/dimuonBins.xml" /> -->
 	<Include url="./Common/TrackQABins.xml" />
 
 </config>

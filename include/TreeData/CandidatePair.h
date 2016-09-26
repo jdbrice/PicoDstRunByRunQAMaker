@@ -11,6 +11,10 @@ class CandidatePair : public TObject
 {
 public:
 	CandidatePair(){
+		// d1 = new CandidateTrack();
+		// d2 = new CandidateTrack();
+		// mtd1 = new CandidateTrackMtdPidTraits();
+		// mtd2 = new CandidateTrackMtdPidTraits();
 	}
 	~CandidatePair(){
 	}
@@ -37,10 +41,30 @@ public:
 	Float_t 	mMomentum_mX3;					// pair pz
 	Float_t 	mMass;							// global track gDCA
 	Char_t		mChargeProduct;					// charge of daughter1 * charge of daughter2
-	
-	CandidateTrack d1, d2;
-	CandidateTrackMtdPidTraits mtd1, mtd2;
 
+	// CandidateTrack* d1 = nullptr;
+	// CandidateTrack* d2 = nullptr;
+
+	// CandidateTrackMtdPidTraits *mtd1 = nullptr;
+	// CandidateTrackMtdPidTraits *mtd2 = nullptr;
+
+
+
+	// Short_t mD1Index;
+	// Short_t mD2Index;
+
+	// CandidateTrack * d1( TClonesArray * _tracks ){
+	// 	if ( _tracks && _tracks->GetEntries() > mD1Index ){
+	// 		return (CandidateTrack*)_tracks->At( mD1Index );
+	// 	}
+	// 	return nullptr;
+	// }
+	// CandidateTrack * d2( TClonesArray * _tracks ){
+	// 	if ( _tracks && _tracks->GetEntries() > mD2Index ){
+	// 		return (CandidateTrack*)_tracks->At( mD2Index );
+	// 	}
+	// 	return nullptr;
+	// }
 
 	ClassDef( CandidatePair, 2 )
 };

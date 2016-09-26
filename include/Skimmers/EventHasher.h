@@ -9,6 +9,9 @@
 #include <memory>
 #include "CandidateEvent.h"
 
+//Root
+#include "TStopwatch.h"
+
 class EventHasher : public IConfig, public IObject
 {
 public:
@@ -63,7 +66,8 @@ public:
 
 	long int hash( CandidateEvent * event, shared_ptr<HistoBook> book = nullptr ) {
 
-		// INFO( classname(), vzBins->toString() );
+		// TStopwatch tsw;
+		// tsw.Start();
 		int vxBin = vxBins->findBin( event->mPrimaryVertex_mX1 );
 		int vyBin = vyBins->findBin( event->mPrimaryVertex_mX2 );
 		int vzBin = vzBins->findBin( event->mPrimaryVertex_mX3 );
@@ -71,6 +75,7 @@ public:
 		int psiBin = psiBins->findBin( event->psi() );
 		int grefmultBin = grefmultBins->findBin( event->mGRefMult );
 		int runIndexBin = runIndexBins->findBin( event->mRunIndex );
+		
 
 		DEBUG( classname(), "( " << event->mPrimaryVertex_mX1 << ", " << event->mPrimaryVertex_mX2 << ", " << event->mPrimaryVertex_mX3 << ", " << (int)event->mBin16 << ", " << event->psi() << ", " << event->mGRefMult << ", " << event->mRunIndex << " )" );
 		DEBUG( classname(), "( " << vxBin << ", " << vyBin << ", " << vzBin << ", " << bin16Bin << ", " << psiBin << ", " << grefmultBin << ", " << runIndexBin << " )" );
@@ -84,7 +89,7 @@ public:
 		// DEBUG( classname(), "grefmultBin = "<< grefmultBin * (vxN * vyN * vzN * bin16N * psiN ) );
 
 		// long int i = vxBin + ( vyBin * vxN ) + ( vzBin * vxN * vyN ) + ( bin16Bin * vxN * vyN * vzN ) + ( psiBin * vxN * vyN * vzN * bin16N );
-		long int i = calcBin_vx( vxBin ) + calcBin_vy( vyBin ) + calcBin_vz( vzBin ) + calcBin_bin16( bin16Bin ) + calcBin_psi( psiBin ) + calcBin_grefmult( grefmultBin ) + calcBin_runIndex( runIndexBin );
+		long int i = hash_vx( vxBin ) + hash_vy( vyBin ) + hash_vz( vzBin ) + hash_bin16( bin16Bin ) + hash_psi( psiBin ) + hash_grefmult( grefmultBin ) + hash_runIndex( runIndexBin );
 
 		if ( (vxBin < 0 && vxN > 1) || (vyBin < 0 && vyN > 1) || (vzBin < 0 && vzN > 1) || (bin16Bin < 0 && bin16N > 1) || (psiBin < 0 && psiN > 1) ) {
 			WARN( classname(), "EventHash Out of Bounds: " );
@@ -92,48 +97,68 @@ public:
 			WARN( classname(), "( " << vxBin << ", " << vyBin << ", " << vzBin << ", " << bin16Bin << ", " << psiBin << ", " << grefmultBin << " )" );
 			return -1;
 		}
+		// tsw.Stop();
+		// INFO( classname(), "Finding bins : " << tsw.RealTime() << ", " << tsw.CpuTime() );
 
 		return i;
 	}
 
 
-	long int calcBin_vx( int vxBin ){
+	void unhash( long int hash ){
+		int vx = hash % vxN;
+		int vy = (hash / vxN) % vyN;
+		int vz = (hash / ( vxN * vyN )) % vzN;
+		int bin16 = ( hash / ( vxN * vyN * vzN ) ) % bin16N;
+		int psi = ( hash / ( vxN * vyN * vzN * bin16N ) ) % psiN;
+		int grefmult = ( hash / ( vxN * vyN * vzN * bin16N * psiN ) ) % grefmultN;
+		int runIndex = ( hash / ( vxN * vyN * vzN * bin16N * psiN * grefmultN) ) % runIndexN;
+		INFO( classname(), "vx=" << vx << ", vy=" << vy << ", vz=" << vz << ", bin16=" << bin16 << ", psi=" << psi << ", grefmult=" << grefmult << ", runIndex=" << runIndex );
+		INFO( classname(), "R(vx)=" << vxBins->toString( vx ) );
+		INFO( classname(), "R(vy)=" << vyBins->toString( vy ) );
+		INFO( classname(), "R(vz)=" << vzBins->toString( vz ) );
+		INFO( classname(), "R(bin16)=" << bin16Bins->toString( bin16 ) );
+		INFO( classname(), "R(psi)=" << psiBins->toString( psi ) );
+		INFO( classname(), "R(grefmult)=" << grefmultBins->toString( grefmult ) );
+		INFO( classname(), "R(runIndex)=" << runIndexBins->toString( runIndex ) );
+	}
+
+	long int hash_vx( int vxBin ){
 		if ( vxBin < 0 )
 			vxBin = 0;
 		return vxBin;
 	}
 
-	long int calcBin_vy( int vyBin ){
+	long int hash_vy( int vyBin ){
 		int b = vyBin * vxN;
 		if (b < 0 ) b = 0;
 		DEBUG( classname(), "b = " << b );
 		return b;
 	}
-	long int calcBin_vz( int vzBin ){
+	long int hash_vz( int vzBin ){
 		int b = vzBin * vxN * vyN;
 		if (b < 0 ) b = 0;
 		DEBUG( classname(), "b = " << b );
 		return b;
 	}
-	long int calcBin_bin16( int bin16Bin ){
+	long int hash_bin16( int bin16Bin ){
 		int b = bin16Bin * vxN * vyN * vzN;
 		if (b < 0 ) b = 0;
 		DEBUG( classname(), "b = " << b );
 		return b;
 	}
-	long int calcBin_psi( int psiBin ){
+	long int hash_psi( int psiBin ){
 		int b = psiBin * vxN * vyN * vzN * bin16N;
 		if (b < 0 ) b = 0;
 		DEBUG( classname(), "b = " << b );
 		return b;
 	}
-	long int calcBin_grefmult( int grefmultBin ){
+	long int hash_grefmult( int grefmultBin ){
 		int b = grefmultBin * vxN * vyN * vzN * bin16N * psiN;
 		if (b < 0 ) b = 0;
 		DEBUG( classname(), "b = " << b );
 		return b;
 	}
-	long int calcBin_runIndex( int runIndexBin ){
+	long int hash_runIndex( int runIndexBin ){
 		int b = runIndexBin * vxN * vyN * vzN * bin16N * psiN * grefmultN;
 		if (b < 0 ) b = 0;
 		DEBUG( classname(), "b = " << b );
@@ -150,7 +175,7 @@ public:
 		int runIndexBin   = runIndexN - 1;
 
 		// long int i = vxBin + ( vyBin * vxN ) + ( vzBin * vxN * vyN ) + ( bin16Bin * vxN * vyN * vzN ) + ( psiBin * vxN * vyN * vzN * bin16N );
-		long int i = calcBin_vx( vxBin ) + calcBin_vy( vyBin ) + calcBin_vz( vzBin ) + calcBin_bin16( bin16Bin ) + calcBin_psi( psiBin ) + calcBin_grefmult( grefmultBin ) + calcBin_runIndex( runIndexBin );
+		long int i = hash_vx( vxBin ) + hash_vy( vyBin ) + hash_vz( vzBin ) + hash_bin16( bin16Bin ) + hash_psi( psiBin ) + hash_grefmult( grefmultBin ) + hash_runIndex( runIndexBin );
 		return i;
 	}
 

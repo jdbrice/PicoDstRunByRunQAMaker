@@ -1,5 +1,5 @@
-#ifndef CANDIDATE_INVARIANT_MASS_H
-#define CANDIDATE_INVARIANT_MASS_H
+#ifndef SAME_EVENT_PAIR_MAKER_H
+#define SAME_EVENT_PAIR_MAKER_H
 
 //RooBarb
 #include "TreeAnalyzer.h"
@@ -13,16 +13,18 @@
 #include "CandidateFilter.h"
 #include "EventHasher.h"
 #include "RunMapFactory.h"
-#include "ICandidatePairTreeMaker.h"
+#include "ISameEventPairTreeMaker.h"
+#include "PairFilter.h"
+#include "CutCollectionTreeMaker.h"
 
-#include "TNtuple.h"
 
-class InvariantMassMaker : public CandidateSkimmer, public ICandidatePairTreeMaker
+
+class SameEventPairMaker : public CandidateSkimmer, public ISameEventPairTreeMaker
 {
 public:
-	virtual const char * classname() const { return "InvariantMassMaker"; }
-	InvariantMassMaker(){}
-	~InvariantMassMaker(){}
+	virtual const char * classname() const { return "SameEventPairMaker"; }
+	SameEventPairMaker(){}
+	~SameEventPairMaker(){}
 
 	virtual void initialize(){
 		CandidateSkimmer::initialize();
@@ -59,7 +61,7 @@ public:
 		rmf = shared_ptr<RunMapFactory>( new RunMapFactory( "Run15PP200", false ) );
 		INFO( classname(), "BAD == " << rmf->isRunBad( 16055005 ) );
 
-		createPairTree( "Muon Pairs" );
+		createSameEventPairTree( "Same Event Muon Pairs" );
 
 	}
 
@@ -82,6 +84,7 @@ protected:
 	virtual bool keepEvent(){
 
 		if ( rmf->isRunBad( event->mRunId ) ){
+			ERROR( classname(), "Should not be bad runs here!" );
 			return false;
 		}
 
@@ -91,17 +94,17 @@ protected:
 	}
 
 	virtual void analyzeEvent(){
-		// INFO( classname(), tracks->GetEntries() );
-		// INFO( classname(), event->eventId );
-
+		
 		resetPairs();
-		book->cd("");
-		TAxis * axis = book->get( "unlike_sign" )->GetXaxis();
 
-		int aEventHash = eht.hash( event );
-		TRACE( classname(), "current Event = " << aEventHash );
-		if ( 0 <= eventHash && eventHash != aEventHash ) return;
+		// wEventHash comes from ISameEventPairTreeMaker
+		wEventHash = eht.hash( event );
 
+		TRACE( classname(), "current Event = " << wEventHash );
+		if ( 0 <= eventHash && eventHash != wEventHash ) return;
+
+		// whether or not to fill teh pair tree
+		bool fillTree = false;
 
 		int nTracks = tracks->GetEntries();
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
@@ -113,8 +116,6 @@ protected:
 				CandidateTrack* bTrack = (CandidateTrack*)tracks->At( jTrack );
 				if ( !keepTrack( bTrack ) ) continue;
 
-				
-
 				TLorentzVector lv1, lv2, lv;
 				lv1.SetXYZM( aTrack->mPMomentum_mX1, aTrack->mPMomentum_mX2, aTrack->mPMomentum_mX3, m1 );
 				lv2.SetXYZM( bTrack->mPMomentum_mX1, bTrack->mPMomentum_mX2, bTrack->mPMomentum_mX3, m2 );
@@ -123,84 +124,33 @@ protected:
 
 				if ( !PairFilter::keepSameEventPair( pairCuts, lv1, lv2 ) ) continue;
 				fillCandidatePair( aTrack, bTrack );
+				fillTree = true;
 
-
-				double dR = lv1.DeltaR( lv2 );
-				double dPhi = lv1.DeltaPhi( lv2 );
-
-				book->cd("");
-				int iBin = book->get( "like_sign" )->GetXaxis()->FindBin( lv.M() );
-				double bw = book->get( "like_sign" )->GetBinWidth( iBin );
-
-				// like sign
-				if ( aTrack->charge() * bTrack->charge() == 1 ){
-					book->fill( "like_sign", lv.M(), 1.0 / bw );
-					book->fill( "like_sign_dR", lv.M(), dR, 1.0 / bw );
-					book->fill( "like_sign_dPhi", lv.M(), dPhi, 1.0 / bw );
-					book->fill( "like_sign_pT", lv.M(), lv.Pt() );
-					if ( 1 == aTrack->charge()  ){
-						book->fill( "like_sign_Pos", lv.M(), 1.0 / bw );
-						book->fill( "like_sign_Pos_pT", lv.M(), lv.Pt(), 1.0/ bw );
-					} else if ( -1 == aTrack->charge()  ){
-						book->fill( "like_sign_Neg", lv.M(), 1.0 / bw );
-						book->fill( "like_sign_Neg_pT", lv.M(), lv.Pt(), 1.0/ bw );
-					}
-				} else {
-					book->fill( "unlike_sign", lv.M(), 1.0/bw );
-					book->fill( "unlike_sign_dR", lv.M(), dR, 1.0 / bw );
-					book->fill( "unlike_sign_dPhi", lv.M(), dPhi, 1.0 / bw );
-					book->fill( "unlike_sign_pT", lv.M(), lv.Pt(), 1.0/bw );
-				}
 			}
 		}
-		mPairTree->Fill();
+
+
+		if ( true == fillTree )
+			mSameEventTree->Fill();
 	} // analyzeEvent
 
-	void makeCutTree( CutCollection &ccol, string name ){
-		INFO( classname(), "Making Cuts Ntuple named " << name );
 
-		book->cd();
-		string vars = "";
-		vector<float> data;
-		string sep = "";
-		for ( auto kv : ccol.ranges ){
-			vars += sep + kv.first + "_min";
-			sep=":";
-			vars += sep + kv.first + "_max";
-
-			data.push_back( kv.second->min );
-			data.push_back( kv.second->max );
-		}
-		INFO( classname(), "NTUPLE vars = " << vars );
-		INFO( classname(), "data : " << data.size() );
-
-		TNtuple *ntuple = new TNtuple(name.c_str(),name.c_str(), vars.c_str() );
-		ntuple->Fill( data.data() );
-	}
 	virtual void preMake(){
 
-		makeCutTree( trackCuts, "trackCuts" );
-		makeCutTree( pairCuts, "pairCuts" );
+		book->cd();
+		CutCollectionTreeMaker::makeCutTree( trackCuts, "trackCuts" );
+		CutCollectionTreeMaker::makeCutTree( pairCuts, "pairCuts" );
 
 	}
 
 	virtual void postMake(){
 		CandidateSkimmer::postMake();
-
 	}
 
 
 	virtual void fillCandidatePair( CandidateTrack * aTrack, CandidateTrack * bTrack ){
 
 		CandidatePair * aPair = new ((*wPairs)[nCandPairs]) CandidatePair( );
-		aPair->d1.copy( aTrack );
-		aPair->d2.copy( bTrack );
-
-		CandidateTrackMtdPidTraits *aMtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
-		CandidateTrackMtdPidTraits *bMtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( bTrack->mMtdPidTraitsIndex );
-
-		aPair->mtd1.copy( aMtdPid );
-		aPair->mtd2.copy( bMtdPid );
 		
 		TLorentzVector lv1, lv2, lv;
 		lv1.SetXYZM( aTrack->mPMomentum_mX1, aTrack->mPMomentum_mX2, aTrack->mPMomentum_mX3, m1 );

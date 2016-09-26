@@ -2,7 +2,6 @@
 #define UNIT_TEST_PRODUCTION_UTILS_H
 
 #include "RunMapFactory.h"
-#define UNITTEST_NO_CXX
 #include "UnitTest/UnitTest.h"
 
 class UnitTestProductionUtils : public TaskRunner

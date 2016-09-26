@@ -16,7 +16,6 @@ public:
 
 protected:
 
-
 	virtual void make(){
 		INFO( classname(), "" );
 

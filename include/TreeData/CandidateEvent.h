@@ -6,7 +6,20 @@
 class CandidateEvent : public TObject
 {
 public:
-	CandidateEvent() {}
+	CandidateEvent() {
+		mPrimaryVertex_mX1 = 0;
+		mPrimaryVertex_mX2 = 0;
+		mPrimaryVertex_mX3 = 0;
+		mWeight = 0;
+		mRunId = 0;
+		mEventId = 0;
+		mTriggerWord = 0;
+		mTriggerWordMtd = 0;
+		mGRefMult = 0;
+		mPsi2 = 0;
+		mBin16 = 0;
+		mRunIndex = 0;
+	}
 	~CandidateEvent() {}
 
 	void copy( CandidateEvent * that ){

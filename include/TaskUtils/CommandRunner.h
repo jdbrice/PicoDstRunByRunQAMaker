@@ -51,9 +51,9 @@ protected:
 	virtual void make(){
 		DEBUG( classname(), "" );
 
-		INFO( classname(), "glob: " << globStr );
-		vector<string> paths = glob( globStr );
-		INFO( classname(), "Found " << paths.size() << plural( paths.size(), " match", " matches" ) );
+		// INFO( classname(), "glob: " << globStr );
+		// vector<string> paths = glob( globStr );
+		// INFO( classname(), "Found " << paths.size() << plural( paths.size(), " match", " matches" ) );
 
 		INFO( classname(), "COMMAND : " << config.getXString( nodePath + ".command" ) );
 		INFO( classname(), "executing" );

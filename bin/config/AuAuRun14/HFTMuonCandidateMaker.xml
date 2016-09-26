@@ -11,16 +11,15 @@
 		<Logger color="true" globalLogLevel="info" />
 		<MakeQA event="true" track="true" />
 		<EventLoop progress="true" />
-		
-		
+
+		<EventHash split="true" min="0" max="200" url="{CWD:out}MuonCandidates/HFT/muon_candidates_Tree_{jobIndex}.root" />
 
 		<input>
-			<dst treeName="PicoDst" adapter="PicoDstRun15PP200" url="{CWD:in}/filelists/PicoDst.lis" splitBy="200" />
+			<dst treeName="PicoDst" adapter="PicoDstRun14AuAu200" url="{CWD:in}/filelists/PicoDst.lis" splitBy="200" />
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}MuonCandidates/QA/muon_candidates_QA_{jobIndex}.root" />
-			<TTree url="{CWD:out}MuonCandidates/muon_candidates_Tree_{jobIndex}.root" />
+			<TFile url="{CWD:out}MuonCandidates/HFT/muon_candidates_QA_{jobIndex}.root" />
 		</output>
 
 		<histograms>
@@ -29,7 +28,6 @@
 		
 		<Include url="./Common/EventCuts.xml" />
 		<Include url="./Common/LooseMuonCandidateCuts.xml" />
-		<Include url="./Common/MixedEventBins.xml" />
 
 		<EventBranches>
 			Event

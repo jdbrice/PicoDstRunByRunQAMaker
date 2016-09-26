@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	
-<!-- <MuonCandidateCuts>
+<MuonCandidateCuts>
 	<Range name="nHitsRatio" min="0.52" />
 	<Range name="nHitsDedx" min="10.0" />
 	<Range name="nHitsFit" min="10.0" />
@@ -18,7 +18,7 @@
 	<Range name="drMtd" min="0" max="40.6238212585" />
 	
 	<Range name="dTofMtd" min="-1.93129515648" max="0.196906894445" />
-</MuonCandidateCuts> -->
+</MuonCandidateCuts>
 
 	<!-- <MuonCandidateCuts>
 		<Range name="nHitsRatio" min="0.52" />
@@ -38,7 +38,7 @@
 		<Range name="dTofMtd" min="-1000000" max="0.2" />
 	</MuonCandidateCuts> -->
 
-	<MuonCandidateCuts>
+	<!-- <MuonCandidateCuts>
 		<Range name="nHitsRatio" min="0.52" />
 		<Range name="nHitsDedx" min="10" />
 		<Range name="nHitsFit" min="10" />
@@ -54,5 +54,5 @@
 		<Range name="drMtd" min="0" max="800" />
 		
 		<Range name="dTofMtd" min="-1000000" max="100000.2" />
-	</MuonCandidateCuts>
+	</MuonCandidateCuts> -->
 </config>

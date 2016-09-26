@@ -22,7 +22,6 @@ cxxFlags.extend( ROOTCFLAGS )
 paths 			= [ '.', 			# dont really like this but ended up needing for root dict to work ok
 					'include', 
 					JDB_LIB + "/include", 
-					JDB_LIB + "/include/jdb", 
 					ROOT_SYS + "/include" 
 					]
 paths.extend( Glob( "include/*" ) )
@@ -54,8 +53,11 @@ common_env.Append(CPPFLAGS 		= cppFlags)
 common_env.Append(CXXFLAGS 		= cxxFlags)
 common_env.Append(LINKFLAGS 	= cxxFlags ) #ROOTLIBS + " " + JDB_LIB + "/lib/libJDB.a"
 common_env.Append(CPPPATH		= paths)
+common_env.Append(LIBS 			= [ "libRooBarbCore.a", "libRooBarbConfig.a", "libRooBarbTasks.a", "libRooBarbRootAna.a", "libRooBarbUnitTest.a", "libRooBarbExtra.a" ] )
+common_env.Append(LIBPATH 		= [ JDB_LIB + "/lib/" ] )
 
-common_env[ "_LIBFLAGS" ] = common_env[ "_LIBFLAGS" ] + " " + JDB_LIB + "/lib/" +JDB_LIB_NAME  + " " + ROOTLIBS + " "
+common_env[ "_LIBFLAGS" ] = common_env[ "_LIBFLAGS" ] + " " + ROOTLIBS + " "
+# common_env[ "_LIBFLAGS" ]" " + JDB_LIB + "/lib/" +JDB_LIB_NAME  +
 
 jdb_log_level = ARGUMENTS.get( "ll", 60 )
 common_env.Append(CXXFLAGS 		= "-DJDB_LOG_LEVEL=" + str(jdb_log_level) )
@@ -63,7 +65,7 @@ common_env.Append(CXXFLAGS 		= "-DJDB_LOG_LEVEL=" + str(jdb_log_level) )
 target = common_env.Program( target='bin/app', source=[Glob( "src/*.cpp" ), Glob( "src/*/*.cpp" )] )
 
 Depends( target, root_dict )
-Depends( target, JDB_LIB + "/lib/" + JDB_LIB_NAME )
+# Depends( target, JDB_LIB + "/lib/" + JDB_LIB_NAME )
 Depends( target, Glob( JDB_LIB + "/include/jdb/*" ) )
 
 # set as the default target
