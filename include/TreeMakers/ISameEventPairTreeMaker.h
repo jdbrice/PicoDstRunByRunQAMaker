@@ -20,6 +20,7 @@ protected:
 	TClonesArray        * wTracks        = nullptr;
 	TClonesArray        * wMtdPidTraits  = nullptr;
 	Long64_t              wEventHash     = -1;
+	Int_t                 wBin16         = -1;
 	string treeDescription               = "GenericPairs";
 
 	Int_t nCandPairs;
@@ -39,6 +40,7 @@ public:
 		mSameEventTree->Branch( "Event", &wEvent, 256000, 99 );
 		mSameEventTree->Branch( "Pairs", &wPairs, 256000, 99 );
 		mSameEventTree->Branch( "mEventHash", &wEventHash, "mEventHash/L" );
+		mSameEventTree->Branch( "mBin16", &wBin16, "mBin16/I" );
 	}
 
 	virtual void resetPairs(){

@@ -9,11 +9,11 @@
 		<Logger color="true" globalLogLevel="info" />
 
 		<input>
-			<TFile url="{CWD:out}/MixedInvMassMuMu/mixed_mass_mumu.root" name="mixed"/>
-			<TFile url="{CWD:out}/InvMassMuMu/inv_mass_mumu.root" name="same" />
+			<TFile url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" name="mixed"/>
+			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms.root" name="same" />
 		</input>
 		<output path="" >
-			<TFile url="{CWD:out}/Background/bg_inv_mass_mumu.root" />
+			<TFile url="{CWD:out}/InvMassMuMu/bg_inv_mass_mumu.root" />
 		</output> 
 
 	</BGM>

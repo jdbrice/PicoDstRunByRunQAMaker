@@ -3,12 +3,10 @@
 
 	<!-- TASKS -->
 	<Task name="skimmer" type="SameEventPairMaker" config="" nodePath="InvMP" />
-	<Task name="flm" type="InvMassHistoMaker" config="{CWD:cfg}/SameEventInvMassHistoMaker.xml" nodePath="IMHM" />
-
-
+	<!-- <Task name="flm" type="InvMassHistoMaker" config="{CWD:cfg}/SameEventInvMassHistoMaker.xml" nodePath="IMHM" /> -->
 
 	<Logger color="true" globalLogLevel="info" />
-	
+
 	<Include url="./Common/cwd.xml" />
 	<InvMP >
 		<Logger color="true" globalLogLevel="info" />
@@ -16,11 +14,12 @@
 		<MakeQA event="true" track="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/MuonCandidates/" />
+			<!-- 3792 files total (MuonCandidates) -->
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="22"/>
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_{InvMP.EventHash}.root" />
+			<TFile url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_{jobIndex}.root" />
 		</output>
 
 		<histograms>

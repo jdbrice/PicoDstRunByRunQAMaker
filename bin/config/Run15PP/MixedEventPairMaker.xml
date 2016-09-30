@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="MMTM" type="MixedEventCandidateSkimmer" config="" nodePath="MEMuons" />
+	<Task name="MMTM" type="MixedEventPairMaker" config="" nodePath="MEMuons" />
 	<Logger color="true" globalLogLevel="warn" />
 	
 	<Include url="./Common/cwd.xml" />

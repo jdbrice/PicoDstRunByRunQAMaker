@@ -52,9 +52,9 @@ protected:
 			
 			if ( nMixed >= nPerEventHash ) break;
 		}
-		if ( nMixed < nPerEventHash ){
-			WARN( classname(), "Only mixed with " << nMixed << " " );
-		}
+		// if ( nMixed < nPerEventHash ){
+		// 	WARN( classname(), "EventHash = " << cEventHash <<  "only mixed with " << nMixed << " " );
+		// }
 
 		if ( !bufferContains( buff, _cand ) ){
 			addToBuffer( _cand );

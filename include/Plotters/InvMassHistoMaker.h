@@ -4,7 +4,6 @@
 #include "TreeAnalyzer.h"
 
 #include "CandidatePairTreeReader.h"
-#include "CandidateEventReader.h"
 
 #include <memory>
 
@@ -18,13 +17,10 @@ public:
 	InvMassHistoMaker() {}
 	~InvMassHistoMaker() {}
 
-	CandidateEvent * wEvent;
 	virtual void initialize(){
 		TreeAnalyzer::initialize();
 
-		pairReader = shared_ptr<CandidatePairTreeReader>( new CandidatePairTreeReader( chain ) );
-		eventReader = shared_ptr<CandidateEventReader>( new CandidateEventReader( chain ) );
-
+		treeReader = shared_ptr<CandidatePairTreeReader>( new CandidatePairTreeReader( chain ) );
 		book->cd("");
 
 		dimuonBins.load( config, "dimuonBins.invMass" );
@@ -51,27 +47,32 @@ public:
 		h_unlike_sign = (TH1D*)book->get( "unlike_sign" );
 		h_unlike_sign_vs_pt = (TH2D*)book->get2D( "unlike_sign_pT" );
 
-		INFO( classname(), "Histogram aliasing complete" );
+
 	}
 
 	virtual void analyzeEvent(){
 
-		CandidatePair * pair;
-		int nPairs = pairReader->getNPairs();
-		for ( int iPair = 0; iPair < nPairs; iPair++ ){
-			pair = pairReader->getPair( iPair );
-			if ( nullptr == pair ){
-				ERROR( classname(), "nullptr pair? How is it possible" );
-				continue;
-			}
-			analyzePair( pair );
-		}
-	}
 
-	void analyzePair( CandidatePair * pair ){
-		TLorentzVector lv;
+		// INFO( classname(), "N Pairs = " << treeReader->getNPairs() )
+		CandidatePair * pair = treeReader->getPair();
+		if ( nullptr == pair ){
+			ERROR( classname(), "nullptr pair? How is it possible" );
+			return;
+		}
+
+		TLorentzVector lv1, lv2, lv;
+	// 	// lv1.SetXYZM( pair->d1.mPMomentum_mX1, pair->d1.mPMomentum_mX2, pair->d1.mPMomentum_mX3, 0 );	// mass not needed, only for deltaR and delta Phi
+	// 	// lv2.SetXYZM( pair->d2.mPMomentum_mX1, pair->d2.mPMomentum_mX2, pair->d2.mPMomentum_mX3, 0 );
+
 		lv.SetXYZM( pair->mMomentum_mX1, pair->mMomentum_mX2, pair->mMomentum_mX3, pair->mMass );
 
+	// 	double dR = 0;//lv1.DeltaR( lv2 );
+	// 	double dPhi = 0;//lv1.DeltaPhi( lv2 );
+
+
+
+		// int iBin = book->get( "like_sign" )->GetXaxis()->FindBin( lv.M() );
+		// double bw = book->get( "like_sign" )->GetBinWidth( iBin );
 		double mass = lv.M();
 		double pt = lv.Pt();
 		int iBin = dimuonBins.findBin( mass );
@@ -80,35 +81,29 @@ public:
 		double bw = dimuonBins.binWidth( iBin );
 		double weight = 1.0 / bw;
 
-		int bin16 = 16;
-		CandidateEvent* evt = eventReader->getEvent();
-		if ( evt != nullptr )
-			bin16 = evt->mBin16;
-
-		if ( abs(pair->mChargeSum) == 2 ){
+	// 	// like sign
+		if ( pair->mChargeProduct == 1 ){
 			h_like_sign->Fill( mass, weight );
 			h_like_sign_vs_pt->Fill( mass, pt, weight );
-			book->fill( "like_sign_bin16", mass, bin16 );
-			// book->fill( "like_sign_gRefMult", mass, evt->mGRefMult );
 
-			if ( 2 == pair->mChargeSum  ){
-				book->fill( "like_sign_Pos", lv.M(), 1.0 / bw );
-				book->fill( "like_sign_Pos_pT", lv.M(), lv.Pt(), 1.0/ bw );
-			} else if ( -2 == pair->mChargeSum  ){
-				book->fill( "like_sign_Neg", lv.M(), 1.0 / bw );
-				book->fill( "like_sign_Neg_pT", lv.M(), lv.Pt(), 1.0/ bw );
-			}
+			// book->fill( "like_sign_dR", lv.M(), dR, 1.0 / bw );
+			// book->fill( "like_sign_dPhi", lv.M(), dPhi, 1.0 / bw );
+			// book->fill( "like_sign_pT", lv.M(), lv.Pt() );
+			// if ( 1 == pair->d1.charge()  ){
+			// 	book->fill( "like_sign_Pos", lv.M(), 1.0 / bw );
+			// 	book->fill( "like_sign_Pos_pT", lv.M(), lv.Pt(), 1.0/ bw );
+			// } else if ( -1 == pair->d1.charge()  ){
+			// 	book->fill( "like_sign_Neg", lv.M(), 1.0 / bw );
+			// 	book->fill( "like_sign_Neg_pT", lv.M(), lv.Pt(), 1.0/ bw );
+			// }
 		} else {
 			h_unlike_sign->Fill( mass, weight );
 			h_unlike_sign_vs_pt->Fill( mass, pt, weight );
-			book->fill( "unlike_sign_bin16", mass, bin16 );
-			// book->fill( "unlike_sign_gRefMult", mass, evt->mGRefMult );
 		}
 	}
 
 protected:
-	shared_ptr<CandidatePairTreeReader> pairReader;
-	shared_ptr<CandidateEventReader> eventReader;
+	shared_ptr<CandidatePairTreeReader> treeReader;
 };
 
 #endif

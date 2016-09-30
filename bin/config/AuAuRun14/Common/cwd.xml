@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<CWD variant="{ANA_VARIANT}" in="/data/star2/jdb12/Run14AuAu200" out="/data/star2/jdb12/Run14AuAu200/" xmlOut="/home/jdb12/work/muonAna/bin/config/Params/" filelists="/data/star2/jdb12/Run14AuAu200" />
+	<CWD variant="{ANA_VARIANT}" in="/data/star2/jdb12/Run14AuAu200" out="/data/star2/jdb12/Run14AuAu200/" />
 </config>

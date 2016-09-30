@@ -1,10 +1,10 @@
 ######################################################################
-# 				MixedMuonTreeMaker
+# 				MixedEventPairMaker
 ######################################################################
 
 InitialDir = /home/jdb12/work/muonAna/bin/
 Executable = /home/jdb12/work/muonAna/bin/app
-Arguments  = /home/jdb12/work/muonAna/bin/config/AuAuRun14/MixedMuonTreeMaker.xml --jobIndex=$(Process)
+Arguments  = /home/jdb12/work/muonAna/bin/config/AuAuRun14/MixedEventPairMaker.xml --jobIndex=$(Process)
 GetEnv     = True
 
-Queue 1264
+Queue 173

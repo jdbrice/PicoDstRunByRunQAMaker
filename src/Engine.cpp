@@ -27,6 +27,7 @@ using namespace jdb;
 // Mixing Event
 // #include "MixedEventMassPlotter.h"
 #include "MixedEventCandidateSkimmer.h"
+#include "MixedEventPairMaker.h"
 
 #include "EventPlaneHistoMaker.h"
 #include "EventPlaneOffsetFitter.h"
@@ -48,6 +49,8 @@ using namespace jdb;
 
 #include "UnitTestProductionUtils.h"
 #include "UnitTestEventHasher.h"
+
+#include "VegaXmlPlotter.h"
 
 
 int main( int argc, char* argv[] ) {
@@ -79,8 +82,10 @@ int main( int argc, char* argv[] ) {
 	// Plot Makers
 	TaskFactory::registerTaskRunner<InvariantMassPlotMaker>( "InvariantMassPlotMaker" );
 	TaskFactory::registerTaskRunner<InvMassHistoMaker>( "InvMassHistoMaker" );
+	TaskFactory::registerTaskRunner<VegaXmlPlotter>( "VegaXmlPlotter" );
 
 	TaskFactory::registerTaskRunner<MixedEventCandidateSkimmer>( "MixedEventCandidateSkimmer" );
+	TaskFactory::registerTaskRunner<MixedEventPairMaker>( "MixedEventPairMaker" );
 
 	//TaskUtils
 	TaskFactory::registerTaskRunner<CommandRunner>( "CommandRunner" );

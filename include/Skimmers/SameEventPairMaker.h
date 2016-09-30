@@ -95,10 +95,14 @@ protected:
 
 	virtual void analyzeEvent(){
 		
+		if ( event->mBin16 < 0 || event->mBin16 > 50 )
+			return;
+
 		resetPairs();
 
 		// wEventHash comes from ISameEventPairTreeMaker
 		wEventHash = eht.hash( event );
+		wBin16     = event->mBin16;
 
 		TRACE( classname(), "current Event = " << wEventHash );
 		if ( 0 <= eventHash && eventHash != wEventHash ) return;
@@ -107,6 +111,9 @@ protected:
 		bool fillTree = false;
 
 		int nTracks = tracks->GetEntries();
+		int nPairs = 0;
+		book->get( "pre_nPairs", "pairQA" )->Fill( nTracks * ( nTracks - 1 ) / 2.0 );
+
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
 			CandidateTrack* aTrack = (CandidateTrack*)tracks->At( iTrack );
 			if ( !keepTrack( aTrack ) ) continue;
@@ -124,14 +131,16 @@ protected:
 
 				if ( !PairFilter::keepSameEventPair( pairCuts, lv1, lv2 ) ) continue;
 				fillCandidatePair( aTrack, bTrack );
-				fillTree = true;
+				nPairs++;
 
 			}
 		}
 
 
-		if ( true == fillTree )
+		if ( nPairs > 0 ){
+			book->get( "nPairs", "pairQA" )->Fill( nPairs );
 			mSameEventTree->Fill();
+		}
 	} // analyzeEvent
 
 
@@ -158,7 +167,7 @@ protected:
 
 		lv = lv1 + lv2;
 
-		aPair->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), aTrack->charge() * bTrack->charge() );
+		aPair->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), aTrack->charge() + bTrack->charge() );
 		nCandPairs++;
 	}
 

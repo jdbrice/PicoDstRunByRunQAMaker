@@ -94,7 +94,7 @@ public:
 		if ( (vxBin < 0 && vxN > 1) || (vyBin < 0 && vyN > 1) || (vzBin < 0 && vzN > 1) || (bin16Bin < 0 && bin16N > 1) || (psiBin < 0 && psiN > 1) ) {
 			WARN( classname(), "EventHash Out of Bounds: " );
 			WARN( classname(), "( " << event->mPrimaryVertex_mX1 << ", " << event->mPrimaryVertex_mX2 << ", " << event->mPrimaryVertex_mX3 << ", " << (int)event->mBin16 << ", " << event->psi() << ", " << event->mGRefMult << " )" );
-			WARN( classname(), "( " << vxBin << ", " << vyBin << ", " << vzBin << ", " << bin16Bin << ", " << psiBin << ", " << grefmultBin << " )" );
+			WARN( classname(), "( " << vxBin                     << ", " << vyBin                     << ", " << vzBin                     << ", " << bin16Bin           << ", " << psiBin       << ", " << grefmultBin      << " )" );
 			return -1;
 		}
 		// tsw.Stop();

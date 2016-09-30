@@ -4,4 +4,13 @@
 		<Histo name="track_cuts" title="Sequential Track Cuts" bins_x="TrackQABins.track_cuts" />
 		<Histo name="track_single_cuts" title="Individual Track Cuts" bins_x="TrackQABins.track_cuts" />
 	</TrackQAHistos>
+
+	<MtdCuts dir="trackQA" >
+		<Histo name="MtdMuon_cuts" title="Sequential Track Cuts" bins_x="TrackQABins.track_cuts" />
+		<Histo name="MtdMuon_single_cuts" title="Individual Track Cuts" bins_x="TrackQABins.track_cuts" />
+
+		<Histo name="dTofMtd" title="MTD delta TOF" bins_x="TrackQABins.dTofMtd" />
+		<Histo name="deltaZMtd" title="MTD delta Z" bins_x="TrackQABins.deltaZMtd" />
+		<Histo name="deltaYMtd" title="MTD delta Y" bins_x="TrackQABins.deltaYMtd" />
+	</MtdCuts>
 </config>

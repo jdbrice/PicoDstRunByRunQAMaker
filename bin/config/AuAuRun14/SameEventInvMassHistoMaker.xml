@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="flm" type="InvMassHistoMaker" config="" nodePath="IMHM" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<Include url="./Common/cwd.xml" />
+	
+	<IMHM>
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+		
+		<input>
+			<!-- TODO: Fix the naming for times when it is not a single job producing the input tree
+			-->
+			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/SameEventMuMuPairs/" nEvents="-1"/>
+		</input>
+
+		<output>
+			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms.root" />
+		</output>
+
+		<histograms>
+			<Include url="./Common/dimuonHistos.xml" />	
+		</histograms>
+
+	</IMHM>
+
+	<Include url="./Common/dimuonBins.xml" />
+
+</config>

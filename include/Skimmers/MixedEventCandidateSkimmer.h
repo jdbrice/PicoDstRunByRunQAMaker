@@ -110,6 +110,9 @@ protected:
 	 */
 	virtual void analyzeEvent() {
 
+		if ( event->mBin16 < 0 || event->mBin16 > 50 )
+			return;
+
 		cEventHash = hasher.hash( event );
 
 		if ( iEventLoop == 0 ){
@@ -297,7 +300,7 @@ protected:
 
 		lv = lv1 + lv2;
 
-		wPairs->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), _cand1->track->charge() * _cand2->track->charge() );
+		wPairs->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), _cand1->track->charge() + _cand2->track->charge() );
 	}
 
 

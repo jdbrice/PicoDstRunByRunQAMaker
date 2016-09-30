@@ -25,12 +25,18 @@ protected:
 		TH1 * same_pos_1d = get1D( "like_sign_Pos", "same" );
 		TH1 * same_neg_1d = get1D( "like_sign_Neg", "same" );
 
+
 		book->cd();
 		book->add( "geom_mean_bg",     (TH1*) mixed_pos_1d->Clone( "geom_mean_bg" ) );
 		book->add( "geom_mean_acorr",  (TH1*) mixed_pos_1d->Clone( "geom_mean_acorr" ) );
 		book->add( "arith_mean_bg",    (TH1*) mixed_pos_1d->Clone( "arith_mean_bg" ) );
 		book->add( "arith_mean_acorr", (TH1*) mixed_pos_1d->Clone( "arith_mean_acorr" ) );
 		book->add( "direct_sum_bg",    (TH1*) mixed_pos_1d->Clone( "direct_sum_bg" ) );
+
+		book->add( "mixed_event_us_over_ls",    (TH1*) mixed_pos_1d->Clone( "mixed_event_us_over_ls" ) );
+
+		book->add( "raw_signal", (TH1*) get1D( "unlike_sign", "same" )->Clone( "raw_signal" ) );
+		book->add( "signal_minus_geom_mean", (TH1*) get1D( "unlike_sign", "same" )->Clone( "signal_minus_geom_mean" ) );
 
 		RooPlotLib rpl;
 		rpl.link( book );
@@ -69,6 +75,8 @@ protected:
 			book->setBin( "arith_mean_bg", iBin, arith_mean_bg, sqrt( arith_mean_bg ) );
 			book->setBin( "arith_mean_acorr", iBin, arith_acorr, sqrt( arith_acorr ) );
 			book->setBin( "direct_sum_bg", iBin, n_same_pos + n_same_neg, sqrt( n_same_pos + n_same_neg ) );
+
+			book->setBin( "mixed_event_us_over_ls", iBin, n_mixed_us / ( n_mixed_pos + n_mixed_neg ), 1e-10 );
 		}
 
 
@@ -83,6 +91,8 @@ protected:
 		book->get( "geom_over_arith_bg" )->Divide( book->get( "arith_mean_bg" ) );
 		book->get( "geom_over_sum_bg" )->Divide( book->get( "direct_sum_bg" ) );
 		book->get( "arith_over_sum_bg" )->Divide( book->get( "direct_sum_bg" ) );
+
+		book->get( "signal_minus_geom_mean" )->Add( book->get( "geom_mean_bg" ), -1 );
 
 
 	}
