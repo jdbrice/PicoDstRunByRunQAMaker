@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="Muon Candidate QA" type="MuonCandidateQA" config="" nodePath="MECS" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<Include url="./Common/cwd.xml" />
+	<MECS>
+		<Logger color="true" globalLogLevel="trace" />
+		<EventLoop progress="true" />
+		
+		<input>
+			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/MuonCandidates/" nEvents="-1"/>
+		</input>
+
+		<output>
+			<TFile url="{CWD:out}/MuonCandidateQA_pt_gt_2p5.root" />
+		</output>
+
+		<histograms>
+			<Include url="./Common/TrackQAHistos.xml" />	
+		</histograms>
+
+	</MECS>
+
+	<Include url="./Common/TrackQABins.xml" />
+
+</config>

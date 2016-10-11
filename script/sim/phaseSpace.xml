@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<histos>
+		<Histo name="d1_phi" title="daughter 1 Phi" bins_x="b.phi" />
+		<Histo name="d1_phi" title="daughter 1 Phi" bins_x="b.phi" />
+		<Histo name="delta_phi" title="daughter 1 vs. 2  delta Phi" bins_x="b.phi" />
+		<Histo name="mass_vs_pt_all" title="Inv. Mass vs. Pt; M_{#mu#mu} [GeV/c^{2}]; p_{T} [GeV/c]" bins_x="b.mass" bins_y="b.pt" />
+		<Histo name="mass_vs_pt_cut" title="Inv. Mass vs. Pt; M_{#mu#mu} [GeV/c^{2}]; p_{T} [GeV/c]" bins_x="b.mass" bins_y="b.pt" />
+		<Histo name="mass_vs_pt_dphi" title="Inv. Mass vs. Pt; M_{#mu#mu} [GeV/c^{2}]; p_{T} [GeV/c]" bins_x="b.mass" bins_y="b.pt" />
+
+
+	</histos>
+
+
+	<b>
+		<mass width="0.01" min="0.0" max="5.0" />
+		<pt width="0.25" min="0.0" max="10.0" />
+		<phi nBins="100" min="-3.1415926" max="3.1415926" />
+	</b>
+</config>

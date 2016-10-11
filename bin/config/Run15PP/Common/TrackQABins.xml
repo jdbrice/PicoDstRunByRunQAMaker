@@ -7,5 +7,14 @@
 
 		<deltaZMtd width="0.5" min="-200" max="200" />
 		<deltaYMtd width="0.5" min="-200" max="200" />
+		<mMtdHitChan width="1" min="0" max="1810" />
+
+		<dEdx width="0.025" min="0" max="10" />
+		<nSigmaPion width="0.1" min="-10" max="10" />
+		<pt width="0.01" min="-10"max="10" />
+		<eta width="0.01" min="-1" max="1" />
+		<phi width="0.0062" min="-3.1415926" max="3.1415926" />
+
+		<nMus width="1" min="0" max="10" />
 	</TrackQABins>
 </config>

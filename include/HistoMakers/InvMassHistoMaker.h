@@ -88,7 +88,7 @@ public:
 		if ( abs(pair->mChargeSum) == 2 ){
 			h_like_sign->Fill( mass, weight );
 			h_like_sign_vs_pt->Fill( mass, pt, weight );
-			book->fill( "like_sign_bin16", mass, bin16 );
+			// book->fill( "like_sign_bin16", mass, bin16 );
 			// book->fill( "like_sign_gRefMult", mass, evt->mGRefMult );
 
 			if ( 2 == pair->mChargeSum  ){
@@ -101,7 +101,7 @@ public:
 		} else {
 			h_unlike_sign->Fill( mass, weight );
 			h_unlike_sign_vs_pt->Fill( mass, pt, weight );
-			book->fill( "unlike_sign_bin16", mass, bin16 );
+			// book->fill( "unlike_sign_bin16", mass, bin16 );
 			// book->fill( "unlike_sign_gRefMult", mass, evt->mGRefMult );
 		}
 	}

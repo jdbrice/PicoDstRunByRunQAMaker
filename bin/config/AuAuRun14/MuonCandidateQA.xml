@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="Muon Candidate QA" type="MuonCandidateQA" config="" nodePath="MuonQA" />
+	<Logger color="true" globalLogLevel="info" />
+	
+	<Include url="./Common/cwd.xml" />
+	<MuonQA>
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+		
+		<input>
+			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="2000"/>
+		</input>
+
+		<output>
+			<TFile url="{CWD:out}/QA/MuonCandidates{mod}_{jobIndex}.root" />
+		</output>
+
+		<!-- <histograms>
+			<Include url="./Common/TrackQAHistos.xml" />	
+		</histograms> -->
+
+		<TrackCuts>
+			<Range name="rigidity" min="-1000" max="1000" />
+		</TrackCuts>
+
+	</MuonQA>
+
+	<Include url="./Common/TrackQABins.xml" />
+	<Include url="./Common/EventQABins.xml" />
+
+</config>

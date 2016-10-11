@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="flm" type="InvMassHistoMaker" config="" nodePath="MECS" />
+	<Task name="flm" type="CandidateCSVExporter" config="" nodePath="MECS" />
 	<Logger color="true" globalLogLevel="all" />
 	
 	<CWD variant="{ANA_VARIANT}" in="/data/star2/jdb12/Run15PP200" out="/home/jdb12/work/muonAna/bin/" exe="/home/jdb12/work/muonAna/bin/" cfg="/home/jdb12/work/muonAna/bin/config/Run15PP/"/>
@@ -11,19 +11,16 @@
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="20" treeName="FemtoDst" url="{CWD:in}/MixedEventMuMuPairs/mixed_muon_pairs_-1.root" nEvents="-1"/>
+			<dst splitBy="20" treeName="FemtoDst" url="{CWD:in}/MuonCandidates/" nEvents="-1"/>
 		</input>
 
-		<output>
+		<!-- <output>
 			<TFile url="{CWD:out}/test.root" />
-		</output>
+		</output> -->
 
-		<histograms>
-			<Include url="config/Run15PP/Common/dimuonHistos.xml" />	
-		</histograms>
+		<!-- <histograms>
+			<Include url="config/Run15PP/Common/TrackQAHistos.xml" />	
+		</histograms> -->
 
 	</MECS>
-
-	<Include url="config/Run15PP/Common/dimuonBins.xml" />
-
 </config>
