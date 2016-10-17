@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<Include url="../../{DataSet}/Common/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+
+	<Data name="dtree" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" maxFiles="50"/>
+
+	<DataSet>AuAuRun14</DataSet>
+
+	
+
+	<Margins left="0.10" right="0.10" top="0.1" bottom="0.15" />
+	<!-- <TLatex x="0.55" y="0.85" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.04"/> -->
+	<TLatex x="0.55" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+
+	<!-- <OptStats x1="0.7" y1="0.75" x2="0.975" y2="0.9" /> -->
+	
+	<Plot>
+		<Histo name="mBin16" data="dtree" draw="mBin16" select="" bins_x="bins.mBin16" style="styles.h1d">
+			<style title="Centrality Bin;bin16 ;dN/dbin16" />
+			<Norm/>
+		</Histo>
+		<Export url="{CWD:out}/pdf/mBin16.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="mPrimaryVertex_mX1" data="dtree" draw="mPrimaryVertex_mX1" select="" bins_x="bins_{DataSet}.mPrimaryVertex_mX1" style="styles.h1d">
+			<style title="Primary Vertex X;vX [cm];dN/dvX" optstat="110" />
+			<Norm/>
+		</Histo>
+		<Export url="{CWD:out}/pdf/mPrimaryVertex_mX1.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="mPrimaryVertex_mX2" data="dtree" draw="mPrimaryVertex_mX2" select="" bins_x="bins_{DataSet}.mPrimaryVertex_mX2" style="styles.h1d">
+			<style optstat="110" title="Primary Vertex Y;vY [cm];dN/dvY" />
+			<Norm/>
+		</Histo>
+		
+		<Export url="{CWD:out}/pdf/mPrimaryVertex_mX2.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="mPrimaryVertex_mX3" data="dtree" draw="mPrimaryVertex_mX3" select="" bins_x="bins.mPrimaryVertex_mX3" style="styles.h1d">
+			<style title="Primary Vertex Z;vZ [cm];dN/dvZ" />
+			<Norm/>
+		</Histo>
+		<Export url="{CWD:out}/pdf/mPrimaryVertex_mX3.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="gRefMult" data="dtree" draw="mGRefMult" select="" bins_x="bins_{DataSet}.mGRefMult" style="styles.h1d">
+			<style title="Global RefMult;gRefMult;dN/dgRefMult" />
+			<Norm/>
+		</Histo>
+		<Export url="{CWD:out}/pdf/mGRefMult.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="mWeight" data="dtree" draw="mWeight" select="" bins_x="bins.mWeight" style="styles.h1d">
+			<style title="Event Weight;Weight;dN/dWeight" />
+			<Norm/>
+		</Histo>
+		<Export url="{CWD:out}/pdf/mWeight.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="mPsi2" data="dtree" draw="mPsi2/10000.0" select="" bins_x="bins.mPsi2" style="styles.h1d">
+			<style title="Event Plane;#Psi [radians];dN/d#Psi" />
+			<Norm/>
+		</Histo>
+		<Export url="{CWD:out}/pdf/mPsi2.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="gRefMult_vs_bin16" data="dtree" draw="mGRefMult : mBin16" select="" bins_x="bins.mBin16" bins_y="bins_{DataSet}.mGRefMult" style="styles.h2d">
+			<style title="Centrality Bin vs. Global RefMult;bin16;gRefMult" />
+		</Histo>
+		<Export url="{CWD:out}/pdf/mGRefMult_vs_mBin16.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="Weight_vs_bin16" data="dtree" draw="mWeight : mBin16" select="" bins_x="bins.mBin16" bins_y="bins.mWeight" style="styles.h2d">
+			<style title="Centrality Bin vs. Event Weight;bin16;Weight" logz="0"/>
+		</Histo>
+		<Export url="{CWD:out}/pdf/mWeight_vs_mBin16.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="mPrimaryVertex_mX2_vs_mPrimaryVertex_mX1" data="dtree" draw="mPrimaryVertex_mX2 : mPrimaryVertex_mX1" select="" bins_x="bins_{DataSet}.mPrimaryVertex_mX1" bins_y="bins_{DataSet}.mPrimaryVertex_mX2" style="styles.h2d">
+			<style title="Primary Vertex Y vs. X;vX [cm];vY [cm]"  logz="0" />
+		</Histo>
+		<Export url="{CWD:out}/pdf/mPrimaryVertex_mX2_vs_mPrimaryVertex_mX2.pdf" />
+	</Plot>
+
+
+	<bins_Run15PP>
+		<mGRefMult width="1" min="0" max="60" />
+		<mPrimaryVertex_mX1 width="0.01" min="-0.2" max="0.2" />
+		<mPrimaryVertex_mX2 width="0.01" min="-0.5" max="0" />
+	</bins_Run15PP>
+	<bins_AuAuRun14>
+		<mGRefMult width="1" min="0" max="700" />
+		<mPrimaryVertex_mX1 width="0.1" min="-2" max="2" />
+		<mPrimaryVertex_mX2 width="0.1" min="-2" max="2" />
+	</bins_AuAuRun14>
+
+	<bins>
+		<mBin16 width="1" min="0" max="16" />
+		<mWeight width="0.01" min="0.0" max="3.0" />
+		
+		<mPrimaryVertex_mX3 width="0.5" min="-110" max="110" />
+	</bins>
+
+	<styles>
+		<h1d draw="h" fc="597" optstat="0" logy="1" title="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV;" xts="0.05" yts="0.05" />
+		<h2d draw="colz" optstat="0" logz="1" title="Run14 Au+Au at #sqrt{{s_{{NN}}}};" xts="0.05" yts="0.05" />
+	</styles>
+	
+
+</config>

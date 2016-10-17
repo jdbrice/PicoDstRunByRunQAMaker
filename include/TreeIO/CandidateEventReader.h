@@ -32,7 +32,7 @@ public:
 		}
 
 		// INFO( classname(), "Found " << _bn << " Branch with address : " << b_event );
-		_tree->SetBranchAddress( "Event", &event );
+		_tree->SetBranchAddress( _bn.c_str(), &event );
 
 		INFO( classname(), "Set Branch Address for " << _bn );
 	}

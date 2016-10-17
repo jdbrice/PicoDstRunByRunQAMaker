@@ -2,15 +2,17 @@
 <config>
 
 	<Task name="Muon Candidate QA" type="MuonCandidateQA" config="" nodePath="MuonQA" />
-	<Logger color="true" globalLogLevel="info" />
+	<Logger color="true" globalLogLevel="all" />
 	
-	<Include url="./Common/cwd.xml" />
+	<DataSet>Run15PP</DataSet>
+
+	<Include url="../{DataSet}/Common/cwd.xml" />
 	<MuonQA>
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="2000"/>
+			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
 		</input>
 
 		<output>
@@ -27,7 +29,7 @@
 
 	</MuonQA>
 
-	<Include url="../Shared/TrackQABins.xml" />
-	<Include url="../Shared/EventQABins.xml" />
+	<Include url="./TrackQABins.xml" />
+	<Include url="./EventQABins.xml" />
 
 </config>

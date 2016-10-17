@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<Task name="Muon Candidate QA" type="MuonCandidateQA" config="" nodePath="MECS" />
-	<Logger color="true" globalLogLevel="all" />
+	<Task name="Muon Candidate QA" type="MuonCandidateQA" config="" nodePath="MuonQA" />
+	<Logger color="true" globalLogLevel="info" />
 	
 	<Include url="./Common/cwd.xml" />
-	<MECS>
-		<Logger color="true" globalLogLevel="trace" />
+	<MuonQA>
+		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/MuonCandidates/" nEvents="-1"/>
+			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="2000"/>
 		</input>
 
 		<output>
-			<TFile url="{CWD:out}/MuonCandidateQA_pt_gt_2p5.root" />
+			<TFile url="{CWD:out}/QA/MuonCandidates{mod}_{jobIndex}.root" />
 		</output>
 
-		<histograms>
+		<!-- <histograms>
 			<Include url="./Common/TrackQAHistos.xml" />	
-		</histograms>
+		</histograms> -->
 
-	</MECS>
+		<TrackCuts>
+			<Range name="rigidity" min="-1000" max="1000" />
+		</TrackCuts>
 
-	<Include url="./Common/TrackQABins.xml" />
+	</MuonQA>
+
+	<Include url="../Shared/TrackQABins.xml" />
+	<Include url="../Shared/EventQABins.xml" />
 
 </config>

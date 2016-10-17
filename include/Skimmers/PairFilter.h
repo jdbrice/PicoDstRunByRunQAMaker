@@ -13,6 +13,10 @@
 #include "TVector3.h"
 #include "TLorentzVector.h"
 
+// STL
+#include <limits>
+
+
 class PairFilter
 {
 public:
@@ -28,15 +32,15 @@ public:
 		return true;
 	}
 
+
+	static void setDefaultPairCuts( CutCollection &ccol ){
+		ccol.setDefault( "leadingPt", 0, numeric_limits<double>::max() );
+	}
+
 	static bool keepSameEventPair( 	CutCollection &ccol, 
 									TLorentzVector &lv1, TLorentzVector &lv2 ){
-		if ( ccol.has( "leadingPt" ) ){
-			if ( ccol[ "leadingPt" ]->below( lv1.Pt() ) && ccol[ "leadingPt" ]->below( lv2.Pt() ) ) 
-				return false;
-		} else {
-			ERROR( "PairFilter", "Cannot find leadingPt" );
-		}
-
+		if ( ccol[ "leadingPt" ]->below( lv1.Pt() ) && ccol[ "leadingPt" ]->below( lv2.Pt() ) ) 
+			return false;
 		return true;
 	}
 	

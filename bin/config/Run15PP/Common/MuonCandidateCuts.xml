@@ -26,11 +26,12 @@
 		<Range name="nHitsFit" min="15" />
 		<Range name="eta" min="-0.8" max="0.8" />
 		
-		<Range name="pt" min="1.0" />
+		<Range name="pt" min="0.0" />
 		<Range name="nSigmaPion" min="-1.0" max="3.0" />
-		<Range name="gDCA" min="0.0" max="3.0" />
+		<Range name="gDCA" min="0.0" max="10.0" />
 		
 		<Range name="matchFlagMtd" min="1" max="100"/> 
+		<Range name="mtdCell" min="0" max="11" />
 		<Range name="dzMtd" min="-20" max="20" />
 		<Range name="dyMtd" min="-20" max="20" />
 		<Range name="drMtd" min="0" max="800" />

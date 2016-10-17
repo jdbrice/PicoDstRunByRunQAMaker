@@ -10,15 +10,15 @@ public:
 		mPrimaryVertex_mX1 = 0;
 		mPrimaryVertex_mX2 = 0;
 		mPrimaryVertex_mX3 = 0;
-		mWeight = 0;
-		mRunId = 0;
-		mEventId = 0;
-		mTriggerWord = 0;
-		mTriggerWordMtd = 0;
-		mGRefMult = 0;
-		mPsi2 = 0;
-		mBin16 = 0;
-		mRunIndex = 0;
+		mWeight            = 0;
+		mRunId             = 0;
+		mEventId           = 0;
+		mTriggerWord       = 0;
+		mTriggerWordMtd    = 0;
+		mGRefMult          = 0;
+		mPsi2              = 0;
+		mBin16             = 0;
+		mRunIndex          = 0;
 	}
 	~CandidateEvent() {}
 
@@ -51,7 +51,6 @@ public:
 	Short_t 	mPsi2;					// event plane angle * 10000
 	UChar_t 	mBin16;					// centrality bin 16
 	UShort_t 	mRunIndex;				// the run index
-
 
 
 	ClassDef( CandidateEvent, 3 )

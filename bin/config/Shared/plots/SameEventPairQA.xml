@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<Logger color="true" globalLogLevel="info" />
+	<Include url="../../{DataSet}/Common/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+
+	<Data name="wcuts" url="{CWD:out}/QA/SameEventPair_wcuts.root" />
+	
+
+	<DataSet>Run15PP</DataSet>
+
+	
+	<ext>pdf</ext>
+	<Margins left="0.10" right="0.12" top="0.1" bottom="0.15" />
+	<TLatex x="0.60" y="0.87" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.03"/>
+
+	<TCanvas width="2000" height="1400" />
+
+	<Plot>
+		<Histo data="wcuts" name="unlike_sign" style="styles.h1d">
+			<style draw="E1" color="red" lw="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" />
+		</Histo>
+
+		<Histo data="wcuts" name="like_sign" style="styles.h1d">
+			<style draw="same E1" lc="blue" lw="1" />
+		</Histo>
+
+		<Histo data="wcuts" name="unlike_sign_jPsi" style="styles.h1d">
+			<style draw="same h" color="red" lw="3" />
+		</Histo>
+
+		<Histo data="wcuts" name="like_sign_jPsi" style="styles.h1d">
+			<style draw="same h"  color="597" lw="3" />
+		</Histo>
+
+		<Export url="{CWD:out}/pdf/SamePair_with_cuts_invMass.pdf" />
+	</Plot>
+
+
+	<Plot>
+		<Histo data="wcuts" name="trackQA/Like_Sign_mtdCell" style="styles.h1d">
+			<style draw="h" title="mtdCell" logy="0" color="597" />
+			<Norm />
+		</Histo>
+
+		<Histo data="wcuts" name="trackQA/Unlike_Sign_mtdCell" style="styles.h1d">
+			<style draw=" same" lw="3" lc="red" title="mtdCell" logy="0" />
+			<Norm />
+		</Histo>
+
+		<Legend>
+			<Position x1="0.25" x2="0.45" y1="0.75" y2="0.9"/>
+		</Legend>
+
+
+		<Export url="{CWD:out}/pdf/SamePair_with_cuts_mtdCell.pdf" />
+	</Plot>
+	
+
+
+	<styles>
+		<h1d draw="" optstat="0" logy="0" xts="0.05" yts="0.05" />
+		<h2d draw="colz" optstat="0" logz="1" xts="0.05" yts="0.05" />
+	</styles>
+	
+
+</config>

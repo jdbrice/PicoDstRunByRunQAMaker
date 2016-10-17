@@ -12,10 +12,11 @@ public:
 	MuonCandidateQA() {}
 	~MuonCandidateQA() {}
 
+	string dataset = "";
 	virtual void initialize(){
 		CandidateSkimmer::initialize();
 
-		
+		dataset = config[ "DataSet" ];
 
 		if ( config.exists( nodePath + ".TrackCuts" ) ){
 			trackCuts.init( config, nodePath + ".TrackCuts" );
@@ -51,22 +52,26 @@ public:
 
 
 	static void initTrackVariables( TTreeQA &_qaMaker ){
-		_qaMaker.initVariable( "phi"         , "#phi"         , "[rad]"                  );
-		_qaMaker.initVariable( "eta"         , "#eta"                                    );
-		_qaMaker.initVariable( "rigidity"    , "p_{T}*q"      , "[GeV/c]"    , ""  , "x" );
-		_qaMaker.initVariable( "mtdHitChan"  , "MTD Channel"                             );
-		_qaMaker.initVariable( "mtdDeltaY"   , "MTD #DeltaY"  , "[cm]"                   );
-		_qaMaker.initVariable( "mtdDeltaZ"   , "MTD #DeltaZ"  , "[cm]"                   );
-		_qaMaker.initVariable( "nSigmaPion"  , "n#sigma_{#pi}"                           );
-		_qaMaker.initVariable( "mtdDeltaTOF" , "#DeltaTOF"    , "[ns]"                   );
-		_qaMaker.initVariable( "pMomentum"   , "P"            , "[GeV/c]"    , "P"       );
-		_qaMaker.initVariable( "pMomentumX"  , "P_{x}"        , "[GeV/c]"    , "P"       );
-		_qaMaker.initVariable( "pMomentumY"  , "P_{y}"        , "[GeV/c]"    , "P"       );
-		_qaMaker.initVariable( "pMomentumZ"  , "P_{z}"        , "[GeV/c]"    , "P"       );
+		// 			name 			title 			 units 		  bins 	axis
+		_qaMaker.i( "phi"         , "#phi"         , "[rad]"                  );
+		_qaMaker.i( "eta"         , "#eta"                                    );
+		_qaMaker.i( "rigidity"    , "p_{T}*q"      , "[GeV/c]"    , ""  , "x" );
+		_qaMaker.i( "mtdHitChan"  , "MTD Channel"                             );
+		_qaMaker.i( "mtdCell"     , "MTD Cell"                                );
+		_qaMaker.i( "mtdDeltaY"   , "MTD #DeltaY"  , "[cm]"                   );
+		_qaMaker.i( "mtdDeltaZ"   , "MTD #DeltaZ"  , "[cm]"                   );
+		_qaMaker.i( "nSigmaPion"  , "n#sigma_{#pi}"                           );
+		_qaMaker.i( "mtdDeltaTOF" , "#DeltaTOF"    , "[ns]"                   );
+		_qaMaker.i( "pMomentum"   , "P"            , "[GeV/c]"    , "P"       );
+		_qaMaker.i( "pMomentumX"  , "P_{x}"        , "[GeV/c]"    , "P"       );
+		_qaMaker.i( "pMomentumY"  , "P_{y}"        , "[GeV/c]"    , "P"       );
+		_qaMaker.i( "pMomentumZ"  , "P_{z}"        , "[GeV/c]"    , "P"       );
 
-		_qaMaker.initVariable( "nHitsFit"    , "nHitsFit"     , ""           , "nHits"   );
-		_qaMaker.initVariable( "nHitsDedx"   , "nHitsDedx"    , ""           , "nHits"   );
-		_qaMaker.initVariable( "nHitsMax"    , "nHitsMax"     , ""           , "nHits"   );
+		_qaMaker.i( "nHitsFit"    , "nHitsFit"     , ""           , "nHits"   );
+		_qaMaker.i( "nHitsDedx"   , "nHitsDedx"    , ""           , "nHits"   );
+		_qaMaker.i( "nHitsMax"    , "nHitsMax"     , ""           , "nHits"   );
+
+		_qaMaker.i( "runIndex", "", "", "", "x" );
 	}
 
 	static void initEventVariables( TTreeQA &_qaMaker ){
@@ -91,6 +96,8 @@ public:
 		fillCandidateEventQA( eventQA, event );
 		book->cd( "trackQA" );
 
+
+
 		int nPos = 0, nNeg = 0;
 		int nTracks = tracks->GetEntries();
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
@@ -101,6 +108,12 @@ public:
 			float rdg        = mom.Pt() * aTrack->charge();
 
 			if ( false == trackCuts[ "rigidity" ]->inInclusiveRange( rdg ) ) continue;
+			// if ( false == trackCuts[ "mtdCell" ]->inInclusiveRange( mtdPid->mMtdHitChan % 12 ) ) continue;
+
+			if ( dataset == "Run15PP" ){
+				// INFO( classname(), "Run Index = " << event->mRunIndex );
+				trackQA.s( "runIndex", event->mRunIndex );
+			}
 
 			fillCandidateTrackQA( trackQA, aTrack, mtdPid );
 			
@@ -117,7 +130,7 @@ public:
 
 
 
-	static void fillCandidateTrackQA( TTreeQA &_qaMaker, CandidateTrack* _track, CandidateTrackMtdPidTraits* _mtdPid ){
+	static void fillCandidateTrackQA( TTreeQA &_qaMaker, CandidateTrack* _track, CandidateTrackMtdPidTraits* _mtdPid, string _cat = "" ){
 
 		TVector3 mom = _track->pMomentum();
 
@@ -125,26 +138,27 @@ public:
 		float dEdx       = _track->mDedx/1000.0;
 		float nSigmaPion = _track->mNSigmaPion / 100.0;
 
-		_qaMaker.setVariable( "phi"         , mom.Phi() );
-		_qaMaker.setVariable( "eta"         , mom.Eta() );
-		_qaMaker.setVariable( "rigidity"    , rdg );
-		_qaMaker.setVariable( "mtdHitChan"  , _mtdPid->mMtdHitChan );
-		_qaMaker.setVariable( "mtdDeltaY"   , _mtdPid->mDeltaY );
-		_qaMaker.setVariable( "mtdDeltaZ"   , _mtdPid->mDeltaZ );
-		_qaMaker.setVariable( "mtdDeltaTOF" , _mtdPid->mDeltaTimeOfFlight );
-		_qaMaker.setVariable( "nSigmaPion"  , nSigmaPion );
+		_qaMaker.s( "phi"         , mom.Phi() );
+		_qaMaker.s( "eta"         , mom.Eta() );
+		_qaMaker.s( "rigidity"    , rdg );
+		_qaMaker.s( "mtdHitChan"  , _mtdPid->mMtdHitChan );
+		_qaMaker.s( "mtdCell"     , _mtdPid->mMtdHitChan % 12 );
+		_qaMaker.s( "mtdDeltaY"   , _mtdPid->mDeltaY );
+		_qaMaker.s( "mtdDeltaZ"   , _mtdPid->mDeltaZ );
+		_qaMaker.s( "mtdDeltaTOF" , _mtdPid->mDeltaTimeOfFlight );
+		_qaMaker.s( "nSigmaPion"  , nSigmaPion );
 
-		_qaMaker.setVariable( "pMomentum"   , mom.Mag() * _track->charge() );
-		_qaMaker.setVariable( "pMomentumX"  , mom.Px() );
-		_qaMaker.setVariable( "pMomentumY"  , mom.Py() );
-		_qaMaker.setVariable( "pMomentumZ"  , mom.Pz() );
+		_qaMaker.s( "pMomentum"   , mom.Mag() * _track->charge() );
+		_qaMaker.s( "pMomentumX"  , mom.Px() );
+		_qaMaker.s( "pMomentumY"  , mom.Py() );
+		_qaMaker.s( "pMomentumZ"  , mom.Pz() );
 
-		_qaMaker.setVariable( "nHitsFit"    , (int)_track->mNHitsFit );
-		_qaMaker.setVariable( "nHitsDedx"   , (int)_track->mNHitsDedx * _track->charge() );
-		_qaMaker.setVariable( "nHitsMax"    , (int)_track->mNHitsMax * _track->charge() );
+		_qaMaker.s( "nHitsFit"    , (int)_track->mNHitsFit );
+		_qaMaker.s( "nHitsDedx"   , (int)_track->mNHitsDedx * _track->charge() );
+		_qaMaker.s( "nHitsMax"    , (int)_track->mNHitsMax * _track->charge() );
 
 
-		_qaMaker.fill();
+		_qaMaker.fill( _cat );
 	}
 
 	static void fillCandidateEventQA( TTreeQA &_qaMaker, CandidateEvent* _event ){

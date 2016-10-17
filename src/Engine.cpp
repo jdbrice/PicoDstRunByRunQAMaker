@@ -15,6 +15,7 @@ using namespace jdb;
 #include "RunByRunReportMaker.h"
 #include "RunByRunCandidateQAMaker.h"
 #include "MuonCandidateQA.h"
+#include "SameEventPairQA.h"
 
 // Exporters
 #include "CandidateCSVExporter.h"
@@ -66,6 +67,7 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<RunByRunReportMaker>( "RunByRunReportMaker" );
 	TaskFactory::registerTaskRunner<RunByRunCandidateQAMaker>( "RunByRunCandidateQAMaker" );
 	TaskFactory::registerTaskRunner<MuonCandidateQA>( "MuonCandidateQA" );
+	TaskFactory::registerTaskRunner<SameEventPairQA>( "SameEventPairQA" );
 
 	TaskFactory::registerTaskRunner<CandidateCSVExporter>( "CandidateCSVExporter" );
 
