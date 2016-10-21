@@ -1,6 +1,8 @@
 #ifndef MIXED_EVENT_PAIR_MAKER_H
 #define MIXED_EVENT_PAIR_MAKER_H
 
+#include "Candidate.h"
+#include "MixedEventCandidateSkimmer.h"
 
 class MixedEventPairMaker : public MixedEventCandidateSkimmer, public IMixedEventPairTreeMaker
 {

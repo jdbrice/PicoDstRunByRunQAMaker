@@ -18,7 +18,7 @@
 		</input>
 
 		<output>
-			<TFile url="{CWD:out}/QA/SameEventPair{mod}_{jobIndex}.root" />
+			<TFile url="{CWD:out}/QA/MixedEventPair{mod}_{jobIndex}.root" />
 		</output>
 
 		<histograms>

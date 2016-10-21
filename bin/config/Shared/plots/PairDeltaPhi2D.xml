@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<Logger color="true" globalLogLevel="info" />
+	<Include url="../../{DataSet}/Common/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+
+	<Data name="mixed" url="{CWD:out}/QA/MixedEventPair_all.root" />
+	<Data name="same" url="{CWD:out}/QA/SameEventPair_all.root" />
+	
+
+	<DataSet>Run15PP</DataSet>
+
+	<ext>png</ext>
+	<Margins left="0.10" right="0.12" top="0.1" bottom="0.15" />
+	<TLatex x="0.60" y="0.87" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.03"/>
+
+	<TCanvas width="2000" height="1400" />
+
+	<Plot>
+		<Histo data="mixed" name="pairQA/Like_Sign_deltaPhi_vs_parentPt" style="styles.h2d">
+			<style title="Mixed Events Like Sign" />
+			<Norm/>
+		</Histo>
+
+		<Export url="{CWD:out}/Export/{ext}/Mixed_Event_like_sign_compare_dphi_vs_parentPt.{ext}" />
+	</Plot>
+
+	<Plot>
+		<Histo data="same" name="pairQA/Like_Sign_deltaPhi_vs_parentPt" style="styles.h2d">
+			<style title="Same Events Like Sign" />
+			<Norm/>
+		</Histo>
+
+		<Export url="{CWD:out}/Export/{ext}/Same_Event_like_sign_compare_dphi_vs_parentPt.{ext}" />
+	</Plot>
+
+	<Plot>
+		<Histo data="mixed" name="pairQA/Unlike_Sign_deltaPhi_vs_parentPt" style="styles.h2d">
+			<style title="Mixed Events Unlike Sign" />
+			<Norm/>
+		</Histo>
+
+		<Export url="{CWD:out}/Export/{ext}/Mixed_Event_unlike_sign_compare_dphi_vs_parentPt.{ext}" />
+	</Plot>
+
+	<Plot>
+		<Histo data="same" name="pairQA/Unlike_Sign_deltaPhi_vs_parentPt" style="styles.h2d">
+			<style title="Same Events Unlike Sign" />
+			<Norm/>
+		</Histo>
+
+		<Export url="{CWD:out}/Export/{ext}/Same_Event_unlike_sign_compare_dphi_vs_parentPt.{ext}" />
+	</Plot>
+	
+
+
+	<styles>
+		<h1d lw="2" draw="" optstat="0" logy="1" xts="0.05" yts="0.05" />
+		<h2d draw="colz" optstat="0" logz="1" xts="0.05" yts="0.05" />
+	</styles>
+	
+
+</config>

@@ -1,5 +1,5 @@
-#ifndef SAME_EVENT_PAIR_QA_H
-#define SAME_EVENT_PAIR_QA_H
+#ifndef MIXED_EVENT_PAIR_QA_MAKER_H
+#define MIXED_EVENT_PAIR_QA_MAKER_H
 
 #include "MuonCandidateQA.h"
 #include "MixedEventPairMaker.h"
@@ -12,7 +12,7 @@ public:
 	~MixedEventPairQAMaker() {}
 
 	virtual void initialize(){
-		MixedEventPairMaker::initialize();
+		MixedEventCandidateSkimmer::initialize();
 
 
 		qaCuts.setDefault( "InvMass", 0, 15 );
@@ -59,15 +59,12 @@ public:
 
 	HistoBins dimuonBins;
 
-	virtual void analyzePair( shared_ptr<CandidateTrack> _aTrack, shared_ptr<CandidateTrack> _bTrack ){
-		
-
-		CandidateTrackMtdPidTraits *aMtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( _aTrack->mMtdPidTraitsIndex );
-		CandidateTrackMtdPidTraits *bMtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( _bTrack->mMtdPidTraitsIndex );
+	virtual void analyzePair( shared_ptr<Candidate> _candA, shared_ptr<Candidate> _candB ){
+		DEBUG( classname(), "analyzePair" );
 
 		TLorentzVector lv1, lv2, lv;
-		lv1.SetXYZM( _aTrack->mPMomentum_mX1, _aTrack->mPMomentum_mX2, _aTrack->mPMomentum_mX3, m1 );
-		lv2.SetXYZM( _bTrack->mPMomentum_mX1, _bTrack->mPMomentum_mX2, _bTrack->mPMomentum_mX3, m2 );
+		lv1.SetXYZM( _candA->track->mPMomentum_mX1, _candA->track->mPMomentum_mX2, _candA->track->mPMomentum_mX3, m1 );
+		lv2.SetXYZM( _candB->track->mPMomentum_mX1, _candB->track->mPMomentum_mX2, _candB->track->mPMomentum_mX3, m2 );
 
 		lv = lv1 + lv2;
 
@@ -78,12 +75,12 @@ public:
 
 		// decide what stuff to keep
 		if (  qaCuts["InvMass"]->inInclusiveRange( lv.M() ) ){
-			if ( abs(_aTrack->charge() + _bTrack->charge()) > 0 ){
+			if ( abs(_candA->track->charge() + _candB->track->charge()) > 0 ){
 				// INFO( classname(), "Same Sign Pair with M = " << lv.M() );
 				if ( config.getBool( nodePath + ".MakeQA:SingleTrack", true ) ){
 					book->cd( "trackQA" );
-					MuonCandidateQA::fillCandidateTrackQA( trackQA, _aTrack, aMtdPid, "Like_Sign" );
-					MuonCandidateQA::fillCandidateTrackQA( trackQA, _bTrack, bMtdPid, "Like_Sign" );
+					MuonCandidateQA::fillCandidateTrackQA( trackQA, _candA->track.get(), _candA->mtdPidTraits.get(), "Like_Sign" );
+					MuonCandidateQA::fillCandidateTrackQA( trackQA, _candB->track.get(), _candB->mtdPidTraits.get(), "Like_Sign" );
 				}
 				
 				// book->cd();
@@ -92,15 +89,15 @@ public:
 				// INFO( classname(), "Opposite Sign Pair with M = " << lv.M() );
 				if ( config.getBool( nodePath + ".MakeQA:SingleTrack", true ) ){
 					book->cd( "trackQA" );
-					MuonCandidateQA::fillCandidateTrackQA( trackQA, _aTrack, aMtdPid, "Unlike_Sign" );
-					MuonCandidateQA::fillCandidateTrackQA( trackQA, _bTrack, bMtdPid, "Unlike_Sign" );
+					MuonCandidateQA::fillCandidateTrackQA( trackQA, _candA->track.get(), _candA->mtdPidTraits.get(), "Unlike_Sign" );
+					MuonCandidateQA::fillCandidateTrackQA( trackQA, _candB->track.get(), _candB->mtdPidTraits.get(), "Unlike_Sign" );
 				}
 				// book->cd();
 				// book->fill( "unlike_sign_selected", lv.M(), 1.0/ bw );
 			}
 		}
 
-		if ( abs(_aTrack->charge() + _bTrack->charge()) > 0 ){
+		if ( abs(_candA->track->charge() + _candB->track->charge()) > 0 ){
 			book->cd();
 			book->fill( "like_sign", lv.M(), 1.0/ bw );
 		} else {
@@ -110,11 +107,11 @@ public:
 
 		if ( config.getBool( nodePath + ".MakeQA:Pair", true ) ){
 			book->cd( "pairQA" );
-			// MixedEventPairQAMaker::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2 );
-			if ( abs(_aTrack->charge() + _bTrack->charge()) > 0 ){
-				MixedEventPairQAMaker::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Like_Sign" );
+			// MixedEventPairQAMaker::fillPairVariables( pairQA, _candA->track, _candB->track, m1, m2 );
+			if ( abs(_candA->track->charge() + _candB->track->charge()) > 0 ){
+				MixedEventPairQAMaker::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Like_Sign" );
 			} else {
-				MixedEventPairQAMaker::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Unlike_Sign");
+				MixedEventPairQAMaker::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Unlike_Sign");
 			}
 
 		}
