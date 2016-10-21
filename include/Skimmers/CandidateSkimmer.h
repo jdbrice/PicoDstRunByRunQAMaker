@@ -56,8 +56,8 @@ public:
 		}
 
 
-		makeEventCutQA = config.getBool( nodePath + ".MakeQA:event" );
-		makeTrackCutQA = config.getBool( nodePath + ".MakeQA:track" );
+		makeEventCutQA = config.getBool( nodePath + ".MakeQA:event", false );
+		makeTrackCutQA = config.getBool( nodePath + ".MakeQA:track", false );
 		DEBUG( classname(), "Making Event Cut QA : " << bts( makeEventCutQA ) );
 		DEBUG( classname(), "Making Track Cut QA : " << bts( makeTrackCutQA ) );
 

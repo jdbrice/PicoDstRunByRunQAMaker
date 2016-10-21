@@ -16,7 +16,7 @@ using namespace jdb;
 
 #include "TRandom3.h"
 
-class MixedEventCandidateSkimmer : public CandidateSkimmer, public IMixedEventPairTreeMaker
+class MixedEventCandidateSkimmer : public CandidateSkimmer
 {
 public:
 	virtual const char * classname() const { return "MixedEventCandidateSkimmer"; }
@@ -50,6 +50,7 @@ public:
 		m1 = config.getDouble( nodePath + ".Particles:mass1", 0.0511 );
 		m2 = config.getDouble( nodePath + ".Particles:mass2", 0.0511 );
 
+		CandidateFilter::setDefaultMuonCuts( trackCuts );
 		if ( config.exists( nodePath + ".MuonCandidateCuts" ) ){
 			trackCuts.init( config, nodePath + ".MuonCandidateCuts" );
 
@@ -68,8 +69,7 @@ public:
 			INFO( classname(), "" );
 		}
 
-		book->cd();
-		createMixedEventPairTree( "Mixed Muon Pairs" );
+		
 		// rand used for choosing which buffered track to overwrite when the buffer is full
 		rander.SetSeed( 0 ); // this is unique for every run
 	}
@@ -287,21 +287,7 @@ protected:
 	// }
 
 
-	virtual void fillCandidatePair( shared_ptr<Candidate> _cand1, shared_ptr<Candidate> _cand2 ){
-		
-		wEventHash = cEventHash;
-
-		wEvent1 = _cand1->event.get();
-		wEvent2 = _cand2->event.get();
-		
-		TLorentzVector lv1, lv2, lv;
-		lv1.SetXYZM( _cand1->track->mPMomentum_mX1, _cand1->track->mPMomentum_mX2, _cand1->track->mPMomentum_mX3, m1 );
-		lv2.SetXYZM( _cand2->track->mPMomentum_mX1, _cand2->track->mPMomentum_mX2, _cand2->track->mPMomentum_mX3, m2 );
-
-		lv = lv1 + lv2;
-
-		wPairs->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), _cand1->track->charge() + _cand2->track->charge() );
-	}
+	
 
 
 

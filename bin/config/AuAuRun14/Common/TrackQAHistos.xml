@@ -7,9 +7,9 @@
 
 	<MtdCuts dir="trackQA" >
 
-		<Histo name="px" title=";P_{x} [GeV/c]" bins_x="TrackQAHistos.p" />
-		<Histo name="py" title=";P_{y} [GeV/c]" bins_x="TrackQAHistos.p" />
-		<Histo name="py" title=";P_{z} [GeV/c]" bins_x="TrackQAHistos.p" />
+		<Histo name="px" title=";P_{x} [GeV/c]" bins_x="TrackQAHistos.P" />
+		<Histo name="py" title=";P_{y} [GeV/c]" bins_x="TrackQAHistos.P" />
+		<Histo name="py" title=";P_{z} [GeV/c]" bins_x="TrackQAHistos.P" />
 		<Histo name="p" title=";P [GeV/c]" bins_x="TrackQAHistos.p" />
 
 		<Histo name="nHitsFit_vs_pt" title=";nHitsFit" bins_x="TrackQAHistos.nHits" />

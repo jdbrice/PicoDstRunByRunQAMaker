@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="flm" type="MixedEventPairQAMaker" config="" nodePath="MECS" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<DataSet>Run15PP</DataSet>
+	<Include url="../{DataSet}/Common/cwd.xml" />
+	
+	<MECS>
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+		<Mixing max="400" nPerEventHash="20" />
+		
+		<MakeQA SingleTrack="false" Pair="true" />
+		<input>
+			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
+		</input>
+
+		<output>
+			<TFile url="{CWD:out}/QA/SameEventPair{mod}_{jobIndex}.root" />
+		</output>
+
+		<histograms>
+			<Include url="../{DataSet}/Common/dimuonHistos.xml" />	
+			<Histo name="EventHash" title="EventHash" bins_x="bins.EventHash"/>
+			<Histo name="EventHashN" title="EventHashN" bins_x="bins.EventHash"/>
+		</histograms>
+
+		<Include url="../{DataSet}/Common/MixedEventBins.xml" />
+		<Include url="../{DataSet}/Common/MuonCandidateCuts.xml" />
+		<Include url="../{DataSet}/Common/SameEventPairCuts.xml" />
+		
+
+	</MECS>
+
+	<Include url="./TrackQABins.xml" />
+	<Include url="./EventQABins.xml" />
+	<Include url="../{DataSet}/Common/dimuonBins.xml" />
+
+	<PairQABins>
+		<deltaPhi nBins="120" min="-3.14159" max="3.14159" />
+		<parentPt width="0.1" min="0" max="10" />
+		<parentM width="0.05" min="0" max="10" />
+	</PairQABins>
+
+	<bins>
+		<EventHash width="1" min="0" max="400" />
+	</bins>
+</config>

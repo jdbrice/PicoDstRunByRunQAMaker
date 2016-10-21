@@ -2,7 +2,7 @@
 <config>
 
 	<!-- TASKS -->
-	<Task name="skimmer" type="SameEventPairMaker" config="" nodePath="InvMP" />
+	<Task name="skimmer" type="SameEventPairTreeMaker" config="" nodePath="InvMP" />
 	<!-- <Task name="flm" type="InvMassHistoMaker" config="{CWD:cfg}/SameEventInvMassHistoMaker.xml" nodePath="IMHM" /> -->
 
 	<Logger color="true" globalLogLevel="info" />
@@ -11,7 +11,7 @@
 	<InvMP >
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
-		<MakeQA event="true" track="true" />
+		<MakeQA event="false" track="false" />
 
 		<input>
 			<!-- 3792 files total (MuonCandidates) -->

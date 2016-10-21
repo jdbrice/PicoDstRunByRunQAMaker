@@ -7,6 +7,8 @@ using namespace jdb;
 #include "Extra/format.h"
 
 #include "CandidateEvent.h"
+#include "CandidateTrack.h"
+#include "CandidateTrackMtdPidTraits.h"
 
 #include <string>
 using namespace std;
@@ -41,7 +43,7 @@ public:
 			      _track->mPMomentum_mX3,
 			      _track->mId,
 			(int) _track->mDedx,
-			(int) _track->mNHitsFit,
+			(int) abs(_track->mNHitsFit),
 			(int) _track->mNHitsMax,
 			      _track->mNHitsDedx,
 			      _track->mNSigmaPion,

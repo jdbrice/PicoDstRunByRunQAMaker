@@ -19,6 +19,7 @@ using namespace jdb;
 
 // Exporters
 #include "CandidateCSVExporter.h"
+#include "CandidatePairCSVExporter.h"
 
 #include "PicoDstSkimmer.h"
 
@@ -42,6 +43,7 @@ using namespace jdb;
 #include "CandidateSkimmer.h"
 
 #include "SameEventPairMaker.h"
+#include "SameEventPairTreeMaker.h"
 #include "InvariantMassPlotMaker.h"
 #include "BackgroundMaker.h"
 #include "FitnessMaker.h"
@@ -68,8 +70,10 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<RunByRunCandidateQAMaker>( "RunByRunCandidateQAMaker" );
 	TaskFactory::registerTaskRunner<MuonCandidateQA>( "MuonCandidateQA" );
 	TaskFactory::registerTaskRunner<SameEventPairQA>( "SameEventPairQA" );
+	TaskFactory::registerTaskRunner<SameEventPairQA>( "MixedEventPairQAMaker" );
 
 	TaskFactory::registerTaskRunner<CandidateCSVExporter>( "CandidateCSVExporter" );
+	TaskFactory::registerTaskRunner<CandidatePairCSVExporter>( "CandidatePairCSVExporter" );
 
 	TaskFactory::registerTaskRunner<PicoDstSkimmer>( "PicoDstSkimmer" );
 	TaskFactory::registerTaskRunner<CandidateMaker>( "CandidateMaker" );
@@ -83,6 +87,7 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<CandidateSkimmer>( "CandidateSkimmer" );
 
 	TaskFactory::registerTaskRunner<SameEventPairMaker>( "SameEventPairMaker" );
+	TaskFactory::registerTaskRunner<SameEventPairTreeMaker>( "SameEventPairTreeMaker" );
 	// TaskFactory::registerTaskRunner<MixedEventMassPlotter>( "MixedEventMassPlotter" );
 	TaskFactory::registerTaskRunner<BackgroundMaker>( "BackgroundMaker" );
 	TaskFactory::registerTaskRunner<FitnessMaker>( "FitnessMaker" );

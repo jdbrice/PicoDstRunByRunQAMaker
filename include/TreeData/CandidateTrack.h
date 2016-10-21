@@ -54,7 +54,7 @@ public:
 	Short_t 	mNSigmaKaon;		// nsigmaK * 100
 	Short_t 	mNSigmaProton;		// nsigmaP * 100
 	Short_t 	mNSigmaElectron;	// nsigmaE * 100
-	Short_t 	mDCA;				// global track gDCA
+	Short_t 	mDCA;				// global track gDCA * 1000
 	
 	// pidTraits
 	Short_t 	mBTofPidTraitsIndex; // index of the BTOF pidTratis in the event

@@ -388,10 +388,10 @@ public:
 	static void preTrackCuts( CandidateTrack *_aTrack, CandidateTrackMtdPidTraits * _mtdPidTraits, const shared_ptr<HistoBook>& book ){
 		if ( nullptr == book )
 			return;
-		book->cd("trackQA");
-		book->fill( "dTofMtd", _mtdPidTraits->mDeltaTimeOfFlight );
-		book->fill( "deltaYMtd", _mtdPidTraits->mDeltaY );
-		book->fill( "deltaZMtd", _mtdPidTraits->mDeltaZ );
+		// book->cd("trackQA");
+		// book->fill( "dTofMtd", _mtdPidTraits->mDeltaTimeOfFlight );
+		// book->fill( "deltaYMtd", _mtdPidTraits->mDeltaY );
+		// book->fill( "deltaZMtd", _mtdPidTraits->mDeltaZ );
 	}
 
 };

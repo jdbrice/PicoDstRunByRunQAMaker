@@ -2,17 +2,17 @@
 #define SAME_EVENT_PAIR_QA_H
 
 #include "MuonCandidateQA.h"
-#include "SameEventPairMaker.h"
+#include "MixedEventPairMaker.h"
 
-class SameEventPairQA : public SameEventPairMaker
+class MixedEventPairQAMaker : public MixedEventPairMaker
 {
 public:
-	virtual const char* classname() const { return "SameEventPairQA"; }
-	SameEventPairQA() {}
-	~SameEventPairQA() {}
+	virtual const char* classname() const { return "MixedEventPairQAMaker"; }
+	MixedEventPairQAMaker() {}
+	~MixedEventPairQAMaker() {}
 
 	virtual void initialize(){
-		SameEventPairMaker::initialize();
+		MixedEventPairMaker::initialize();
 
 
 		qaCuts.setDefault( "InvMass", 0, 15 );
@@ -48,7 +48,7 @@ public:
 			pairQA.addCategory( "Like_Sign" );
 			pairQA.addCategory( "Unlike_Sign" );
 			pairQA.makeDefaultCategory( false );
-			SameEventPairQA::initPairVariables( pairQA );
+			MixedEventPairQAMaker::initPairVariables( pairQA );
 			book->cd( "pairQA" );
 			pairQA.makeHistograms( "PairQABins" );
 		}
@@ -59,7 +59,7 @@ public:
 
 	HistoBins dimuonBins;
 
-	virtual void analyzePair( CandidateTrack * _aTrack, CandidateTrack * _bTrack ){
+	virtual void analyzePair( shared_ptr<CandidateTrack> _aTrack, shared_ptr<CandidateTrack> _bTrack ){
 		
 
 		CandidateTrackMtdPidTraits *aMtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( _aTrack->mMtdPidTraitsIndex );
@@ -110,11 +110,11 @@ public:
 
 		if ( config.getBool( nodePath + ".MakeQA:Pair", true ) ){
 			book->cd( "pairQA" );
-			// SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2 );
+			// MixedEventPairQAMaker::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2 );
 			if ( abs(_aTrack->charge() + _bTrack->charge()) > 0 ){
-				SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Like_Sign" );
+				MixedEventPairQAMaker::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Like_Sign" );
 			} else {
-				SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Unlike_Sign");
+				MixedEventPairQAMaker::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Unlike_Sign");
 			}
 
 		}
