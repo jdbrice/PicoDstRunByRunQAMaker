@@ -46,9 +46,12 @@ public:
 			pairQA.setHistoBook( book );
 			pairQA.setConfig( config );
 			pairQA.addCategory( "Like_Sign" );
+			pairQA.addCategory( "Like_Sign_Pos" );
+			pairQA.addCategory( "Like_Sign_Neg" );
 			pairQA.addCategory( "Unlike_Sign" );
+
 			pairQA.makeDefaultCategory( false );
-			MixedEventPairQAMaker::initPairVariables( pairQA );
+			SameEventPairQA::initPairVariables( pairQA );
 			book->cd( "pairQA" );
 			pairQA.makeHistograms( "PairQABins" );
 		}
@@ -109,42 +112,18 @@ public:
 			book->cd( "pairQA" );
 			// MixedEventPairQAMaker::fillPairVariables( pairQA, _candA->track, _candB->track, m1, m2 );
 			if ( abs(_candA->track->charge() + _candB->track->charge()) > 0 ){
-				MixedEventPairQAMaker::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Like_Sign" );
+				SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Like_Sign" );
+				if ( _candA->track->charge() + _candB->track->charge() == 2 )
+					SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Like_Sign_Pos" );
+				else if ( _candA->track->charge() + _candB->track->charge() == -2 )
+					SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Like_Sign_Neg" );
 			} else {
-				MixedEventPairQAMaker::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Unlike_Sign");
+				SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Unlike_Sign");
 			}
 
 		}
 
 	}
-
-
-	static void initPairVariables( TTreeQA &_qaMaker ){
-		_qaMaker.i( "deltaPhi" , "dPhi"         , "[rad]" );
-		_qaMaker.i( "parentPt" , "Parent p_{T}" , "[GeV/c]"     , "" , "x" );
-		_qaMaker.i( "parentM"  , "M"            , "[GeV/c^{2}]" , "" , "x" );
-		// _qaMaker.i( "deltaR", "dPhi", "[rad]" );
-	}
-
-	static void fillPairVariables( 
-			TTreeQA &_qaMaker, 
-			CandidateTrack * _aTrack, 
-			CandidateTrack * _bTrack, 
-			double _m1, double _m2,
-			string _cat = "" ){
-
-		TLorentzVector lv1, lv2, lv;
-		lv1.SetXYZM( _aTrack->mPMomentum_mX1, _aTrack->mPMomentum_mX2, _aTrack->mPMomentum_mX3, _m1 );
-		lv2.SetXYZM( _bTrack->mPMomentum_mX1, _bTrack->mPMomentum_mX2, _bTrack->mPMomentum_mX3, _m2 );
-		lv = lv1 + lv2;
-
-		_qaMaker.s( "deltaPhi", lv1.DeltaPhi( lv2 ) );
-		_qaMaker.s( "parentPt", lv.Pt() );
-		_qaMaker.s( "parentM", lv.M() );
-
-		_qaMaker.fill( _cat );
-	}
-
 
 
 protected:

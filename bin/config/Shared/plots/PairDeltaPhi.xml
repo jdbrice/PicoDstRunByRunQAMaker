@@ -29,6 +29,8 @@
 		</Histo>
 
 		<Legend>
+			<Entry name="pairQA/Unlike_Sign_deltaPhi" title="Unlike Sign" />
+			<Entry name="pairQA/Like_Sign_deltaPhi" title="Like Sign" />
 		</Legend>
 
 		<Export url="{CWD:out}/Export/{ext}/Mixed_Event_sign_compare_dphi.{ext}" />
@@ -46,6 +48,8 @@
 		</Histo>
 
 		<Legend>
+			<Entry name="pairQA/Unlike_Sign_deltaPhi" title="Unlike Sign" />
+			<Entry name="pairQA/Like_Sign_deltaPhi" title="Like Sign" />
 		</Legend>
 
 		<Export url="{CWD:out}/Export/{ext}/Same_Event_sign_compare_dphi.{ext}" />
@@ -53,7 +57,7 @@
 
 	<Plot>
 		<Histo data="same" name="pairQA/Unlike_Sign_deltaPhi" style="styles.h1d">
-			<style title="Unlike Sign : Same Event (Blue) Mixed Event (Red)" yr="10e-4, 10e-2" />
+			<style title="Unlike Sign, Daniel" yr="10e-4, 10e-2" />
 			<Norm/>
 		</Histo>
 
@@ -62,12 +66,17 @@
 			<Norm/>
 		</Histo>
 
+		<Legend>
+			<Entry name="same/pairQA/Unlike_Sign_deltaPhi" title="Same Event" />
+			<Entry name="mixed/pairQA/Unlike_Sign_deltaPhi" title="Mixed Events" />
+		</Legend>
+
 		<Export url="{CWD:out}/Export/{ext}/Unlike_Sign_compare_dphi.{ext}" />
 	</Plot>
 
 	<Plot>
 		<Histo data="same" name="pairQA/Like_Sign_deltaPhi" style="styles.h1d">
-			<style title="Like Sign Same Event (Blue) Mixed Event (Red)" yr="10e-4, 10e-2" />
+			<style title="Like Sign" yr="10e-4, 10e-2" />
 			<Norm/>
 		</Histo>
 
@@ -75,6 +84,11 @@
 			<style draw="same" lc="red"/>
 			<Norm/>
 		</Histo>
+
+		<Legend>
+			<Entry name="same/pairQA/Like_Sign_deltaPhi" title="Same Event" />
+			<Entry name="mixed/pairQA/Like_Sign_deltaPhi" title="Mixed Events" />
+		</Legend>
 
 		<Export url="{CWD:out}/Export/{ext}/Like_Sign_compare_dphi.{ext}" />
 	</Plot>

@@ -6,8 +6,10 @@
 	
 	<DataSet>Run15PP</DataSet>
 	<Include url="../{DataSet}/Common/cwd.xml" />
+
+	<mod>_dimuon_matchFlag_1</mod>
 	
-	<MECS>
+	<MECS triggers="dimuon">
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		

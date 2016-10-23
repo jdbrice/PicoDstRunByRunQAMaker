@@ -30,7 +30,7 @@
 		<Range name="nSigmaPion" min="-1.0" max="3.0" />
 		<Range name="gDCA" min="0.0" max="10.0" />
 		
-		<Range name="matchFlagMtd" min="1" max="100"/> 
+		<Range name="matchFlagMtd" min="1" max="1"/> 
 		<Range name="mtdCell" min="0" max="11" />
 		<Range name="dzMtd" min="-20" max="20" />
 		<Range name="dyMtd" min="-20" max="20" />

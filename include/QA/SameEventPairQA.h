@@ -4,12 +4,16 @@
 #include "MuonCandidateQA.h"
 #include "SameEventPairMaker.h"
 
+#include "TRandom3.h"
+
 class SameEventPairQA : public SameEventPairMaker
 {
 public:
 	virtual const char* classname() const { return "SameEventPairQA"; }
 	SameEventPairQA() {}
 	~SameEventPairQA() {}
+
+	static TRandom3 rnd;
 
 	virtual void initialize(){
 		SameEventPairMaker::initialize();
@@ -46,12 +50,16 @@ public:
 			pairQA.setHistoBook( book );
 			pairQA.setConfig( config );
 			pairQA.addCategory( "Like_Sign" );
+			pairQA.addCategory( "Like_Sign_Pos" );
+			pairQA.addCategory( "Like_Sign_Neg" );
 			pairQA.addCategory( "Unlike_Sign" );
 			pairQA.makeDefaultCategory( false );
 			SameEventPairQA::initPairVariables( pairQA );
 			book->cd( "pairQA" );
 			pairQA.makeHistograms( "PairQABins" );
 		}
+
+		rnd.SetSeed(0);
 
 		book->cd();
 	}
@@ -113,6 +121,10 @@ public:
 			// SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2 );
 			if ( abs(_aTrack->charge() + _bTrack->charge()) > 0 ){
 				SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Like_Sign" );
+				if (_aTrack->charge() + _bTrack->charge() == 2 )
+					SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Like_Sign_Pos" );
+				else if (_aTrack->charge() + _bTrack->charge() == -2 )
+					SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Like_Sign_Neg" );
 			} else {
 				SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Unlike_Sign");
 			}
@@ -123,7 +135,7 @@ public:
 
 
 	static void initPairVariables( TTreeQA &_qaMaker ){
-		_qaMaker.i( "deltaPhi" , "dPhi"         , "[rad]" );
+		_qaMaker.i( "deltaPhi" , "#Delta Phi"         , "[rad]" );
 		_qaMaker.i( "parentPt" , "Parent p_{T}" , "[GeV/c]"     , "" , "x" );
 		_qaMaker.i( "parentM"  , "M"            , "[GeV/c^{2}]" , "" , "x" );
 		// _qaMaker.i( "deltaR", "dPhi", "[rad]" );
@@ -141,7 +153,10 @@ public:
 		lv2.SetXYZM( _bTrack->mPMomentum_mX1, _bTrack->mPMomentum_mX2, _bTrack->mPMomentum_mX3, _m2 );
 		lv = lv1 + lv2;
 
-		_qaMaker.s( "deltaPhi", lv1.DeltaPhi( lv2 ) );
+		if ( rnd.Uniform(  ) <= 0.5 )
+			_qaMaker.s( "deltaPhi", lv1.DeltaPhi( lv2 ) );
+		else 
+			_qaMaker.s( "deltaPhi", lv2.DeltaPhi( lv1 ) );
 		_qaMaker.s( "parentPt", lv.Pt() );
 		_qaMaker.s( "parentM", lv.M() );
 

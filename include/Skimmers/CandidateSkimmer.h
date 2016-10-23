@@ -3,11 +3,14 @@
 
 //RooBarb
 #include "TreeAnalyzer.h"
+
+// Project
 #include "CandidateEvent.h"
 #include "CandidateEventPlane.h"
 #include "CandidateTrack.h"
 #include "CandidateTrackBTofPidTraits.h"
 #include "CandidateTrackMtdPidTraits.h"
+#include "TriggerFilter.h"
 
 //ROOT
 #include "TClonesArray.h"
@@ -61,6 +64,9 @@ public:
 		DEBUG( classname(), "Making Event Cut QA : " << bts( makeEventCutQA ) );
 		DEBUG( classname(), "Making Track Cut QA : " << bts( makeTrackCutQA ) );
 
+		vector<string> triggers = config.getStringVector( nodePath + ":triggers" );
+		tf.setTriggers( triggers );
+		INFO( classname(), "Triggers: " << vts( triggers ) );
 
 	}
 
@@ -76,6 +82,20 @@ protected:
 	bool makeTrackCutQA = false;
 	bool makeEventCutQA = false;
 
+	TriggerFilter tf;
+
+	virtual bool keepEvent(){
+
+		bool passAll = true;
+
+		if ( tf.anyTrigger( event ) ){
+
+		} else {
+			passAll = false;
+		}
+		// INFO( classname(), "keep = " << event->mTriggerWordMtd );
+		return passAll;
+	}
 
 	virtual void analyzeEvent(){
 		DEBUG( classname(), "" );

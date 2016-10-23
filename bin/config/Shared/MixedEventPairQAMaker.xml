@@ -7,7 +7,7 @@
 	<DataSet>Run15PP</DataSet>
 	<Include url="../{DataSet}/Common/cwd.xml" />
 	
-	<MECS>
+	<MECS triggers="singlemuon">
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		<Mixing max="400" nPerEventHash="20" />

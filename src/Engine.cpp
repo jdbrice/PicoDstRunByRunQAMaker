@@ -60,6 +60,7 @@ using namespace jdb;
 
 #include "VegaXmlPlotter.h"
 
+TRandom3 SameEventPairQA::rnd;
 
 int main( int argc, char* argv[] ) {
 

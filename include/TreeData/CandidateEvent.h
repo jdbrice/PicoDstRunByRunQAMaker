@@ -39,6 +39,10 @@ public:
 
 	float psi() { return mPsi2 / 10000.0; }
 
+	int year() const { return (mRunId / 1000000) - 1 + 2000; }
+	
+
+
 	Float_t 	mPrimaryVertex_mX1;		// Event VertexX
 	Float_t 	mPrimaryVertex_mX2;		// Event VertexY
 	Float_t 	mPrimaryVertex_mX3;		// Event VertexZ
@@ -51,6 +55,83 @@ public:
 	Short_t 	mPsi2;					// event plane angle * 10000
 	UChar_t 	mBin16;					// centrality bin 16
 	UShort_t 	mRunIndex;				// the run index
+
+	virtual bool isDiMuon() const {
+		if(year()==2014){ 
+			for(Int_t i=0; i<8; i++) {
+				if(mTriggerWordMtd & (1<<i)) return true;
+			}
+		} else if(year()==2013) { 
+			for(Int_t i=0; i<2; i++) {
+				if(mTriggerWordMtd & (1<<i)) return true;
+			}
+		} else if(year()==2015){ 
+			for(Int_t i=0; i<5; i++) {
+				if(mTriggerWordMtd & (1<<i)) 
+					return kTRUE;
+			}
+		}
+		return false;
+	}
+
+	virtual bool isDiMuonHFT() const { 
+		if(year()==2014){ 
+			for(Int_t i=5; i<8; i++){
+				if(mTriggerWordMtd & (1<<i)) return true;
+			}
+		}
+		return false;
+	} 
+
+	virtual bool isSingleMuon() const { 
+		if(year()==2014){ 
+			for(Int_t i=13; i<18; i++){
+				if(mTriggerWordMtd & (1<<i)) return true;
+			}
+		} else if(year()==2013) { 
+			for(Int_t i=5; i<7; i++) {
+				if(mTriggerWordMtd & (1<<i)) return true;
+			}
+		} else if(year()==2015) { 
+			for(Int_t i=10; i<15; i++) {
+				if(mTriggerWordMtd & (1<<i)) 
+					return kTRUE;
+			}
+		}
+		return false;
+	}
+
+	virtual bool isEMuon() const { 
+		if(year()==2014){ 
+			for(Int_t i=8; i<13; i++) {
+				if(mTriggerWordMtd & (1<<i)) return true;
+			}
+		} else if(year()==2013) { 
+			for(Int_t i=2; i<5; i++) {
+				if(mTriggerWordMtd & (1<<i)) return true;
+			}
+		} else if( year()==2015) { 
+			for(Int_t i=5; i<10; i++) {
+				if(mTriggerWordMtd & (1<<i)) 
+					return kTRUE; 
+			}
+		}
+		return false;
+	} 
+
+	virtual bool isMtdTrigger( std::string trigger ){
+		if ( "all" == trigger )
+			return true;
+		if ( "dimuon" == trigger || "DiMuon" == trigger || "DIMUON" == trigger || "Dimuon" == trigger )
+			return isDiMuon();
+		if ( "singlemuon" == trigger || "SINGLEMUON" == trigger || "SingleMuon" == trigger || "singlemu" == trigger )
+			return isSingleMuon();
+		if ( "dimuonhft" == trigger )
+			return isDiMuonHFT();
+		if ( "emu" == trigger )
+			return isEMuon();
+		return false;
+	}
 
 
 	ClassDef( CandidateEvent, 3 )

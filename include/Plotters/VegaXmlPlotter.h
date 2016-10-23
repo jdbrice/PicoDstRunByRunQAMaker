@@ -46,6 +46,11 @@ public:
 		}
 	} // loadDataFiles
 
+	virtual int numberOfData() {
+		return dataFiles.size() + dataChains.size();
+	}
+
+
 	virtual void loadChain( string _path ){
 		string name     = config.getXString( _path + ":name" );
 		string treeName = config.getXString( _path + ":treeName" );
@@ -161,7 +166,13 @@ public:
 			INFO( classname(), "Got " << h );
 			
 			if ( nullptr == h ) continue;
+			
+			// These maight not be unique for multiple datasets so use at your own risk
 			histos[ name ] = h;
+			// always add the fqn -> data:name
+			string data = config.getXString( hpath + ":data" );
+			INFO( classname(), "[" << data + "/" + name << "] = " << h  );
+			histos[ data + "/" + name ] = h;
 
 			// transforms
 			if ( config.exists( hpath + ".Scale" ) && config.getDouble( hpath + ".Scale" ) ){
@@ -218,15 +229,32 @@ public:
 				config.getDouble( _path + ".Legend.Position:x2", 0.5 ),
 				config.getDouble( _path + ".Legend.Position:y2", 0.9 ) );
 
-			// TODO : fix bc histo "names" can include / invalid char
-			// change to <Entry name="histo/name" title="bleh" ... />
-			for ( auto kv : histos ){
-				INFO( classname(), "Legend Entry for : " << kv.first );
-				string t = config.getString(  _path + ".Legend." + kv.first+ ":title", kv.first) ;
-				string opt = config.getString(  _path + ".Legend." + kv.first+ ":opt", "l") ;
 
-				leg->AddEntry( kv.second, t.c_str(), opt.c_str() );
+			vector<string> entries = config.childrenOf( _path + ".Legend", "Entry" );
+
+			for ( string entryPath : entries ){
+				INFO( classname(), "Entry @" << entryPath );
+				if ( config.exists( entryPath + ":name" ) != true ) continue;
+				string name = config.getXString( entryPath + ":name" );
+				INFO( classname(), "Entry name=" << name );
+				if ( histos.count( name ) <= 0 || histos[ name ] == nullptr ) continue;
+				TH1 * h = histos[ name ];
+				INFO( classname(), "Entry histo=" << h );
+				string t = config.getString(  entryPath + ":title", name );
+				string opt = config.getString(  entryPath + ":opt", "l" );
+
+				leg->AddEntry( h, t.c_str(), opt.c_str() );
 			}
+
+			if ( entries.size() <= 0 ){
+				// Add an entry for all histograms by default if no <Entry> nodes found
+				for ( auto kv : histos ){
+					string t = config.getString(  _path + ".Legend." + kv.first+ ":title", kv.first) ;
+					string opt = config.getString(  _path + ".Legend." + kv.first+ ":opt", "l") ;
+					leg->AddEntry( kv.second, t.c_str(), opt.c_str() );
+				}
+			}
+
 			leg->Draw( );
 
 		}

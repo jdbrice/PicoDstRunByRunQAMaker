@@ -2,6 +2,9 @@
 #define TRIGGER_FILTER_H
 
 #include "IPicoDst.h"
+#include "CandidateEvent.h"
+
+
 #include "HistoBook.h"
 
 #include <string>
@@ -31,6 +34,22 @@ public:
 				}
 			}
 		} else {
+			return true;
+		}
+
+		return false;
+	}
+
+
+	bool anyTrigger( CandidateEvent *_event) {
+		if ( triggerNames.size() >= 1 ){ // 0 == all triggers
+			for ( string trig : triggerNames ){
+				if ( _event->isMtdTrigger( trig ) ) {
+					return true;
+				}
+			}
+		} else {
+			INFO( "TriggerFilter", "Return true" );
 			return true;
 		}
 

@@ -102,13 +102,14 @@ protected:
 	}
 
 	virtual bool keepEvent(){
+		bool passAll = CandidateSkimmer::keepEvent();
 
 		if ( rmf->isRunBad( event->mRunId ) ){
 			ERROR( classname(), "Should not be bad runs here!" );
-			return false;
+			passAll = false;
 		}
 
-		return true;
+		return passAll;
 
 	}
 
