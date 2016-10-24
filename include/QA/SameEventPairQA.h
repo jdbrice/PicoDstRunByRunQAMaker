@@ -135,9 +135,15 @@ public:
 
 
 	static void initPairVariables( TTreeQA &_qaMaker ){
-		_qaMaker.i( "deltaPhi" , "#Delta Phi"         , "[rad]" );
-		_qaMaker.i( "parentPt" , "Parent p_{T}" , "[GeV/c]"     , "" , "x" );
-		_qaMaker.i( "parentM"  , "M"            , "[GeV/c^{2}]" , "" , "x" );
+		_qaMaker.i( "phi_d1"   , "d1 #phi"      , "[rad]"       , "phi"    , "x" );
+		_qaMaker.i( "phi_d2"   , "d2 #phi"      , "[rad]"       , "phi" );
+		_qaMaker.i( "eta_d1"   , "d1 #eta"      , ""            , "eta"    , "x" );
+		_qaMaker.i( "eta_d2"   , "d2 #eta"      , ""            , "eta" );
+		_qaMaker.i( "deltaPhi" , "#Delta Phi"   , "[rad]" );
+		_qaMaker.i( "deltaEta" , "#Delta #eta"  , "" );
+		_qaMaker.i( "deltaR"   , "#Delta R"     , "" );
+		_qaMaker.i( "parentPt" , "Parent p_{T}" , "[GeV/c]"     , ""       , "x" );
+		_qaMaker.i( "parentM"  , "M"            , "[GeV/c^{2}]" , ""       , "x" );
 		// _qaMaker.i( "deltaR", "dPhi", "[rad]" );
 	}
 
@@ -153,10 +159,31 @@ public:
 		lv2.SetXYZM( _bTrack->mPMomentum_mX1, _bTrack->mPMomentum_mX2, _bTrack->mPMomentum_mX3, _m2 );
 		lv = lv1 + lv2;
 
-		if ( rnd.Uniform(  ) <= 0.5 )
-			_qaMaker.s( "deltaPhi", lv1.DeltaPhi( lv2 ) );
-		else 
-			_qaMaker.s( "deltaPhi", lv2.DeltaPhi( lv1 ) );
+
+		_qaMaker.s( "phi_d1", lv1.Phi() );
+		_qaMaker.s( "phi_d2", lv2.Phi() );
+		_qaMaker.s( "eta_d1", lv1.Eta() );
+		_qaMaker.s( "eta_d2", lv2.Eta() );
+
+		float dPhi = -10;
+		float dEta = -100;
+		float dR = -100;
+		if ( rnd.Uniform(  ) <= 0.5 ){
+			dPhi = lv1.DeltaPhi( lv2 );
+			dEta = lv1.Eta() - lv2.Eta();
+			dR = lv1.DeltaR( lv2 );
+		} else {
+			dPhi = lv2.DeltaPhi( lv1 );
+			dEta = lv2.Eta() - lv1.Eta();
+			dR = lv2.DeltaR( lv1 );
+		}
+		
+
+		_qaMaker.s( "deltaPhi", dPhi );
+		_qaMaker.s( "deltaEta", dEta );
+		_qaMaker.s( "deltaR", dR );
+
+
 		_qaMaker.s( "parentPt", lv.Pt() );
 		_qaMaker.s( "parentM", lv.M() );
 

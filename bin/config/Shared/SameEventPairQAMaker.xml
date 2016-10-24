@@ -39,7 +39,13 @@
 
 	<PairQABins>
 		<deltaPhi nBins="120" min="-3.14159" max="3.14159" />
+		<deltaEta nBins="160" min="-1.6" max="1.6" />
+		<deltaR nBins="250" min="0" max="5" />
 		<parentPt width="0.1" min="0" max="10" />
 		<parentM width="0.05" min="0" max="10" />
+
+		<eta nBins="80" min="-0.8" max="0.8" />
+		<phi nBins="120" min="-3.14159" max="3.14159" />
+
 	</PairQABins>
 </config>
