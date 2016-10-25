@@ -166,6 +166,20 @@ public:
 			mtdpid->mDeltaZ 			= mPico->MtdPidTraits_mDeltaZ[ iMtd ];
 			mtdpid->mDeltaTimeOfFlight 	= mPico->MtdPidTraits_mDeltaTimeOfFlight[ iMtd ];
 			mtdpid->mMtdHitChan 		= mPico->MtdPidTraits_mMtdHitChan[ iMtd ];
+			mtdpid->mTriggerFlag		= -1;
+
+			// look for trigger info
+			if ( mPico->MtdHit_ > 0 ){
+				DEBUG( classname(), "Found " << mPico->MtdHit_ << plural( mPico->MtdHit_, " mtd hit", " mtd hits" ) );
+				for ( int iMtdHit = 0; iMtdHit < mPico->MtdHit_; iMtdHit++ ){
+					if ( mPico->MtdHit_mgChannel[iMtdHit] == mtdpid->mMtdHitChan ){
+						DEBUG( classname(), mPico->MtdHit_mgChannel[iMtdHit] );
+						mtdpid->mTriggerFlag = mPico->MtdHit_mTriggerFlag[ iMtdHit ];
+						break;
+					}
+				} // loop iMtdHit
+			} // MtdHit_ > 0
+
 
 			nMtdPidTraits ++;
 		} else {

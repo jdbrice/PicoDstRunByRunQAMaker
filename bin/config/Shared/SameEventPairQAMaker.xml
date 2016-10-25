@@ -13,7 +13,7 @@
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		
-		<MakeQA SingleTrack="false" Pair="true" />
+		<MakeQA SingleTrack="false" Pair="true" track="true" />
 		<input>
 			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
 		</input>

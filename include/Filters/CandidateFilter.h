@@ -27,20 +27,21 @@ public:
 	~CandidateFilter() {}
 	
 	static void setDefaultMuonCuts( CutCollection &ccol ){
-		ccol.setDefault( "pt"           , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "nSigmaPion"   , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "nHitsRatio"   , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "nHitsFit"     , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "nHitsDedx"    , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "eta"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "gDCA"         , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "pt"             , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "nSigmaPion"     , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "nHitsRatio"     , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "nHitsFit"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "nHitsDedx"      , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "eta"            , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "gDCA"           , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 
-		ccol.setDefault( "matchFlagMtd" , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "dTofMtd"      , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "dyMtd"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "dzMtd"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "drMtd"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "mtdCell"      , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdTriggerFlag" , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "matchFlagMtd"   , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "dTofMtd"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "dyMtd"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "dzMtd"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "drMtd"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdCell"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 	}
 
 	static bool isMuon( CandidateTrack *_aTrack, CandidateTrackMtdPidTraits * _mtdPidTraits, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr ){
@@ -117,6 +118,12 @@ public:
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdMatch", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "mtdTriggerFlag" ]->inInclusiveRange( _mtdPidTraits->mTriggerFlag ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "mtdTriggerFlag", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "mtdCell" ]->inInclusiveRange( _mtdPidTraits->mMtdHitChan % 12 ) ){

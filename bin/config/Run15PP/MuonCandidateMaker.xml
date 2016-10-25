@@ -7,13 +7,11 @@
 	<Include url="./Common/cwd.xml" />
 
 
-	<MuonCandidateMaker event="true" track="true" triggers="" rmc="false">
+	<MuonCandidateMaker event="true" track="true" triggers="dimuon" rmc="false">
 		<Logger color="true" globalLogLevel="info" />
 		<MakeQA event="true" track="true" />
 		<EventLoop progress="true" />
 		
-		
-
 		<input>
 			<dst treeName="PicoDst" adapter="PicoDstRun15PP200" url="{CWD:in}/filelists/PicoDst.lis" splitBy="200" />
 		</input>
@@ -37,7 +35,8 @@
 
 		<TrackBranches>
 			Tracks,
-			MtdPidTraits
+			MtdPidTraits,
+			MtdHit
 		</TrackBranches>
 
 	</MuonCandidateMaker>

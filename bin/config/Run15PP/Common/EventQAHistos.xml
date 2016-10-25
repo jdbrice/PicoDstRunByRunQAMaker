@@ -7,9 +7,18 @@
 		<Histo name="all_triggers" title="Triggers Present" bins_x="EventQABins.event_cuts" />
 		<Histo name="pass_triggers" title="Triggers Present (After Cuts) " bins_x="EventQABins.event_cuts" />
 
+		<!-- Post track cuts -->
 		<Histo name="zVertex" title="Z Vertex" bins_x="EventQABins.zVertex" />
 		<Histo name="zVpd" title="VPD Z Vertex" bins_x="EventQABins.zVertex" />
+		<Histo name="zVertex_vs_zVPD" title="z_{TPC} vs. z_{VPD}; z_{VPD} [cm]; z_{TPC} [cm]" bins_x="EventQABins.zVertex" bins_y="EventQABins.zVertex" />
 		<Histo name="zVertexDelta" title="Z Vertex - VPD Z Vertex" bins_x="EventQABins.zVertexDelta" />
+
+		<!-- Pre Track Cuts -->
+		<Histo name="pre_zVertex" title="Z Vertex" bins_x="EventQABins.zVertex" />
+		<Histo name="pre_zVpd" title="VPD Z Vertex" bins_x="EventQABins.zVertex" />
+		<Histo name="pre_zVertex_vs_zVPD" title="z_{TPC} vs. z_{VPD}; z_{VPD} [cm]; z_{TPC} [cm]" bins_x="EventQABins.zVertex" bins_y="EventQABins.zVertex" />
+		<Histo name="pre_zVertexDelta" title="Z Vertex - VPD Z Vertex" bins_x="EventQABins.zVertexDelta" />
+
 
 		<Histo name="nTracks" title="Num Tracks" bins_x="EventQABins.nTracks" />
 	</EventQAHistos>

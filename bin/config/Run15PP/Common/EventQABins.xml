@@ -3,7 +3,7 @@
 	<EventQABins>
 		<event_cuts width="1" min="0" max="8" />
 		<zVertex width="1" min="-105" max="105" />
-		<zVertexDelta width=".1" min="-3.5" max="3.5" />
+		<zVertexDelta width=".1" min="-10" max="10" />
 		<nTracks width="1" min="0" max="10" />
 	</EventQABins>
 </config>

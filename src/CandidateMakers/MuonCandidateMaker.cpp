@@ -51,6 +51,6 @@ void MuonCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTr
 	candidateTree->fillCandidateTrack( aTrack, iTrack );
 	
 	// keep events with at least 2 tracks
-	if ( candidateTree->numberOfTracks() >= 2 )
+	if ( candidateTree->numberOfTracks() >= 0 )
 		candidateTree->keepEvent( true );
 }

@@ -2,6 +2,6 @@
 <config>
 	
 	<SameEventPairCuts>
-		<Range name="leadingPt" min="1.0" />
+		<Range name="leadingPt" min="1.5" />
 	</SameEventPairCuts>
 </config>

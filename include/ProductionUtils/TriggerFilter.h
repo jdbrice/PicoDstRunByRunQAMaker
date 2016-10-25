@@ -49,7 +49,6 @@ public:
 				}
 			}
 		} else {
-			INFO( "TriggerFilter", "Return true" );
 			return true;
 		}
 

@@ -125,10 +125,10 @@ protected:
 		}
 
 		/*********** Initialize the RefMultCorr *************/
-		if ( rmf->isRunBad( pico->Event_mRunId[0] ) ){
-			DEBUG( classname(), pico->Event_mRunId[0]  << " is BAD" );
-			return false;
-		}
+		// if ( rmf->isRunBad( pico->Event_mRunId[0] ) ){
+		// 	DEBUG( classname(), pico->Event_mRunId[0]  << " is BAD" );
+		// 	return false;
+		// }
 
 		return true;
 	}
@@ -139,7 +139,7 @@ protected:
 
 			candidateTree->keepEvent( false );
 
-			// TODO:  Re-incorporate RMC, EventPlane etc. to logic of filling the tres
+			// TODO:  Re-incorporate RMC, EventPlane etc. to logic of filling the trees
 			// for instance, use to keep only events with pairs of muons
 			// default to keep all accepted events
 			// keepCandidateEvent = true;

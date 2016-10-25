@@ -22,7 +22,7 @@ public:
 	Float_t   mDeltaTimeOfFlight;		// Difference between measured and expected time-of-flight
 	Char_t    mMatchFlag;				// Matching flag indicating multiple matches
 	Short_t   mMtdHitChan;				// (backleg-1) * 60 + (module-1) * 12 + cell
-	UChar_t   mTriggerFlag;				// Trigger Flag from MtdHit struct
+	Char_t    mTriggerFlag;				// Trigger Flag from MtdHit struct -1 = unset, otherwise value 
 
 	ClassDef( CandidateTrackMtdPidTraits, 2 )
 };
