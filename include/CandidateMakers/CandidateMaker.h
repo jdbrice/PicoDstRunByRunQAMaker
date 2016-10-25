@@ -53,11 +53,9 @@ public:
 
 		if ( "PicoDstRun15PP200" == picoDstAdapter ){
 			calcEventPlane = false;
-			rmf = shared_ptr<RunMapFactory>( new RunMapFactory( "Run15PP200", false ) );
 		}
 		else {
-			WARN( classname(), "NO BAD RUN REJECTION FOR AUAU YET" );
-			rmf = shared_ptr<RunMapFactory>( new RunMapFactory( ) );
+			calcEventPlane = true;
 		}
 
 		useRefMultCorr = config.getBool( nodePath + ":rmc", true );
@@ -80,7 +78,7 @@ protected:
 	XmlRange eventHashRange;
 	int eventHash;
 	bool splitEvents = false;
-	shared_ptr<RunMapFactory> rmf;
+	// shared_ptr<RunMapFactory> rmf;
 	bool useRefMultCorr = false;
 	bool calcEventPlane = true;
 	
@@ -218,8 +216,6 @@ protected:
 	virtual void postMake(){
 		candidateTree->close();
 	}
-
-
 	
 };
 

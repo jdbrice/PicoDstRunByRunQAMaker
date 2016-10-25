@@ -50,6 +50,14 @@ void PicoDstSkimmer::initialize(){
 
 	config.toXmlFile( "out_config.xml" );
 
+	if ( "PicoDstRun15PP200" == picoDstAdapter ){
+		rmf = shared_ptr<RunMapFactory>( new RunMapFactory( "Run15PP200", false ) );
+	}
+	else {
+		WARN( classname(), "NO BAD RUN REJECTION FOR AUAU YET" );
+		rmf = shared_ptr<RunMapFactory>( new RunMapFactory( ) );
+	}
+
 }
 
 bool PicoDstSkimmer::keepEvent(){

@@ -190,6 +190,7 @@ public:
 	virtual void fillTree(){
 		if ( output ){
 			if ( keepCandidateEvent ){
+				DEBUG( classname(), "Filling Tree" );
 				output->cd();
 				mTree->Fill();
 			}

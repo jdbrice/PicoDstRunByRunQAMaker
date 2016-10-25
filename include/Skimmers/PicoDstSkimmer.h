@@ -10,6 +10,7 @@
 #include "IPicoDst.h"
 #include "TriggerFilter.h"
 #include "EventPlaneCorr.h"
+#include "RunMapFactory.h"
 
 // STL
 #include <memory>
@@ -33,6 +34,7 @@ protected:
 	TriggerFilter tf;
 	CutCollection eventCuts;
 	EventPlaneCorr epc;
+	shared_ptr<RunMapFactory> rmf;
 
 	string picoDstAdapter;
 
