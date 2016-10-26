@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<job simulateSubmission="false" nProcesses="3788" >
+<job simulateSubmission="false" nProcesses="3" >
 	
 	<command>
 		starver SL15e
