@@ -10,9 +10,9 @@ void PicoDstSkimmer::initialize(){
 	// create the picodst interface
 	if ( false == sharedTree ){
 		INFO( classname(), "Using private PicoDst Interface" );
-		picoDstAdapter = config.getString( nodePath + ".input.dst:adapter", "PicoDstRun14AuAu200" );
+		picoDstAdapter = config.getString( nodePath + ".input.dst:adapter", "Run14_AuAu_200_Mtd" );
 		INFO( classname(), "PicoDst Adapter : " << picoDstAdapter );
-		if ( "PicoDstRun15PP200" == picoDstAdapter )
+		if ( "Run15_PP_200_Mtd" == picoDstAdapter )
 			pico = shared_ptr<IPicoDst>( new PicoDstRun15PP200( chain ) );
 		else 
 			pico = shared_ptr<IPicoDst>( new PicoDstRun14AuAu200( chain ) );
@@ -50,7 +50,7 @@ void PicoDstSkimmer::initialize(){
 
 	config.toXmlFile( "out_config.xml" );
 
-	if ( "PicoDstRun15PP200" == picoDstAdapter ){
+	if ( "Run15_PP_200_Mtd" == picoDstAdapter ){
 		rmf = shared_ptr<RunMapFactory>( new RunMapFactory( "Run15PP200", false ) );
 	}
 	else {
@@ -116,7 +116,7 @@ bool PicoDstSkimmer::keepEvent(){
 	}
 
 	double nTracks = pico->ntrk();
-	if ( "PicoDstRun15PP200" != picoDstAdapter && nTracks < eventCuts[ "EventPlane_nTracks" ]->min ){
+	if ( "Run15_PP_200_Mtd" != picoDstAdapter && nTracks < eventCuts[ "EventPlane_nTracks" ]->min ){
 		passAllCuts = false;
 	} else if ( makeQA ) {
 		passEventCut( "nEvtPlTrks", passAllCuts );

@@ -6,7 +6,7 @@
 !/script/*.C
 
 #remove OS X system files
-*_*
+.*_*
 
 # Remove build files
 /src/*.o

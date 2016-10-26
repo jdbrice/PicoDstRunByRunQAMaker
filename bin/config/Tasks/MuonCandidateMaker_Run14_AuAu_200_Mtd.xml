@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="MuonCandidateMaker" config="" nodePath="MuonCandidateMaker" />
+	<Logger color="true" globalLogLevel="warning" />
+	
+	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+
+	<Include url="{R:url}/cwd.xml" />
+
+	<MuonCandidateMaker event="true" track="true" triggers="dimuon" rmc="true">
+		<Logger color="false" globalLogLevel="warning" />
+		<MakeQA event="true" track="true" />
+		<EventLoop progress="false" />
+
+		<input>
+			<dst treeName="PicoDst" adapter="{R:active}" url="{CWD:in}/filelists/PicoDst.lis" splitBy="200" nEvents="-1"/>
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}MuonCandidates/QA/muon_candidates_QA_{jobIndex}.root" />
+			<TTree url="{CWD:out}MuonCandidates/muon_candidates_Tree_{jobIndex}.root" />
+		</output>
+
+		<histograms>
+			<Include url="../Common/EventQAHistos.xml" />
+		</histograms>
+		
+		<Include url="{R:url}/EventCuts.xml" />
+		<Include url="{R:url}/MixedEventBins.xml" />
+
+		<Include url="../Common/LooseMuonCandidateCuts.xml" />
+
+		<EventBranches>
+			Event,
+			EventPlane
+		</EventBranches>
+
+		<TrackBranches>
+			Tracks,
+			MtdPidTraits,
+			MtdHit
+		</TrackBranches>
+
+	</MuonCandidateMaker>
+
+	<Include url="../Common/EventQABins.xml" />
+
+</config>

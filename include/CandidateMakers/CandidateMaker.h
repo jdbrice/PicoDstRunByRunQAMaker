@@ -51,7 +51,7 @@ public:
 		}
 		eventHashRange.loadConfig( config, nodePath + ".EventHash" );
 
-		if ( "PicoDstRun15PP200" == picoDstAdapter ){
+		if ( "Run15_PP_200_Mtd" == picoDstAdapter ){
 			calcEventPlane = false;
 		}
 		else {

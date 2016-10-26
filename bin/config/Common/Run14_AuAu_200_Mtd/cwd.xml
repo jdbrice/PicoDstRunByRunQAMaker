@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<CWD variant="{ANA_VARIANT}" in="/Users/jdb/bnl/local/data/dilepton/Run14AuAu200/" out="/Users/jdb/bnl/local/data/dilepton/Run14AuAu200/" />
+</config>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="ElectronCandidateMaker" config="" nodePath="ElectronCandidateMaker" />
+	<Logger color="true" globalLogLevel="trace" />
+	
+	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+
+	<Include url="{R:url}/cwd.xml" />
+
+
+	<ElectronCandidateMaker event="true" track="true" triggers="" rmc="true">
+		<Logger color="true" globalLogLevel="info" />
+		<MakeQA event="true" track="true" />
+		<EventLoop progress="true" />
+
+		<input>
+			<dst treeName="PicoDst" adapter="Run14_AuAu_200_Mtd" url="{CWD:in}/filelists/PicoDst.lis" splitBy="200" nEvents="100"/>
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}ElectronCandidates/QA/electron_candidates_QA_{jobIndex}.root" />
+			<TTree url="{CWD:out}ElectronCandidates/electron_candidates_Tree_{jobIndex}.root" />
+		</output>
+
+		<histograms>
+			<Include url="../Common/EventQAHistos.xml" />
+		</histograms>
+		
+		<Include url="{R:url}/EventCuts.xml" />
+		<Include url="{R:url}/MixedEventBins.xml" />
+
+		<Include url="../Common/LooseTpcTofElectronCandidateCuts.xml" />
+
+		<EventBranches>
+			Event,
+			EventPlane
+		</EventBranches>
+
+		<TrackBranches>
+			Tracks,
+			BTofPidTraits,
+			EmcPidTraits,
+			MtdPidTraits
+		</TrackBranches>
+
+	</ElectronCandidateMaker>
+
+	<Include url="../Common/EventQABins.xml" />
+
+</config>
