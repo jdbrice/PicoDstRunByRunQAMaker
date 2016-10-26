@@ -16,7 +16,7 @@
  		<Package>
  			<File>file:./prod</File>
  			<File>file:./config</File> 
- 			<File>file:./filelists</File>
+ 			<File>file:./PicoDst.lis</File>
  		</Package> 
  	</SandBox>
 
