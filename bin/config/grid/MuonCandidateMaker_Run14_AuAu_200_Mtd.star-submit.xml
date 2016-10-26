@@ -3,14 +3,14 @@
 	
 	<command>
 		starver SL15e
-		echo "./prod ./config/Tasks/MuonCandidateMaker_Run14_AuAu_200_Mtd.xml --jobIndex=${JOBINDEX} --R:active=Run14_AuAu_200_Mtd " &gt;&amp; muonCand_log_${JOBID}.log
+		./prod ./config/Tasks/MuonCandidateMaker_Run14_AuAu_200_Mtd.xml --jobIndex=${JOBINDEX} --R:active=Run14_AuAu_200_Mtd &gt;&amp; muonCand_log_${JOBID}.log
 	</command>
 
 	<stdout URL="file:/star/data03/pwg/jdb/scratch/log/$JOBID.out" />
 	<stderr URL="file:/star/data03/pwg/jdb/scratch/log/$JOBID.err" />
 
-	<!-- <output fromScratch="*.root" toURL="file:/star/data03/pwg/jdb/scratch/"/> -->
 	<output fromScratch="*.log" toURL="file:/star/data03/pwg/jdb/scratch/"/>
+	<output fromScratch="*.root" toURL="file:/star/data03/pwg/jdb/scratch/"/>
 
 	<SandBox>
  		<Package>
