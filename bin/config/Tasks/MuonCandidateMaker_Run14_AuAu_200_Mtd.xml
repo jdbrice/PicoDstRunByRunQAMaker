@@ -28,6 +28,7 @@
 		
 		<Include url="{R:url}/EventCuts.xml" />
 		<Include url="{R:url}/MixedEventBins.xml" />
+		<Include url="{R:url}/EventPlaneCorr.xml" />
 
 		<Include url="../Common/LooseMuonCandidateCuts.xml" />
 
