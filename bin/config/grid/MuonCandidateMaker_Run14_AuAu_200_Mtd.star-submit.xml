@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<job fileListSyntax="paths"  simulateSubmission="false" nProcesses="3788" >
+<job simulateSubmission="false" nProcesses="3788" >
 	
 	<command>
 		starver SL15e
@@ -9,7 +9,7 @@
 	<stdout URL="file:/star/data03/pwg/jdb/scratch/log/$JOBID.out" />
 	<stderr URL="file:/star/data03/pwg/jdb/scratch/log/$JOBID.err" />
 
-	<output fromScratch="*.root" toURL="file:/star/data03/pwg/jdb/scratch/"/>
+	<!-- <output fromScratch="*.root" toURL="file:/star/data03/pwg/jdb/scratch/"/> -->
 	<output fromScratch="*.log" toURL="file:/star/data03/pwg/jdb/scratch/"/>
 
 	<SandBox>
