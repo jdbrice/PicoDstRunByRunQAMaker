@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<TrackQAHistos dir="trackQA" >
+		<Histo name="track_cuts" title="Sequential Track Cuts" bins_x="TrackQABins.track_cuts" />
+		<Histo name="track_single_cuts" title="Individual Track Cuts" bins_x="TrackQABins.track_cuts" />
+
+		<Histo name="MtdMuon_cuts" title="Sequential Track Cuts" bins_x="TrackQABins.track_cuts" />
+		<Histo name="MtdMuon_single_cuts" title="Individual Track Cuts" bins_x="TrackQABins.track_cuts" />
+
+		<!-- <Histo name="dTofMtd" title="MTD delta TOF" bins_x="TrackQABins.dTofMtd" />
+		<Histo name="deltaZMtd" title="MTD delta Z" bins_x="TrackQABins.deltaZMtd" />
+		<Histo name="deltaYMtd" title="MTD delta Y" bins_x="TrackQABins.deltaYMtd" />
+
+		<Histo name="pt_vs_dedx" title=";p_{T} [GeV/c]; dEdx" bins_x="TrackQABins.pt" bins_y="TrackQABins.dEdx" />
+
+		<Histo name="phi_vs_eta" title=";#phi;#eta" bins_x="TrackQABins.phi" bins_y="TrackQABins.eta" />
+		<Histo name="pt_vs_phi" title=";p_{T} [GeV/c];#phi" bins_x="TrackQABins.pt" bins_y="TrackQABins.phi" />
+		<Histo name="phi_vs_mtdHitChan" title="; #phi;Mtd Hit Channel" bins_x="TrackQABins.phi" bins_y="TrackQABins.mMtdHitChan" />
+		<Histo name="eta_vs_mtdHitChan" title="; #eta;Mtd Hit Channel" bins_x="TrackQABins.eta" bins_y="TrackQABins.mMtdHitChan" />
+
+		<Histo name="pt_vs_deltaYMtd" title=";p_{T} [GeV/c]; Mtd DeltaY" bins_x="TrackQABins.pt" bins_y="TrackQABins.deltaYMtd" />
+		<Histo name="pt_vs_deltaZMtd" title=";p_{T} [GeV/c]; Mtd DeltaZ" bins_x="TrackQABins.pt" bins_y="TrackQABins.deltaZMtd" />
+		<Histo name="eta_vs_deltaYMtd" title=";#eta; Mtd DeltaY" bins_x="TrackQABins.eta" bins_y="TrackQABins.deltaYMtd" />
+		<Histo name="eta_vs_deltaZMtd" title=";#eta; Mtd DeltaZ" bins_x="TrackQABins.eta" bins_y="TrackQABins.deltaZMtd" />
+		<Histo name="phi_vs_deltaYMtd" title=";#phi; Mtd DeltaY" bins_x="TrackQABins.phi" bins_y="TrackQABins.deltaYMtd" />
+		<Histo name="phi_vs_deltaZMtd" title=";#phi; Mtd DeltaZ" bins_x="TrackQABins.phi" bins_y="TrackQABins.deltaZMtd" />
+		<Histo name="nSigmaPion_vs_deltaYMtd" title=";n#sigma_{#pi}; Mtd DeltaY" bins_x="TrackQABins.nSigmaPion" bins_y="TrackQABins.deltaYMtd" />
+		<Histo name="nSigmaPion_vs_deltaZMtd" title=";n#sigma_{#pi}; Mtd DeltaZ" bins_x="TrackQABins.nSigmaPion" bins_y="TrackQABins.deltaZMtd" />
+
+		<Histo name="pt_vs_deltaTofMtd" title=";p_{T} [GeV/c]; Mtd DeltaTOF" bins_x="TrackQABins.pt" bins_y="TrackQABins.dTofMtd" />
+		<Histo name="eta_vs_deltaTofMtd" title=";#eta; Mtd DeltaTOF" bins_x="TrackQABins.eta" bins_y="TrackQABins.dTofMtd" />
+		<Histo name="phi_vs_deltaTofMtd" title=";#phi; Mtd DeltaTOF" bins_x="TrackQABins.phi" bins_y="TrackQABins.dTofMtd" />
+
+		<Histo name="mup_vs_mum" title=";# #mu^{-}; # #mu^{+}" bins_x="TrackQABins.nMus" bins_y="TrackQABins.nMus" /> -->
+
+	</TrackQAHistos>
+</config>

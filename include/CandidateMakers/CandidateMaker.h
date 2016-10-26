@@ -65,7 +65,6 @@ public:
 		
 		// Create the TreeMaker
 		candidateTree = shared_ptr<CandidateTreeMaker>( new CandidateTreeMaker(  ) );
-		// TODO: Change the config lookup path for this to make more sense since it no longer has anything to do with even mixing/splitting
 		candidateTree->createFile( config.getXString( nodePath + ".output.TTree:url" ) );
 		candidateTree->setPicoDst( pico );
 		makeTree( candidateTree );
@@ -133,17 +132,21 @@ protected:
 
 	virtual void analyzeEvent(){
 		if ( candidateTree ){
-			candidateTree->fillCandidateEvent( rmf->indexForRun( pico->Event_mRunId[0] ), 0, 1.0, 0.0 );
 
+
+			int bin16 = 0;
+			float weight = 1.0;
+			float psi2 = 0;
+			if ( useRefMultCorr ){
+				bin16 = rmc->getCentralityBin16();
+				weight = rmc->getWeight();
+				if ( weight < 1.0 ) weight = 1.0; // TODO: is this best
+				psi2 = calcPsi2();
+			}
+			candidateTree->fillCandidateEvent( rmf->indexForRun( pico->Event_mRunId[0] ), bin16, weight, psi2 );
+
+			// defaults to not keep tracks
 			candidateTree->keepEvent( false );
-
-			// TODO:  Re-incorporate RMC, EventPlane etc. to logic of filling the trees
-			// for instance, use to keep only events with pairs of muons
-			// default to keep all accepted events
-			// keepCandidateEvent = true;
-			// and default the track level
-			// isMuon = false;
-			// isElectron = false;
 		}
 	}
 

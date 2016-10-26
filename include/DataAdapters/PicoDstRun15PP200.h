@@ -21,7 +21,7 @@
 
 class PicoDstRun15PP200 : public IPicoDst {
 public :
-
+   virtual const char* classname() const { return "PicoDstRun14AuAu200"; }
    /************************************************************************************************************************************************/
    // Accessors
    virtual UShort_t mGDCA( int iTrack ) {

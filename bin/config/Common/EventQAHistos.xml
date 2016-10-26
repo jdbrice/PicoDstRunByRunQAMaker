@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<EventQAHistos dir="eventQA" >
+		<Histo name="event_cuts" title="Sequential Event Cuts" bins_x="EventQABins.event_cuts" />
+		<Histo name="event_single_cuts" title="Individual Event Cuts" bins_x="EventQABins.event_cuts" />
+
+		<Histo name="all_triggers" title="Triggers Present" bins_x="EventQABins.event_cuts" />
+		<Histo name="pass_triggers" title="Triggers Present (After Cuts) " bins_x="EventQABins.event_cuts" />
+
+		<!-- Post track cuts -->
+		<Histo name="zVertex" title="Z Vertex" bins_x="EventQABins.zVertex" />
+		<Histo name="zVpd" title="VPD Z Vertex" bins_x="EventQABins.zVertex" />
+		<Histo name="zVertex_vs_zVPD" title="z_{TPC} vs. z_{VPD}; z_{VPD} [cm]; z_{TPC} [cm]" bins_x="EventQABins.zVertex" bins_y="EventQABins.zVertex" />
+		<Histo name="zVertexDelta" title="Z Vertex - VPD Z Vertex" bins_x="EventQABins.zVertexDelta" />
+
+		<!-- Pre Track Cuts -->
+		<Histo name="pre_zVertex" title="Z Vertex" bins_x="EventQABins.zVertex" />
+		<Histo name="pre_zVpd" title="VPD Z Vertex" bins_x="EventQABins.zVertex" />
+		<Histo name="pre_zVertex_vs_zVPD" title="z_{TPC} vs. z_{VPD}; z_{VPD} [cm]; z_{TPC} [cm]" bins_x="EventQABins.zVertex" bins_y="EventQABins.zVertex" />
+		<Histo name="pre_zVertexDelta" title="Z Vertex - VPD Z Vertex" bins_x="EventQABins.zVertexDelta" />
+
+
+		<Histo name="nTracks" title="Num Tracks" bins_x="EventQABins.nTracks" />
+	</EventQAHistos>
+
+	<TrackQAHistos dir="trackQA" >
+		<Histo name="MtdMuon_cuts" title="Sequential Track Cuts" bins_x="EventQABins.event_cuts" />
+		<Histo name="MtdMuon_single_cuts" title="Invidiual Track Cuts" bins_x="EventQABins.event_cuts" />
+
+		<Histo name="TpcTofElectron_cuts" title="Sequential Track Cuts" bins_x="EventQABins.event_cuts" />
+		<Histo name="TpcTofElectron_single_cuts" title="Invidiual Track Cuts" bins_x="EventQABins.event_cuts" />
+	</TrackQAHistos>
+
+</config>

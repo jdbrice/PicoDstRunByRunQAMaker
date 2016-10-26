@@ -11,14 +11,12 @@ public:
 
 	void copy( CandidateTrackBTofPidTraits * that){
 		this->mBTofBeta      = that->mBTofBeta;
-		this->mTrackIndex    = that->mTrackIndex;
 		this->mBTofYLocal    = that->mBTofYLocal;
 		this->mBTofZLocal    = that->mBTofZLocal;
 		this->mBTofMatchFlag = that->mBTofMatchFlag;
 	}
 
 	UShort_t mBTofBeta;			// beta * 20000
-	Short_t  mTrackIndex;		// Index to the associated track in the event
 	Short_t  mBTofYLocal;		// ylocal * 1000
 	Short_t  mBTofZLocal;		// zlocal * 1000
 	UChar_t  mBTofMatchFlag;	// 0 - no match, 1 - one-to-one, 2 - one-to-multiple

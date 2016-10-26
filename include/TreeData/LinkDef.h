@@ -9,6 +9,8 @@
 #pragma link C++ class CandidateTrack+;
 #pragma link C++ class CandidateTrackBTofPidTraits+;
 #pragma link C++ class CandidateTrackMtdPidTraits+;
+#pragma link C++ class CandidateTrackEmcPidTraits+;
+#pragma link C++ class CandidateTrackHelix+;
 
 #pragma link C++ class CandidatePair+;
 

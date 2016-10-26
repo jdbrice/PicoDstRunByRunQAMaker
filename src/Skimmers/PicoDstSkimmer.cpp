@@ -58,6 +58,10 @@ void PicoDstSkimmer::initialize(){
 		rmf = shared_ptr<RunMapFactory>( new RunMapFactory( ) );
 	}
 
+	INFO( classname(), "Making QA :" );
+	INFO( classname(), "Event : " << bts( config.getBool( nodePath +".MakeQA:event", false ) ) );
+	INFO( classname(), "Track : " << bts( config.getBool( nodePath +".MakeQA:track", false ) ) );
+
 }
 
 bool PicoDstSkimmer::keepEvent(){

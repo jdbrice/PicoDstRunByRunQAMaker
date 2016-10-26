@@ -11,6 +11,7 @@
 #include "CandidateTrackMtdPidTraits.h"
 
 
+
 class CandidateTreeMaker : public ICandidateTreeMaker, public IObject
 {
 public:
@@ -128,9 +129,18 @@ public:
 		// default out the PidTraits
 		aTrack->mBTofPidTraitsIndex = -1;
 		aTrack->mMtdPidTraitsIndex  = -1;
+		aTrack->mEmcPidTraitsIndex  = -1;
+		aTrack->mHelixIndex         = -1;
 
-		fillCandidateBTofPidTraits( aTrack, iTrack );
-		fillCandidateMtdPidTraits( aTrack, iTrack );
+		if ( makeBTofPidTraits )
+			fillCandidateBTofPidTraits( aTrack, iTrack );
+		if ( makeMtdPidTraits )
+			fillCandidateMtdPidTraits( aTrack, iTrack );
+		if ( makeEmcPidTraits )
+			fillCandidateEmcPidTraits( aTrack, iTrack );
+		if ( makeHelices )
+			fillCandidateTrackHelix( aTrack, iTrack );
+
 		
 
 		// aTrack->species = speciesMask();
@@ -185,6 +195,26 @@ public:
 		} else {
 
 		}
+	}
+
+	virtual void fillCandidateEmcPidTraits( CandidateTrack * aTrack, int iTrack ){
+
+	}
+
+	virtual void fillCandidateTrackHelix( CandidateTrack * _track, int iTrack ){
+		DEBUG( classname(), "Filling Helix for " << iTrack );
+		_track->mHelixIndex = nHelices;
+		CandidateTrackHelix * helix = new ((*wTrackHelices)[nHelices]) CandidateTrackHelix( );
+		nHelices++;
+		memcpy( helix->mPar, mPico->Tracks_mPar[iTrack], sizeof(Float_t) * 6 );
+		
+		for ( int i =0; i < 6; i++ ){
+			DEBUG( classname(), "mPar["<< i <<"] = " << mPico->Tracks_mPar[iTrack][i] << "  ==  " <<  helix->mPar[i]  );
+		}
+
+		helix->mMap0 = mPico->Tracks_mMap0[iTrack];
+		helix->mMap1 = mPico->Tracks_mMap1[iTrack];
+		
 	}
 
 	virtual void fillTree(){

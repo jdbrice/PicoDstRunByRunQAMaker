@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-	<EventPlaneCorr>
-		<CenteringOffset x="-0.006769" y="0.014475" />
-	</EventPlaneCorr>
-</config>

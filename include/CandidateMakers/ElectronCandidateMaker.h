@@ -21,16 +21,22 @@ public:
 	virtual void initialize();
 
 protected:
-	CutCollection muonCuts;
 	CutCollection electronCuts;
-	int nElectrons;
-	int nMuons;
-
-
+	int nElectrons = 0;
+	
+	virtual void makeTree( shared_ptr<CandidateTreeMaker> _tree ){
+		_tree->createTree( 
+				false, // EventPlane branch
+				true,  // Tracks
+				true, // bTof
+				false,  // MTD
+				false, // EMC
+				true
+				 );
+	}
 	virtual void analyzeEvent();
 	virtual bool keepTrack( int iTrack );
-	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int iCandTrack );
-
+	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack );
 
 };
 

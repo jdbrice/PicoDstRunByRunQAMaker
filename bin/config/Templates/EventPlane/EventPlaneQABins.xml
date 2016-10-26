@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-	<EventPlaneQABins>
-		<nTracks width="1" min="0" max="1500" />
-	</EventPlaneQABins>
-</config>

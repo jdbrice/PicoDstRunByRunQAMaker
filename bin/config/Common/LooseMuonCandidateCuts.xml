@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<MuonCandidateCuts>
+		<Range name="nHitsRatio" min="0.52" />
+		<Range name="nHitsDedx" min="10" />
+		<Range name="nHitsFit" min="10" />
+		<Range name="eta" min="-2" max="2" />
+		
+		<Range name="pt" min="0.01" />
+		<Range name="nSigmaPion" min="-1000.5" max="1000.5" />
+		<Range name="gDCA" min="0.0" max="100.0" />
+		
+		<Range name="matchFlagMtd" min="1" max="15"/> 
+		<Range name="dzMtd" min="-2000" max="2000" />
+		<Range name="dyMtd" min="-2000" max="2000" />
+		<Range name="drMtd" min="0" max="30000" />
+		
+		<Range name="dTofMtd" min="-50000000" max="50000000" />
+	</MuonCandidateCuts>
+</config>

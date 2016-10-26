@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-	<MtdResolution>
-		<XmlFunction formula="[0]+[1]*exp([2]/x)" p0="-32.6793" p1="32.6034" p2="0.444217" e0="1.0" e1="1.0" e2="0.1" />
-		<XmlFunction formula="[0]+[1]*exp([2]/x)" p0="-17.6867" p1="18.4528" p2="0.637142" e0="1.0" e1="1.0" e2="0.1" />
-	</MtdResolution>
-</config>

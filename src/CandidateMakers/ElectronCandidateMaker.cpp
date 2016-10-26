@@ -26,6 +26,8 @@ void ElectronCandidateMaker::initialize(){
 	electronCuts.setDefault( "eta", -0.9, 0.9 );
 	electronCuts.setDefault( "dca", 0, 3.0 );
 	electronCuts.setDefault( "yLocal", -1.8, 1.8 );
+	electronCuts.setDefault( "dEdx", -10000000, 10000000 );
+	electronCuts.setDefault( "invBeta", -1000000, 10000000 );
 	INFO( classname(), "" );
 	INFO( classname(), "############### Electron Cuts ###################"  );
 	electronCuts.report();
@@ -41,40 +43,31 @@ void ElectronCandidateMaker::analyzeEvent(){
 	CandidateMaker::analyzeEvent();
 
 	// dont keep events by default, instead require at least 2 electrons cands per event
-	keepCandidateEvent = false;
+	// keepCandidateEvent = false;
+	nElectrons = 0;
 }
 
 
 bool ElectronCandidateMaker::keepTrack( int iTrack ){
 	DEBUG( classname(), fmt::format( "(iTrack={0})", iTrack ) );
 
-	isElectron = CandidateFilter::isTpcTofElectron( pico, iTrack, electronCuts );
+
+
+	shared_ptr<HistoBook> qaBook = nullptr;
+	if ( config.getBool( nodePath + ".MakeQA:track" ) )
+		qaBook = book;
+
+	isElectron = CandidateFilter::isTpcTofElectron( pico, iTrack, electronCuts, qaBook );
 	if ( isElectron )
 		nElectrons ++;
 
  	return isElectron;
 }
 
-void ElectronCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack, int iCandTrack ){
+void ElectronCandidateMaker::analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack ){
 	
-	fillCandidateTrack( aTrack, iTrack );
-	// aTrack->charge = pico->Tracks_mNHitsFit[iTrack] > 0 ? 1 : -1;
-
-	// aTrack->pX = pico->Tracks_mPMomentum_mX1[iTrack];
-	// aTrack->pY = pico->Tracks_mPMomentum_mX2[iTrack];
-	// aTrack->pZ = pico->Tracks_mPMomentum_mX3[iTrack];
-
-	// aTrack->dEdx = pico->Tracks_mDedx[ iTrack ] / 1000.0;
-
-	// int iBTof = pico->Tracks_mBTofPidTraitsIndex[ iTrack ];
-	// if ( iBTof >= 0 )
-	// 	aTrack->beta = pico->BTofPidTraits_mBTofBeta[ iBTof ] / 20000.0;
-	// else 
-	// 	aTrack->beta = 0;
-
-	// aTrack->species = speciesMask();
-	
-	// keep events with at least 2 tracks
-	if ( iCandTrack >= 1 && nElectrons >= 2 )
-		keepCandidateEvent = true;
+	candidateTree->fillCandidateTrack( aTrack, iTrack );
+	if ( candidateTree->numberOfTracks() >= 2 ){
+		candidateTree->keepEvent( true );
+	}
 }

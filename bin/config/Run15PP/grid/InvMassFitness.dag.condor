@@ -1,8 +1,0 @@
-######################################################################
-# 				InvMassPlotter + FitnessMaker
-######################################################################
-
-JOB InvMassMaker /home/jdb12/work/muonAna/bin/config/Run15PP/grid/SingleInvMassMaker.condor
-JOB FitnessMaker /home/jdb12/work/muonAna/bin/config/Run15PP/grid/FitnessMaker.condor
-
-PARENT InvMassMaker CHILD FitnessMaker

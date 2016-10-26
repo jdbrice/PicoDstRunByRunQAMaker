@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<!-- TASKS -->
+	<Task name="skimmer" type="SameEventPairTreeMaker" config="" nodePath="InvMP" />
+	<Logger color="true" globalLogLevel="info" />
+	
+	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<InvMP >
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+		<MakeQA event="true" track="true" />
+
+		<input>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="200"/>
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_{InvMP.EventHash}.root" />
+		</output>
+
+		<histograms>
+			<!-- <Include url="../Common/dimuonHistos.xml" /> -->
+			<Include url="../Common/TrackQAHistos.xml" />
+			<Include url="../Common/PairQAHistos.xml" />
+		</histograms>
+
+		<Particles mass1="0.105658" mass2="0.105658" />
+
+		<Include url="{R:url}/MuonCandidateCuts.xml" />
+		<Include url="{R:url}/SameEventPairCuts.xml" />
+		<Include url="{R:url}/MixedEventBins.xml" />
+
+	</InvMP>
+
+	<!-- <Include url="{R:url}/dimuonBins.xml" /> -->
+	<Include url="../Common/TrackQABins.xml" />
+	<Include url="../Common/PairQABins.xml" />
+
+</config>

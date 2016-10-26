@@ -22,7 +22,8 @@ cxxFlags.extend( ROOTCFLAGS )
 paths 			= [ '.', 			# dont really like this but ended up needing for root dict to work ok
 					'include', 
 					JDB_LIB + "/include", 
-					ROOT_SYS + "/include" 
+					ROOT_SYS + "/include",
+					ROOT_SYS + "/misc/table/inc/"	# Needed for TCernLib
 					]
 paths.extend( Glob( "include/*" ) )
 

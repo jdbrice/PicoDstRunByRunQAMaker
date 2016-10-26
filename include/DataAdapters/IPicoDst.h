@@ -13,10 +13,13 @@
 #include <string>
 #include <limits>
 
+#include "IObject.h"
 
-class IPicoDst
+
+class IPicoDst : public jdb::IObject
 {
 public:
+	virtual const char* classname() const { return "IPicoDst"; }
 	IPicoDst(){}
 	~IPicoDst(){}
 
@@ -175,7 +178,7 @@ public:
 	static const Int_t kMaxMtdHit = 100;
 	static const Int_t kMaxEmcPidTraits = 1000;
 	static const Int_t kMaxBTofPidTraits = 2000;
-	static const Int_t kMaxMtdPidTraits = 8;
+	static const Int_t kMaxMtdPidTraits = 100;
 	static const Int_t kMaxV0Ks = 1;
 	static const Int_t kMaxV0L = 1;
 	static const Int_t kMaxV0Lbar = 1;
@@ -290,6 +293,10 @@ public:
 	Short_t         Tracks_mNSigmaKaon[kMaxTracks];   //[Tracks_]
 	Short_t         Tracks_mNSigmaProton[kMaxTracks];   //[Tracks_]
 	Short_t         Tracks_mNSigmaElectron[kMaxTracks];   //[Tracks_]
+
+	UInt_t          Tracks_mMap0[kMaxTracks];   //[Tracks_]
+	UInt_t          Tracks_mMap1[kMaxTracks];   //[Tracks_]
+	Float_t         Tracks_mPar[kMaxTracks][6];
 	// HFT - INDIVIDUAL PICOS
 	Short_t         Tracks_mEmcPidTraitsIndex[kMaxTracks];   //[Tracks_]
 	Short_t         Tracks_mBTofPidTraitsIndex[kMaxTracks];   //[Tracks_]
@@ -514,6 +521,10 @@ public:
 	TBranch        *b_Tracks_mNSigmaKaon;   //!
 	TBranch        *b_Tracks_mNSigmaProton;   //!
 	TBranch        *b_Tracks_mNSigmaElectron;   //!
+	
+	TBranch        *b_Tracks_mMap0;   //!
+	TBranch        *b_Tracks_mMap1;   //!
+	TBranch        *b_Tracks_mPar;   //!
 	// HFT
 	TBranch        *b_Tracks_mEmcPidTraitsIndex;   //!
 	TBranch        *b_Tracks_mBTofPidTraitsIndex;   //!

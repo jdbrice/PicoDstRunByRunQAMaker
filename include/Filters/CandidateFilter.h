@@ -165,7 +165,7 @@ public:
 		bool makeQA = true;
 		if ( nullptr == book  )
 			makeQA = false;
-		string cutsName = "MtdMuon";
+		string cutsName = "TpcTofElectron";
 
 		double nHitsFit = abs(pico->Tracks_mNHitsFit[ iTrack ]);
 		double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
@@ -282,7 +282,7 @@ public:
 		bool makeQA = true;
 		if ( nullptr == book  )
 			makeQA = false;
-		string cutsName = "tpcTofElectron";
+		string cutsName = "TpcTofElectron";
 
 		double nHitsFit = abs( pico->Tracks_mNHitsFit[ iTrack ] );
 		double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
@@ -290,6 +290,10 @@ public:
 		double nHitsRatio = nHitsFit / nHitsMax;
 		double dEdx = pico->Tracks_mDedx[ iTrack ] / 1000.0;
 		TVector3 momentum( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
+
+		if ( makeQA ) { 
+			passTrackCut( "all", allCuts, book, cutsName );
+		}
 
 		int iBTof = pico->Tracks_mBTofPidTraitsIndex[ iTrack ];
 		if ( iBTof < 0 ){
@@ -306,7 +310,7 @@ public:
 			invBeta = 1.0 / (pico->BTofPidTraits_mBTofBeta[ iBTof ] / 20000.0);		
 		}
 		
-		double gDCA = 0;
+		double gDCA = 0;pico->gDCA( iTrack );
 		 
 		if ( momentum.Pt() < ccol[ "pt" ]->min ){
 			allCuts = false;

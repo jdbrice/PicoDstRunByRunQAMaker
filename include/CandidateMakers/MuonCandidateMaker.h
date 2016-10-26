@@ -28,7 +28,9 @@ protected:
 				false, // EventPlane branch
 				true,  // Tracks
 				false, // bTof
-				true   // MTD
+				true,  // MTD
+				false, // EMC
+				false  // helix
 				 );
 	}
 	virtual void analyzeEvent();

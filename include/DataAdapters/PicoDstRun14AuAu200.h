@@ -23,10 +23,16 @@
 #include <limits>
 
 #include "IPicoDst.h"
+#include "StDcaGeometry.h"
+#include "StPhysicalHelixD.h"
+#include "StThreeVectorF.h"
+
+
 
 class PicoDstRun14AuAu200 : public IPicoDst{
 public:
 	
+	virtual const char* classname() const { return "PicoDstRun14AuAu200"; }
 	// bool isMtdTrigger( std::string trigger ){
 	// 	if ( "dimuon" == trigger )
 	// 		return isDiMuon();
@@ -631,7 +637,33 @@ public :
 	virtual Bool_t   Notify();
 	virtual void     Show(Long64_t entry = -1);
 
-	
+	/************************************************************************************************************************************************/
+	// Accessors
+	virtual UShort_t mGDCA( int iTrack ) {
+		return gDCA( iTrack ) * 1000;
+	}
+	virtual float gDCA( int iTrack ) {
+		Float_t Tracks_mErrMatrix[15];
+		for ( int i = 0; i < 15; i ++ ){
+			Tracks_mErrMatrix[i] = 0;
+		}
+
+		StDcaGeometry dcaGeom;
+		dcaGeom.set( Tracks_mPar[iTrack], Tracks_mErrMatrix );
+		StThreeVectorF vertex( Event_mPrimaryVertex_mX1[0], Event_mPrimaryVertex_mX1[1], Event_mPrimaryVertex_mX1[2] );
+
+		StPhysicalHelixD gHelix = dcaGeom.helix();
+		gHelix.moveOrigin( gHelix.pathLength(vertex) );
+
+		StThreeVectorF origin = gHelix.origin();
+		StThreeVectorF HMom   = gHelix.momentum( Event_mBField[0] * kilogauss); // taken from PicoEvent
+
+		StThreeVectorF diff   = origin - vertex;
+		Float_t gdca = diff.mag();
+		return gdca;
+	}
+
+
 
 	template <typename T>
 	T get( std::string var, unsigned int i = 0, unsigned int j = 0, unsigned int k = 0 ) {

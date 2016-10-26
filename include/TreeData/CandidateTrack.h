@@ -54,14 +54,15 @@ public:
 	Short_t 	mNSigmaKaon;		// nsigmaK * 100
 	Short_t 	mNSigmaProton;		// nsigmaP * 100
 	Short_t 	mNSigmaElectron;	// nsigmaE * 100
-	Short_t 	mDCA;				// global track gDCA * 1000
+	UShort_t 	mDCA;				// global track gDCA * 1000
 	
 	// pidTraits
 	Short_t 	mBTofPidTraitsIndex; // index of the BTOF pidTratis in the event
-	Short_t 	mMtdPidTraitsIndex;  // index of the MTD  pidTratis in the event
+	Short_t 	mMtdPidTraitsIndex;  // index of the MTD pidTratis in the event
+	Short_t 	mEmcPidTraitsIndex;  // index of the EMC pidTratis in the event
+	Short_t 	mHelixIndex;		 // index of associated Track Helix
 	
-	
-	ClassDef( CandidateTrack, 2 )
+	ClassDef( CandidateTrack, 3 )
 };
 
 #endif

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-	<PairQAHistos dir="pairQA" >
-		<Histo name="pre_nPairs" title="Number of Pairs before Cuts" bins_x="PairQABins.nPairs" />
-		<Histo name="nPairs" title="Number of Pairs after Cuts" bins_x="PairQABins.nPairs" />
-	</PairQAHistos>
-</config>

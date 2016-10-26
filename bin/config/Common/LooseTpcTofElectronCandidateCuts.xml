@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<ElectronCandidateCuts>
+		<Range name="nHitsRatio" min="0.52" />
+		<Range name="nHitsFit" min="10" />
+		<Range name="nHitsDedx" min="10" />
+		
+		<Range name="eta" min="-2.0" max="2.0" />
+		<Range name="dca" max="300.0" />
+		
+		<Range name="pt" min="0.2" />
+		<Range name="momentum" max="30" />
+		
+		<!-- <Range name="invBeta" min="-0.05" max="0.05" /> -->
+		<Range name="yLocal" min="-10.8" max="10.8" />
+
+		<!-- <Range name="dEdx" min="3.5" max="100000" /> -->
+
+	</ElectronCandidateCuts>
+</config>

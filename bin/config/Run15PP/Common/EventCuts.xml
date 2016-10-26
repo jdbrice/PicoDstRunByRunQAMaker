@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-	<EventCuts>
-		<Range name="zVertex" min="-100" max="100" />
-		<Range name="zVertexDelta" min="0" max="6" />
-		<Range name="EventPlane_nTracks" min="0" max="1000000" />
-	</EventCuts>
-</config>
