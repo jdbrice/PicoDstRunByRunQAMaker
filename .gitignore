@@ -29,7 +29,7 @@ StRefMultCorr
 .sconsign.dblite
 test.py
 
-bin/config/Common/cwd.xml
+cwd.xml
 bin/config/Params
 
 #possible data dirs
