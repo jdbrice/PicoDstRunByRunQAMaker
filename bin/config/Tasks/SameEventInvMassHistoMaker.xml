@@ -4,15 +4,14 @@
 	<Task name="flm" type="InvMassHistoMaker" config="" nodePath="IMHM" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<Include url="./Common/cwd.xml" />
+	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
 	
 	<IMHM>
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		
 		<input>
-			<!-- TODO: Fix the snaming for times when it is not a single job producing the input tree
-			-->
 			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_.root" nEvents="-1"/>
 		</input>
 
@@ -21,11 +20,11 @@
 		</output>
 
 		<histograms>
-			<Include url="./Common/dimuonHistos.xml" />	
+			<Include url="../Common/dimuonHistos.xml" />	
 		</histograms>
 
 	</IMHM>
 
-	<Include url="./Common/dimuonBins.xml" />
+	<Include url="{R:url}/dimuonBins.xml" />
 
 </config>

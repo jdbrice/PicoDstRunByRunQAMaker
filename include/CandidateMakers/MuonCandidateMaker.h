@@ -37,6 +37,13 @@ protected:
 	virtual bool keepTrack( int iTrack );
 	virtual void analyzeCandidateTrack( CandidateTrack * aTrack, int iTrack );
 
+	virtual void preEventLoop(){
+		TreeAnalyzer::preEventLoop();
+
+		vector<string> trackCutBinLabels = config.getStringVector( "TrackQABins.MtdMuon_binLabels" );
+		CandidateFilter::initializeBinLabels( book, trackCutBinLabels, "MtdMuon" );
+	}
+
 };
 
 

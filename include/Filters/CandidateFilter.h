@@ -44,6 +44,26 @@ public:
 		ccol.setDefault( "mtdCell"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 	}
 
+	static void initializeBinLabels( const shared_ptr<HistoBook>& _book, vector<string> _labels, string _prefix ){
+		if ( nullptr == _book ){
+			ERROR( "CandidateFilter", "Cannot initialize bin labels, null HistoBook" );
+		}
+
+		TH1 * hsc = _book->get( _prefix + "_single_cuts" );
+		TH1 * hc = _book->get( _prefix + "_cuts" );
+
+		if ( nullptr == hsc || nullptr == hc ){
+			ERROR( "CandidateFilter", "Cannot initialize bin labels, null histogram" );
+		}
+
+		for ( int i = 0; i < _labels.size(); i++ ){
+			hsc->GetXaxis()->SetBinLabel( i+1, _labels[i].c_str() );
+			hc->GetXaxis()->SetBinLabel( i+1, _labels[i].c_str() );
+			TRACE( "CandidateFilter", "Setting " << _prefix + "_single_cuts[ " << i+1 << " ] = " << _labels[i] );
+			TRACE( "CandidateFilter", "Setting " << _prefix + "_cuts[ " << i+1 << " ] = " << _labels[i] );
+		}
+	}
+
 	static bool isMuon( CandidateTrack *_aTrack, CandidateTrackMtdPidTraits * _mtdPidTraits, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr ){
 		
 
@@ -78,7 +98,7 @@ public:
 		if ( momentum.Pt() < ccol[ "pt" ]->min ){
 			allCuts = false;
 		} else if ( makeQA ) {
-			passTrackCut( "mom", allCuts, book, cutsName );
+			passTrackCut( "Mom", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "nSigmaPion" ]->inInclusiveRange( nSigmaPion ) ){
@@ -117,7 +137,7 @@ public:
 		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( _mtdPidTraits->mMatchFlag ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
-			passTrackCut( "mtdMatch", allCuts, book, cutsName );
+			passTrackCut( "mtdMatchFlag", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "mtdTriggerFlag" ]->inInclusiveRange( _mtdPidTraits->mTriggerFlag ) ){
@@ -135,23 +155,23 @@ public:
 		if ( !ccol[ "dTofMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaTimeOfFlight ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
-			passTrackCut( "dTof", allCuts, book, cutsName );
+			passTrackCut( "mtdDeltaTof", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "dyMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
-			passTrackCut( "dy", allCuts, book, cutsName );
+			passTrackCut( "mtdDeltaY", allCuts, book, cutsName );
 		}
 		if ( !ccol[ "dzMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaZ ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
-			passTrackCut( "dz", allCuts, book, cutsName );
+			passTrackCut( "mtdDeltaZ", allCuts, book, cutsName );
 		}
 		if ( !ccol[ "drMtd" ]->inInclusiveRange( deltaR ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
-			passTrackCut( "dr", allCuts, book, cutsName );
+			passTrackCut( "mtdDeltaR", allCuts, book, cutsName );
 		}
 
 		return allCuts;

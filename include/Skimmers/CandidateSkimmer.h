@@ -11,6 +11,7 @@
 #include "CandidateTrackBTofPidTraits.h"
 #include "CandidateTrackMtdPidTraits.h"
 #include "TriggerFilter.h"
+#include "CandidateFilter.h"
 
 //ROOT
 #include "TClonesArray.h"
@@ -106,6 +107,13 @@ protected:
 
 	virtual void postMake(){
 		config.toXmlFile( "freeze_config.xml" );
+	}
+
+	virtual void preEventLoop(){
+		TreeAnalyzer::preEventLoop();
+
+		vector<string> trackCutBinLabels = config.getStringVector( "TrackQABins.MtdMuon_binLabels" );
+		CandidateFilter::initializeBinLabels( book, trackCutBinLabels, "MtdMuon" );
 	}
 
 	

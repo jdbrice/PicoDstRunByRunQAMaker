@@ -9,6 +9,7 @@
 #include "CandidateTreeMaker.h"
 #include "EventHasher.h"
 #include "RunMapFactory.h"
+#include "CandidateFilter.h"
 
 #include "StRefMultCorr.h"
 #include "CentralityMaker.h"
