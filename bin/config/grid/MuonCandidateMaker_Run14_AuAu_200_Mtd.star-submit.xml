@@ -2,7 +2,7 @@
 <job simulateSubmission="false" nProcesses="3" >
 	
 	<command>
-		starver SL15e
+		starver pro
 		./prod ./config/Tasks/MuonCandidateMaker_Run14_AuAu_200_Mtd.xml --jobIndex=${JOBINDEX} --R:active=Run14_AuAu_200_Mtd &gt;&amp; muonCand_log_${JOBID}.log
 	</command>
 
