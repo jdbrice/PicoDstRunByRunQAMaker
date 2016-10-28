@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+	<Include url="../Common/cwd.xml" />
+
+	<Data name="d1" url="{CWD:out}/InvMassMuMu/bg_inv_mass_mumu.root" />
+	<Data name="d2" url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" />
+	<Data name="same_event" url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms.root" />
+
+
+	<Plot>
+		<Margins left="0.15" right="0.1" top="0.1" bottom="0.15" />
+		<Palette>57</Palette>
+		<Histo name="unlike_sign_pT" data="same_event" >
+			<style draw="colz" logz="1" xrange="0, 6" optstat="0" logy="0" title="Au+Au: Same Event, unlike sign ; M_{{#mu#mu}} [GeV/c^{{2}}]; p_{{T}} [GeV]" yto="1.3" />
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/same_event_us_vs_pT.pdf" />
+		<!-- <Export url="{CWD:out}/Run14_AuAu_200_invariant_mass_linear.eps" /> -->
+	</Plot>
+
+	<Plot>
+		<Margins left="0.15" right="0.1" top="0.1" bottom="0.15" />
+		<Palette>57</Palette>
+		<Histo name="like_sign_pT" data="same_event" >
+			<style draw="colz" logz="1" xrange="0, 16" optstat="0" logy="0" title="Au+Au: Same Event, like sign ; M_{{#mu#mu}} [GeV/c^{{2}}]; p_{{T}} [GeV]" yto="1.3" />
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/same_event_ls_vs_pT.pdf" />
+		<!-- <Export url="{CWD:out}/Run14_AuAu_200_invariant_mass_linear.eps" /> -->
+	</Plot>
+	
+
+	
+
+</config>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<Include url="../../{DataSet}/Common/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+
+	<Data name="all" url="{CWD:out}/QA/MuonCandidates_all.root" />
+	<Data name="high_pt_pos" url="{CWD:out}/QA/MuonCandidates_pt_gt_4GeV.root" />
+	<Data name="pos" url="{CWD:out}/QA/MuonCandidates_pos.root" />
+
+	<DataSet>Run15PP</DataSet>
+
+	<TCanvas width="800" height="600" />
+
+	<Margins left="0.10" right="0.01" top="0.1" bottom="0.15" />
+	<TLatex x="0.65" y="0.86" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.03"/>
+	<!-- <TLatex x="0.55" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/> -->
+
+	<!-- <OptStats x1="0.7" y1="0.75" x2="0.975" y2="0.9" /> -->
+	
+	
+
+	<Plot>
+		<Histo data="all" name="trackQA/eta" style="styles.h1d">
+			<style title="eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_eta.pdf" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdCell" style="styles.h1d">
+			<style title="mtdCell" logy="0" yr="0.0, 0.17" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_mtdCell.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/mtdDeltaTOF" style="styles.h1d">
+			<style title="mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_mtdDeltaTOF.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/mtdDeltaY" style="styles.h1d">
+			<style title="mtdDeltaY" xr="-60, 60" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_mtdDeltaY.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/mtdDeltaZ" style="styles.h1d">
+			<style title="mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_mtdDeltaZ.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/mtdHitChan" style="styles.h1d">
+			<style title="mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_mtdHitChan.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/nHitsDedx" style="styles.h1d">
+			<style title="nHitsDedx" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_nHitsDedx.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/nHitsFit" style="styles.h1d">
+			<style title="nHitsFit" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_nHitsFit.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/nHitsMax" style="styles.h1d">
+			<style title="nHitsMax" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_nHitsMax.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/nSigmaPion" style="styles.h1d">
+			<style title="nSigmaPion" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_nSigmaPion.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/pMomentum" style="styles.h1d">
+			<style title="pMomentum" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_pMomentum.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/pMomentumX" style="styles.h1d">
+			<style title="pMomentumX" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_pMomentumX.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/pMomentumY" style="styles.h1d">
+			<style title="pMomentumY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_pMomentumY.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/pMomentumZ" style="styles.h1d">
+			<style title="pMomentumZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_pMomentumZ.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/phi" style="styles.h1d">
+			<style title="phi" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_phi.pdf" />
+	</Plot>
+	<Plot>
+		<Histo data="high_pt_pos" name="trackQA/phi" style="styles.h1d">
+			<style title="phi" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_high_pt_pos_phi.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/rigidity" style="styles.h1d">
+			<style title="rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_rigidity.pdf" />
+	</Plot>
+	 <Plot>
+		<Histo data="all" name="trackQA/runIndex" style="styles.h1d">
+			<style title="runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_runIndex.pdf" />
+	</Plot>
+
+	<!-- SPECIALS -->
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY" style="styles.h1d">
+			<style title="pMomentumY" xr="-2.5, 2.5" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_pMomentumY_zoomed.pdf" />
+	</Plot>
+
+	<Plot>
+		<TCanvas width="2000" height="500" />
+		<Histo data="all" name="trackQA/pMomentumY" style="styles.h1d">
+			<style title="pMomentumY"  />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_pMomentumY_long.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX" style="styles.h1d">
+			<style title="pMomentumX" xr="-2.5, 2.5" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_pMomentumX_zoomed.pdf" />
+	</Plot>
+	<Plot>
+		<TCanvas width="2000" height="500" />
+		<Histo data="all" name="trackQA/pMomentumX" style="styles.h1d">
+			<style title="pMomentumX"  />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_pMomentumX_long.pdf" />
+	</Plot>
+
+	<!-- <Plot>
+		<Histo data="pos" name="trackQA/mtdCell_vs_rigidity" style="styles.h2d">
+			<style title="mtdCell" logy="0" yr="0.0, 0.17" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/pdf/CandidateTracks_all_mtdCell.pdf" />
+	</Plot> -->
+
+
+	<styles>
+		<h1d draw="h" fc="597" optstat="0" logy="1" xts="0.05" yts="0.05" />
+		<h2d draw="colz" optstat="0" logz="1" title="Run14 Au+Au at #sqrt{{s_{{NN}}}};" xts="0.05" yts="0.05" />
+	</styles>
+	
+
+</config>

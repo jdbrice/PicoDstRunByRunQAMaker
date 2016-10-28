@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<Include url="../../{DataSet}/Common/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+
+	<Data name="all" url="{CWD:out}/QA/MuonCandidates_all.root" />
+	<Data name="high_pt_pos" url="{CWD:out}/QA/MuonCandidates_pt_gt_4GeV.root" />
+
+	<DataSet>Run15PP</DataSet>
+
+	
+	<ext>png</ext>
+	<Margins left="0.10" right="0.12" top="0.1" bottom="0.15" />
+	<TLatex x="0.60" y="0.87" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.03"/>
+	<!-- <TLatex x="0.55" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/> -->
+
+	<!-- <OptStats x1="0.7" y1="0.75" x2="0.975" y2="0.9" /> -->
+	
+	<TCanvas width="2000" height="1400" />
+
+	<!-- HIGH PT -->
+	<Plot>
+		<Histo data="high_pt_pos" name="trackQA/phi_vs_mtdDeltaY" style="styles.h2d">
+			<style title="phi_vs_mtdDeltaY" xr="-65, 65" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_high_pt_pos_2D_phi_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="high_pt_pos" name="trackQA/phi_vs_mtdDeltaY" style="styles.h2d">
+			<style title="phi_vs_mtdDeltaY" xr="-65, 65" yr="0, 1" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_high_pt_pos_2D_phi_vs_mtdDeltaY_zoomed.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="high_pt_pos" name="trackQA/phi_vs_mtdHitChan" style="styles.h2d">
+			<style title="phi_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_high_pt_pos_2D_phi_vs_mtdHitChan.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="high_pt_pos" name="trackQA/phi_vs_mtdHitChan" style="styles.h2d">
+			<style title="phi_vs_mtdHitChan" xr="0, 200" yr="1.5, 2.2" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_high_pt_pos_2D_phi_vs_mtdHitChan_zoomed.{ext}" />
+	</Plot>
+
+
+	<!-- <Plot>
+		<Histo data="all" name="trackQA/mtdCell_vs_eta" style="styles.h2d">
+			<style title="mtdCell_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdCell_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaTOF_vs_mtdCell" style="styles.h2d">
+			<style title="mtdDeltaTOF_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaTOF_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaY_vs_mtdCell" style="styles.h2d">
+			<style title="mtdDeltaY_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaY_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaZ_vs_mtdCell" style="styles.h2d">
+			<style title="mtdDeltaZ_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaZ_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdHitChan_vs_mtdCell" style="styles.h2d">
+			<style title="mtdHitChan_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdHitChan_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsDedx_vs_mtdCell" style="styles.h2d">
+			<style title="nHitsDedx_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsDedx_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsFit_vs_mtdCell" style="styles.h2d">
+			<style title="nHitsFit_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsFit_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_mtdCell" style="styles.h2d">
+			<style title="nHitsMax_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsMax_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_mtdCell" style="styles.h2d">
+			<style title="nSigmaPion_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_mtdCell" style="styles.h2d">
+			<style title="pMomentum_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_mtdCell" style="styles.h2d">
+			<style title="pMomentumX_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_mtdCell" style="styles.h2d">
+			<style title="pMomentumY_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_mtdCell" style="styles.h2d">
+			<style title="pMomentumZ_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_mtdCell" style="styles.h2d">
+			<style title="phi_vs_mtdCell" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_mtdCell.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdCell_vs_rigidity" style="styles.h2d">
+			<style title="mtdCell_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdCell_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaTOF_vs_eta" style="styles.h2d">
+			<style title="mtdDeltaTOF_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaTOF_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaY_vs_eta" style="styles.h2d">
+			<style title="mtdDeltaY_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaY_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaZ_vs_eta" style="styles.h2d">
+			<style title="mtdDeltaZ_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaZ_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdHitChan_vs_eta" style="styles.h2d">
+			<style title="mtdHitChan_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdHitChan_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsDedx_vs_eta" style="styles.h2d">
+			<style title="nHitsDedx_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsDedx_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsFit_vs_eta" style="styles.h2d">
+			<style title="nHitsFit_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsFit_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_eta" style="styles.h2d">
+			<style title="nHitsMax_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsMax_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_eta" style="styles.h2d">
+			<style title="nSigmaPion_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_eta" style="styles.h2d">
+			<style title="pMomentum_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_eta" style="styles.h2d">
+			<style title="pMomentumX_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_eta" style="styles.h2d">
+			<style title="pMomentumY_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_eta" style="styles.h2d">
+			<style title="pMomentumZ_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_eta" style="styles.h2d">
+			<style title="phi_vs_eta" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_eta.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaY_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="mtdDeltaY_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaY_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaZ_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="mtdDeltaZ_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaZ_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdHitChan_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="mtdHitChan_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdHitChan_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsDedx_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="nHitsDedx_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsDedx_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsFit_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="nHitsFit_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsFit_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="nHitsMax_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsMax_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="nSigmaPion_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="pMomentum_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="pMomentumX_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="pMomentumY_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="pMomentumZ_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_mtdDeltaTOF" style="styles.h2d">
+			<style title="phi_vs_mtdDeltaTOF" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_mtdDeltaTOF.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaZ_vs_mtdDeltaY" style="styles.h2d">
+			<style title="mtdDeltaZ_vs_mtdDeltaY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaZ_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	-->
+	<Plot>
+		<Histo data="all" name="trackQA/mtdHitChan_vs_mtdDeltaY" style="styles.h2d">
+			<style title="mtdHitChan_vs_mtdDeltaY" xr="-65, 65" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdHitChan_vs_mtdDeltaY.{ext}" />
+	</Plot>
+
+	<Plot>
+		<Histo data="all" name="trackQA/mtdHitChan_vs_mtdDeltaY" style="styles.h2d">
+			<style title="mtdHitChan_vs_mtdDeltaY" xr="-65, 65" yr="1700, 1800"/>
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdHitChan_vs_mtdDeltaY_zoomed.{ext}" />
+	</Plot>
+	<!--
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsDedx_vs_mtdDeltaY" style="styles.h2d">
+			<style title="nHitsDedx_vs_mtdDeltaY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsDedx_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsFit_vs_mtdDeltaY" style="styles.h2d">
+			<style title="nHitsFit_vs_mtdDeltaY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsFit_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_mtdDeltaY" style="styles.h2d">
+			<style title="nHitsMax_vs_mtdDeltaY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsMax_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_mtdDeltaY" style="styles.h2d">
+			<style title="nSigmaPion_vs_mtdDeltaY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_mtdDeltaY" style="styles.h2d">
+			<style title="pMomentum_vs_mtdDeltaY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_mtdDeltaY" style="styles.h2d">
+			<style title="pMomentumX_vs_mtdDeltaY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_mtdDeltaY" style="styles.h2d">
+			<style title="pMomentumY_vs_mtdDeltaY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_mtdDeltaY" style="styles.h2d">
+			<style title="pMomentumZ_vs_mtdDeltaY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_mtdDeltaY" style="styles.h2d">
+			<style title="phi_vs_mtdDeltaY" xr="-65, 65" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_mtdDeltaY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdHitChan_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="mtdHitChan_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdHitChan_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsDedx_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="nHitsDedx_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsDedx_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsFit_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="nHitsFit_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsFit_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="nHitsMax_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsMax_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="nSigmaPion_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="pMomentum_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="pMomentumX_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="pMomentumY_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="pMomentumZ_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_mtdDeltaZ" style="styles.h2d">
+			<style title="phi_vs_mtdDeltaZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_mtdDeltaZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsDedx_vs_mtdHitChan" style="styles.h2d">
+			<style title="nHitsDedx_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsDedx_vs_mtdHitChan.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsFit_vs_mtdHitChan" style="styles.h2d">
+			<style title="nHitsFit_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsFit_vs_mtdHitChan.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_mtdHitChan" style="styles.h2d">
+			<style title="nHitsMax_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsMax_vs_mtdHitChan.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_mtdHitChan" style="styles.h2d">
+			<style title="nSigmaPion_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_mtdHitChan.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_mtdHitChan" style="styles.h2d">
+			<style title="pMomentum_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_mtdHitChan.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_mtdHitChan" style="styles.h2d">
+			<style title="pMomentumX_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_mtdHitChan.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_mtdHitChan" style="styles.h2d">
+			<style title="pMomentumY_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_mtdHitChan.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_mtdHitChan" style="styles.h2d">
+			<style title="pMomentumZ_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_mtdHitChan.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_mtdHitChan" style="styles.h2d">
+			<style title="phi_vs_mtdHitChan" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_mtdHitChan.{ext}" />
+	</Plot>
+-->
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_mtdHitChan" style="styles.h2d">
+			<style title="phi_vs_mtdHitChan" xr="0, 200" yr="1.5, 2.2" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_mtdHitChan_zoomed.{ext}" />
+	</Plot>
+	<!--
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsFit_vs_nHitsDedx" style="styles.h2d">
+			<style title="nHitsFit_vs_nHitsDedx" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsFit_vs_nHitsDedx.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_nHitsDedx" style="styles.h2d">
+			<style title="nHitsMax_vs_nHitsDedx" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsMax_vs_nHitsDedx.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_nHitsDedx" style="styles.h2d">
+			<style title="nSigmaPion_vs_nHitsDedx" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_nHitsDedx.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_nHitsDedx" style="styles.h2d">
+			<style title="pMomentum_vs_nHitsDedx" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_nHitsDedx.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_nHitsDedx" style="styles.h2d">
+			<style title="pMomentumX_vs_nHitsDedx" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_nHitsDedx.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_nHitsDedx" style="styles.h2d">
+			<style title="pMomentumY_vs_nHitsDedx" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_nHitsDedx.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_nHitsDedx" style="styles.h2d">
+			<style title="pMomentumZ_vs_nHitsDedx" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_nHitsDedx.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_nHitsDedx" style="styles.h2d">
+			<style title="phi_vs_nHitsDedx" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_nHitsDedx.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_nHitsFit" style="styles.h2d">
+			<style title="nHitsMax_vs_nHitsFit" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsMax_vs_nHitsFit.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_nHitsFit" style="styles.h2d">
+			<style title="nSigmaPion_vs_nHitsFit" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_nHitsFit.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_nHitsFit" style="styles.h2d">
+			<style title="pMomentum_vs_nHitsFit" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_nHitsFit.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_nHitsFit" style="styles.h2d">
+			<style title="pMomentumX_vs_nHitsFit" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_nHitsFit.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_nHitsFit" style="styles.h2d">
+			<style title="pMomentumY_vs_nHitsFit" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_nHitsFit.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_nHitsFit" style="styles.h2d">
+			<style title="pMomentumZ_vs_nHitsFit" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_nHitsFit.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_nHitsFit" style="styles.h2d">
+			<style title="phi_vs_nHitsFit" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_nHitsFit.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_nHitsMax" style="styles.h2d">
+			<style title="nSigmaPion_vs_nHitsMax" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_nHitsMax.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_nHitsMax" style="styles.h2d">
+			<style title="pMomentum_vs_nHitsMax" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_nHitsMax.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_nHitsMax" style="styles.h2d">
+			<style title="pMomentumX_vs_nHitsMax" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_nHitsMax.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_nHitsMax" style="styles.h2d">
+			<style title="pMomentumY_vs_nHitsMax" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_nHitsMax.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_nHitsMax" style="styles.h2d">
+			<style title="pMomentumZ_vs_nHitsMax" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_nHitsMax.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_nHitsMax" style="styles.h2d">
+			<style title="phi_vs_nHitsMax" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_nHitsMax.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_nSigmaPion" style="styles.h2d">
+			<style title="pMomentum_vs_nSigmaPion" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_nSigmaPion.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_nSigmaPion" style="styles.h2d">
+			<style title="pMomentumX_vs_nSigmaPion" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_nSigmaPion.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_nSigmaPion" style="styles.h2d">
+			<style title="pMomentumY_vs_nSigmaPion" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_nSigmaPion.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_nSigmaPion" style="styles.h2d">
+			<style title="pMomentumZ_vs_nSigmaPion" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_nSigmaPion.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_nSigmaPion" style="styles.h2d">
+			<style title="phi_vs_nSigmaPion" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_nSigmaPion.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_pMomentum" style="styles.h2d">
+			<style title="pMomentumX_vs_pMomentum" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_pMomentum.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_pMomentum" style="styles.h2d">
+			<style title="pMomentumY_vs_pMomentum" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_pMomentum.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_pMomentum" style="styles.h2d">
+			<style title="pMomentumZ_vs_pMomentum" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_pMomentum.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_pMomentum" style="styles.h2d">
+			<style title="phi_vs_pMomentum" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_pMomentum.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_pMomentumX" style="styles.h2d">
+			<style title="pMomentumY_vs_pMomentumX" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_pMomentumX.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_pMomentumX" style="styles.h2d">
+			<style title="pMomentumZ_vs_pMomentumX" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_pMomentumX.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_pMomentumX" style="styles.h2d">
+			<style title="phi_vs_pMomentumX" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_pMomentumX.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_pMomentumY" style="styles.h2d">
+			<style title="pMomentumZ_vs_pMomentumY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_pMomentumY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_pMomentumY" style="styles.h2d">
+			<style title="phi_vs_pMomentumY" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_pMomentumY.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_pMomentumZ" style="styles.h2d">
+			<style title="phi_vs_pMomentumZ" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_pMomentumZ.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/eta_vs_rigidity" style="styles.h2d">
+			<style title="eta_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_eta_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaTOF_vs_rigidity" style="styles.h2d">
+			<style title="mtdDeltaTOF_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaTOF_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaY_vs_rigidity" style="styles.h2d">
+			<style title="mtdDeltaY_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaY_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaZ_vs_rigidity" style="styles.h2d">
+			<style title="mtdDeltaZ_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdDeltaZ_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdHitChan_vs_rigidity" style="styles.h2d">
+			<style title="mtdHitChan_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_mtdHitChan_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsDedx_vs_rigidity" style="styles.h2d">
+			<style title="nHitsDedx_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsDedx_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsFit_vs_rigidity" style="styles.h2d">
+			<style title="nHitsFit_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsFit_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_rigidity" style="styles.h2d">
+			<style title="nHitsMax_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nHitsMax_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_rigidity" style="styles.h2d">
+			<style title="nSigmaPion_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_nSigmaPion_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_rigidity" style="styles.h2d">
+			<style title="pMomentum_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentum_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_rigidity" style="styles.h2d">
+			<style title="pMomentumX_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumX_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_rigidity" style="styles.h2d">
+			<style title="pMomentumY_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumY_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_rigidity" style="styles.h2d">
+			<style title="pMomentumZ_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_pMomentumZ_vs_rigidity.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_rigidity" style="styles.h2d">
+			<style title="phi_vs_rigidity" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/CandidateTracks_all_2D_phi_vs_rigidity.{ext}" />
+	</Plot> -->
+	
+
+	<!-- RUNINDEX done in another files -->
+	
+
+
+	<styles>
+		<h1d draw="h" fc="597" optstat="0" logy="1" xts="0.05" yts="0.05" />
+		<h2d draw="colz" optstat="0" logz="1" xts="0.05" yts="0.05" />
+	</styles>
+	
+
+</config>

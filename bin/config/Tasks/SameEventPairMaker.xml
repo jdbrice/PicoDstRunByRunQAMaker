@@ -13,7 +13,7 @@
 		<MakeQA event="true" track="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="200" nEvents="-1"/>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="10" nEvents="-1"/>
 		</input>
 
 		<output path="" >

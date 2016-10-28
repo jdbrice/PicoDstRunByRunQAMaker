@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<Include url="../../{DataSet}/Common/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+
+	<Data name="all" url="{CWD:out}/QA/MuonCandidates_all.root" />
+
+	<DataSet>Run15PP</DataSet>
+
+	
+	<ext>png</ext>
+	<Margins left="0.1" right="0.1" top="0.1" bottom="0.15" />
+	<TLatex x="0.75" y="0.86" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.04"/>
+	<!-- <TLatex x="0.55" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/> -->
+
+	<!-- <OptStats x1="0.7" y1="0.75" x2="0.975" y2="0.9" /> -->
+	
+	<TCanvas width="2000" height="600" />
+	
+	<Plot>
+		<Histo data="all" name="trackQA/eta_vs_runIndex" style="styles.h2d">
+			<style title="eta_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_eta_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdCell_vs_runIndex" style="styles.h2d">
+			<style title="mtdCell_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_mtdCell_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaTOF_vs_runIndex" style="styles.h2d">
+			<style title="mtdDeltaTOF_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_mtdDeltaTOF_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaY_vs_runIndex" style="styles.h2d">
+			<style title="mtdDeltaY_vs_runIndex"  yr="-60, 60" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_mtdDeltaY_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdDeltaZ_vs_runIndex" style="styles.h2d">
+			<style title="mtdDeltaZ_vs_runIndex"/>
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_mtdDeltaZ_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/mtdHitChan_vs_runIndex" style="styles.h2d">
+			<style title="mtdHitChan_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_mtdHitChan_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsDedx_vs_runIndex" style="styles.h2d">
+			<style title="nHitsDedx_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_nHitsDedx_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsFit_vs_runIndex" style="styles.h2d">
+			<style title="nHitsFit_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_nHitsFit_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nHitsMax_vs_runIndex" style="styles.h2d">
+			<style title="nHitsMax_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_nHitsMax_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/nSigmaPion_vs_runIndex" style="styles.h2d">
+			<style title="nSigmaPion_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_nSigmaPion_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentum_vs_runIndex" style="styles.h2d">
+			<style title="pMomentum_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_pMomentum_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumX_vs_runIndex" style="styles.h2d">
+			<style title="pMomentumX_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_pMomentumX_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumY_vs_runIndex" style="styles.h2d">
+			<style title="pMomentumY_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_pMomentumY_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/pMomentumZ_vs_runIndex" style="styles.h2d">
+			<style title="pMomentumZ_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_pMomentumZ_vs_runIndex.{ext}" />
+	</Plot>
+	<Plot>
+		<Histo data="all" name="trackQA/phi_vs_runIndex" style="styles.h2d">
+			<style title="phi_vs_runIndex" />
+			<Norm />
+		</Histo>
+		<Export url="{CWD:out}/{ext}/RunByRun/CandidateTracks_all_2D_phi_vs_runIndex.{ext}" />
+	</Plot>
+	
+
+
+	<styles>
+		
+		<h2d draw="colz" optstat="0" logz="1" xts="0.1" yts="0.1" ts="0.08" yto="0.3" xto="0.6" />
+	</styles>
+	
+
+</config>
