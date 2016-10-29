@@ -5,6 +5,8 @@
 
 #include "CandidatePairTreeReader.h"
 #include "CandidateEventReader.h"
+#include "TTreeQA.h"
+
 
 #include <memory>
 
@@ -30,7 +32,26 @@ public:
 		dimuonBins.load( config, "dimuonBins.invMass" );
 
 		INFO( classname(), "Invariant mass Bins : " << dimuonBins.toString() );
+
+
+		// pairQA.setHistoBook( book );
+		// pairQA.setConfig( config );
+		// pairQA.addCategory( "ls" );
+		// pairQA.addCategory( "pp" );
+		// pairQA.addCategory( "nn" );
+		// pairQA.addCategory( "us" );
+		// pairQA.makeDefaultCategory( false );
+		// initPairVariables( pairQA );
+		// book->cd( "pairQA" );
+		// pairQA.makeHistograms( "dimuonBins" );
+
 	}
+
+	// virtual void initPairVariables( TTreeQA &_qaMaker ){
+	// 	_qaMaker.i( "invMass", "M_{#mu#mu}", "[GeV/c^{2}]", "", "x" );
+	// 	_qaMaker.i( "pT", "p_{T}", "[GeV/c]" );
+	// 	_qaMaker.i( "bin16" )
+	// }
 
 	HistoBins dimuonBins;
 	TH1D * h_like_sign, *h_unlike_sign;
@@ -50,6 +71,32 @@ public:
 
 		h_unlike_sign = (TH1D*)book->get( "unlike_sign" );
 		h_unlike_sign_vs_pt = (TH2D*)book->get2D( "unlike_sign_pT" );
+
+		if ( book->exists( "binX_like_sign" ) ){
+			vector<int> cBins = config.getIntVector( "dimuonBins.bin16" );
+			for ( int iCen : cBins ){
+				book->clone( "binX_like_sign"        , "bin" + ts( iCen ) + "_like_sign"        );
+				book->clone( "binX_unlike_sign"      , "bin" + ts( iCen ) + "_unlike_sign"      );
+				book->clone( "binX_like_sign_Pos"    , "bin" + ts( iCen ) + "_like_sign_Pos"    );
+				book->clone( "binX_like_sign_Neg"    , "bin" + ts( iCen ) + "_like_sign_Neg"    );
+				book->clone( "binX_like_sign_pT"     , "bin" + ts( iCen ) + "_like_sign_pT"     );
+				book->clone( "binX_unlike_sign_pT"   , "bin" + ts( iCen ) + "_unlike_sign_pT"   );
+				book->clone( "binX_like_sign_Pos_pT" , "bin" + ts( iCen ) + "_like_sign_Pos_pT" );
+				book->clone( "binX_like_sign_Neg_pT" , "bin" + ts( iCen ) + "_like_sign_Neg_pT" );
+			}
+
+			book->get( "binX_like_sign"        ) ->SetDirectory( 0 ) ;
+			book->get( "binX_unlike_sign"      ) ->SetDirectory( 0 ) ;
+			book->get( "binX_like_sign_Pos"    ) ->SetDirectory( 0 ) ;
+			book->get( "binX_like_sign_Neg"    ) ->SetDirectory( 0 ) ;
+			book->get( "binX_like_sign_pT"     ) ->SetDirectory( 0 ) ;
+			book->get( "binX_unlike_sign_pT"   ) ->SetDirectory( 0 ) ;
+			book->get( "binX_like_sign_Pos_pT" ) ->SetDirectory( 0 ) ;
+			book->get( "binX_like_sign_Neg_pT" ) ->SetDirectory( 0 ) ;
+		}
+
+
+
 
 		INFO( classname(), "Histogram aliasing complete" );
 	}
@@ -85,30 +132,52 @@ public:
 		if ( evt != nullptr )
 			bin16 = evt->mBin16;
 
+
+
 		if ( abs(pair->mChargeSum) == 2 ){
 			h_like_sign->Fill( mass, weight );
 			h_like_sign_vs_pt->Fill( mass, pt, weight );
-			// book->fill( "like_sign_bin16", mass, bin16 );
-			// book->fill( "like_sign_gRefMult", mass, evt->mGRefMult );
+
+			if ( nullptr != evt ){
+				book->fill( "bin" + ts( bin16 ) + "_like_sign", mass, weight );
+				book->fill( "bin" + ts( bin16 ) + "_like_sign_pT", mass, pt, weight );
+			}
+			
 
 			if ( 2 == pair->mChargeSum  ){
-				book->fill( "like_sign_Pos", lv.M(), 1.0 / bw );
-				book->fill( "like_sign_Pos_pT", lv.M(), lv.Pt(), 1.0/ bw );
+				book->fill( "like_sign_Pos", mass, 1.0 / bw );
+				book->fill( "like_sign_Pos_pT", mass, pt, 1.0/ bw );
+
+				if ( nullptr != evt ){
+					book->fill( "bin" + ts( bin16 ) + "_like_sign_Pos", mass, weight );
+					book->fill( "bin" + ts( bin16 ) + "_like_sign_Pos_pT", mass, pt, weight );
+				}
+
 			} else if ( -2 == pair->mChargeSum  ){
-				book->fill( "like_sign_Neg", lv.M(), 1.0 / bw );
-				book->fill( "like_sign_Neg_pT", lv.M(), lv.Pt(), 1.0/ bw );
+				book->fill( "like_sign_Neg", mass, 1.0 / bw );
+				book->fill( "like_sign_Neg_pT", mass, pt, 1.0/ bw );
+
+				if ( nullptr != evt ){
+					book->fill( "bin" + ts( bin16 ) + "_like_sign_Neg", mass, weight );
+					book->fill( "bin" + ts( bin16 ) + "_like_sign_Neg_pT", mass, pt, weight );
+				}
 			}
 		} else {
 			h_unlike_sign->Fill( mass, weight );
 			h_unlike_sign_vs_pt->Fill( mass, pt, weight );
-			// book->fill( "unlike_sign_bin16", mass, bin16 );
-			// book->fill( "unlike_sign_gRefMult", mass, evt->mGRefMult );
+
+			if ( nullptr != evt ){
+				book->fill( "bin" + ts( bin16 ) + "_unlike_sign", mass, weight );
+				book->fill( "bin" + ts( bin16 ) + "_unlike_sign_pT", mass, pt, weight );
+			}
 		}
 	}
 
 protected:
 	shared_ptr<CandidatePairTreeReader> pairReader;
 	shared_ptr<CandidateEventReader> eventReader;
+
+	TTreeQA pairQA;
 };
 
 #endif

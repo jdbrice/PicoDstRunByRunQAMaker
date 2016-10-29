@@ -13,11 +13,11 @@
 		<MakeQA event="true" track="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="10" nEvents="-1"/>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="5" nEvents="-1"/>
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_{InvMP.EventHash}.root" />
+			<TFile url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_{jobIndex}_{InvMP.EventHash}.root" />
 		</output>
 
 		<histograms>

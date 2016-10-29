@@ -12,15 +12,16 @@
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_.root" nEvents="-1"/>
+			<dst splitBy="25" treeName="FemtoDst" url="{CWD:out}/filelists/SameEventMuMuPairs.lis" nEvents="-1"/>
 		</input>
 
 		<output>
-			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms.root" />
+			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_{jobIndex}.root" />
 		</output>
 
 		<histograms>
-			<Include url="../Common/dimuonHistos.xml" />	
+			<Include url="../Common/dimuonHistos.xml" />
+			<Include url="{R:url}/centralityDimuonHistos.xml" />
 		</histograms>
 
 	</IMHM>

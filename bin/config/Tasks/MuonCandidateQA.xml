@@ -6,22 +6,21 @@
 	
 	<DataSet>Run15PP</DataSet>
 
-	<Include url="../{DataSet}/Common/cwd.xml" />
+	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+
 	<MuonQA>
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
+			<dst splitBy="5" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
 		</input>
 
 		<output>
 			<TFile url="{CWD:out}/QA/MuonCandidates{mod}_{jobIndex}.root" />
 		</output>
-
-		<!-- <histograms>
-			<Include url="./Common/TrackQAHistos.xml" />	
-		</histograms> -->
 
 		<TrackCuts>
 			<Range name="rigidity" min="-1000" max="1000" />
@@ -29,7 +28,7 @@
 
 	</MuonQA>
 
-	<Include url="./TrackQABins.xml" />
-	<Include url="./EventQABins.xml" />
+	<Include url="../Common/TrackQABins.xml" />
+	<Include url="../Common/EventQABins.xml" />
 
 </config>
