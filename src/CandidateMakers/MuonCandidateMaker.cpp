@@ -32,7 +32,7 @@ void MuonCandidateMaker::analyzeEvent(){
 
 	// dont keep events by default, instead require at least 2 muon cands per event
 	// keepCandidateEvent = false;
-	candidateTree->keepEvent( true );
+	candidateTree->keepEvent( false );
 }
 
 bool MuonCandidateMaker::keepTrack( int iTrack ){

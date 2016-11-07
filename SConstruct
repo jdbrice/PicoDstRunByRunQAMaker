@@ -2,8 +2,8 @@
 import subprocess
 import os
 
-SConscript('color_SConscript')
-Import( 'env' )
+# SConscript('color_SConscript')
+# Import( 'env' )
 
 ROOTCFLAGS    	= subprocess.check_output( ['root-config',  '--cflags'] ).rstrip().split( " " )
 ROOTLDFLAGS    	= subprocess.check_output( ["root-config",  "--ldflags"] )
@@ -45,8 +45,21 @@ Clean( root_dict, "src/TreeData/CintDictionary_rdict.pcm" )
 rootcint_env.Alias( 'dict', root_dict )
 
 
+########################### Pico dictionary creation ##########################
+pico_env = Environment(ENV = {'PATH' : os.environ['PATH'], 'ROOTSYS' : os.environ[ "ROOTSYS" ], 'LD_LIBRARY_PATH' : LD_LIBRARY_PATH })
+rootcint = Builder( action='rootcint -f $TARGET -c $_CPPINCFLAGS $SOURCES.file' )  
+pico_env.Append( BUILDERS 		= { 'RootCint' : rootcint } )
+# hack to make the rootcint use abs path to headers
+pico_env[ "_CPPINCFLAGS" ] = "-I" + Dir(".").abspath + "/" + str( " -I" + Dir(".").abspath + "/").join( map( str, Glob( "#include/*" ) ) ) 
+pico_env[ "_CPPINCFLAGS" ] = pico_env[ "_CPPINCFLAGS" ] + " -I" + Dir(".").abspath + "/" + "include/"
+
+pico_dict = pico_env.RootCint( "src/PicoDstClassLibrary/PicoDictionary.cpp", Glob( "include/PicoDstClassLibrary/*.h" ) )
+# Clean( pico_dict, "src/TreeData/CintDictionary_rdict.pcm" )
+pico_env.Alias( 'pico_dict', pico_dict )
+
 ########################## Project Target #####################################
-common_env = env.Clone() #Environment()
+# common_env = env.Clone()
+common_env =  Environment()
 common_env.Append( ENV  = {'LD_LIBRARY_PATH' : LD_LIBRARY_PATH} )
 
 common_env.Append(CPPDEFINES 	= cppDefines)
@@ -55,7 +68,7 @@ common_env.Append(CXXFLAGS 		= cxxFlags)
 common_env.Append(LINKFLAGS 	= cxxFlags ) #ROOTLIBS + " " + JDB_LIB + "/lib/libJDB.a"
 common_env.Append(CPPPATH		= paths)
 common_env.Append(LIBS 			= [ "libRooBarbCore.a", "libRooBarbConfig.a", "libRooBarbTasks.a", "libRooBarbRootAna.a", "libRooBarbUnitTest.a", "libRooBarbExtra.a" ] )
-common_env.Append(LIBPATH 		= [ JDB_LIB + "/lib/" ] )
+common_env.Append(LIBPATH 		= [ JDB_LIB + "/lib/", "/Users/jdb/bnl/local/work/muonAna/vendor/" ] )
 
 common_env[ "_LIBFLAGS" ] = common_env[ "_LIBFLAGS" ] + " " + ROOTLIBS + " "
 # common_env[ "_LIBFLAGS" ]" " + JDB_LIB + "/lib/" +JDB_LIB_NAME  +
@@ -66,6 +79,7 @@ common_env.Append(CXXFLAGS 		= "-DJDB_LOG_LEVEL=" + str(jdb_log_level) )
 target = common_env.Program( target='bin/app', source=[Glob( "src/*.cpp" ), Glob( "src/*/*.cpp" )] )
 
 Depends( target, root_dict )
+Depends( target, pico_dict )
 # Depends( target, JDB_LIB + "/lib/" + JDB_LIB_NAME )
 Depends( target, Glob( JDB_LIB + "/include/jdb/*" ) )
 

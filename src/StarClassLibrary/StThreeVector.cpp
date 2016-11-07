@@ -1,4 +1,4 @@
-#include "StThreeVector.h"
+#include "StThreeVector.hh"
 #ifdef __ROOT__
 #include "TBuffer.h"
 #include "TClass.h"

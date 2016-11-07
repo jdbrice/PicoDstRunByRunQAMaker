@@ -9,9 +9,9 @@
 	<Include url="{R:url}/cwd.xml" />
 
 	<MuonCandidateMaker event="true" track="true" triggers="dimuon" rmc="true">
-		<Logger color="false" globalLogLevel="warning" />
+		<Logger color="false" globalLogLevel="info" />
 		<MakeQA event="true" track="true" />
-		<EventLoop progress="false" />
+		<EventLoop progress="true" />
 
 		<input>
 			<dst treeName="PicoDst" adapter="{R:active}" url="{CWD:in}/PicoDst.lis" splitBy="100" nEvents="-1"/>

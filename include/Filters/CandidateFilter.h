@@ -39,6 +39,8 @@ public:
 		ccol.setDefault( "matchFlagMtd"   , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 		ccol.setDefault( "dTofMtd"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 		ccol.setDefault( "dyMtd"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "dyMtdPos"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "dyMtdNeg"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 		ccol.setDefault( "dzMtd"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 		ccol.setDefault( "drMtd"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 		ccol.setDefault( "mtdCell"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );

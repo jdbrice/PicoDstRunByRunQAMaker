@@ -54,7 +54,7 @@
 #include <math.h>
 #include <utility>
 #include <algorithm>
-#include "StThreeVector.h"
+#include "StThreeVector.hh"
 #include "SystemOfUnits.h"
 
 #if !defined(ST_NO_NAMESPACES)

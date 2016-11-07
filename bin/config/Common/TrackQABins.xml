@@ -26,6 +26,6 @@
 
 
 		<!-- TODO : add bin labels for various cuts sequences -->
-		<MtdMuon_binLabels>All, Mom, nSigPi, nHitsRatio, nHitsDedx, nHitsFit, eta, gDCA, mtdMatchFlag, mtdTriggerFlag, mtdCell, mtdDeltaTof, mtdDeltaY, mtdDeltaZ, mtdDeltaR</MtdMuon_binLabels>
+		<MtdMuon_binLabels>All, Mom, nSigPi, nHitsRatio, nHitsDedx, nHitsFit, eta, gDCA, mtdMatchFlag, mtdTriggerFlag, mtdCell, mtdDeltaTof, mtdDeltaY, mtdDeltaYCharge, mtdDeltaZ, mtdDeltaR</MtdMuon_binLabels>
 	</TrackQABins>
 </config>

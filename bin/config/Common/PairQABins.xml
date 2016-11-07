@@ -2,5 +2,8 @@
 <config>
 	<PairQABins>
 		<nPairs width="1" min="0" max="20" />
+		<nCharge width="1" min="0" max="20" />
+
+		<nPairsFinite width="1" min="1" max="20" />
 	</PairQABins>
 </config>

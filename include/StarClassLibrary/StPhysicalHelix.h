@@ -30,7 +30,7 @@
 #ifndef ST_PHYSICAL_HELIX_HH
 #define ST_PHYSICAL_HELIX_HH
 
-#include "StThreeVector.h"
+#include "StThreeVector.hh"
 #include "StHelix.h"
 
 class StPhysicalHelix : public StHelix {

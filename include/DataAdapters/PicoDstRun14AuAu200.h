@@ -24,8 +24,8 @@
 
 #include "IPicoDst.h"
 #include "StDcaGeometry.h"
-#include "StPhysicalHelixD.h"
-#include "StThreeVectorF.h"
+#include "StPhysicalHelixD.hh"
+#include "StThreeVectorF.hh"
 
 
 

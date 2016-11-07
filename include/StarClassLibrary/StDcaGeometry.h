@@ -5,8 +5,8 @@
 #ifndef DCA_GEOMETRY_H
 #define DCA_GEOMETRY_H
 #include "TObject.h"
-#include "StThreeVectorD.h"
-#include "StPhysicalHelixD.h"
+#include "StThreeVectorD.hh"
+#include "StPhysicalHelixD.hh"
 // #include "THelixTrack.h"
 
 #include <iostream>

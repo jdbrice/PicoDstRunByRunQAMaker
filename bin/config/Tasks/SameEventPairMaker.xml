@@ -10,7 +10,7 @@
 	<InvMP >
 		<Logger color="true" globalLogLevel="trace" />
 		<EventLoop progress="true" />
-		<MakeQA event="false" track="false" />
+		<MakeQA event="true" track="true" />
 
 		<input>
 			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="5" nEvents="-1"/>

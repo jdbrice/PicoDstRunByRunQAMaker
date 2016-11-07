@@ -130,13 +130,26 @@ protected:
 
 		int nTracks = tracks->GetEntries();
 		int nPairs = 0;
+		int pre_nPos = 0;
+		int nPos = 0;
+		int pre_nNeg = 0;
+		int nNeg = 0;
+		int nLS = 0;
+		int nLSPos = 0, nLSNeg=0;
+		int nULS = 0;
+
 		
+		book->cd( "pairQA" );
 		if ( book->exists( "pre_nPairs" ) )
 			book->get( "pre_nPairs", "pairQA" )->Fill( nTracks * ( nTracks - 1 ) / 2.0 );
 
 		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
 			CandidateTrack* aTrack = (CandidateTrack*)tracks->At( iTrack );
+			if ( -1 == aTrack->charge() ) pre_nNeg ++;
+			if ( 1 == aTrack->charge() ) pre_nPos ++;
 			if ( !keepTrack( aTrack ) ) continue;
+			if ( -1 == aTrack->charge() ) nNeg ++;
+			if ( 1 == aTrack->charge() ) nPos ++;
 
 			DEBUG( classname(), "Inner track loop" );
 			for ( int jTrack = iTrack; jTrack < nTracks; jTrack++ ){
@@ -150,6 +163,14 @@ protected:
 
 				lv = lv1 + lv2;
 
+				if ( aTrack->charge() == bTrack->charge() ) {
+					nLS++;
+					if ( aTrack->charge() == 1 ) nLSPos++;
+					if ( aTrack->charge() == -1 ) nLSNeg++;
+				}
+				if ( aTrack->charge() != bTrack->charge() ) nULS++;
+
+
 				// if ( !keepPair( lv1, lv2 ) ) continue;
 				analyzePair( aTrack, bTrack );
 				
@@ -157,6 +178,14 @@ protected:
 
 			}
 		}
+
+		book->get( "nPairs", "pairQA" )->Fill( nPairs );
+		book->get( "nCharge", "pairQA" )->Fill( nPos, nNeg );
+		book->get( "pre_nCharge", "pairQA" )->Fill( pre_nPos, pre_nNeg );
+		book->get( "nLS", "pairQA" )->Fill( nLS );
+		book->get( "nLSPos", "pairQA" )->Fill( nLSPos );
+		book->get( "nLSNeg", "pairQA" )->Fill( nLSNeg );
+		book->get( "nULS", "pairQA" )->Fill( nULS );
 
 		// post loop hook
 		postPairLoop( nPairs );
