@@ -4,7 +4,7 @@
 	<Task name="flm" type="InvMassHistoMaker" config="" nodePath="IMHM" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
 	<Include url="{R:url}/cwd.xml" />
 	
 	<IMHM>
@@ -12,7 +12,7 @@
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="25" treeName="FemtoDst" url="{CWD:out}/filelists/SameEventMuMuPairs.lis" nEvents="-1"/>
+			<dst splitBy="5" treeName="FemtoDst" url="{CWD:out}/filelists/SameEventMuMuPairs.lis" nEvents="-1"/>
 		</input>
 
 		<output>
@@ -23,6 +23,8 @@
 			<Include url="../Common/dimuonHistos.xml" />
 			<Include url="{R:url}/centralityDimuonHistos.xml" />
 		</histograms>
+
+		<Include url="{R:url}/SameEventPairCuts.xml" />
 
 	</IMHM>
 

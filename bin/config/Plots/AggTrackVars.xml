@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+	<Data name="tvars" url="{CWD:out}/Export/root/TrackVars.root" />
+
+	<DataSet>AuAuRun14</DataSet>
+	
+
+	<Margins left="0.10" right="0.10" top="0.1" bottom="0.15" />
+	<!-- <TLatex x="0.55" y="0.85" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.04"/> -->
+	<TLatex x="0.55" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+
+	<OptStats x1="0.65" y1="0.65" x2="0.9" y2="0.8" />
+	
+
+	<Plot>
+		<TCanvas width="2000" height="1000" />
+		<Histo name="mPos_0" data="tvars" >
+			<Divide name="mNeg_0" data="tvars" />
+			<style yr="0.5, 2.0" xr="0.7, 10" draw="h" lw="2" fillcolor="0" logx="1" title="Pos / Neg" y="Pos/Neg"/>
+		</Histo>
+
+		<Export url="{CWD:out}/Export/pdf/mPosPt_Over_mNegPt.pdf" />
+	</Plot>
+
+	<Plot>
+		
+		<Histo name="mPos_0" data="tvars" >
+			<style title="Muon Candidates; p_{{T}} [GeV/c] ;dN/dp_{{T}}" draw="h" lc="blue" lw="2" fillcolor="0" logy="1" xr="0.9, 10" logx="1"/>
+		</Histo>
+
+		<Histo name="mNeg_0" data="tvars" >
+			<style title="Muon Candidates; p_{{T}} [GeV/c] ;dN/dp_{{T}}" fillcolor="0" lc="red" lw="2" draw="same h"/>
+		</Histo>
+
+		<Legend>
+			<Entry name="mNeg_0" title="Negative" />
+			<Entry name="mPos_0" title="Positive" />
+			<Position x1="0.25" x2="0.5" y1="0.2" y2="0.3" />
+		</Legend>
+
+		<Export url="{CWD:out}/Export/pdf/mPosPt_and_mNegPt.pdf" />
+	</Plot>
+
+	
+
+
+	<bins_Run15PP>
+		<mGRefMult width="1" min="0" max="60" />
+		<mPrimaryVertex_mX1 width="0.01" min="-0.2" max="0.2" />
+		<mPrimaryVertex_mX2 width="0.01" min="-0.5" max="0" />
+	</bins_Run15PP>
+	<bins_AuAuRun14>
+		
+		<mPrimaryVertex_mX1 width="0.1" min="-2" max="2" />
+		<mPrimaryVertex_mX2 width="0.1" min="-2" max="2" />
+	</bins_AuAuRun14>
+
+	<bins>
+		<mPt width="0.05" min="0" max="20" />
+		<mBin16 width="1" min="0" max="16" />
+		<mWeight width="0.01" min="0.0" max="3.0" />
+		
+		<mPrimaryVertex_mX3 width="0.5" min="-110" max="110" />
+	</bins>
+
+	<styles>
+		<h1d draw="h" fc="597" optstat="1" logy="1" title="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV;" xts="0.05" yts="0.05" />
+		<h2d draw="colz" optstat="0" logz="1" title="Run14 Au+Au at #sqrt{{s_{{NN}}}};" xts="0.05" yts="0.05" />
+	</styles>
+	
+
+</config>

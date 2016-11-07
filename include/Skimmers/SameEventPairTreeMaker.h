@@ -40,12 +40,17 @@ public:
 
 		lv = lv1 + lv2;
 
-		aPair->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), aTrack->charge() + bTrack->charge() );
+		float leadingPt = lv1.Pt();
+		if ( lv2.Pt() > lv1.Pt() )
+			leadingPt = lv2.Pt();
+
+		aPair->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), aTrack->charge() + bTrack->charge(), leadingPt );
 		nCandPairs++;
 	}
 
 	virtual void postPairLoop( int _nPairs ){
 
+		book->cd();
 		wEventHash = currentEventHash;
 		wBin16 = event->mBin16;
 		wEvent->copy( event );

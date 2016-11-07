@@ -7,7 +7,7 @@
 	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
 	<Include url="{R:url}/cwd.xml" />
 
-	<mod>_omega</mod>
+	<mod>_jpsi</mod>
 	
 	<MECS triggers="dimuon">
 		<Logger color="true" globalLogLevel="info" />
@@ -34,7 +34,7 @@
 		
 
 		<QACuts>
-			<Range name="InvMass" min="0.78" max="0.785" />
+			<Range name="InvMass" min="3.0" max="3.2" />
 		</QACuts>
 
 	</MECS>

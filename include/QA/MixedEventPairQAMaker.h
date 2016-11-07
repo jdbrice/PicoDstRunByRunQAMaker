@@ -112,13 +112,13 @@ public:
 			book->cd( "pairQA" );
 			// MixedEventPairQAMaker::fillPairVariables( pairQA, _candA->track, _candB->track, m1, m2 );
 			if ( abs(_candA->track->charge() + _candB->track->charge()) > 0 ){
-				SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Like_Sign" );
+				SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), _candA->mtdPidTraits.get(), _candB->mtdPidTraits.get(), m1, m2, "Like_Sign" );
 				if ( _candA->track->charge() + _candB->track->charge() == 2 )
-					SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Like_Sign_Pos" );
+					SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), _candA->mtdPidTraits.get(), _candB->mtdPidTraits.get(), m1, m2, "Like_Sign_Pos" );
 				else if ( _candA->track->charge() + _candB->track->charge() == -2 )
-					SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Like_Sign_Neg" );
+					SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), _candA->mtdPidTraits.get(), _candB->mtdPidTraits.get(), m1, m2, "Like_Sign_Neg" );
 			} else {
-				SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), m1, m2, "Unlike_Sign");
+				SameEventPairQA::fillPairVariables( pairQA, _candA->track.get(), _candB->track.get(), _candA->mtdPidTraits.get(), _candB->mtdPidTraits.get(), m1, m2, "Unlike_Sign");
 			}
 
 		}

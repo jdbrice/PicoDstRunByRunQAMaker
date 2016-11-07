@@ -2,6 +2,8 @@
 <config>
 	
 	<SameEventPairCuts>
-		<Range name="leadingPt" min="2.0" />
+		<Range name="leadingPt" min="0.0" />
+		<Range name="deltaEta" min="-1" max="10" />
+		<Range name="deltaPhi" min="10" max="10" />
 	</SameEventPairCuts>
 </config>

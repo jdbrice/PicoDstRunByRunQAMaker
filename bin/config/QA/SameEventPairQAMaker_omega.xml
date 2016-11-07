@@ -7,13 +7,13 @@
 	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
 	<Include url="{R:url}/cwd.xml" />
 
-	<mod>_omega</mod>
+	<mod>_omega_nSigmaPion_dZ_dY_dTOF_cut</mod>
 	
 	<MECS triggers="dimuon">
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		
-		<MakeQA SingleTrack="false" Pair="true" track="true" />
+		<MakeQA SingleTrack="true" Pair="true" track="false" />
 		<input>
 			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
 		</input>

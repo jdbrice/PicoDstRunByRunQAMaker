@@ -9,4 +9,4 @@ Arguments  = /home/jdb12/work/muonAna/bin/config/Tasks/SameEventInvMassHistoMake
 
 GetEnv     = True
 
-Queue 60
+Queue 299

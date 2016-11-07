@@ -4,23 +4,24 @@
 	<Task name="MMTM" type="MixedEventPairMaker" config="" nodePath="MEMuons" />
 	<Logger color="true" globalLogLevel="warn" />
 	
-	<Include url="./Common/cwd.xml" />
+	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
 
 	<MEMuons event="true" track="true" triggers="">
-		<Logger color="true" globalLogLevel="info" />
+		<Logger color="true" globalLogLevel="debug" />
 		<EventLoop progress="true" />
-		<Mixing max="400" nPerEventHash="200" />
+		<Mixing max="2400" nPerEventHash="50" />
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="50"/>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="100"/>
 		</input>
 
 		<output>
 			<TFile url="{CWD:out}/MixedEventMuMuPairs/mixed_muon_pairs_{jobIndex}.root" />
 		</output>
 
-		<Include url="./Common/MixedEventBins.xml" />
-		<Include url="./Common/SameEventPairCuts.xml" />
-		<Include url="./Common/MuonCandidateCuts.xml" />
+		<Include url="{R:url}/MixedEventBins.xml" />
+		<Include url="{R:url}/SameEventPairCuts.xml" />
+		<Include url="{R:url}/MuonCandidateCuts.xml" />
 
 		<histograms>
 			<Histo name="EventHash" title="EventHash" bins_x="bins.EventHash"/>
@@ -30,7 +31,7 @@
 	</MEMuons>
 
 	<bins>
-		<EventHash width="1" min="0" max="400" />
+		<EventHash width="1" min="0" max="2400" />
 	</bins>
 
 </config>

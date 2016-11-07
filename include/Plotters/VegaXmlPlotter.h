@@ -28,14 +28,22 @@ public:
 	virtual void make() {
 
 		loadData();
+		makeOutputFile();
 
 		Logger::setGlobalLogLevel( "debug" );
 		makePlots();
+
+		if ( dataOut ){
+			dataOut->Write();
+			dataOut->Close();
+		}
 	}
 
 	// shared_ptr<HistoBook> book;
 	map<string, TFile*> dataFiles;
 	map<string, TChain *> dataChains;
+	map<string, TH1 * > globalHistos;
+	TFile * dataOut = nullptr;
 	virtual void loadDataFile( string _path ){
 		if ( config.exists( _path + ":name" ) ){
 			string name = config.getXString( _path+":name" );
@@ -64,6 +72,8 @@ public:
 		if ( dataChains[name]->GetListOfFiles() )
 			nFiles = dataChains[name]->GetListOfFiles()->GetEntries();
 		INFO( classname(), "Chain has " << nFiles << plural( nFiles, " file", " files" ) );
+
+
 	}
 
 	virtual void loadData(){
@@ -78,6 +88,14 @@ public:
 		}
 	} // loadData
 
+
+	virtual void makeOutputFile(){
+		if ( config.exists( "TFile:url" ) ){
+			dataOut = new TFile( config.getXString( "TFile:url" ).c_str(), "RECREATE" );
+		} else {
+			INFO( classname(), "No output data file requested" );
+		}
+	}
 
 	virtual void makePlots(){
 		vector<string> plot_paths = config.childrenOf( nodePath, "Plot" );
@@ -137,6 +155,10 @@ public:
 			return h;
 		}
 
+		// finally look for histos we made and named in the ttree drawing
+		if ( globalHistos.count( name ) > 0 && globalHistos[ name ] )
+			return globalHistos[ name ];
+
 		return nullptr;
 	}
 
@@ -180,6 +202,20 @@ public:
 			}
 			if ( config.exists( hpath + ".Norm" ) && config.getBool( hpath + ".Norm", true ) ){
 				h->Scale( 1.0 / h->Integral() );
+			}
+			if ( config.exists( hpath + ".RebinX" ) && config.getDouble( hpath + ".RebinX" ) ){
+				h->RebinX( config.getDouble( hpath + ".RebinX" ) );
+			}
+			// if ( config.exists( hpath + ".RebinY" ) && config.getDouble( hpath + ".RebinY" ) ){
+			// 	h->RebinY( config.getDouble( hpath + ".RebinY" ) );
+			// }
+			if ( config.exists( hpath + ".Divide" ) ){
+				TH1 * hOther = findHistogram( hpath + ".Divide", iHist * 1000 );
+				if ( hOther ){
+					h->Divide( hOther );
+				} else {
+					ERROR( classname(), "Cannot divide by nullptr" );
+				}
 			}
 
 
@@ -312,6 +348,8 @@ public:
 
 
 		TH1 *h = (TH1*)gPad->GetPrimitive( hName.c_str() );
+		globalHistos[ hName ] = h;
+
 		return h;
 	}
 

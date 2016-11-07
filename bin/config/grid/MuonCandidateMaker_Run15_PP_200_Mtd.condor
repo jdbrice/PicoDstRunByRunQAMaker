@@ -1,0 +1,14 @@
+######################################################################
+# 				MuonCandidateMaker
+#			PicoDsts ---> MuonCandidates
+######################################################################
+
+InitialDir = /home/jdb12/work/muonAna/bin/
+Executable = /home/jdb12/work/muonAna/bin/prod
+Arguments  = /home/jdb12/work/muonAna/bin/config/Tasks/MuonCandidateMaker_Run15_PP_200_Mtd.xml --jobIndex=$(Process) --R:active=Run15_PP_200_Mtd 
+
+# Log        = /data/star2/jdb12/Run15PP200/logs/muon_candidates_$(Process).log
+# Output     = /data/star2/jdb12/Run15PP200/logs/muon_candidates_$(Process).out
+# Error      = /data/star2/jdb12/Run15PP200/logs/muon_candidates_$(Process).error
+
+Queue 374

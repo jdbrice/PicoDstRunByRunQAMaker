@@ -49,8 +49,9 @@ public:
 			ERROR( "CandidateFilter", "Cannot initialize bin labels, null HistoBook" );
 		}
 
-		TH1 * hsc = _book->get( _prefix + "_single_cuts" );
-		TH1 * hc = _book->get( _prefix + "_cuts" );
+
+		TH1 * hsc = _book->get( _prefix + "_single_cuts", "trackQA" );
+		TH1 * hc = _book->get( _prefix + "_cuts", "trackQA" );
 
 		if ( nullptr == hsc || nullptr == hc ){
 			ERROR( "CandidateFilter", "Cannot initialize bin labels, null histogram" );
@@ -97,79 +98,111 @@ public:
 
 		if ( momentum.Pt() < ccol[ "pt" ]->min ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "Mom", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "nSigmaPion" ]->inInclusiveRange( nSigmaPion ) ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "nSigPi", allCuts, book, cutsName );
 		}
 
 		if ( nHitsRatio < ccol[ "nHitsRatio" ]->min ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "nHitsRatio", allCuts, book, cutsName );
 		}
 		if ( nHitsDedx < ccol[ "nHitsDedx" ]->min ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "nHitsDedx", allCuts, book, cutsName );
 		}
 		if ( nHitsFit < ccol[ "nHitsFit" ]->min ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "nHitsFit", allCuts, book, cutsName );
 		}
 		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() )  ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "eta", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "gDCA" ]->inInclusiveRange( _aTrack->gDCA() ) ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "gDCA", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( _mtdPidTraits->mMatchFlag ) ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdMatchFlag", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "mtdTriggerFlag" ]->inInclusiveRange( _mtdPidTraits->mTriggerFlag ) ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdTriggerFlag", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "mtdCell" ]->inInclusiveRange( _mtdPidTraits->mMtdHitChan % 12 ) ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ){
 			passTrackCut( "mtdCell", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "dTofMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaTimeOfFlight ) ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdDeltaTof", allCuts, book, cutsName );
 		}
 
 		if ( !ccol[ "dyMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdDeltaY", allCuts, book, cutsName );
 		}
+
+		if ( _aTrack->charge() > 0 ){
+			if ( !ccol[ "dyMtdPos" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) ){
+				allCuts = false;
+				if ( !makeQA ) return false;
+			} else if ( makeQA ) {
+				passTrackCut( "mtdDeltaYCharge", allCuts, book, cutsName );
+			}
+		} else if ( _aTrack->charge() < 0  ){
+			if ( !ccol[ "dyMtdNeg" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) ){
+				allCuts = false;
+				if ( !makeQA ) return false;
+			} else if ( makeQA ) {
+				passTrackCut( "mtdDeltaYCharge", allCuts, book, cutsName );
+			}
+		}
+		
+
 		if ( !ccol[ "dzMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaZ ) ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdDeltaZ", allCuts, book, cutsName );
 		}
 		if ( !ccol[ "drMtd" ]->inInclusiveRange( deltaR ) ){
 			allCuts = false;
+			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdDeltaR", allCuts, book, cutsName );
 		}
@@ -185,12 +218,13 @@ public:
 		bool makeQA = true;
 		if ( nullptr == book  )
 			makeQA = false;
-		string cutsName = "TpcTofElectron";
+		string cutsName = "MtdMuon";
 
 		double nHitsFit = abs(pico->Tracks_mNHitsFit[ iTrack ]);
 		double nHitsMax = pico->Tracks_mNHitsMax[ iTrack ];
 		double nHitsDedx = pico->Tracks_mNHitsDedx[ iTrack ];
 		double nHitsRatio = nHitsFit / nHitsMax;
+		double nSigmaPion = pico->Tracks_mNSigmaPion[iTrack] / 100.0;
 		TVector3 momentum = pico->pMomentum( iTrack );//( pico->Tracks_mPMomentum_mX1[iTrack], pico->Tracks_mPMomentum_mX2[iTrack], pico->Tracks_mPMomentum_mX3[iTrack] );
 		int iMtd = pico->Tracks_mMtdPidTraitsIndex[iTrack];
 		double deltaR = 3000;
@@ -206,8 +240,15 @@ public:
 		if ( momentum.Pt() < ccol[ "pt" ]->min ){
 			allCuts = false;
 		} else if ( makeQA ) {
-			passTrackCut( "mom", allCuts, book, cutsName );
+			passTrackCut( "Mom", allCuts, book, cutsName );
 		}
+
+		if ( !ccol[ "nSigmaPion" ]->inInclusiveRange( nSigmaPion ) ){
+			allCuts = false;
+		} else if ( makeQA ) {
+			passTrackCut( "nSigPi", allCuts, book, cutsName );
+		}
+
 		if ( nHitsRatio < ccol[ "nHitsRatio" ]->min ){
 			allCuts = false;
 		} else if ( makeQA ) {

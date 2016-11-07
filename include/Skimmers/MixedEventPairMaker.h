@@ -47,6 +47,8 @@ protected:
 			lv1.SetXYZM( _cand->track->mPMomentum_mX1, _cand->track->mPMomentum_mX2, _cand->track->mPMomentum_mX3, m1 );
 			lv2.SetXYZM( bufCand->track->mPMomentum_mX1, bufCand->track->mPMomentum_mX2, bufCand->track->mPMomentum_mX3, m2 );
 			if ( !PairFilter::keepSameEventPair( pairCuts, lv1, lv2 ) ) continue;
+			if ( !PairFilter::keepMixedEventPair( pairCuts, lv1, lv2 ) ) continue;
+			
 			nMixed++;
 			analyzePair( _cand, bufCand );
 			if ( nMixed >= nPerEventHash ) break;
@@ -78,7 +80,11 @@ protected:
 
 		lv = lv1 + lv2;
 
-		wPairs->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), _cand1->track->charge() + _cand2->track->charge() );
+		float leadingPt = lv1.Pt();
+		if ( lv2.Pt() > lv1.Pt() )
+			leadingPt = lv2.Pt();
+
+		wPairs->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), _cand1->track->charge() + _cand2->track->charge(), leadingPt );
 	}
 	
 };

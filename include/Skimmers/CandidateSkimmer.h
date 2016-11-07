@@ -106,7 +106,11 @@ protected:
 
 
 	virtual void postMake(){
-		config.toXmlFile( "freeze_config.xml" );
+
+		// export the frozen config for good reference
+		if ( config.exists( nodePath + ".output.XmlFile:url" ) ){
+			config.toXmlFile( config.getXString( nodePath + ".output.XmlFile:url" ) );
+		}
 	}
 
 	virtual void preEventLoop(){

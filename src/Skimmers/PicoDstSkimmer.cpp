@@ -94,10 +94,11 @@ bool PicoDstSkimmer::keepEvent(){
 		passEventCut( "trigger", passAllCuts );
 	}
 
-	if ( rmf->isRunBad( pico->Event_mRunId[0] ) ){
-		DEBUG( classname(), pico->Event_mRunId[0]  << " is BAD" );
-		passAllCuts = false;
-	} else if( makeQA ){
+	// if ( rmf->isRunBad( pico->Event_mRunId[0] ) ){
+	// 	DEBUG( classname(), pico->Event_mRunId[0]  << " is BAD" );
+	// 	passAllCuts = false;
+	// } else 
+	if ( makeQA ){
 		passEventCut( "bad run", passAllCuts );
 	}
 

@@ -12,6 +12,9 @@
 		<Histo name="like_sign_Neg_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
 
 
+		<Histo name="unlike_sign_y" title="unlike sign y; y; dN/dy" bins_x="dimuonBins.rapidity" />
+		<Histo name="unlike_sign_eta" title="unlike sign eta; #eta; dN/d#eta" bins_x="dimuonBins.rapidity" />
+
 
 		<!-- <Histo name="like_sign_jPsi" title="like sign" bins_x="dimuonBins.invMass" />
 		

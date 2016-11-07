@@ -44,6 +44,24 @@ public:
 		// initPairVariables( pairQA );
 		// book->cd( "pairQA" );
 		// pairQA.makeHistograms( "dimuonBins" );
+		
+		PairFilter::setDefaultPairCuts( pairCuts );
+		if ( config.exists( nodePath + ".SameEventPairCuts" ) ){
+			pairCuts.init( config, nodePath + ".SameEventPairCuts" );
+
+			INFO( classname(), "" );
+			INFO( classname(), "############### Pair Cuts ###################"  );
+			pairCuts.report();
+			INFO( classname(), "" );
+		} else {
+			WARN( classname(), "No Pair Cuts Found, using defaults" );
+			INFO( classname(), "" );
+			INFO( classname(), "############### Pair Cuts ###################"  );
+			pairCuts.report();
+			INFO( classname(), "" );
+		}
+
+		makeBin16Histos = false;
 
 	}
 
@@ -56,6 +74,7 @@ public:
 	HistoBins dimuonBins;
 	TH1D * h_like_sign, *h_unlike_sign;
 	TH2D * h_like_sign_vs_pt, *h_unlike_sign_vs_pt;
+	CutCollection pairCuts;
 
 	virtual bool keepEvent(){
 		return true;
@@ -72,6 +91,8 @@ public:
 		h_unlike_sign = (TH1D*)book->get( "unlike_sign" );
 		h_unlike_sign_vs_pt = (TH2D*)book->get2D( "unlike_sign_pT" );
 
+		book->get( "like_sign" )->SetLineColor( kRed );
+
 		if ( book->exists( "binX_like_sign" ) ){
 			vector<int> cBins = config.getIntVector( "dimuonBins.bin16" );
 			for ( int iCen : cBins ){
@@ -83,6 +104,8 @@ public:
 				book->clone( "binX_unlike_sign_pT"   , "bin" + ts( iCen ) + "_unlike_sign_pT"   );
 				book->clone( "binX_like_sign_Pos_pT" , "bin" + ts( iCen ) + "_like_sign_Pos_pT" );
 				book->clone( "binX_like_sign_Neg_pT" , "bin" + ts( iCen ) + "_like_sign_Neg_pT" );
+
+				book->get( "bin" + ts( iCen ) + "_like_sign" )->SetLineColor( kRed );
 			}
 
 			book->get( "binX_like_sign"        ) ->SetDirectory( 0 ) ;
@@ -93,6 +116,10 @@ public:
 			book->get( "binX_unlike_sign_pT"   ) ->SetDirectory( 0 ) ;
 			book->get( "binX_like_sign_Pos_pT" ) ->SetDirectory( 0 ) ;
 			book->get( "binX_like_sign_Neg_pT" ) ->SetDirectory( 0 ) ;
+
+
+
+			makeBin16Histos = true;
 		}
 
 
@@ -132,13 +159,14 @@ public:
 		if ( evt != nullptr )
 			bin16 = evt->mBin16;
 
-
+		if ( pair->mLeadingPt < pairCuts["leadingPt"]->min )
+			return;
 
 		if ( abs(pair->mChargeSum) == 2 ){
 			h_like_sign->Fill( mass, weight );
 			h_like_sign_vs_pt->Fill( mass, pt, weight );
 
-			if ( nullptr != evt ){
+			if ( makeBin16Histos ){
 				book->fill( "bin" + ts( bin16 ) + "_like_sign", mass, weight );
 				book->fill( "bin" + ts( bin16 ) + "_like_sign_pT", mass, pt, weight );
 			}
@@ -148,7 +176,7 @@ public:
 				book->fill( "like_sign_Pos", mass, 1.0 / bw );
 				book->fill( "like_sign_Pos_pT", mass, pt, 1.0/ bw );
 
-				if ( nullptr != evt ){
+				if ( makeBin16Histos ){
 					book->fill( "bin" + ts( bin16 ) + "_like_sign_Pos", mass, weight );
 					book->fill( "bin" + ts( bin16 ) + "_like_sign_Pos_pT", mass, pt, weight );
 				}
@@ -157,19 +185,83 @@ public:
 				book->fill( "like_sign_Neg", mass, 1.0 / bw );
 				book->fill( "like_sign_Neg_pT", mass, pt, 1.0/ bw );
 
-				if ( nullptr != evt ){
+				if ( makeBin16Histos ){
 					book->fill( "bin" + ts( bin16 ) + "_like_sign_Neg", mass, weight );
 					book->fill( "bin" + ts( bin16 ) + "_like_sign_Neg_pT", mass, pt, weight );
 				}
 			}
 		} else {
+			book->fill( "unlike_sign_y", lv.Rapidity() );
+			book->fill( "unlike_sign_eta", lv.Eta() );
 			h_unlike_sign->Fill( mass, weight );
 			h_unlike_sign_vs_pt->Fill( mass, pt, weight );
 
-			if ( nullptr != evt ){
+			if ( makeBin16Histos ){
 				book->fill( "bin" + ts( bin16 ) + "_unlike_sign", mass, weight );
 				book->fill( "bin" + ts( bin16 ) + "_unlike_sign_pT", mass, pt, weight );
 			}
+		}
+	}	
+
+
+	virtual void postEventLoop(){
+		book->cd();
+		
+		makeGeometricMean();
+
+		
+		book->clone( "unlike_sign", "am_signal" );
+		book->clone( "unlike_sign", "gm_signal" );
+		book->clone( "unlike_sign", "p2_signal" );
+		book->clone( "unlike_sign", "n2_signal" );
+
+		book->get("am_signal")->Add( book->get( "like_sign" ), -1 );
+		book->get("gm_signal")->Add( book->get( "like_sign_geom" ), -1 );
+		book->get("p2_signal")->Add( book->get( "like_sign_Pos" ), -2 );
+		book->get("n2_signal")->Add( book->get( "like_sign_Neg" ), -2 );
+
+		vector<int> cBins = config.getIntVector( "dimuonBins.bin16" );
+		for ( int iCen : cBins ){
+			makeGeometricMean( "bin" + ts( iCen ) + "_" );
+			string prefix = "bin" + ts( iCen ) + "_";
+
+
+			book->clone( prefix + "unlike_sign", prefix + "am_signal" );
+			book->clone( prefix + "unlike_sign", prefix + "gm_signal" );
+			book->clone( prefix + "unlike_sign", prefix + "p2_signal" );
+			book->clone( prefix + "unlike_sign", prefix + "n2_signal" );
+
+			book->get( prefix + "am_signal")->Add( book->get( prefix + "like_sign" ), -1 );
+			book->get( prefix + "gm_signal")->Add( book->get( prefix + "like_sign_geom" ), -1 );
+			book->get( prefix + "p2_signal")->Add( book->get( prefix + "like_sign_Pos" ), -2 );
+			book->get( prefix + "n2_signal")->Add( book->get( prefix + "like_sign_Neg" ), -2 );
+
+			// book->clone( "bin" + ts( iCen ) + "_unlike_sign", "bin" + ts( iCen ) + "_signal" );
+			// TH1 * uls = book->get( "bin" + ts( iCen ) + "_signal" );
+			// TH1 * ls = book->get( "bin" + ts( iCen ) + "_like_sign" );
+
+			// uls->Add( ls, -1 );
+
+		}
+
+	}
+
+
+
+	virtual void makeGeometricMean( string _prefix = "", string _suffix ="" ){
+
+		TH1 * lsn = book->get( _prefix + "like_sign_Neg" );
+		TH1 * lsp = book->get( _prefix + "like_sign_Pos" );
+		book->clone( _prefix + "like_sign_Pos", _prefix + "like_sign_geom" );
+
+		for ( int iBin = 1; iBin <= lsn->GetNbinsX(); iBin++ ){
+			double bw = lsn->GetBinWidth( iBin );
+			book->setBin( 
+				_prefix + "like_sign_geom",
+				iBin,
+				2 * sqrt( lsn->GetBinContent( iBin ) ) * sqrt( lsp->GetBinContent( iBin ) ),
+				lsn->GetBinError( iBin )
+			 );
 		}
 	}
 
@@ -178,6 +270,7 @@ protected:
 	shared_ptr<CandidateEventReader> eventReader;
 
 	TTreeQA pairQA;
+	bool makeBin16Histos = false;
 };
 
 #endif

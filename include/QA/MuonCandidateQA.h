@@ -66,10 +66,12 @@ public:
 		_qaMaker.i( "pMomentumX"  , "P_{x}"        , "[GeV/c]"    , "P"       );
 		_qaMaker.i( "pMomentumY"  , "P_{y}"        , "[GeV/c]"    , "P"       );
 		_qaMaker.i( "pMomentumZ"  , "P_{z}"        , "[GeV/c]"    , "P"       );
+		_qaMaker.i( "dca"         , "gDCA"         , "[cm]" );
 
 		_qaMaker.i( "nHitsFit"    , "nHitsFit"     , ""           , "nHits"   );
 		_qaMaker.i( "nHitsDedx"   , "nHitsDedx"    , ""           , "nHits"   );
 		_qaMaker.i( "nHitsMax"    , "nHitsMax"     , ""           , "nHits"   );
+		_qaMaker.i( "nHitsRatio"  , "nHitsRatio" );
 
 		_qaMaker.i( "runIndex", "", "", "", "x" );
 	}
@@ -142,7 +144,7 @@ public:
 		_qaMaker.s( "eta"         , mom.Eta() );
 		_qaMaker.s( "rigidity"    , rdg );
 		_qaMaker.s( "mtdHitChan"  , _mtdPid->mMtdHitChan );
-		_qaMaker.s( "mtdCell"     , _mtdPid->mMtdHitChan % 12 );
+		_qaMaker.s( "mtdCell"     , _mtdPid->cell() );
 		_qaMaker.s( "mtdDeltaY"   , _mtdPid->mDeltaY );
 		_qaMaker.s( "mtdDeltaZ"   , _mtdPid->mDeltaZ );
 		_qaMaker.s( "mtdDeltaTOF" , _mtdPid->mDeltaTimeOfFlight );
@@ -153,9 +155,12 @@ public:
 		_qaMaker.s( "pMomentumY"  , mom.Py() );
 		_qaMaker.s( "pMomentumZ"  , mom.Pz() );
 
+		_qaMaker.s( "dca"         , _track->gDCA() );
+
 		_qaMaker.s( "nHitsFit"    , (int)_track->mNHitsFit );
 		_qaMaker.s( "nHitsDedx"   , (int)_track->mNHitsDedx * _track->charge() );
 		_qaMaker.s( "nHitsMax"    , (int)_track->mNHitsMax * _track->charge() );
+		_qaMaker.s( "nHitsRatio"  ,  fabs( _track->mNHitsFit ) / fabs( _track->mNHitsMax ) );
 
 
 		_qaMaker.fill( _cat );

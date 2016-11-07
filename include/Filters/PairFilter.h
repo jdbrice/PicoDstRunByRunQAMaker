@@ -23,12 +23,13 @@ public:
 	PairFilter();
 	~PairFilter();
 
-	static bool keepMixedPair( 	shared_ptr<CandidateTrack> &aTrack, 
-								shared_ptr<CandidateTrackMtdPidTraits> &aMtdPid,
-								shared_ptr<CandidateTrack> &bTrack, 
-								shared_ptr<CandidateTrackMtdPidTraits> &bMtdPid ){
+	static bool keepMixedEventPair( 	CutCollection &ccol, 
+										TLorentzVector &lv1, TLorentzVector &lv2 ){
+		bool kse = keepSameEventPair( ccol, lv1, lv2 );
+		if ( kse == false ) return true;
 
-		if ( aMtdPid->mMtdHitChan == bMtdPid->mMtdHitChan ) return false;
+		TLorentzVector lv = lv1 + lv2;
+		if ( lv1.DeltaPhi( lv2 ) < 0.5 / ( lv.Pt() ) ) return false;
 		return true;
 	}
 
@@ -41,6 +42,18 @@ public:
 									TLorentzVector &lv1, TLorentzVector &lv2 ){
 		if ( ccol[ "leadingPt" ]->below( lv1.Pt() ) && ccol[ "leadingPt" ]->below( lv2.Pt() ) ) 
 			return false;
+
+		if ( !ccol["deltaEta"]->inInclusiveRange( fabs( lv1.Eta() - lv2.Eta() ) ) ){
+			// INFO( "PairFilter", "deltaEta" );
+			return false;
+		}
+
+		if ( !ccol["deltaPhi"]->inInclusiveRange( fabs( lv1.DeltaPhi( lv2 ) ) ) ){
+			// INFO( "PairFilter", "deltaPhi" );
+			return false;
+		}
+		
+
 		return true;
 	}
 	

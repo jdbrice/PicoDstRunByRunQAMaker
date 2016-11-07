@@ -3,7 +3,8 @@
 
 	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
 
-	<Include url="../Common/cwd.xml" />
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
 
 	<Data name="d1" url="{CWD:out}/InvMassMuMu/bg_inv_mass_mumu.root" />
 	<Data name="d2" url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" />

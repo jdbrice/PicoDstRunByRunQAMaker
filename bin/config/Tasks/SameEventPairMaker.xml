@@ -2,15 +2,15 @@
 <config>
 	<!-- TASKS -->
 	<Task name="skimmer" type="SameEventPairTreeMaker" config="" nodePath="InvMP" />
-	<Logger color="true" globalLogLevel="info" />
+	<Logger color="true" globalLogLevel="debug" />
 	
 	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
 	<Include url="{R:url}/cwd.xml" />
 
 	<InvMP >
-		<Logger color="true" globalLogLevel="info" />
+		<Logger color="true" globalLogLevel="trace" />
 		<EventLoop progress="true" />
-		<MakeQA event="true" track="true" />
+		<MakeQA event="false" track="false" />
 
 		<input>
 			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="5" nEvents="-1"/>
@@ -18,10 +18,11 @@
 
 		<output path="" >
 			<TFile url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_{jobIndex}_{InvMP.EventHash}.root" />
+			<!-- The config is frozen to this file for reference -->
+			<XmlFile url="{CWD:out}/SameEventMuMuPairs/config_{jobIndex}_{InvMP.EventHash}.xml" />
 		</output>
 
 		<histograms>
-			<!-- <Include url="../Common/dimuonHistos.xml" /> -->
 			<Include url="../Common/TrackQAHistos.xml" />
 			<Include url="../Common/PairQAHistos.xml" />
 		</histograms>
@@ -34,7 +35,6 @@
 
 	</InvMP>
 
-	<!-- <Include url="{R:url}/dimuonBins.xml" /> -->
 	<Include url="../Common/TrackQABins.xml" />
 	<Include url="../Common/PairQABins.xml" />
 

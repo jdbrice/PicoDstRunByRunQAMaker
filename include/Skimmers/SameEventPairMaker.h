@@ -122,7 +122,7 @@ protected:
 		currentEventHash = eht.hash( event );
 		// wBin16     = event->mBin16;
 
-		TRACE( classname(), "current Event = " << currentEventHash );
+		// TRACE( classname(), "current Event = " << currentEventHash );
 		if ( 0 <= eventHash && eventHash != currentEventHash ) return;
 
 		// Pre loop hook
@@ -150,7 +150,7 @@ protected:
 
 				lv = lv1 + lv2;
 
-				if ( !keepPair( lv1, lv2 ) ) continue;
+				// if ( !keepPair( lv1, lv2 ) ) continue;
 				analyzePair( aTrack, bTrack );
 				
 				nPairs++;

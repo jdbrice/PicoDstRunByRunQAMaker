@@ -39,6 +39,8 @@ public:
 			trackQA.setConfig( config );
 
 			trackQA.addCategory( "Like_Sign" );
+			trackQA.addCategory( "Like_Sign_Pos" );
+			trackQA.addCategory( "Like_Sign_Neg" );
 			trackQA.addCategory( "Unlike_Sign" );
 			trackQA.makeDefaultCategory( false );
 			MuonCandidateQA::initTrackVariables( trackQA );
@@ -64,6 +66,19 @@ public:
 		book->cd();
 	}
 
+	virtual bool keepPair( TLorentzVector _lv1, TLorentzVector _lv2 ){
+		bool pk = SameEventPairMaker::keepPair( _lv1, _lv2 );
+		if ( false == pk ) return false;
+		
+		TLorentzVector lv;
+		lv = _lv1 + _lv2;
+		
+		if ( qaCuts["InvMass"]->inInclusiveRange( lv.M() ) ){
+			return true;
+		}
+		return false;
+	}
+
 
 	HistoBins dimuonBins;
 
@@ -79,6 +94,8 @@ public:
 
 		lv = lv1 + lv2;
 
+		if ( !PairFilter::keepSameEventPair( pairCuts, lv1, lv2 ) ) return;
+
 		int iBin = dimuonBins.findBin( lv.M() );
 		if ( iBin < 0 ) return;
 
@@ -92,6 +109,14 @@ public:
 					book->cd( "trackQA" );
 					MuonCandidateQA::fillCandidateTrackQA( trackQA, _aTrack, aMtdPid, "Like_Sign" );
 					MuonCandidateQA::fillCandidateTrackQA( trackQA, _bTrack, bMtdPid, "Like_Sign" );
+
+					if (_aTrack->charge() + _bTrack->charge() == 2 ){
+						MuonCandidateQA::fillCandidateTrackQA( trackQA, _aTrack, aMtdPid, "Like_Sign_Pos" );
+						MuonCandidateQA::fillCandidateTrackQA( trackQA, _bTrack, bMtdPid, "Like_Sign_Pos" );
+					} else if (_aTrack->charge() + _bTrack->charge() == -2 ){
+						MuonCandidateQA::fillCandidateTrackQA( trackQA, _aTrack, aMtdPid, "Like_Sign_Neg" );
+						MuonCandidateQA::fillCandidateTrackQA( trackQA, _bTrack, bMtdPid, "Like_Sign_Neg" );
+					}
 				}
 				
 				// book->cd();
@@ -118,32 +143,36 @@ public:
 
 		if ( config.getBool( nodePath + ".MakeQA:Pair", true ) ){
 			book->cd( "pairQA" );
-			// SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2 );
-			if ( abs(_aTrack->charge() + _bTrack->charge()) > 0 ){
-				SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Like_Sign" );
-				if (_aTrack->charge() + _bTrack->charge() == 2 )
-					SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Like_Sign_Pos" );
-				else if (_aTrack->charge() + _bTrack->charge() == -2 )
-					SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Like_Sign_Neg" );
-			} else {
-				SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, m1, m2, "Unlike_Sign");
-			}
+			
 
-		}
-
+			if (  qaCuts["InvMass"]->inInclusiveRange( lv.M() ) ){
+				if ( abs(_aTrack->charge() + _bTrack->charge()) > 0 ){
+					SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, aMtdPid, bMtdPid, m1, m2, "Like_Sign" );
+					if (_aTrack->charge() + _bTrack->charge() == 2 )
+						SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, aMtdPid, bMtdPid, m1, m2, "Like_Sign_Pos" );
+					else if (_aTrack->charge() + _bTrack->charge() == -2 )
+						SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, aMtdPid, bMtdPid, m1, m2, "Like_Sign_Neg" );
+				} else {
+					SameEventPairQA::fillPairVariables( pairQA, _aTrack, _bTrack, aMtdPid, bMtdPid, m1, m2, "Unlike_Sign");
+				}
+			} // cut on mass
+		} // if make PairQA
 	}
 
 
 	static void initPairVariables( TTreeQA &_qaMaker ){
-		_qaMaker.i( "phi_d1"   , "d1 #phi"      , "[rad]"       , "phi"    , "x" );
-		_qaMaker.i( "phi_d2"   , "d2 #phi"      , "[rad]"       , "phi" );
-		_qaMaker.i( "eta_d1"   , "d1 #eta"      , ""            , "eta"    , "x" );
-		_qaMaker.i( "eta_d2"   , "d2 #eta"      , ""            , "eta" );
-		_qaMaker.i( "deltaPhi" , "#Delta Phi"   , "[rad]" );
-		_qaMaker.i( "deltaEta" , "#Delta #eta"  , "" );
-		_qaMaker.i( "deltaR"   , "#Delta R"     , "" );
-		_qaMaker.i( "parentPt" , "Parent p_{T}" , "[GeV/c]"     , ""       , "x" );
-		_qaMaker.i( "parentM"  , "M"            , "[GeV/c^{2}]" , ""       , "x" );
+		_qaMaker.i( "phi_d1"    , "d1 #phi"        , "[rad]"        , "phi"     , "x"              );
+		_qaMaker.i( "phi_d2"    , "d2 #phi"        , "[rad]"        , "phi"                        );
+		_qaMaker.i( "eta_d1"    , "d1 #eta"        , ""             , "eta"     , "x"              );
+		_qaMaker.i( "eta_d2"    , "d2 #eta"        , ""             , "eta"                        );
+		_qaMaker.i( "cell_d1"   , "d1 mtdCell"     , ""             , "mtdCell"                    );
+		_qaMaker.i( "cell_d2"   , "d2 mtdCell"     , ""             , "mtdCell"                    );
+		_qaMaker.i( "deltaPhi"  , "#Delta Phi"     , "[rad]"                                       );
+		_qaMaker.i( "deltaEta"  , "#Delta #eta"    , ""                                            );
+		_qaMaker.i( "deltaR"    , "#Delta R"       , ""                                            );
+		_qaMaker.i( "leadingPt" , "max( p_{T}^{1}, p_{T}^{2} )"     , "[GeV/c]" , "parentPt" , "y" );
+		_qaMaker.i( "parentPt"  , "Parent p_{T}"   , "[GeV/c]"      , ""        , "x"              );
+		_qaMaker.i( "parentM"   , "M"              , "[GeV/c^{2}]"  , ""        , "x"              );
 		// _qaMaker.i( "deltaR", "dPhi", "[rad]" );
 	}
 
@@ -151,6 +180,8 @@ public:
 			TTreeQA &_qaMaker, 
 			CandidateTrack * _aTrack, 
 			CandidateTrack * _bTrack, 
+			CandidateTrackMtdPidTraits * _aMtdPid,
+			CandidateTrackMtdPidTraits * _bMtdPid,
 			double _m1, double _m2,
 			string _cat = "" ){
 
@@ -159,11 +190,19 @@ public:
 		lv2.SetXYZM( _bTrack->mPMomentum_mX1, _bTrack->mPMomentum_mX2, _bTrack->mPMomentum_mX3, _m2 );
 		lv = lv1 + lv2;
 
+		float leadingPt = lv1.Pt();
+		if ( lv2.Pt() > lv1.Pt() )
+			leadingPt = lv2.Pt();
+
+		_qaMaker.s( "leadingPt", leadingPt );
 
 		_qaMaker.s( "phi_d1", lv1.Phi() );
 		_qaMaker.s( "phi_d2", lv2.Phi() );
 		_qaMaker.s( "eta_d1", lv1.Eta() );
 		_qaMaker.s( "eta_d2", lv2.Eta() );
+
+		_qaMaker.s( "cell_d1", _aMtdPid->cell() );
+		_qaMaker.s( "cell_d2", _bMtdPid->cell() );
 
 		float dPhi = -10;
 		float dEta = -100;

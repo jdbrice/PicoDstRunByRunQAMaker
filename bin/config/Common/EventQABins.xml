@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<EventQABins>
-		<event_cuts width="1" min="0" max="8" />
+		<event_cuts width="1" min="0" max="16" />
 		<zVertex width="1" min="-105" max="105" />
 		<zVertexDelta width=".1" min="-30.1" max="30.1" />
 		<nTracks width="1" min="0" max="1000" />

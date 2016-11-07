@@ -17,6 +17,10 @@ public:
 		this->mMtdHitChan        = that->mMtdHitChan;
 	}
 
+	int cell() {
+		return mMtdHitChan % 12;
+	}
+
 	Float_t   mDeltaY;					// DeltaY between matched track-hit pair
 	Float_t   mDeltaZ;					// DeltaZ between matched track-hit pair
 	Float_t   mDeltaTimeOfFlight;		// Difference between measured and expected time-of-flight

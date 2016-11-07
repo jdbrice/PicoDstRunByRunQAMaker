@@ -26,12 +26,13 @@ public:
 		this->mMass 		 = that->mMass;
 		this->mChargeSum = that->mChargeSum;
 	}
-	void set( float px, float py, float pz, float m, int cs ){
+	void set( float px, float py, float pz, float m, int cs, float lpt ){
 		mMomentum_mX1 = px;
 		mMomentum_mX2 = py;
 		mMomentum_mX3 = pz;
-		mMass = m;
-		mChargeSum = cs;
+		mMass         = m;
+		mChargeSum    = cs;
+		mLeadingPt    = lpt;
 	}
 
 	TVector3 momentum() { return TVector3( mMomentum_mX1, mMomentum_mX2, mMomentum_mX3 ); }
@@ -41,6 +42,7 @@ public:
 	Float_t 	mMomentum_mX3;					// pair pz
 	Float_t 	mMass;							// global track gDCA
 	Char_t 		mChargeSum;						// charge of daughter1 + charge of daughter2
+	Float_t 	mLeadingPt;						// the pt of the leading daughter
 
 	// CandidateTrack* d1 = nullptr;
 	// CandidateTrack* d2 = nullptr;
@@ -66,7 +68,7 @@ public:
 	// 	return nullptr;
 	// }
 
-	ClassDef( CandidatePair, 2 )
+	ClassDef( CandidatePair, 3 )
 };
 
 #endif

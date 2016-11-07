@@ -4,7 +4,8 @@
 	<Task name="skimmer" type="MuonCandidateMaker" config="" nodePath="MuonCandidateMaker" />
 	<Logger color="true" globalLogLevel="trace" />
 	
-	<Include url="./Common/cwd.xml" />
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
 
 
 	<MuonCandidateMaker event="true" track="true" triggers="dimuon" rmc="false">
@@ -22,12 +23,13 @@
 		</output>
 
 		<histograms>
-			<Include url="./Common/EventQAHistos.xml" />
+			<Include url="../Common/EventQAHistos.xml" />
+			<Include url="../Common/TrackQAHistos.xml" />
 		</histograms>
 		
-		<Include url="./Common/EventCuts.xml" />
-		<Include url="./Common/LooseMuonCandidateCuts.xml" />
-		<Include url="./Common/MixedEventBins.xml" />
+		<Include url="../Common/LooseMuonCandidateCuts.xml" />
+		<Include url="{R:url}/EventCuts.xml" />
+		<Include url="{R:url}/MixedEventBins.xml" />
 
 		<EventBranches>
 			Event
@@ -41,6 +43,7 @@
 
 	</MuonCandidateMaker>
 
-	<Include url="./Common/EventQABins.xml" />
+	<Include url="../Common/EventQABins.xml" />
+	<Include url="../Common/TrackQABins.xml" />
 
 </config>
