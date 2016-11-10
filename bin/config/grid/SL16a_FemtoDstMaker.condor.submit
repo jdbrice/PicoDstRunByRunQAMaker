@@ -7,4 +7,4 @@ InitialDir = /home/jdb12/work/muonAna/bin/
 Executable = /home/jdb12/work/muonAna/bin/prod
 Arguments  = /home/jdb12/work/muonAna/bin/config/Tasks/PicoDst16aSkimmer.xml --jobIndex=$(Process)
 
-Queue 374
+Queue 1000
