@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="PythiaSkimmer" config="" nodePath="PS" />
+	<Logger color="true" globalLogLevel="warning" />
+	
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<PS>
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+
+		<input>
+			<dst treeName="pythia" url="{CWD:in}/filelists/Pythia.lis" splitBy="100" nEvents="50000" maxFiles="10000"/>
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}/Pythia/pythia_QA_{jobIndex}.root" />
+		</output>
+
+		<histograms>
+			<Include url="{R:url}/PythiaHistos.xml" />
+		</histograms>
+		
+	</PS>
+
+	<Include url="{R:url}/PythiaBins.xml" />
+
+</config>

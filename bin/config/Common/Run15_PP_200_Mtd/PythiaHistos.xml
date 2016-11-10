@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<PythiaHistos dir="">
+		<Histo name="KF" title="KF" bins_x="PythiaBins.KF" />
+		<Histo name="KS" title="KS" bins_x="PythiaBins.KS" />
+
+		<Histo name="mupParents" title="#mu^{+} Parents" bins_x="PythiaBins.KF" />
+		<Histo name="mumParents" title="#mu^{-} Parents" bins_x="PythiaBins.KF" />
+
+		<Histo name="fg_uls_all" title="True Pairs (all sources)" bins_x="PythiaBins.invMass" />
+		<Histo name="fg_uls_all_2d" title="True Pairs (all sources)" bins_x="PythiaBins.invMass" bins_y="PythiaBins.pT" />
+		<Histo name="star_fg_uls_all" title="True Pairs (all sources)" bins_x="PythiaBins.invMass" />
+
+		<Histo name="true_all" title="True Pairs (all sources)" bins_x="PythiaBins.invMass" />
+		<Histo name="true_omega" title="True Pairs (omega)" bins_x="PythiaBins.invMass" />
+		<Histo name="true_rho0" title="True Pairs (rho0)" bins_x="PythiaBins.invMass" />
+		<Histo name="truep_rho0" title="True Pairs (rho0, parent)" bins_x="PythiaBins.invMass" />
+		<Histo name="true_phi" title="True Pairs (phi)" bins_x="PythiaBins.invMass" />
+		<Histo name="true_jpsi" title="True Pairs (jpsi)" bins_x="PythiaBins.invMass" />
+		
+		<Histo name="true_eta" title="True Pairs (eta)" bins_x="PythiaBins.invMass" />
+		<Histo name="true_etaprime" title="True Pairs (etaprime)" bins_x="PythiaBins.invMass" />
+
+		<Histo name="true_ls" title="True Pairs (ls)" bins_x="PythiaBins.invMass" />
+
+	</PythiaHistos>
+
+</config>

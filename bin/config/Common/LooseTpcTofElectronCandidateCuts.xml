@@ -13,7 +13,7 @@
 		
 		<!-- <Range name="invBeta" min="-0.05" max="0.05" /> -->
 		<Range name="yLocal" min="-10.8" max="10.8" />
-
+		<range name="matchFlag" min="1" max="2" />
 		<!-- <Range name="dEdx" min="3.5" max="100000" /> -->
 
 	</ElectronCandidateCuts>

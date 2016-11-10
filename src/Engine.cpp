@@ -23,6 +23,7 @@ using namespace jdb;
 #include "CandidatePairCSVExporter.h"
 
 #include "PicoDstSkimmer.h"
+#include "PicoDst16aSkimmer.h"
 
 // Candidate Makers
 #include "CandidateMaker.h"
@@ -60,6 +61,8 @@ using namespace jdb;
 
 #include "VegaXmlPlotter.h"
 
+#include "PythiaSkimmer.h"
+
 TRandom3 SameEventPairQA::rnd;
 
 int main( int argc, char* argv[] ) {
@@ -77,6 +80,7 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<CandidateCSVExporter>( "CandidateCSVExporter" );
 	TaskFactory::registerTaskRunner<CandidatePairCSVExporter>( "CandidatePairCSVExporter" );
 
+	TaskFactory::registerTaskRunner<PicoDst16aSkimmer>( "PicoDst16aSkimmer" );
 	TaskFactory::registerTaskRunner<PicoDstSkimmer>( "PicoDstSkimmer" );
 	TaskFactory::registerTaskRunner<CandidateMaker>( "CandidateMaker" );
 	TaskFactory::registerTaskRunner<MuonCandidateMaker>( "MuonCandidateMaker" );
@@ -110,6 +114,8 @@ int main( int argc, char* argv[] ) {
 	// UnitTests
 	TaskFactory::registerTaskRunner<UnitTestProductionUtils>( "UnitTestProductionUtils" );
 	TaskFactory::registerTaskRunner<UnitTestEventHasher>( "UnitTestEventHasher" );
+
+	TaskFactory::registerTaskRunner<PythiaSkimmer>( "PythiaSkimmer" );
 
 	TaskEngine engine( argc, argv );
 

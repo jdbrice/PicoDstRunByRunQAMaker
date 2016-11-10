@@ -57,7 +57,6 @@ namespace ROOT {
    static void delete_StPicoBTOWHit(void *p);
    static void deleteArray_StPicoBTOWHit(void *p);
    static void destruct_StPicoBTOWHit(void *p);
-   static void streamer_StPicoBTOWHit(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoBTOWHit*)
@@ -67,14 +66,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoBTOWHit", ::StPicoBTOWHit::Class_Version(), "StPicoBTOWHit.h", 6,
                   typeid(::StPicoBTOWHit), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoBTOWHit::Dictionary, isa_proxy, 16,
+                  &::StPicoBTOWHit::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoBTOWHit) );
       instance.SetNew(&new_StPicoBTOWHit);
       instance.SetNewArray(&newArray_StPicoBTOWHit);
       instance.SetDelete(&delete_StPicoBTOWHit);
       instance.SetDeleteArray(&deleteArray_StPicoBTOWHit);
       instance.SetDestructor(&destruct_StPicoBTOWHit);
-      instance.SetStreamerFunc(&streamer_StPicoBTOWHit);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoBTOWHit*)
@@ -91,7 +89,6 @@ namespace ROOT {
    static void delete_StPicoBTofHit(void *p);
    static void deleteArray_StPicoBTofHit(void *p);
    static void destruct_StPicoBTofHit(void *p);
-   static void streamer_StPicoBTofHit(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoBTofHit*)
@@ -101,14 +98,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoBTofHit", ::StPicoBTofHit::Class_Version(), "StPicoBTofHit.h", 6,
                   typeid(::StPicoBTofHit), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoBTofHit::Dictionary, isa_proxy, 16,
+                  &::StPicoBTofHit::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoBTofHit) );
       instance.SetNew(&new_StPicoBTofHit);
       instance.SetNewArray(&newArray_StPicoBTofHit);
       instance.SetDelete(&delete_StPicoBTofHit);
       instance.SetDeleteArray(&deleteArray_StPicoBTofHit);
       instance.SetDestructor(&destruct_StPicoBTofHit);
-      instance.SetStreamerFunc(&streamer_StPicoBTofHit);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoBTofHit*)
@@ -125,7 +121,6 @@ namespace ROOT {
    static void delete_StPicoBTofPidTraits(void *p);
    static void deleteArray_StPicoBTofPidTraits(void *p);
    static void destruct_StPicoBTofPidTraits(void *p);
-   static void streamer_StPicoBTofPidTraits(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoBTofPidTraits*)
@@ -135,14 +130,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoBTofPidTraits", ::StPicoBTofPidTraits::Class_Version(), "StPicoBTofPidTraits.h", 8,
                   typeid(::StPicoBTofPidTraits), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoBTofPidTraits::Dictionary, isa_proxy, 16,
+                  &::StPicoBTofPidTraits::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoBTofPidTraits) );
       instance.SetNew(&new_StPicoBTofPidTraits);
       instance.SetNewArray(&newArray_StPicoBTofPidTraits);
       instance.SetDelete(&delete_StPicoBTofPidTraits);
       instance.SetDeleteArray(&deleteArray_StPicoBTofPidTraits);
       instance.SetDestructor(&destruct_StPicoBTofPidTraits);
-      instance.SetStreamerFunc(&streamer_StPicoBTofPidTraits);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoBTofPidTraits*)
@@ -159,7 +153,6 @@ namespace ROOT {
    static void delete_StPicoEmcPidTraits(void *p);
    static void deleteArray_StPicoEmcPidTraits(void *p);
    static void destruct_StPicoEmcPidTraits(void *p);
-   static void streamer_StPicoEmcPidTraits(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoEmcPidTraits*)
@@ -169,14 +162,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoEmcPidTraits", ::StPicoEmcPidTraits::Class_Version(), "StPicoEmcPidTraits.h", 6,
                   typeid(::StPicoEmcPidTraits), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoEmcPidTraits::Dictionary, isa_proxy, 16,
+                  &::StPicoEmcPidTraits::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoEmcPidTraits) );
       instance.SetNew(&new_StPicoEmcPidTraits);
       instance.SetNewArray(&newArray_StPicoEmcPidTraits);
       instance.SetDelete(&delete_StPicoEmcPidTraits);
       instance.SetDeleteArray(&deleteArray_StPicoEmcPidTraits);
       instance.SetDestructor(&destruct_StPicoEmcPidTraits);
-      instance.SetStreamerFunc(&streamer_StPicoEmcPidTraits);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoEmcPidTraits*)
@@ -193,7 +185,6 @@ namespace ROOT {
    static void delete_StPicoEmcTrigger(void *p);
    static void deleteArray_StPicoEmcTrigger(void *p);
    static void destruct_StPicoEmcTrigger(void *p);
-   static void streamer_StPicoEmcTrigger(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoEmcTrigger*)
@@ -203,14 +194,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoEmcTrigger", ::StPicoEmcTrigger::Class_Version(), "StPicoEmcTrigger.h", 6,
                   typeid(::StPicoEmcTrigger), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoEmcTrigger::Dictionary, isa_proxy, 16,
+                  &::StPicoEmcTrigger::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoEmcTrigger) );
       instance.SetNew(&new_StPicoEmcTrigger);
       instance.SetNewArray(&newArray_StPicoEmcTrigger);
       instance.SetDelete(&delete_StPicoEmcTrigger);
       instance.SetDeleteArray(&deleteArray_StPicoEmcTrigger);
       instance.SetDestructor(&destruct_StPicoEmcTrigger);
-      instance.SetStreamerFunc(&streamer_StPicoEmcTrigger);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoEmcTrigger*)
@@ -227,7 +217,6 @@ namespace ROOT {
    static void delete_StPicoEvent(void *p);
    static void deleteArray_StPicoEvent(void *p);
    static void destruct_StPicoEvent(void *p);
-   static void streamer_StPicoEvent(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoEvent*)
@@ -237,14 +226,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoEvent", ::StPicoEvent::Class_Version(), "StPicoEvent.h", 10,
                   typeid(::StPicoEvent), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoEvent::Dictionary, isa_proxy, 16,
+                  &::StPicoEvent::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoEvent) );
       instance.SetNew(&new_StPicoEvent);
       instance.SetNewArray(&newArray_StPicoEvent);
       instance.SetDelete(&delete_StPicoEvent);
       instance.SetDeleteArray(&deleteArray_StPicoEvent);
       instance.SetDestructor(&destruct_StPicoEvent);
-      instance.SetStreamerFunc(&streamer_StPicoEvent);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoEvent*)
@@ -261,7 +249,6 @@ namespace ROOT {
    static void delete_StPicoMtdHit(void *p);
    static void deleteArray_StPicoMtdHit(void *p);
    static void destruct_StPicoMtdHit(void *p);
-   static void streamer_StPicoMtdHit(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoMtdHit*)
@@ -271,14 +258,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoMtdHit", ::StPicoMtdHit::Class_Version(), "StPicoMtdHit.h", 8,
                   typeid(::StPicoMtdHit), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoMtdHit::Dictionary, isa_proxy, 16,
+                  &::StPicoMtdHit::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoMtdHit) );
       instance.SetNew(&new_StPicoMtdHit);
       instance.SetNewArray(&newArray_StPicoMtdHit);
       instance.SetDelete(&delete_StPicoMtdHit);
       instance.SetDeleteArray(&deleteArray_StPicoMtdHit);
       instance.SetDestructor(&destruct_StPicoMtdHit);
-      instance.SetStreamerFunc(&streamer_StPicoMtdHit);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoMtdHit*)
@@ -295,7 +281,6 @@ namespace ROOT {
    static void delete_StPicoMtdPidTraits(void *p);
    static void deleteArray_StPicoMtdPidTraits(void *p);
    static void destruct_StPicoMtdPidTraits(void *p);
-   static void streamer_StPicoMtdPidTraits(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoMtdPidTraits*)
@@ -305,14 +290,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoMtdPidTraits", ::StPicoMtdPidTraits::Class_Version(), "StPicoMtdPidTraits.h", 6,
                   typeid(::StPicoMtdPidTraits), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoMtdPidTraits::Dictionary, isa_proxy, 16,
+                  &::StPicoMtdPidTraits::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoMtdPidTraits) );
       instance.SetNew(&new_StPicoMtdPidTraits);
       instance.SetNewArray(&newArray_StPicoMtdPidTraits);
       instance.SetDelete(&delete_StPicoMtdPidTraits);
       instance.SetDeleteArray(&deleteArray_StPicoMtdPidTraits);
       instance.SetDestructor(&destruct_StPicoMtdPidTraits);
-      instance.SetStreamerFunc(&streamer_StPicoMtdPidTraits);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoMtdPidTraits*)
@@ -329,7 +313,6 @@ namespace ROOT {
    static void delete_StPicoMtdTrigger(void *p);
    static void deleteArray_StPicoMtdTrigger(void *p);
    static void destruct_StPicoMtdTrigger(void *p);
-   static void streamer_StPicoMtdTrigger(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoMtdTrigger*)
@@ -339,14 +322,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoMtdTrigger", ::StPicoMtdTrigger::Class_Version(), "StPicoMtdTrigger.h", 6,
                   typeid(::StPicoMtdTrigger), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoMtdTrigger::Dictionary, isa_proxy, 16,
+                  &::StPicoMtdTrigger::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoMtdTrigger) );
       instance.SetNew(&new_StPicoMtdTrigger);
       instance.SetNewArray(&newArray_StPicoMtdTrigger);
       instance.SetDelete(&delete_StPicoMtdTrigger);
       instance.SetDeleteArray(&deleteArray_StPicoMtdTrigger);
       instance.SetDestructor(&destruct_StPicoMtdTrigger);
-      instance.SetStreamerFunc(&streamer_StPicoMtdTrigger);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoMtdTrigger*)
@@ -363,7 +345,6 @@ namespace ROOT {
    static void delete_StPicoTrack(void *p);
    static void deleteArray_StPicoTrack(void *p);
    static void destruct_StPicoTrack(void *p);
-   static void streamer_StPicoTrack(TBuffer &buf, void *obj);
 
    // Function generating the singleton type initializer
    static TGenericClassInfo *GenerateInitInstanceLocal(const ::StPicoTrack*)
@@ -373,14 +354,13 @@ namespace ROOT {
       static ::ROOT::TGenericClassInfo 
          instance("StPicoTrack", ::StPicoTrack::Class_Version(), "StPicoTrack.h", 14,
                   typeid(::StPicoTrack), ::ROOT::Internal::DefineBehavior(ptr, ptr),
-                  &::StPicoTrack::Dictionary, isa_proxy, 16,
+                  &::StPicoTrack::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoTrack) );
       instance.SetNew(&new_StPicoTrack);
       instance.SetNewArray(&newArray_StPicoTrack);
       instance.SetDelete(&delete_StPicoTrack);
       instance.SetDeleteArray(&deleteArray_StPicoTrack);
       instance.SetDestructor(&destruct_StPicoTrack);
-      instance.SetStreamerFunc(&streamer_StPicoTrack);
       return &instance;
    }
    TGenericClassInfo *GenerateInitInstance(const ::StPicoTrack*)
@@ -746,21 +726,10 @@ void StPicoBTOWHit::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoBTOWHit.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> mId;
-      R__b >> mAdc;
-      R__b >> mE;
-      R__b.CheckByteCount(R__s, R__c, StPicoBTOWHit::IsA());
+      R__b.ReadClassBuffer(StPicoBTOWHit::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoBTOWHit::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << mId;
-      R__b << mAdc;
-      R__b << mE;
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoBTOWHit::Class(),this);
    }
 }
 
@@ -783,10 +752,6 @@ namespace ROOT {
       typedef ::StPicoBTOWHit current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoBTOWHit(TBuffer &buf, void *obj) {
-      ((::StPicoBTOWHit*)obj)->::StPicoBTOWHit::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::StPicoBTOWHit
 
 //______________________________________________________________________________
@@ -794,17 +759,10 @@ void StPicoBTofHit::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoBTofHit.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> mId;
-      R__b.CheckByteCount(R__s, R__c, StPicoBTofHit::IsA());
+      R__b.ReadClassBuffer(StPicoBTofHit::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoBTofHit::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << mId;
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoBTofHit::Class(),this);
    }
 }
 
@@ -827,10 +785,6 @@ namespace ROOT {
       typedef ::StPicoBTofHit current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoBTofHit(TBuffer &buf, void *obj) {
-      ((::StPicoBTofHit*)obj)->::StPicoBTofHit::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::StPicoBTofHit
 
 //______________________________________________________________________________
@@ -838,35 +792,10 @@ void StPicoBTofPidTraits::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoBTofPidTraits.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> mTrackIndex;
-      R__b >> mBTofCellId;
-      R__b >> mBTofMatchFlag;
-      R__b >> mBTof;
-      R__b >> mBTofBeta;
-      R__b >> mBTofYLocal;
-      R__b >> mBTofZLocal;
-      R__b >> mBTofHitPosX;
-      R__b >> mBTofHitPosY;
-      R__b >> mBTofHitPosZ;
-      R__b.CheckByteCount(R__s, R__c, StPicoBTofPidTraits::IsA());
+      R__b.ReadClassBuffer(StPicoBTofPidTraits::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoBTofPidTraits::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << mTrackIndex;
-      R__b << mBTofCellId;
-      R__b << mBTofMatchFlag;
-      R__b << mBTof;
-      R__b << mBTofBeta;
-      R__b << mBTofYLocal;
-      R__b << mBTofZLocal;
-      R__b << mBTofHitPosX;
-      R__b << mBTofHitPosY;
-      R__b << mBTofHitPosZ;
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoBTofPidTraits::Class(),this);
    }
 }
 
@@ -889,10 +818,6 @@ namespace ROOT {
       typedef ::StPicoBTofPidTraits current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoBTofPidTraits(TBuffer &buf, void *obj) {
-      ((::StPicoBTofPidTraits*)obj)->::StPicoBTofPidTraits::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::StPicoBTofPidTraits
 
 //______________________________________________________________________________
@@ -900,47 +825,10 @@ void StPicoEmcPidTraits::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoEmcPidTraits.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> mTrackIndex;
-      R__b >> mBEMCId;
-      R__b >> mBTOWADC0;
-      R__b >> mBTOWE0;
-      R__b >> mBTOWE;
-      R__b >> mBEMCDistZ;
-      R__b >> mBEMCDistPhi;
-      R__b >> mBSMDNEta;
-      R__b >> mBSMDNPhi;
-      R__b >> mBTOWId;
-      R__b >> mBTOWId23;
-      R__b >> mBTOWE1;
-      R__b >> mBTOWE2;
-      R__b >> mBTOWE3;
-      R__b >> mBTOWDistEta;
-      R__b >> mBTOWDistPhi;
-      R__b.CheckByteCount(R__s, R__c, StPicoEmcPidTraits::IsA());
+      R__b.ReadClassBuffer(StPicoEmcPidTraits::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoEmcPidTraits::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << mTrackIndex;
-      R__b << mBEMCId;
-      R__b << mBTOWADC0;
-      R__b << mBTOWE0;
-      R__b << mBTOWE;
-      R__b << mBEMCDistZ;
-      R__b << mBEMCDistPhi;
-      R__b << mBSMDNEta;
-      R__b << mBSMDNPhi;
-      R__b << mBTOWId;
-      R__b << mBTOWId23;
-      R__b << mBTOWE1;
-      R__b << mBTOWE2;
-      R__b << mBTOWE3;
-      R__b << mBTOWDistEta;
-      R__b << mBTOWDistPhi;
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoEmcPidTraits::Class(),this);
    }
 }
 
@@ -963,10 +851,6 @@ namespace ROOT {
       typedef ::StPicoEmcPidTraits current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoEmcPidTraits(TBuffer &buf, void *obj) {
-      ((::StPicoEmcPidTraits*)obj)->::StPicoEmcPidTraits::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::StPicoEmcPidTraits
 
 //______________________________________________________________________________
@@ -974,21 +858,10 @@ void StPicoEmcTrigger::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoEmcTrigger.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> mFlag;
-      R__b >> mId;
-      R__b >> mAdc;
-      R__b.CheckByteCount(R__s, R__c, StPicoEmcTrigger::IsA());
+      R__b.ReadClassBuffer(StPicoEmcTrigger::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoEmcTrigger::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << mFlag;
-      R__b << mId;
-      R__b << mAdc;
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoEmcTrigger::Class(),this);
    }
 }
 
@@ -1011,10 +884,6 @@ namespace ROOT {
       typedef ::StPicoEmcTrigger current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoEmcTrigger(TBuffer &buf, void *obj) {
-      ((::StPicoEmcTrigger*)obj)->::StPicoEmcTrigger::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::StPicoEmcTrigger
 
 //______________________________________________________________________________
@@ -1022,132 +891,10 @@ void StPicoEvent::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoEvent.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> mRunId;
-      R__b >> mEventId;
-      R__b >> mFillId;
-      R__b >> mBField;
-      R__b.StreamObject(&(mPrimaryVertex),typeid(mPrimaryVertex));
-      R__b.StreamObject(&(mPrimaryVertexError),typeid(mPrimaryVertexError));
-      R__b >> mRanking;
-      R__b >> mNBEMCMatch;
-      R__b >> mNBTOFMatch;
-      {
-         vector<unsigned int> &R__stl =  mTriggerIds;
-         R__stl.clear();
-         int R__i, R__n;
-         R__b >> R__n;
-         R__stl.reserve(R__n);
-         for (R__i = 0; R__i < R__n; R__i++) {
-            unsigned int R__t;
-            R__b >> R__t;
-            R__stl.push_back(R__t);
-         }
-      }
-      R__b >> mRefMultFtpcEast;
-      R__b >> mRefMultFtpcWest;
-      R__b >> mRefMultNeg;
-      R__b >> mRefMultPos;
-      R__b >> mRefMult2NegEast;
-      R__b >> mRefMult2PosEast;
-      R__b >> mRefMult2NegWest;
-      R__b >> mRefMult2PosWest;
-      R__b >> mRefMultHalfNegEast;
-      R__b >> mRefMultHalfPosEast;
-      R__b >> mRefMultHalfNegWest;
-      R__b >> mRefMultHalfPosWest;
-      R__b >> mGRefMult;
-      R__b >> mNumberOfGlobalTracks;
-      R__b >> mbTofTrayMultiplicity;
-      R__b.ReadStaticArray((unsigned short*)mNHitsHFT);
-      R__b >> mNVpdHitsEast;
-      R__b >> mNVpdHitsWest;
-      R__b >> mNT0;
-      R__b >> mVzVpd;
-      R__b >> mZDCx;
-      R__b >> mBBCx;
-      R__b >> mBackgroundRate;
-      R__b >> mBbcBlueBackgroundRate;
-      R__b >> mBbcYellowBackgroundRate;
-      R__b >> mBbcEastRate;
-      R__b >> mBbcWestRate;
-      R__b >> mZdcEastRate;
-      R__b >> mZdcWestRate;
-      R__b >> mZdcSumAdcEast;
-      R__b >> mZdcSumAdcWest;
-      R__b.ReadStaticArray((unsigned short*)mZdcSmdEastHorizontal);
-      R__b.ReadStaticArray((unsigned short*)mZdcSmdEastVertical);
-      R__b.ReadStaticArray((unsigned short*)mZdcSmdWestHorizontal);
-      R__b.ReadStaticArray((unsigned short*)mZdcSmdWestVertical);
-      R__b.ReadStaticArray((unsigned short*)mBbcAdcEast);
-      R__b.ReadStaticArray((unsigned short*)mBbcAdcWest);
-      R__b.ReadStaticArray((unsigned char*)mHT_Th);
-      R__b.CheckByteCount(R__s, R__c, StPicoEvent::IsA());
+      R__b.ReadClassBuffer(StPicoEvent::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoEvent::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << mRunId;
-      R__b << mEventId;
-      R__b << mFillId;
-      R__b << mBField;
-      R__b.StreamObject(&(mPrimaryVertex),typeid(mPrimaryVertex));
-      R__b.StreamObject(&(mPrimaryVertexError),typeid(mPrimaryVertexError));
-      R__b << mRanking;
-      R__b << mNBEMCMatch;
-      R__b << mNBTOFMatch;
-      {
-         vector<unsigned int> &R__stl =  mTriggerIds;
-         int R__n=int(R__stl.size());
-         R__b << R__n;
-         if(R__n) {
-            vector<unsigned int>::iterator R__k;
-            for (R__k = R__stl.begin(); R__k != R__stl.end(); ++R__k) {
-            R__b << (*R__k);
-            }
-         }
-      }
-      R__b << mRefMultFtpcEast;
-      R__b << mRefMultFtpcWest;
-      R__b << mRefMultNeg;
-      R__b << mRefMultPos;
-      R__b << mRefMult2NegEast;
-      R__b << mRefMult2PosEast;
-      R__b << mRefMult2NegWest;
-      R__b << mRefMult2PosWest;
-      R__b << mRefMultHalfNegEast;
-      R__b << mRefMultHalfPosEast;
-      R__b << mRefMultHalfNegWest;
-      R__b << mRefMultHalfPosWest;
-      R__b << mGRefMult;
-      R__b << mNumberOfGlobalTracks;
-      R__b << mbTofTrayMultiplicity;
-      R__b.WriteArray(mNHitsHFT, 4);
-      R__b << mNVpdHitsEast;
-      R__b << mNVpdHitsWest;
-      R__b << mNT0;
-      R__b << mVzVpd;
-      R__b << mZDCx;
-      R__b << mBBCx;
-      R__b << mBackgroundRate;
-      R__b << mBbcBlueBackgroundRate;
-      R__b << mBbcYellowBackgroundRate;
-      R__b << mBbcEastRate;
-      R__b << mBbcWestRate;
-      R__b << mZdcEastRate;
-      R__b << mZdcWestRate;
-      R__b << mZdcSumAdcEast;
-      R__b << mZdcSumAdcWest;
-      R__b.WriteArray(mZdcSmdEastHorizontal, 8);
-      R__b.WriteArray(mZdcSmdEastVertical, 8);
-      R__b.WriteArray(mZdcSmdWestHorizontal, 8);
-      R__b.WriteArray(mZdcSmdWestVertical, 8);
-      R__b.WriteArray(mBbcAdcEast, 24);
-      R__b.WriteArray(mBbcAdcWest, 24);
-      R__b.WriteArray(mHT_Th, 4);
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoEvent::Class(),this);
    }
 }
 
@@ -1170,10 +917,6 @@ namespace ROOT {
       typedef ::StPicoEvent current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoEvent(TBuffer &buf, void *obj) {
-      ((::StPicoEvent*)obj)->::StPicoEvent::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::StPicoEvent
 
 //______________________________________________________________________________
@@ -1181,23 +924,10 @@ void StPicoMtdHit::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoMtdHit.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> mgChannel;
-      R__b >> mTriggerFlag;
-      R__b.StreamObject(&(mLeadingEdgeTime),typeid(mLeadingEdgeTime));
-      R__b.StreamObject(&(mTrailingEdgeTime),typeid(mTrailingEdgeTime));
-      R__b.CheckByteCount(R__s, R__c, StPicoMtdHit::IsA());
+      R__b.ReadClassBuffer(StPicoMtdHit::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoMtdHit::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << mgChannel;
-      R__b << mTriggerFlag;
-      R__b.StreamObject(&(mLeadingEdgeTime),typeid(mLeadingEdgeTime));
-      R__b.StreamObject(&(mTrailingEdgeTime),typeid(mTrailingEdgeTime));
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoMtdHit::Class(),this);
    }
 }
 
@@ -1220,10 +950,6 @@ namespace ROOT {
       typedef ::StPicoMtdHit current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoMtdHit(TBuffer &buf, void *obj) {
-      ((::StPicoMtdHit*)obj)->::StPicoMtdHit::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::StPicoMtdHit
 
 //______________________________________________________________________________
@@ -1231,29 +957,10 @@ void StPicoMtdPidTraits::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoMtdPidTraits.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> mTrackIndex;
-      R__b >> mMatchFlag;
-      R__b >> mDeltaY;
-      R__b >> mDeltaZ;
-      R__b >> mDeltaTimeOfFlight;
-      R__b >> mBeta;
-      R__b >> mMtdHitChan;
-      R__b.CheckByteCount(R__s, R__c, StPicoMtdPidTraits::IsA());
+      R__b.ReadClassBuffer(StPicoMtdPidTraits::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoMtdPidTraits::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << mTrackIndex;
-      R__b << mMatchFlag;
-      R__b << mDeltaY;
-      R__b << mDeltaZ;
-      R__b << mDeltaTimeOfFlight;
-      R__b << mBeta;
-      R__b << mMtdHitChan;
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoMtdPidTraits::Class(),this);
    }
 }
 
@@ -1276,10 +983,6 @@ namespace ROOT {
       typedef ::StPicoMtdPidTraits current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoMtdPidTraits(TBuffer &buf, void *obj) {
-      ((::StPicoMtdPidTraits*)obj)->::StPicoMtdPidTraits::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::StPicoMtdPidTraits
 
 //______________________________________________________________________________
@@ -1287,23 +990,10 @@ void StPicoMtdTrigger::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoMtdTrigger.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b.ReadStaticArray((unsigned short*)mQTtacSum);
-      R__b.ReadStaticArray((unsigned short*)mMT101Tac);
-      R__b.ReadStaticArray((unsigned char*)mMT101Id);
-      R__b >> mTF201TriggerBit;
-      R__b.CheckByteCount(R__s, R__c, StPicoMtdTrigger::IsA());
+      R__b.ReadClassBuffer(StPicoMtdTrigger::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoMtdTrigger::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b.WriteArray((unsigned short*)mQTtacSum, 32);
-      R__b.WriteArray((unsigned short*)mMT101Tac, 8);
-      R__b.WriteArray((unsigned char*)mMT101Id, 8);
-      R__b << mTF201TriggerBit;
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoMtdTrigger::Class(),this);
    }
 }
 
@@ -1326,10 +1016,6 @@ namespace ROOT {
       typedef ::StPicoMtdTrigger current_t;
       ((current_t*)p)->~current_t();
    }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoMtdTrigger(TBuffer &buf, void *obj) {
-      ((::StPicoMtdTrigger*)obj)->::StPicoMtdTrigger::Streamer(buf);
-   }
 } // end of namespace ROOT for class ::StPicoMtdTrigger
 
 //______________________________________________________________________________
@@ -1337,51 +1023,10 @@ void StPicoTrack::Streamer(TBuffer &R__b)
 {
    // Stream an object of class StPicoTrack.
 
-   UInt_t R__s, R__c;
    if (R__b.IsReading()) {
-      Version_t R__v = R__b.ReadVersion(&R__s, &R__c); if (R__v) { }
-      TObject::Streamer(R__b);
-      R__b >> mId;
-      R__b >> mChi2;
-      R__b.StreamObject(&(mPMomentum),typeid(mPMomentum));
-      R__b >> mDedx;
-      R__b >> mNHitsFit;
-      R__b >> mNHitsMax;
-      R__b >> mNHitsDedx;
-      R__b >> mNSigmaPion;
-      R__b >> mNSigmaKaon;
-      R__b >> mNSigmaProton;
-      R__b >> mNSigmaElectron;
-      R__b >> mMap0;
-      R__b >> mMap1;
-      R__b.ReadStaticArray((float*)mPar);
-      R__b.ReadStaticArray((float*)mErrMatrix);
-      R__b >> mEmcPidTraitsIndex;
-      R__b >> mBTofPidTraitsIndex;
-      R__b >> mMtdPidTraitsIndex;
-      R__b.CheckByteCount(R__s, R__c, StPicoTrack::IsA());
+      R__b.ReadClassBuffer(StPicoTrack::Class(),this);
    } else {
-      R__c = R__b.WriteVersion(StPicoTrack::IsA(), kTRUE);
-      TObject::Streamer(R__b);
-      R__b << mId;
-      R__b << mChi2;
-      R__b.StreamObject(&(mPMomentum),typeid(mPMomentum));
-      R__b << mDedx;
-      R__b << mNHitsFit;
-      R__b << mNHitsMax;
-      R__b << mNHitsDedx;
-      R__b << mNSigmaPion;
-      R__b << mNSigmaKaon;
-      R__b << mNSigmaProton;
-      R__b << mNSigmaElectron;
-      R__b << mMap0;
-      R__b << mMap1;
-      R__b.WriteArray(mPar, 6);
-      R__b.WriteArray(mErrMatrix, 15);
-      R__b << mEmcPidTraitsIndex;
-      R__b << mBTofPidTraitsIndex;
-      R__b << mMtdPidTraitsIndex;
-      R__b.SetByteCount(R__c, kTRUE);
+      R__b.WriteClassBuffer(StPicoTrack::Class(),this);
    }
 }
 
@@ -1403,10 +1048,6 @@ namespace ROOT {
    static void destruct_StPicoTrack(void *p) {
       typedef ::StPicoTrack current_t;
       ((current_t*)p)->~current_t();
-   }
-   // Wrapper around a custom streamer member function.
-   static void streamer_StPicoTrack(TBuffer &buf, void *obj) {
-      ((::StPicoTrack*)obj)->::StPicoTrack::Streamer(buf);
    }
 } // end of namespace ROOT for class ::StPicoTrack
 
@@ -1489,28 +1130,29 @@ namespace {
 0
     };
     static const char* includePaths[] = {
-"/Users/jdb/bnl/local/work/muonAna/include/CandidateMakers",
-"/Users/jdb/bnl/local/work/muonAna/include/DataAdapters",
-"/Users/jdb/bnl/local/work/muonAna/include/EventPlane",
-"/Users/jdb/bnl/local/work/muonAna/include/Exporters",
-"/Users/jdb/bnl/local/work/muonAna/include/Filters",
-"/Users/jdb/bnl/local/work/muonAna/include/HistoMakers",
-"/Users/jdb/bnl/local/work/muonAna/include/PicoDstClassLibrary",
-"/Users/jdb/bnl/local/work/muonAna/include/Plotters",
-"/Users/jdb/bnl/local/work/muonAna/include/ProductionUtils",
-"/Users/jdb/bnl/local/work/muonAna/include/QA",
-"/Users/jdb/bnl/local/work/muonAna/include/Skimmers",
-"/Users/jdb/bnl/local/work/muonAna/include/StRefMultCorr",
-"/Users/jdb/bnl/local/work/muonAna/include/StarClassLibrary",
-"/Users/jdb/bnl/local/work/muonAna/include/TaskUtils",
-"/Users/jdb/bnl/local/work/muonAna/include/TreeData",
-"/Users/jdb/bnl/local/work/muonAna/include/TreeIO",
-"/Users/jdb/bnl/local/work/muonAna/include/TreeMakers",
-"/Users/jdb/bnl/local/work/muonAna/include/UnitTests",
-"/Users/jdb/bnl/local/work/muonAna/include/vendor",
-"/Users/jdb/bnl/local/work/muonAna/include/",
-"/Users/jdb/bnl/vendor/root-6.06.02/include",
-"/Users/jdb/bnl/local/work/muonAna/",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/CandidateMakers",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/DataAdapters",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/EventPlane",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/Exporters",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/Filters",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/HistoMakers",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/LinkDef",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/PicoDstClassLibrary",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/Plotters",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/ProductionUtils",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/QA",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/Skimmers",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/StRefMultCorr",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/StarClassLibrary",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/TaskUtils",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/TreeData",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/TreeIO",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/TreeMakers",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/UnitTests",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/vendor",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/include/",
+"/Users/danielbrandenburg/bnl/vendor/root-6.06.04/include",
+"/Users/danielbrandenburg/bnl/local/work/PicoDst/muonAna/",
 0
     };
     static const char* fwdDeclCode = R"DICTFWDDCLS(

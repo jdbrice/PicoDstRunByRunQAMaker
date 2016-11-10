@@ -13,5 +13,6 @@
 #pragma link C++ class CandidateTrackHelix+;
 
 #pragma link C++ class CandidatePair+;
+#pragma link C++ class PythiaTrack+;
 
 #endif 

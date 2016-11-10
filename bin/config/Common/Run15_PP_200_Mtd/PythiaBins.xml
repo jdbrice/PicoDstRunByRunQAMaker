@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<PythiaBins>
+		<KF width="1" min="-500" max="500" />
+		<KS width="1" min="-500" max="500" />
+
+		<invMass width="0.01" min="0.0" max="10.0" />
+		<pT width="0.01" min="0.0" max="10.0" />
+	</PythiaBins>
+
+</config>

@@ -6,8 +6,17 @@
 class CandidateTrackBTofPidTraits : public TObject
 {
 public:
-	CandidateTrackBTofPidTraits(){ }
+	CandidateTrackBTofPidTraits(){
+		reset();
+	}
 	~CandidateTrackBTofPidTraits(){ }
+
+	void reset(){
+		this->mBTofBeta      = 0.0;
+		this->mBTofYLocal    = 0.0;
+		this->mBTofZLocal    = 0.0;
+		this->mBTofMatchFlag = 0.0;
+	}
 
 	void copy( CandidateTrackBTofPidTraits * that){
 		this->mBTofBeta      = that->mBTofBeta;
@@ -15,6 +24,10 @@ public:
 		this->mBTofZLocal    = that->mBTofZLocal;
 		this->mBTofMatchFlag = that->mBTofMatchFlag;
 	}
+
+	Float_t beta() { return mBTofBeta / 20000.0; }  
+	Float_t yLocal() { return mBTofYLocal / 1000.0; }
+	Float_t zLocal() { return mBTofZLocal / 1000.0; }
 
 	UShort_t mBTofBeta;			// beta * 20000
 	Short_t  mBTofYLocal;		// ylocal * 1000

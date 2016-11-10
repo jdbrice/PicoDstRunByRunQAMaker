@@ -11,6 +11,7 @@
 #include "CandidateTrackMtdPidTraits.h"
 
 
+#include "PicoDst16aReader.h"
 
 class CandidateTreeMaker : public ICandidateTreeMaker, public IObject
 {
@@ -68,6 +69,22 @@ public:
 		
 	}
 
+	static void fillCandidateEvent( shared_ptr<PicoDst16aReader> _pico, CandidateEvent *event, int runIndex, int bin16, float weight, float psi ){
+		if ( nullptr == _pico ) return;
+		event->mRunId 				= _pico->event()->runId();
+		event->mEventId 			= _pico->event()->eventId();
+		event->mGRefMult 			= _pico->event()->grefMult();
+		event->mTriggerWord 		= 0;//_pico->event()->mTriggerWord[0];
+		event->mTriggerWordMtd 		= 0;//_pico->event()->mTriggerWordMtd[0];
+		event->mPrimaryVertex_mX1 	= _pico->event()->primaryVertex().x();
+		event->mPrimaryVertex_mX2 	= _pico->event()->primaryVertex().y();
+		event->mPrimaryVertex_mX3 	= _pico->event()->primaryVertex().z();
+		event->mRunIndex			= runIndex;
+		event->mBin16 				= bin16;
+		event->mWeight 				= weight;
+		event->mPsi2 				= (psi * 10000) ;
+	}
+
 	virtual void fillCandidateEventPlane(){
 		if ( nullptr == mPico ) return;
 		wEventPlane->mQx_eta_pos           = mPico->EventPlane_mQx_eta_pos[0];
@@ -104,6 +121,52 @@ public:
 		CandidateTrack * aTrack =  new ((*wTracks)[nCandTracks]) CandidateTrack( );
 		nCandTracks ++;
 		return aTrack;
+	}
+
+	static void fillCandidateTrack( StPicoTrack* _pTrack, StPicoEvent *_event, CandidateTrack *_track ){
+		_track->mId                 = _pTrack->id();
+		_track->mPMomentum_mX1      = _pTrack->pMom().x();
+		_track->mPMomentum_mX2      = _pTrack->pMom().y();
+		_track->mPMomentum_mX3      = _pTrack->pMom().z();
+		_track->mDedx               = _pTrack->dEdx() * 1000;
+		_track->mNHitsFit           = _pTrack->nHitsFit() * _pTrack->charge();
+		_track->mNHitsMax           = _pTrack->nHitsMax();
+		_track->mNHitsDedx          = _pTrack->nHitsDedx();
+		_track->mNSigmaPion         = _pTrack->nSigmaPion();
+		_track->mNSigmaKaon         = _pTrack->nSigmaKaon();
+		_track->mNSigmaProton       = _pTrack->nSigmaProton();
+		_track->mNSigmaElectron     = _pTrack->nSigmaElectron();
+
+
+
+		StPhysicalHelixD gHelix = _pTrack->dcaGeometry().helix();
+		// calculate gDCA
+		gHelix.moveOrigin( gHelix.pathLength(_event->primaryVertex()) );
+
+		StThreeVectorF origin = gHelix.origin();
+		StThreeVectorF HMom   = gHelix.momentum( _event->bField() * kilogauss); // taken from PicoEvent
+
+		StThreeVectorF diff   = origin - _event->primaryVertex();
+		Float_t gdca = diff.mag();
+
+
+		_track->mDCA                = gdca;//_pico->track( iTrack )->
+		
+		_track->mBTofPidTraitsIndex = -1;
+		_track->mMtdPidTraitsIndex  = -1;
+		_track->mEmcPidTraitsIndex  = -1;
+		_track->mHelixIndex         = -1;
+	}
+
+
+	static void fillCandidateMtdPidTraits( StPicoMtdPidTraits * _pMtdTraits, CandidateTrackMtdPidTraits *_mtdTraits ){
+		if ( nullptr == _pMtdTraits ) return;
+		_mtdTraits->mMatchFlag 			= _pMtdTraits->matchFlag();
+		_mtdTraits->mDeltaY 			= _pMtdTraits->deltaY();
+		_mtdTraits->mDeltaZ 			= _pMtdTraits->deltaZ();
+		_mtdTraits->mDeltaTimeOfFlight 	= _pMtdTraits->deltaTimeOfFlight();
+		_mtdTraits->mMtdHitChan 		= _pMtdTraits->hitChannel();
+		_mtdTraits->mTriggerFlag		= -1;
 	}
 
 	virtual void fillCandidateTrack( CandidateTrack * aTrack, int iTrack ){
@@ -162,6 +225,17 @@ public:
 		}
 		else {
 		}
+	}
+
+
+	static void fillCandidateBTofPidTraits( StPicoBTofPidTraits *pBtofPid, CandidateTrackBTofPidTraits *btofPid ){
+		// BTofPidTraits
+		if ( nullptr == pBtofPid ) return;
+		btofPid->mBTofBeta 			= pBtofPid->btofBeta() * 20000;
+		btofPid->mBTofYLocal 		= pBtofPid->btofYLocal() * 1000;
+		btofPid->mBTofZLocal 		= pBtofPid->btofZLocal() * 1000;
+		btofPid->mBTofMatchFlag 	= pBtofPid->btofMatchFlag();
+
 	}
 
 	virtual void fillCandidateMtdPidTraits( CandidateTrack * aTrack, int iTrack ){

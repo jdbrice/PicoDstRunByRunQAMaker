@@ -46,6 +46,23 @@ public:
 		ccol.setDefault( "mtdCell"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 	}
 
+	static void setDefaultElectronCuts( CutCollection &ccol ){
+		ccol.setDefault( "pt"             , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "momentum"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "nSigmaPion"     , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "nHitsRatio"     , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "nHitsFit"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "nHitsDedx"      , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "eta"            , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "gDCA"           , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+
+		ccol.setDefault( "matchFlag"      , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "invBeta"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "yLocal"         , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "zLocal"         , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+
+	}
+
 	static void initializeBinLabels( const shared_ptr<HistoBook>& _book, vector<string> _labels, string _prefix ){
 		if ( nullptr == _book ){
 			ERROR( "CandidateFilter", "Cannot initialize bin labels, null HistoBook" );
@@ -437,6 +454,121 @@ public:
 		} else if ( makeQA ) { 
 			passTrackCut( "dEdx", allCuts, book, cutsName );
 		}
+
+
+
+
+		return allCuts;
+	}
+
+	static bool isTpcTofElectron( CandidateTrack *_track, CandidateTrackBTofPidTraits *_pid, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr ){
+
+		bool allCuts = true;
+
+		bool makeQA = true;
+		if ( nullptr == book  )
+			makeQA = false;
+		string cutsName = "TpcTofElectron";
+
+		double nHitsFit = abs( _track->mNHitsFit );
+		double nHitsMax = _track->mNHitsMax;
+		double nHitsDedx = _track->mNHitsDedx;
+		double nHitsRatio = nHitsFit / nHitsMax;
+		double dEdx = _track->dEdx();
+		TVector3 momentum( _track->mPMomentum_mX1, _track->mPMomentum_mX2, _track->mPMomentum_mX3 );
+
+		if ( makeQA ) { 
+			passTrackCut( "all", allCuts, book, cutsName );
+		}
+
+		if ( !_pid || !ccol[ "matchFlag" ]->inInclusiveRange( _pid->mBTofMatchFlag ) ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "tofMatch", allCuts, book, cutsName );
+		}
+
+		double yLocal = -999;
+		double zLocal = -999;
+		double invBeta = -999;
+
+		if ( _pid ){
+			yLocal = _pid->yLocal();
+			zLocal = _pid->zLocal();
+			invBeta = 1.0 / _pid->beta();		
+		}
+		
+		double gDCA = 0;//pico->gDCA( iTrack );
+		 
+		if ( momentum.Pt() < ccol[ "pt" ]->min ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else {
+			if ( makeQA ) passTrackCut( "pt", allCuts, book, cutsName );
+		}
+		if ( momentum.Mag() > ccol[ "momentum" ]->max ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "momentum", allCuts, book, cutsName );
+		}
+		if ( nHitsRatio < ccol[ "nHitsRatio" ]->min ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "nHitsRatio", allCuts, book, cutsName );
+		}
+		if ( nHitsDedx < ccol[ "nHitsDedx" ]->min ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "nHitsDedx", allCuts, book, cutsName );
+		}
+		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() )  ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "eta", allCuts, book, cutsName );
+		}
+		
+		if ( gDCA > ccol[ "gDCA" ]->max ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "gDCA", allCuts, book, cutsName );
+		}
+		
+		if ( !ccol[ "yLocal" ]->inInclusiveRange( yLocal ) ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "yLocal", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "zLocal" ]->inInclusiveRange( zLocal ) ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "zLocal", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "invBeta" ]->inInclusiveRange( abs( 1 - invBeta ) ) ){
+			allCuts = false;
+			if ( false == makeQA ) return false;
+		} else if ( makeQA ) { 
+			passTrackCut( "beta", allCuts, book, cutsName );
+		}
+
+		// INFO( "CandidateFilter", "yLocal == " << yLocal << endl );
+		
+
+		// nSigmaElectron Cuts
+		// if ( !ccol[ "dEdx" ]->inInclusiveRange( dEdx ) ){
+		// 	allCuts = false;
+		// 	if ( false == makeQA ) return false;
+		// } else if ( makeQA ) { 
+		// 	passTrackCut( "dEdx", allCuts, book, cutsName );
+		// }
 
 
 

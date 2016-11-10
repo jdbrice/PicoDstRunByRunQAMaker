@@ -6,9 +6,19 @@
 class CandidateTrackMtdPidTraits : public TObject
 {
 public:
-	CandidateTrackMtdPidTraits(){ }
+	CandidateTrackMtdPidTraits(){ 
+		reset();
+	}
 	~CandidateTrackMtdPidTraits(){ }
 
+	void reset(){
+		this->mDeltaY            = 0.0;
+		this->mDeltaZ            = 0.0;
+		this->mDeltaTimeOfFlight = 0.0;
+		this->mMatchFlag         = 0.0;
+		this->mMtdHitChan        = 0.0;
+	}
+	
 	void copy( CandidateTrackMtdPidTraits * that ){
 		this->mDeltaY            = that->mDeltaY;
 		this->mDeltaZ            = that->mDeltaZ;
@@ -20,6 +30,8 @@ public:
 	int cell() {
 		return mMtdHitChan % 12;
 	}
+
+	std::string print();
 
 	Float_t   mDeltaY;					// DeltaY between matched track-hit pair
 	Float_t   mDeltaZ;					// DeltaZ between matched track-hit pair

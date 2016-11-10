@@ -2,8 +2,8 @@
 import subprocess
 import os
 
-# SConscript('color_SConscript')
-# Import( 'env' )
+SConscript('color_SConscript')
+Import( 'env' )
 
 ROOTCFLAGS    	= subprocess.check_output( ['root-config',  '--cflags'] ).rstrip().split( " " )
 ROOTLDFLAGS    	= subprocess.check_output( ["root-config",  "--ldflags"] )
@@ -40,9 +40,12 @@ rootcint_env.Append( BUILDERS 		= { 'RootCint' : rootcint } )
 rootcint_env[ "_CPPINCFLAGS" ] = "-I" + Dir(".").abspath + "/" + str( " -I" + Dir(".").abspath + "/").join( map( str, Glob( "#include/*" ) ) ) 
 
 
-root_dict = rootcint_env.RootCint( "src/TreeData/CintDictionary.cpp", Glob( "include/TreeData/*.h" ) )
+root_dict = rootcint_env.RootCint( "src/TreeData/CintDictionary.cpp", [Glob( "include/TreeData/*.h" ), "include/LinkDef/FemtoDst_LinkDef.h"] )
 Clean( root_dict, "src/TreeData/CintDictionary_rdict.pcm" )
 rootcint_env.Alias( 'dict', root_dict )
+
+
+
 
 
 ########################### Pico dictionary creation ##########################
@@ -53,13 +56,13 @@ pico_env.Append( BUILDERS 		= { 'RootCint' : rootcint } )
 pico_env[ "_CPPINCFLAGS" ] = "-I" + Dir(".").abspath + "/" + str( " -I" + Dir(".").abspath + "/").join( map( str, Glob( "#include/*" ) ) ) 
 pico_env[ "_CPPINCFLAGS" ] = pico_env[ "_CPPINCFLAGS" ] + " -I" + Dir(".").abspath + "/" + "include/"
 
-pico_dict = pico_env.RootCint( "src/PicoDstClassLibrary/PicoDictionary.cpp", Glob( "include/PicoDstClassLibrary/*.h" ) )
+pico_dict = pico_env.RootCint( "src/PicoDstClassLibrary/PicoDictionary.cpp", [Glob( "include/PicoDstClassLibrary/*.h" ), "include/LinkDef/PicoDst_LinkDef.h"] )
 # Clean( pico_dict, "src/TreeData/CintDictionary_rdict.pcm" )
 pico_env.Alias( 'pico_dict', pico_dict )
 
 ########################## Project Target #####################################
-# common_env = env.Clone()
-common_env =  Environment()
+common_env = env.Clone()
+# common_env =  Environment()
 common_env.Append( ENV  = {'LD_LIBRARY_PATH' : LD_LIBRARY_PATH} )
 
 common_env.Append(CPPDEFINES 	= cppDefines)

@@ -14,6 +14,7 @@ class StPicoMtdPidTraits : public TObject
   Int_t    backleg()           const;
   Int_t    module()            const;
   Int_t    cell()              const;
+  Int_t    hitChannel()        const;
   Int_t    matchFlag()         const;
   Float_t  deltaY()            const;
   Float_t  deltaZ()            const;
@@ -43,6 +44,7 @@ inline Int_t    StPicoMtdPidTraits::trackIndex()        const { return (Int_t)mT
 inline Int_t    StPicoMtdPidTraits::backleg()           const { return (Int_t)mMtdHitChan/60 + 1;      }
 inline Int_t    StPicoMtdPidTraits::module()            const { return ((Int_t)mMtdHitChan%60)/12 + 1; }
 inline Int_t    StPicoMtdPidTraits::cell()              const { return (Int_t)mMtdHitChan%12;          }
+inline Int_t    StPicoMtdPidTraits::hitChannel()        const { return (Int_t)mMtdHitChan;             }
 inline Int_t    StPicoMtdPidTraits::matchFlag()         const { return (Int_t)mMatchFlag;              }
 inline Float_t  StPicoMtdPidTraits::deltaY()            const { return mDeltaY;                        }
 inline Float_t  StPicoMtdPidTraits::deltaZ()            const { return mDeltaZ;                        }

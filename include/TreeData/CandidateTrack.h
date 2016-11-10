@@ -8,6 +8,7 @@ class CandidateTrack : public TObject
 {
 public:
 	CandidateTrack(){
+		reset();
 	}
 	~CandidateTrack(){
 	}
@@ -31,6 +32,24 @@ public:
 		this->mMtdPidTraitsIndex 	= that->mMtdPidTraitsIndex;
 	}
 
+	void reset(){
+		this->mPMomentum_mX1  = 0.0;
+		this->mPMomentum_mX2  = 0.0;
+		this->mPMomentum_mX3  = 0.0;
+		this->mId             = 0.0;
+		this->mDedx           = 0.0;
+		this->mNHitsFit       = 0.0;
+		this->mNHitsMax       = 0.0;
+		this->mNHitsDedx      = 0.0;
+		this->mNSigmaPion     = 0.0;
+		this->mNSigmaKaon     = 0.0;
+		this->mNSigmaProton   = 0.0;
+		this->mNSigmaElectron = 0.0;
+		this->mDCA            = 0.0;
+		this->mBTofPidTraitsIndex 	= 0.0;
+		this->mMtdPidTraitsIndex 	= 0.0;
+	}
+
 	int charge() { return mNHitsFit > 0 ? 1 : -1; }
 	float nSigmaPion() { return mNSigmaPion / 100.0; }
 	float nSigmaKaon() { return mNSigmaKaon / 100.0; }
@@ -40,6 +59,8 @@ public:
 	float gDCA() { return mDCA / 1000.0; }
 	TVector3 pMomentum() { return TVector3( mPMomentum_mX1, mPMomentum_mX2, mPMomentum_mX3 ); }
 	float dEdx() { return mDedx / 1000.0; }
+
+	std::string print();
 	
 
 	Float_t 	mPMomentum_mX1;					// primary track px
