@@ -66,18 +66,19 @@ public:
 		book->cd();
 	}
 
-	virtual bool keepPair( TLorentzVector _lv1, TLorentzVector _lv2 ){
-		bool pk = SameEventPairMaker::keepPair( _lv1, _lv2 );
-		if ( false == pk ) return false;
+	// virtual bool keepPair( TLorentzVector _lv1, TLorentzVector _lv2 ){
+	// 	bool pk = SameEventPairMaker::keepPair( _lv1, _lv2 );
+	// 	if ( false == pk ) return false;
+	// 	return true;
 		
-		TLorentzVector lv;
-		lv = _lv1 + _lv2;
+	// 	TLorentzVector lv;
+	// 	lv = _lv1 + _lv2;
 		
-		if ( qaCuts["InvMass"]->inInclusiveRange( lv.M() ) ){
-			return true;
-		}
-		return false;
-	}
+	// 	if ( qaCuts["InvMass"]->inInclusiveRange( lv.M() ) ){
+	// 		return true;
+	// 	}
+	// 	return false;
+	// }
 
 
 	HistoBins dimuonBins;
@@ -93,8 +94,9 @@ public:
 		lv2.SetXYZM( _bTrack->mPMomentum_mX1, _bTrack->mPMomentum_mX2, _bTrack->mPMomentum_mX3, m2 );
 
 		lv = lv1 + lv2;
-
+		INFO( classname(), "pre keep pair" );
 		if ( !PairFilter::keepSameEventPair( pairCuts, lv1, lv2 ) ) return;
+		INFO( classname(), "post keep pair" );
 
 		int iBin = dimuonBins.findBin( lv.M() );
 		if ( iBin < 0 ) return;
@@ -103,6 +105,7 @@ public:
 
 		// decide what stuff to keep
 		if (  qaCuts["InvMass"]->inInclusiveRange( lv.M() ) ){
+			INFO( classname(), "inv mass window" );
 			if ( abs(_aTrack->charge() + _bTrack->charge()) > 0 ){
 				// INFO( classname(), "Same Sign Pair with M = " << lv.M() );
 				if ( config.getBool( nodePath + ".MakeQA:SingleTrack", true ) ){

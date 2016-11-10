@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<InvMass_vs_Centrality dir="">
+		<Histo name="binX_like_sign" title="like sign" bins_x="dimuonBins.invMass" />
+		<Histo name="binX_unlike_sign" title="unlike sign" bins_x="dimuonBins.invMass" />
+		<Histo name="binX_like_sign_Pos" title="like sign" bins_x="dimuonBins.invMass" />
+		<Histo name="binX_like_sign_Neg" title="like sign" bins_x="dimuonBins.invMass" />
+
+		<Histo name="binX_like_sign_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
+		<Histo name="binX_unlike_sign_pT" title="unlike sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
+		<Histo name="binX_like_sign_Pos_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
+		<Histo name="binX_like_sign_Neg_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
+
+	</InvMass_vs_Centrality>
+</config>

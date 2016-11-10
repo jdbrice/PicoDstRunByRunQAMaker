@@ -4,16 +4,16 @@
 	<Task name="flm" type="SameEventPairQA" config="" nodePath="MECS" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
 	<Include url="{R:url}/cwd.xml" />
 
-	<mod>_omega</mod>
+	<mod>_all</mod>
 	
 	<MECS triggers="dimuon">
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		
-		<MakeQA SingleTrack="false" Pair="true" track="true" />
+		<MakeQA SingleTrack="true" Pair="true" track="true" event="true"/>
 		<input>
 			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
 		</input>
@@ -33,9 +33,9 @@
 		<Include url="{R:url}/SameEventPairCuts.xml" />
 		
 
-		<QACuts>
-			<Range name="InvMass" min="0.78" max="0.785" />
-		</QACuts>
+		<!-- <QACuts>
+			<Range name="InvMass" min="0.0" max="10.785" />
+		</QACuts> -->
 
 	</MECS>
 

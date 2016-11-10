@@ -150,7 +150,7 @@ public:
 		Float_t gdca = diff.mag();
 
 
-		_track->mDCA                = gdca;//_pico->track( iTrack )->
+		_track->mDCA                = gdca * 1000;//_pico->track( iTrack )->
 		
 		_track->mBTofPidTraitsIndex = -1;
 		_track->mMtdPidTraitsIndex  = -1;

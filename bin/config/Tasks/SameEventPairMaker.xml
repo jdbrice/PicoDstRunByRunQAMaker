@@ -4,7 +4,7 @@
 	<Task name="skimmer" type="SameEventPairTreeMaker" config="" nodePath="InvMP" />
 	<Logger color="true" globalLogLevel="debug" />
 	
-	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
 	<Include url="{R:url}/cwd.xml" />
 
 	<InvMP >

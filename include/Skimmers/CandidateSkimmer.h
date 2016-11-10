@@ -27,6 +27,8 @@ public:
 
 		DEBUG( classname(), "Setting Branch Status" );
 	
+
+		// chain->SetBranchStatus( "BTofPidTraits*", 0 );
 		chain->SetBranchAddress( "Event", &event );
 
 		DEBUG( classname(), "Checking for EventPlane Branch" );

@@ -4,7 +4,7 @@
 	<Task name="flm" type="MixedEventPairQAMaker" config="" nodePath="MECS" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<DataSet>Run15PP</DataSet>
+	<DataSet>SL16a</DataSet>
 	<Include url="../{DataSet}/Common/cwd.xml" />
 	
 	<MECS triggers="singlemuon">

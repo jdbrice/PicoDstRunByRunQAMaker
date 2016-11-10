@@ -93,6 +93,9 @@ protected:
 
 	bool keepTrack( CandidateTrack *aTrack ){
 		DEBUG( classname(), "("<< aTrack << ")" );
+		
+		if ( aTrack->mMtdPidTraitsIndex < 0) return false;
+
 		CandidateTrackMtdPidTraits *mtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
 		return CandidateFilter::isMuon( aTrack, mtdPid, trackCuts,  makeTrackCutQA ? book : nullptr );
 	}
@@ -104,17 +107,17 @@ protected:
 	virtual bool keepEvent(){
 		bool passAll = CandidateSkimmer::keepEvent();
 
-		if ( rmf->isRunBad( event->mRunId ) ){
-			ERROR( classname(), "Should not be bad runs here!" );
-			passAll = false;
-		}
+		// if ( rmf->isRunBad( event->mRunId ) ){
+		// 	ERROR( classname(), "Should not be bad runs here!" );
+		// 	passAll = false;
+		// }
 
 		return passAll;
 
 	}
 
 	virtual void analyzeEvent(){
-		
+		// INFO( classname(), "" );
 		if ( event->mBin16 < 0 || event->mBin16 > 50 )
 			return;
 
@@ -170,7 +173,7 @@ protected:
 				}
 				if ( aTrack->charge() != bTrack->charge() ) nULS++;
 
-
+				
 				// if ( !keepPair( lv1, lv2 ) ) continue;
 				analyzePair( aTrack, bTrack );
 				

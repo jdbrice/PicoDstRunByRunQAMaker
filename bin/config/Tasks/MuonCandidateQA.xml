@@ -4,9 +4,7 @@
 	<Task name="Muon Candidate QA" type="MuonCandidateQA" config="" nodePath="MuonQA" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<DataSet>Run15PP</DataSet>
-
-	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
 	<Include url="{R:url}/cwd.xml" />
 
 
@@ -15,7 +13,7 @@
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="5" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
+			<dst splitBy="5" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="1000"/>
 		</input>
 
 		<output>
