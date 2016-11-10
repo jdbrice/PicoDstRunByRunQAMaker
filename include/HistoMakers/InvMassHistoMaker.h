@@ -135,6 +135,7 @@ public:
 	virtual void analyzeEvent(){
 
 		CandidateEvent* evt = eventReader->getEvent();
+		int bin16=0;
 		if ( evt != nullptr )
 			bin16 = evt->mBin16;
 		centBin = bin16;
