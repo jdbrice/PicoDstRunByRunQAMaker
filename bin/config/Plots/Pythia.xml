@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
 	<Include url="{R:url}/cwd.xml" />
 	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
 
 
-	<Data name="dtree" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" maxFiles="10"/>
+	<Data name="pythia" url="{CWD:out}/Pythia/pythia_QA_-1.root"/>
 	
 
-	<DataSet>AuAuRun14</DataSet>
+	<DataSet>Run15 PP</DataSet>
 	<TFile url="{CWD:out}/Export/root/TrackVars.root" />
 	
 
 	<Margins left="0.10" right="0.10" top="0.1" bottom="0.15" />
-	<!-- <TLatex x="0.55" y="0.85" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.04"/> -->
-	<TLatex x="0.55" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+	<TLatex x="0.55" y="0.85" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.04"/>
+	<TLatex x="0.58" y="0.58" text="Pythia: p+p #sqrt{{s}} = 200 GeV" size="0.04"/>
+	<TLatex x="0.58" y="0.54" text="Full Acceptance, wo #omega" size="0.04"/>
+	<!-- <TLatex x="0.68" y="0.50" text="wo #omega" size="0.04"/> -->
+	<!-- <TLatex x="0.55" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/> -->
 
 	<OptStats x1="0.65" y1="0.65" x2="0.9" y2="0.8" />
 	
@@ -34,10 +37,32 @@
 
 
 	<Plot>
-		<Histo name="mPos" data="dtree" draw=" mDeltaY : sqrt( pow(mPMomentum_mX1, 2) + pow(mPMomentum_mX2, 2) ) * ( mNHitsFit / ( abs(mNHitsFit) ) )" select="" bins_x="bins.mRigidity" bins_y="bins.mDeltaY" style="styles.h2d">
-			<style title="Muon Candidates; q*p_{{T}} [GeV/c] ;mtdDeltaY [cm]" />
+		<Histo name="fg_uls_all" data="pythia" style="styles.h1d">
+			<style xr="0,3"  y="dN/dM [c^{{2}}/GeV]" x="M_{{#mu#mu}} [GeV/c^{{2}}]" />
 		</Histo>
-		<Export url="{CWD:out}/Export/png/mDeltaY_vs_rig.png" />
+
+		<Histo name="true_eta" data="pythia" style="styles.h1d">
+			<style  fca="red, 0.5" draw="same" />
+		</Histo>
+
+		<Histo name="true_rho0" data="pythia" style="styles.h1d">
+			<style  fca="618, 0.5" draw="same" />
+		</Histo>
+
+		<Histo name="true_phi" data="pythia" style="styles.h1d">
+			<style  fca="419, 0.5" draw="same" />
+		</Histo>
+
+		<Legend>
+			<!-- <Entries>raw_signal</Entries> -->
+			<Entry name="fg_uls_all" title="All (+-) Pairs" opt="lpe"/>
+			<Entry name="true_eta" title="#eta -> (#gamma)#mu^{+}#mu^{-}" opt="f" />
+			<Entry name="true_rho0" title="#rho -> #mu^{+}#mu^{-}" opt="f" />
+			<Entry name="true_phi" title="#phi -> #mu^{+}#mu^{-}" opt="f" />
+			<Position x1="0.65" x2="0.9" y1="0.65" y2="0.8"/>
+		</Legend>
+
+		<Export url="{CWD:out}/Export/pdf/pythia_fg_with_vmesons.pdf" />
 	</Plot>
 
 
@@ -85,8 +110,8 @@
 	</bins>
 
 	<styles>
-		<h1d draw="h" fc="597" optstat="1" logy="1" title="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV;" xts="0.05" yts="0.05" />
-		<h2d draw="colz" optstat="0" logz="1" title="Run14 Au+Au at #sqrt{{s_{{NN}}}};" xts="0.05" yts="0.05" />
+		<h1d draw="h" fc="597" optstat="0" logy="1" title="Run15 p+p at #sqrt{{s}} = 200 GeV;" xts="0.05" yts="0.05" />
+		<h2d draw="colz" optstat="0" logz="1" title="Run15 p+p at #sqrt{{s}} = 200 GeV;" xts="0.05" yts="0.05" />
 	</styles>
 	
 

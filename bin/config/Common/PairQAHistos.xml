@@ -5,7 +5,9 @@
 		<Histo name="nPairs" title="Number of Pairs after Cuts" bins_x="PairQABins.nPairs" />
 
 		<Histo name="pre_nCharge" title=";# Pos; # Neg" bins_x="PairQABins.nCharge" bins_y="PairQABins.nCharge" />
+		<Histo name="pre_nCharge_gt1" title=";# Pos; # Neg" bins_x="PairQABins.nCharge" bins_y="PairQABins.nCharge" />
 		<Histo name="nCharge" title=";# Pos; # Neg" bins_x="PairQABins.nCharge" bins_y="PairQABins.nCharge" />
+		<Histo name="nCharge_gt1" title=";# Pos; # Neg" bins_x="PairQABins.nCharge" bins_y="PairQABins.nCharge" />
 
 		<Histo name="nULS" title=";# ULS Pairs;" bins_x="PairQABins.nPairsFinite" />
 		<Histo name="nLS" title=";# LS Pairs;" bins_x="PairQABins.nPairsFinite" />

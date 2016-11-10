@@ -33,7 +33,7 @@ protected:
 
 	virtual void mixTrack( shared_ptr<Candidate> _cand ){
 		// we want to mix this event/track with ones from the same event class 
-
+		
 		vector<shared_ptr<Candidate> > &buff = buffer[ cEventHash ];
 
 		int nMixed = 0;
@@ -41,7 +41,7 @@ protected:
 			
 			// Test tracks
 			if( !keepMixedTracks( _cand, bufCand ) ) continue;
-
+			
 			// Test as a pair
 			TLorentzVector lv1, lv2, lv;
 			lv1.SetXYZM( _cand->track->mPMomentum_mX1, _cand->track->mPMomentum_mX2, _cand->track->mPMomentum_mX3, m1 );

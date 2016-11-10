@@ -25,11 +25,11 @@ public:
 
 	static bool keepMixedEventPair( 	CutCollection &ccol, 
 										TLorentzVector &lv1, TLorentzVector &lv2 ){
-		bool kse = keepSameEventPair( ccol, lv1, lv2 );
-		if ( kse == false ) return true;
+		// bool kse = keepSameEventPair( ccol, lv1, lv2 );
+		// if ( kse == false ) return true;
 
-		TLorentzVector lv = lv1 + lv2;
-		if ( lv1.DeltaPhi( lv2 ) < 0.5 / ( lv.Pt() ) ) return false;
+		// TLorentzVector lv = lv1 + lv2;
+		// if ( lv1.DeltaPhi( lv2 ) < 0.5 / ( lv.Pt() ) ) return false;
 		return true;
 	}
 
@@ -43,15 +43,15 @@ public:
 		if ( ccol[ "leadingPt" ]->below( lv1.Pt() ) && ccol[ "leadingPt" ]->below( lv2.Pt() ) ) 
 			return false;
 
-		if ( !ccol["deltaEta"]->inInclusiveRange( fabs( lv1.Eta() - lv2.Eta() ) ) ){
-			// INFO( "PairFilter", "deltaEta" );
-			return false;
-		}
+		// if ( !ccol["deltaEta"]->inInclusiveRange( fabs( lv1.Eta() - lv2.Eta() ) ) ){
+		// 	// INFO( "PairFilter", "deltaEta" );
+		// 	return false;
+		// }
 
-		if ( !ccol["deltaPhi"]->inInclusiveRange( fabs( lv1.DeltaPhi( lv2 ) ) ) ){
-			// INFO( "PairFilter", "deltaPhi" );
-			return false;
-		}
+		// if ( !ccol["deltaPhi"]->inInclusiveRange( fabs( lv1.DeltaPhi( lv2 ) ) ) ){
+		// 	// INFO( "PairFilter", "deltaPhi" );
+		// 	return false;
+		// }
 		
 
 		return true;

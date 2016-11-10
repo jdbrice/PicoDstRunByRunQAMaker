@@ -184,7 +184,13 @@ protected:
 
 		book->get( "nPairs", "pairQA" )->Fill( nPairs );
 		book->get( "nCharge", "pairQA" )->Fill( nPos, nNeg );
+		
+		if ( nPos > 1 || nNeg > 1 || (nPos == 1 && nNeg == 1) )
+			book->get( "nCharge_gt1", "pairQA" )->Fill( nPos, nNeg );
 		book->get( "pre_nCharge", "pairQA" )->Fill( pre_nPos, pre_nNeg );
+		if ( nPos > 1 || nNeg > 1 || (nPos == 1 && nNeg == 1) )
+			book->get( "pre_nCharge_gt1", "pairQA" )->Fill( pre_nPos, pre_nNeg );
+
 		book->get( "nLS", "pairQA" )->Fill( nLS );
 		book->get( "nLSPos", "pairQA" )->Fill( nLSPos );
 		book->get( "nLSNeg", "pairQA" )->Fill( nLSNeg );
