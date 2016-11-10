@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
+	<Include url="{R:url}/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+	<Data name="d" url="{CWD:out}/SameEventMuMuPairs/qa_matchFlag_1only.root"/>
+	
+
+	<DataSet>AuAuRun14</DataSet>
+	<TFile url="{CWD:out}/Export/root/TrackVars.root" />
+	
+
+	<Margins left="0.10" right="0.10" top="0.1" bottom="0.15" />
+	<!-- <TLatex x="0.55" y="0.85" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.04"/> -->
+	<TLatex x="0.50" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV (MinBias)" size="0.03"/>
+
+	<OptStats x1="0.65" y1="0.65" x2="0.9" y2="0.8" />
+	
+
+	<Plot>
+		<Histo name="pairQA/nCharge_gt1" data="d"  style="styles.h2d">
+			<style xr="0, 10" yr="0,10" />
+		</Histo>
+
+		<Histo name="pairQA/nCharge" data="d" style="styles.h2d">
+			<style draw="text same" />
+		</Histo>
+		<Export url="{CWD:out}/Export/png/MinBias_MuonCount.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="pairQA/pre_nCharge_gt1" data="d"  style="styles.h2d">
+			<style xr="0, 10" yr="0,10" />
+		</Histo>
+
+		<Histo name="pairQA/pre_nCharge" data="d" style="styles.h2d">
+			<style draw="text same" />
+		</Histo>
+		<Export url="{CWD:out}/Export/png/MinBias_pre_MuonCount.png" />
+	</Plot>
+
+
+
+	<bins>
+		<nMuons width="1" min="0" max="12" />
+	</bins>
+
+	<styles>
+		<h1d draw="h" fc="597" optstat="0" logy="1"  xts="0.05" yts="0.05" />
+		<h2d draw="colz" optstat="0" logz="1"  xts="0.05" yts="0.05" />
+	</styles>
+	
+
+</config>

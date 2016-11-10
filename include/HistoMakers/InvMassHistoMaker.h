@@ -21,6 +21,8 @@ public:
 	~InvMassHistoMaker() {}
 
 	CandidateEvent * wEvent;
+	int centBin;
+	map<int, int> centralityMap;
 	virtual void initialize(){
 		TreeAnalyzer::initialize();
 
@@ -61,6 +63,8 @@ public:
 			INFO( classname(), "" );
 		}
 
+		centralityMap = config.getIntMap( nodePath + ".CentralityMap" );
+
 		makeBin16Histos = false;
 
 	}
@@ -94,7 +98,7 @@ public:
 		book->get( "like_sign" )->SetLineColor( kRed );
 
 		if ( book->exists( "binX_like_sign" ) ){
-			vector<int> cBins = config.getIntVector( "dimuonBins.bin16" );
+			vector<int> cBins = config.getIntVector( nodePath + ".CentralityBins" );
 			for ( int iCen : cBins ){
 				book->clone( "binX_like_sign"        , "bin" + ts( iCen ) + "_like_sign"        );
 				book->clone( "binX_unlike_sign"      , "bin" + ts( iCen ) + "_unlike_sign"      );
@@ -130,6 +134,13 @@ public:
 
 	virtual void analyzeEvent(){
 
+		CandidateEvent* evt = eventReader->getEvent();
+		if ( evt != nullptr )
+			bin16 = evt->mBin16;
+		centBin = bin16;
+		if ( centralityMap.count( bin16 ) > 0 )
+			centBin = centralityMap[ bin16 ];
+
 		CandidatePair * pair;
 		int nPairs = pairReader->getNPairs();
 		for ( int iPair = 0; iPair < nPairs; iPair++ ){
@@ -154,10 +165,6 @@ public:
 		double bw = dimuonBins.binWidth( iBin );
 		double weight = 1.0 / bw;
 
-		int bin16 = 16;
-		CandidateEvent* evt = eventReader->getEvent();
-		if ( evt != nullptr )
-			bin16 = evt->mBin16;
 
 		if ( pair->mLeadingPt < pairCuts["leadingPt"]->min )
 			return;
@@ -167,8 +174,8 @@ public:
 			h_like_sign_vs_pt->Fill( mass, pt, weight );
 
 			if ( makeBin16Histos ){
-				book->fill( "bin" + ts( bin16 ) + "_like_sign", mass, weight );
-				book->fill( "bin" + ts( bin16 ) + "_like_sign_pT", mass, pt, weight );
+				book->fill( "bin" + ts( centBin ) + "_like_sign", mass, weight );
+				book->fill( "bin" + ts( centBin ) + "_like_sign_pT", mass, pt, weight );
 			}
 			
 
@@ -177,8 +184,8 @@ public:
 				book->fill( "like_sign_Pos_pT", mass, pt, 1.0/ bw );
 
 				if ( makeBin16Histos ){
-					book->fill( "bin" + ts( bin16 ) + "_like_sign_Pos", mass, weight );
-					book->fill( "bin" + ts( bin16 ) + "_like_sign_Pos_pT", mass, pt, weight );
+					book->fill( "bin" + ts( centBin ) + "_like_sign_Pos", mass, weight );
+					book->fill( "bin" + ts( centBin ) + "_like_sign_Pos_pT", mass, pt, weight );
 				}
 
 			} else if ( -2 == pair->mChargeSum  ){
@@ -186,8 +193,8 @@ public:
 				book->fill( "like_sign_Neg_pT", mass, pt, 1.0/ bw );
 
 				if ( makeBin16Histos ){
-					book->fill( "bin" + ts( bin16 ) + "_like_sign_Neg", mass, weight );
-					book->fill( "bin" + ts( bin16 ) + "_like_sign_Neg_pT", mass, pt, weight );
+					book->fill( "bin" + ts( centBin ) + "_like_sign_Neg", mass, weight );
+					book->fill( "bin" + ts( centBin ) + "_like_sign_Neg_pT", mass, pt, weight );
 				}
 			}
 		} else {
@@ -197,8 +204,8 @@ public:
 			h_unlike_sign_vs_pt->Fill( mass, pt, weight );
 
 			if ( makeBin16Histos ){
-				book->fill( "bin" + ts( bin16 ) + "_unlike_sign", mass, weight );
-				book->fill( "bin" + ts( bin16 ) + "_unlike_sign_pT", mass, pt, weight );
+				book->fill( "bin" + ts( centBin ) + "_unlike_sign", mass, weight );
+				book->fill( "bin" + ts( centBin ) + "_unlike_sign_pT", mass, pt, weight );
 			}
 		}
 	}	
@@ -220,7 +227,7 @@ public:
 		book->get("p2_signal")->Add( book->get( "like_sign_Pos" ), -2 );
 		book->get("n2_signal")->Add( book->get( "like_sign_Neg" ), -2 );
 
-		vector<int> cBins = config.getIntVector( "dimuonBins.bin16" );
+		vector<int> cBins = config.getIntVector( nodePath+".CentralityBins" );
 		for ( int iCen : cBins ){
 			makeGeometricMean( "bin" + ts( iCen ) + "_" );
 			string prefix = "bin" + ts( iCen ) + "_";

@@ -4,7 +4,8 @@
 	<Task name="skimmer" type="BackgroundMaker" config="" nodePath="BGM" />
 	<Logger color="true" globalLogLevel="all" />
 	
-	<Include url="./Common/cwd.xml" />
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
+	<Include url="{R:url}/cwd.xml" />
 	<BGM >
 		<Logger color="true" globalLogLevel="info" />
 
@@ -18,6 +19,6 @@
 
 	</BGM>
 
-	<Include url="./Common/dimuonBins.xml" />
+	<Include url="{R:url}/dimuonBins.xml" />
 
 </config>

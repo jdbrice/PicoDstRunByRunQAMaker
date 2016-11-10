@@ -25,6 +25,7 @@
 		</histograms>
 
 		<Include url="{R:url}/SameEventPairCuts.xml" />
+		<Include url="{R:url}/CentralityMap.xml" />
 
 	</IMHM>
 
