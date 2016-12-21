@@ -40,7 +40,8 @@
 		<TrackBranches>
 			Tracks,
 			MtdPidTraits,
-			MtdHit
+			BTofPidTraits,
+			MtdHit,
 		</TrackBranches>
 
 	</MuonCandidateMaker>
