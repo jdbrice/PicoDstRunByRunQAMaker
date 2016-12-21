@@ -2,6 +2,7 @@
 #define StPicoEvent_h
 
 #include <vector>
+#include <algorithm>
 #include "TObject.h"
 #include "StarClassLibrary/StThreeVectorF.hh"
 
