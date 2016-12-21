@@ -3,7 +3,7 @@
 
 #include "HistoAnalyzer.h"
 #include "RooPlotLib.h"
-#include "extra/format.h"
+#include "Extra/format.h"
 
 class BackgroundMaker : public HistoAnalyzer {
 public:
