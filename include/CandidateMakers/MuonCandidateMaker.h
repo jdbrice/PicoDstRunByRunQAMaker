@@ -27,10 +27,10 @@ protected:
 		_tree->createTree( 
 				false, // EventPlane branch
 				true,  // Tracks
-				false, // bTof
+				true, // bTof
 				true,  // MTD
 				false, // EMC
-				false  // helix
+				true  // helix
 				 );
 	}
 	virtual void analyzeEvent();
