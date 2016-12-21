@@ -17,6 +17,7 @@
 
 #include "CandidateFilter.h"
 #include "EventFilter.h"
+#include "RunMapFactory.h"
 
 #include "StPicoTrack.h"
 
@@ -84,6 +85,7 @@ public:
 		INFO( classname(), "Want Muons : " << bts( wantMuons ) );
 
 		rmc = CentralityMaker::instance()->getgRefMultCorr();
+		rmf = shared_ptr<RunMapFactory>( new RunMapFactory( "Run14AuAu200", false ) );
 
 	}
 	
@@ -127,7 +129,7 @@ protected:
 		);
 
 		CandidateTreeMaker::fillCandidateEvent( pico, fEvent, 
-												0, 
+												rmf->indexForRun( pico->event()->runId() ), 
 												rmc->getCentralityBin16(), 
 												rmc->getWeight(), 
 												0 );
@@ -238,6 +240,8 @@ protected:
 	shared_ptr<CandidateMtdPidTraitsWriter> mtdPidWriter;
 	shared_ptr<CandidateBTofPidTraitsWriter> btofPidWriter;
 	shared_ptr<CandidateTrackHelixWriter> helixWriter;
+
+	shared_ptr<RunMapFactory> rmf;
 
 };
 
