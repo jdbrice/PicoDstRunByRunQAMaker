@@ -39,6 +39,7 @@ public:
 			trackQA.setConfig( config );
 
 			trackQA.addCategory( "Like_Sign" );
+
 			trackQA.addCategory( "Like_Sign_Pos" );
 			trackQA.addCategory( "Like_Sign_Neg" );
 			trackQA.addCategory( "Unlike_Sign" );

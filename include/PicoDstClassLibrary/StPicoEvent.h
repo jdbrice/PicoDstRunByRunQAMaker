@@ -218,4 +218,11 @@ inline UShort_t StPicoEvent::bbcAdcWest(const Int_t i) const { return mBbcAdcWes
 
 inline Int_t   StPicoEvent::ht_th(const Int_t i) const { return mHT_Th[i]; }
 inline void StPicoEvent::setHT_Th(const Int_t i, const Int_t th) { mHT_Th[i] = (UChar_t)th; }
+
+inline bool StPicoEvent::isTrigger(unsigned int) const{ return std::find(mTriggerIds.begin(), mTriggerIds.end(), id) != mTriggerIds.end();}
+
+inline int StPicoEvent::year() const { return mRunId/1000000 - 1 + 2000; }
+
+inline int StPicoEvent::day() const { return (mRunId%1000000)/1000; }
+
 #endif

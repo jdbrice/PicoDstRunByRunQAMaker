@@ -11,7 +11,7 @@
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/MixedEventMuMuPairs/mixed_muon_pairs_-1.root" nEvents="-1"/>
+			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/MixedEventMuMuPairs/mixed_muon_pairs_-1.root" nEvents="5000000"/>
 		</input>
 
 		<output>

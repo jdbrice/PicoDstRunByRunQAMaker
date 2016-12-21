@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<Data name="d1" url="{CWD:out}/QA/PidPlotMaker_jpsi_Nm1_all.root" />
+
+	<PlotTemplate names="dca, mtdDeltaY, mtdDeltaZ, mtdDeltaTOF, nSigmaPion">
+		<Histo data="d1" name="trackQA/Unlike_Sign_ROI_{name}" style="style.{name}"> 
+			<Norm/>
+			<style linecolor="blue"  />
+		</Histo>
+
+		<Histo data="d1" name="trackQA/Like_Sign_{name}">
+			<Norm/>
+			<style linecolor="red" draw="same" />
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/SL15k_pid_{name}.pdf" />
+	</Plot>
+
+
+	<style>
+		<dca logy="1" draw="h" xr="0, 3.5" />
+		<mtdDeltaY logy="1" draw="h" xr="-30, 30" />
+		<mtdDeltaZ logy="1" draw="h" xr="-30, 30" />
+		<mtdDeltaTOF logy="1" draw="h" xr="-3, 3" />
+		<nSigmaPion logy="1" draw="h" xr="-5, 5" />
+	</style>
+
+
+</config>

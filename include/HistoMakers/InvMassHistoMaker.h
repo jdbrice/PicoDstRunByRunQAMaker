@@ -35,17 +35,6 @@ public:
 
 		INFO( classname(), "Invariant mass Bins : " << dimuonBins.toString() );
 
-
-		// pairQA.setHistoBook( book );
-		// pairQA.setConfig( config );
-		// pairQA.addCategory( "ls" );
-		// pairQA.addCategory( "pp" );
-		// pairQA.addCategory( "nn" );
-		// pairQA.addCategory( "us" );
-		// pairQA.makeDefaultCategory( false );
-		// initPairVariables( pairQA );
-		// book->cd( "pairQA" );
-		// pairQA.makeHistograms( "dimuonBins" );
 		
 		PairFilter::setDefaultPairCuts( pairCuts );
 		if ( config.exists( nodePath + ".SameEventPairCuts" ) ){
@@ -68,12 +57,6 @@ public:
 		makeBin16Histos = false;
 
 	}
-
-	// virtual void initPairVariables( TTreeQA &_qaMaker ){
-	// 	_qaMaker.i( "invMass", "M_{#mu#mu}", "[GeV/c^{2}]", "", "x" );
-	// 	_qaMaker.i( "pT", "p_{T}", "[GeV/c]" );
-	// 	_qaMaker.i( "bin16" )
-	// }
 
 	HistoBins dimuonBins;
 	TH1D * h_like_sign, *h_unlike_sign;
@@ -127,6 +110,8 @@ public:
 		}
 
 
+		
+
 
 
 		INFO( classname(), "Histogram aliasing complete" );
@@ -172,41 +157,41 @@ public:
 
 		if ( abs(pair->mChargeSum) == 2 ){
 			h_like_sign->Fill( mass, weight );
-			h_like_sign_vs_pt->Fill( mass, pt, weight );
+			h_like_sign_vs_pt->Fill( mass, pt );
 
 			if ( makeBin16Histos ){
 				book->fill( "bin" + ts( centBin ) + "_like_sign", mass, weight );
-				book->fill( "bin" + ts( centBin ) + "_like_sign_pT", mass, pt, weight );
+				book->fill( "bin" + ts( centBin ) + "_like_sign_pT", mass, pt );
 			}
 			
 
 			if ( 2 == pair->mChargeSum  ){
-				book->fill( "like_sign_Pos", mass, 1.0 / bw );
-				book->fill( "like_sign_Pos_pT", mass, pt, 1.0/ bw );
+				book->fill( "like_sign_Pos", mass, weight );
+				book->fill( "like_sign_Pos_pT", mass, pt );
 
 				if ( makeBin16Histos ){
 					book->fill( "bin" + ts( centBin ) + "_like_sign_Pos", mass, weight );
-					book->fill( "bin" + ts( centBin ) + "_like_sign_Pos_pT", mass, pt, weight );
+					book->fill( "bin" + ts( centBin ) + "_like_sign_Pos_pT", mass, pt );
 				}
 
 			} else if ( -2 == pair->mChargeSum  ){
-				book->fill( "like_sign_Neg", mass, 1.0 / bw );
-				book->fill( "like_sign_Neg_pT", mass, pt, 1.0/ bw );
+				book->fill( "like_sign_Neg", mass, weight );
+				book->fill( "like_sign_Neg_pT", mass, pt );
 
 				if ( makeBin16Histos ){
 					book->fill( "bin" + ts( centBin ) + "_like_sign_Neg", mass, weight );
-					book->fill( "bin" + ts( centBin ) + "_like_sign_Neg_pT", mass, pt, weight );
+					book->fill( "bin" + ts( centBin ) + "_like_sign_Neg_pT", mass, pt );
 				}
 			}
 		} else {
 			book->fill( "unlike_sign_y", lv.Rapidity() );
 			book->fill( "unlike_sign_eta", lv.Eta() );
 			h_unlike_sign->Fill( mass, weight );
-			h_unlike_sign_vs_pt->Fill( mass, pt, weight );
+			h_unlike_sign_vs_pt->Fill( mass, pt );
 
 			if ( makeBin16Histos ){
 				book->fill( "bin" + ts( centBin ) + "_unlike_sign", mass, weight );
-				book->fill( "bin" + ts( centBin ) + "_unlike_sign_pT", mass, pt, weight );
+				book->fill( "bin" + ts( centBin ) + "_unlike_sign_pT", mass, pt );
 			}
 		}
 	}	
@@ -252,6 +237,53 @@ public:
 
 		}
 
+
+
+		// make the pT slices
+		HistoBins bPtProjections( config, "dimuonBins.pTProjections" );
+		vector< pair<double, double> > ranges = bPtProjections.subranges();
+		
+		book->cd();
+		// make the 1D dN/dM plots for pT bins 
+		vector<string> variants = { "like_sign", "unlike_sign", "like_sign_Pos", "like_sign_Neg" };
+		for ( auto prefix : variants ){
+			string TName = prefix + "_pT_{min}_to_{max}";
+			
+			if ( book->exists( TName, "" ) ){
+				// ge the 2D
+				TH2D * h2 = (TH2D*)book->get2D( prefix + "_pT", "" );
+				if ( nullptr == h2  ){ ERROR( classname(), "Cannot get " << prefix + "_pT" ); continue; }
+
+				book->cd( "pT_slices" );
+
+				for (auto r : ranges ){
+					// INFO( classname(), "pT subrange : " << r.first << " -> " << r.second );
+
+					XmlString xstr;
+					xstr.add( "min", dtes(r.first) );
+					xstr.add( "max", dtes(r.second) );
+					string hName = xstr.format( TName );
+					
+					int b1 = h2->GetYaxis( )->FindBin( r.first );
+					int b2 = h2->GetYaxis( )->FindBin( r.second );
+
+					TH1D * h1 = h2->ProjectionX( hName.c_str(), b1, b2 );
+					book->add( hName, h1 );
+
+					if ( "unlike_sign" != prefix ){
+						h1->SetLineColor( kRed );
+					}
+
+				}
+
+			}
+		}
+		book->cd();
+
+
+
+
+
 	}
 
 
@@ -274,6 +306,27 @@ public:
 	}
 
 protected:
+
+	virtual void overrideConfig(){
+
+		if (config.getInt( "jobIndex" ) == -1 ){
+			string nfn = config.getString( nodePath + ".output.TFile:url" );
+			XmlString xstr;
+			xstr.add( "jobIndex", "all" );
+			nfn = xstr.format( nfn );
+			config.set( nodePath + ".output.TFile:url", nfn );
+		}
+	}
+
+	virtual void postMake(){
+
+		// export the frozen config for good reference
+		if ( config.exists( nodePath + ".output.XmlFile:url" ) ){
+			config.toXmlFile( config.getXString( nodePath + ".output.XmlFile:url" ) );
+		}
+	}
+
+
 	shared_ptr<CandidatePairTreeReader> pairReader;
 	shared_ptr<CandidateEventReader> eventReader;
 

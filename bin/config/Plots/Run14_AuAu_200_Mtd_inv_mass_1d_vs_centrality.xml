@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+	<R url="../Common/{R:active}/" active="Run14_AuAu_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<Data name="d1" url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_all.root" />
+
+	<!-- 1D versus centrality -->
+	<Plot>
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin0_gm_signal" data="d1">
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="60-80% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_1d_bin0.pdf" />
+	</Plot>
+	<Plot>
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin1_gm_signal" data="d1">
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="50-60% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_1d_bin1.pdf" />
+	</Plot>
+
+	<Plot>
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin2_gm_signal" data="d1">
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="40-50% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_1d_bin2.pdf" />
+	</Plot>
+
+	<Plot>
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin3_gm_signal" data="d1">
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="30-40% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_1d_bin3.pdf" />
+	</Plot>
+	<Plot>
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin4_gm_signal" data="d1">
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="20-30% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_1d_bin4.pdf" />
+	</Plot>
+	<Plot>
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin5_gm_signal" data="d1">
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="10-20% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_1d_bin5.pdf" />
+	</Plot>
+	<Plot>
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin6_gm_signal" data="d1">
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="5-10% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_1d_bin6.pdf" />
+	</Plot>
+	<Plot>
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin7_gm_signal" data="d1">
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="0-5% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_1d_bin7.pdf" />
+	</Plot>
+
+
+
+
+
+	<Plot name="bin0">
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin0_unlike_sign" data="d1">
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin0_like_sign_geom" data="d1">
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin0_gm_signal" data="d1">
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="60-80% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Legend>
+			<Entry name="bin0_unlike_sign" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="bin0_like_sign_geom" title="Geom Mean bg (wo Accpt or Trigger Corr)" opt="lpe" />
+			<Entry name="bin0_gm_signal" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/bin0_signal_and_components.pdf" />
+	</Plot>
+
+	<Plot name="bin1">
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin1_unlike_sign" data="d1">
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin1_like_sign_geom" data="d1">
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin1_gm_signal" data="d1">
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="50-60% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Legend>
+			<Entry name="bin1_unlike_sign" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="bin1_like_sign_geom" title="Geom Mean bg (wo Accpt or Trigger Corr)" opt="lpe" />
+			<Entry name="bin1_gm_signal" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/bin1_signal_and_components.pdf" />
+	</Plot>
+
+	<Plot name="bin2">
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin2_unlike_sign" data="d1">
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin2_like_sign_geom" data="d1">
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin2_gm_signal" data="d1">
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="40-50% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Legend>
+			<Entry name="bin2_unlike_sign" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="bin2_like_sign_geom" title="Geom Mean bg (wo Accpt or Trigger Corr)" opt="lpe" />
+			<Entry name="bin2_gm_signal" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/bin2_signal_and_components.pdf" />
+	</Plot>
+
+	<Plot name="bin3">
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin3_unlike_sign" data="d1">
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e2, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin3_like_sign_geom" data="d1">
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin3_gm_signal" data="d1">
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="30-40% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Legend>
+			<Entry name="bin3_unlike_sign" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="bin3_like_sign_geom" title="Geom Mean bg (wo Accpt or Trigger Corr)" opt="lpe" />
+			<Entry name="bin3_gm_signal" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/bin3_signal_and_components.pdf" />
+	</Plot>
+
+	<Plot name="bin4">
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin4_unlike_sign" data="d1">
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin4_like_sign_geom" data="d1">
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin4_gm_signal" data="d1">
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="20-30% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Legend>
+			<Entry name="bin4_unlike_sign" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="bin4_like_sign_geom" title="Geom Mean bg (wo Accpt or Trigger Corr)" opt="lpe" />
+			<Entry name="bin4_gm_signal" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/bin4_signal_and_components.pdf" />
+	</Plot>
+
+	<Plot name="bin5">
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin5_unlike_sign" data="d1">
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin5_like_sign_geom" data="d1">
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin5_gm_signal" data="d1">
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="10-20% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Legend>
+			<Entry name="bin5_unlike_sign" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="bin5_like_sign_geom" title="Geom Mean bg (wo Accpt or Trigger Corr)" opt="lpe" />
+			<Entry name="bin5_gm_signal" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/bin5_signal_and_components.pdf" />
+	</Plot>
+
+	<Plot name="bin6">
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin6_unlike_sign" data="d1">
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin6_like_sign_geom" data="d1">
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin6_gm_signal" data="d1">
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="5-10% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Legend>
+			<Entry name="bin6_unlike_sign" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="bin6_like_sign_geom" title="Geom Mean bg (wo Accpt or Trigger Corr)" opt="lpe" />
+			<Entry name="bin6_gm_signal" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/bin6_signal_and_components.pdf" />
+	</Plot>
+
+	<Plot name="bin7">
+		<TCanvas width="900" height="600" />
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+		<Histo name="bin7_unlike_sign" data="d1">
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin7_like_sign_geom" data="d1">
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Histo name="bin7_gm_signal" data="d1">
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+		<TLatex x="0.7" y="0.83" text="0-5% Centrality" size="0.03"/>
+		<TLatex x="0.7" y="0.80" text="DiMuon Triggered Dataset" size="0.03"/>
+
+		<Legend>
+			<Entry name="bin7_unlike_sign" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="bin7_like_sign_geom" title="Geom Mean bg (wo Accpt or Trigger Corr)" opt="lpe" />
+			<Entry name="bin7_gm_signal" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/bin7_signal_and_components.pdf" />
+	</Plot>
+
+	
+
+	
+
+</config>

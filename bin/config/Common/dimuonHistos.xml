@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<Plots dir="">
-		<Histo name="like_sign" title="like sign" bins_x="dimuonBins.invMass" />
-		<Histo name="unlike_sign" title="unlike sign" bins_x="dimuonBins.invMass" />
-		<Histo name="like_sign_Pos" title="like sign" bins_x="dimuonBins.invMass" />
-		<Histo name="like_sign_Neg" title="like sign" bins_x="dimuonBins.invMass" />
 
+		<!-- 1D dN/dM Integrated over all pT centrality etc. -->
+		<Histo name="like_sign" title="like sign; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+		<Histo name="unlike_sign" title="unlike sign; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+		<Histo name="like_sign_Pos" title="like sign pos; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+		<Histo name="like_sign_Neg" title="like sign neg; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+
+		<!-- 1D for pT slices computed at runtime-->
+		<Histo name="like_sign_pT_{min}_to_{max}" title="like sign;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+		<Histo name="unlike_sign_pT_{min}_to_{max}" title="unlike sign;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+		<Histo name="like_sign_Pos_pT_{min}_to_{max}" title="like sign pos;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+		<Histo name="like_sign_Neg_pT_{min}_to_{max}" title="like sign neg;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+
+		<!-- 2D M vs. pT -->
 		<Histo name="like_sign_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
 		<Histo name="unlike_sign_pT" title="unlike sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
 		<Histo name="like_sign_Pos_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
@@ -14,6 +23,9 @@
 
 		<Histo name="unlike_sign_y" title="unlike sign y; y; dN/dy" bins_x="dimuonBins.rapidity" />
 		<Histo name="unlike_sign_eta" title="unlike sign eta; #eta; dN/d#eta" bins_x="dimuonBins.rapidity" />
+
+
+		
 
 
 		<!-- <Histo name="like_sign_jPsi" title="like sign" bins_x="dimuonBins.invMass" />

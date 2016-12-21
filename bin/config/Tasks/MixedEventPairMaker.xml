@@ -10,7 +10,7 @@
 	<MEMuons event="true" track="true" triggers="">
 		<Logger color="true" globalLogLevel="trace" />
 		<EventLoop progress="true" />
-		<Mixing max="2400" nPerEventHash="50" />
+		<Mixing max="2400" nPerEventHash="200" />
 		<input>
 			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="100" nEvents="-1" maxFiles="500"/>
 		</input>

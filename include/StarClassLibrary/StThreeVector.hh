@@ -112,6 +112,8 @@ using std::out_of_range;
 #endif
 #endif // __CINT__
 
+#include <TRootIOCtor.h>    // jdb
+
 template<class T> class StThreeVector {
 public:    
     StThreeVector();

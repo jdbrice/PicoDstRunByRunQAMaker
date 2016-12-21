@@ -43,6 +43,7 @@ public:
 	map<string, TFile*> dataFiles;
 	map<string, TChain *> dataChains;
 	map<string, TH1 * > globalHistos;
+
 	TFile * dataOut = nullptr;
 	virtual void loadDataFile( string _path ){
 		if ( config.exists( _path + ":name" ) ){
@@ -111,6 +112,13 @@ public:
 			makeLatex(path);
 			makeExports( path );
 
+			// // clean up first
+			// for ( TLatex * tl : activeLatex ){
+			// 	INFO( classname(), "DELETEING LATEX" );
+			// 	tl->Delete();
+			// }
+			// activeLatex.clear();
+			// if ( gPad ) { gPad->Clear(); }
 		}
 	}
 
@@ -321,21 +329,21 @@ public:
 	}
 
 	virtual void makeLatex( string _path ){
+		INFO( classname(), "_path=" << quote(_path) );
 		
 		TLatex latex;
-		vector<string> latex_paths = config.childrenOf( _path, "TLatex" );
+		vector<string> latex_paths = config.childrenOf( _path, "TLatex", 1 );
 		for ( string ltpath : latex_paths ){
 			if ( !config.exists( ltpath + ":text" ) ) continue;
 
 			string text = config.getXString( ltpath + ":text" );
 			
-			INFO( classname(), "Latex" );
+			INFO( classname(), "Latex @ " << ltpath );
 			latex.SetTextSize( config.getFloat( ltpath + ":size", 0.05 ) );
 
-			latex.DrawLatexNDC( config.getFloat( ltpath + ":x" ), 
+			TLatex * TL = latex.DrawLatexNDC( config.getFloat( ltpath + ":x" ), 
 								config.getFloat( ltpath + ":y" ), 
 								config.getXString( ltpath + ":text" ).c_str() );
-			
 		}
 	}
 

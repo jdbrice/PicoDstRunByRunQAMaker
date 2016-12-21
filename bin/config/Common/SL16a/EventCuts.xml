@@ -3,5 +3,6 @@
 	<EventCuts>
 		<Range name="zVertex" min="-100" max="100" />
 		<Range name="zVertexDelta" min="0" max="3" />
+		<Range name="bin16" min="0" max="4" />
 	</EventCuts>
 </config>

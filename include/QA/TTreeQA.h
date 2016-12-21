@@ -4,6 +4,7 @@
 #include "IObject.h"
 #include "HistoBook.h"
 #include <map>
+#include <algorithm>
 
 #include "TChain.h"
 
@@ -57,6 +58,10 @@ public:
 		categories.push_back( _cat );
 	}
 
+	void removeCategory( string _cat ){
+		categories.erase( std::remove( categories.begin(), categories.end(), _cat ), categories.end() );
+	}
+
 	void makeDefaultCategory( bool _make ){
 		includeDefaultCategory = _make;
 	}
@@ -77,11 +82,14 @@ public:
 		for ( auto &elem1 : data ){
 			const string &x = elem1.first;
 
-			if ( filled.count( x ) <= 0 || false == filled[ x ] ) continue;
+			if ( filled.count( x ) <= 0 || false == filled[ x ] ) { continue; }
+			
 			string hName1d = nameFor( x, "", _cat );
 			// fill 1D histos
 			if ( book->exists( hName1d ) ){
 				book->fill( hName1d, data[ x ] );
+			} else {
+				ERROR( classname(), hName1d << " DNE" );
 			}
 
 

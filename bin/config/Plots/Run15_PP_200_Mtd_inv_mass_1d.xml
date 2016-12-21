@@ -18,29 +18,16 @@
 		<Histo name="geom_mean_bg" data="d1">
 			<style draw="sameE1" c="red" />
 		</Histo>
-		<!-- <Histo name="unlike_sign" data="d2">
-			<Scale>0.010</Scale>
-			<style draw="sameE1" c="green" />
-		</Histo>
-		<Histo name="like_sign" data="d2">
-			<Scale>0.010</Scale>
-			<style draw="sameE1" c="blue" />
-		</Histo> -->
 
 		<Legend>
-			<!-- <Entries>raw_signal</Entries> -->
-			<raw_signal title="Same Event (+-)" opt="lpe"/>
-			<geom_mean_bg title="Same Event (++)+(--)" opt="lpe" />
+			<Entry name="raw_signal" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="geom_mean_bg" title="Acceptance Corred 2 #sqrt{(++)+(--)}" opt="lpe" />
 			<!-- <like_sign title="Mixed Event (++)+(--)" opt="lpe" /> -->
 			<!-- <unlike_sign title="Mixed Event (+-)" opt="lpe" /> -->
 			<Position x1="0.25" x2="0.45" y1="0.2" y2="0.4"/>
 		</Legend>
 
-		<!-- <Histo name="raw_signal">
-			<style draw="same" />
-		</Histo> -->
-		<Export url="{CWD:out}/export/pdf/Run14_AuAu_200_invariant_mass_linear.pdf" />
-		<!-- <Export url="{CWD:out}/Run14_AuAu_200_invariant_mass_linear.eps" /> -->
+		<Export url="{CWD:out}/export/pdf/invariant_mass_linear.pdf" />
 	</Plot>
 
 
@@ -65,6 +52,7 @@
 
 	<Plot>
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
 		<Histo name="raw_signal" data="d1" >
 			<style draw="E1" optstat="0" xr="1.3, 4.3" c="black" logy="1" title="Au+Au#sqrt{{s_{{NN}} }}=200GeV; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
@@ -79,6 +67,88 @@
 		</Legend>
 		<Export url="{CWD:out}/export/pdf/imr_1d.pdf" />
 		<!-- <Export url="{CWD:out}/Run14_AuAu_200_invariant_mass_linear.eps" /> -->
+	</Plot>
+
+	<Plot>
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+		<Histo name="signal_minus_geom_mean" data="d1" >
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run15 p+p at #sqrt{{s}} = 200 GeV" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_1d.pdf" />
+	</Plot>
+
+	<Plot>
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+		<TCanvas width="900" height="600" />
+
+		<Histo name="raw_signal" data="d1" >
+			<style draw="E1" optstat="0" xr="0.0, 4.3" yr="100, 3e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+		
+		<Histo name="geom_mean_bg" data="d1">
+			<style draw="sameE1" c="red" />
+		</Histo>
+
+
+		<Histo name="signal_minus_geom_mean" data="d1" >
+			<style draw="sameE1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Legend>
+			<Entry name="raw_signal" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="geom_mean_bg" title="Acceptance Corrected background (bg)" opt="lpe" />
+			<Entry name="signal_minus_geom_mean" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<TLatex x="0.7" y="0.86" text="Run15 p+p at #sqrt{{s}} = 200 GeV" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_w_raw_bg.pdf" />
+	</Plot>
+
+	<Plot>
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+		<TCanvas width="900" height="600" />
+
+		<Histo name="raw_signal" data="d1" >
+			<style draw="E1" optstat="0" xr="0.0, 1.7" yr="100, 3e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+		
+		<Histo name="geom_mean_bg" data="d1">
+			<style draw="sameE1" c="red" />
+		</Histo>
+
+
+		<Histo name="signal_minus_geom_mean" data="d1" >
+			<style draw="sameE1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<Legend>
+			<Entry name="raw_signal" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="geom_mean_bg" title="Acceptance Corrected background (bg)" opt="lpe" />
+			<Entry name="signal_minus_geom_mean" title="(+-) - bg" opt="lpe" />
+			
+			<Position x1="0.2" x2="0.55" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<TLatex x="0.7" y="0.86" text="Run15 p+p at #sqrt{{s}} = 200 GeV" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_w_raw_bg_lmr.pdf" />
+	</Plot>
+
+	<Plot>
+		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+		<Histo name="signal_minus_geom_mean" data="d1" >
+			<style draw="E1X0p" markerstyle="8" optstat="0" xr="0.0, 1.5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+		</Histo>
+
+		<TLatex x="0.7" y="0.86" text="Run15 p+p at #sqrt{{s}} = 200 GeV" size="0.03"/>
+
+		<Export url="{CWD:out}/export/pdf/signal_lmr.pdf" />
 	</Plot>
 	
 

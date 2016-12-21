@@ -30,6 +30,7 @@ public:
 
 		this->mBTofPidTraitsIndex 	= that->mBTofPidTraitsIndex;
 		this->mMtdPidTraitsIndex 	= that->mMtdPidTraitsIndex;
+		this->mHelixIndex 			= that->mHelixIndex;
 	}
 
 	void reset(){
@@ -48,6 +49,7 @@ public:
 		this->mDCA            = 0.0;
 		this->mBTofPidTraitsIndex 	= 0.0;
 		this->mMtdPidTraitsIndex 	= 0.0;
+		this->mHelixIndex 			= 0.0;
 	}
 
 	int charge() { return mNHitsFit > 0 ? 1 : -1; }

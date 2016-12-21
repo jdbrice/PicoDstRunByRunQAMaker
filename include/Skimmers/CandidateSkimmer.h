@@ -116,6 +116,7 @@ protected:
 	}
 
 	virtual void preEventLoop(){
+		DEBUG( classname(), "" );
 		TreeAnalyzer::preEventLoop();
 
 		vector<string> trackCutBinLabels = config.getStringVector( "TrackQABins.MtdMuon_binLabels" );

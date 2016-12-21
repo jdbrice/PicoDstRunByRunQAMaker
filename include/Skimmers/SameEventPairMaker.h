@@ -26,6 +26,9 @@ public:
 	SameEventPairMaker(){}
 	~SameEventPairMaker(){}
 
+
+
+
 	virtual void initialize(){
 		CandidateSkimmer::initialize();
 
@@ -229,6 +232,17 @@ protected:
 
 	virtual void prePairLoop(){
 		DEBUG( classname(), "" );
+	}
+
+	virtual void overrideConfig(){
+
+		if (config.getInt( "jobIndex" ) == -1 ){
+			string nfn = config.getString( nodePath + ".output.TFile:url" );
+			XmlString xstr;
+			xstr.add( "jobIndex", "all" );
+			nfn = xstr.format( nfn );
+			config.set( nodePath + ".output.TFile:url", nfn );
+		}
 	}
 
 

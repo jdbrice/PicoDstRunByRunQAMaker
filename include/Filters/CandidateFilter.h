@@ -37,12 +37,12 @@ public:
 
 		ccol.setDefault( "mtdTriggerFlag" , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 		ccol.setDefault( "matchFlagMtd"   , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "dTofMtd"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "dyMtd"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "dyMtdPos"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "dyMtdNeg"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "dzMtd"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "drMtd"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdDeltaTOF"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdDeltaY"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdDeltaYPos"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdDeltaYNeg"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdDeltaZ"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdDeltaR"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 		ccol.setDefault( "mtdCell"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 	}
 
@@ -84,7 +84,7 @@ public:
 		}
 	}
 
-	static bool isMuon( CandidateTrack *_aTrack, CandidateTrackMtdPidTraits * _mtdPidTraits, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr ){
+	static bool isMuon( CandidateTrack *_aTrack, CandidateTrackMtdPidTraits * _mtdPidTraits, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr, string excludeCut = "" ){
 		
 
 		if ( nullptr == _aTrack || nullptr == _mtdPidTraits ){
@@ -115,111 +115,111 @@ public:
 			passTrackCut( "All", allCuts, book, cutsName );
 		}
 
-		if ( momentum.Pt() < ccol[ "pt" ]->min ){
+		if ( momentum.Pt() < ccol[ "pt" ]->min && excludeCut != "pt" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "Mom", allCuts, book, cutsName );
 		}
 
-		if ( !ccol[ "nSigmaPion" ]->inInclusiveRange( nSigmaPion ) ){
+		if ( !ccol[ "nSigmaPion" ]->inInclusiveRange( nSigmaPion ) && excludeCut != "nSigmaPion" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "nSigPi", allCuts, book, cutsName );
 		}
 
-		if ( nHitsRatio < ccol[ "nHitsRatio" ]->min ){
+		if ( nHitsRatio < ccol[ "nHitsRatio" ]->min && excludeCut != "nHitsRatio" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "nHitsRatio", allCuts, book, cutsName );
 		}
-		if ( nHitsDedx < ccol[ "nHitsDedx" ]->min ){
+		if ( nHitsDedx < ccol[ "nHitsDedx" ]->min && excludeCut != "nHitsDedx"){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "nHitsDedx", allCuts, book, cutsName );
 		}
-		if ( nHitsFit < ccol[ "nHitsFit" ]->min ){
+		if ( nHitsFit < ccol[ "nHitsFit" ]->min && excludeCut != "nHitsFit" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "nHitsFit", allCuts, book, cutsName );
 		}
-		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() )  ){
+		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() ) && excludeCut != "eta" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "eta", allCuts, book, cutsName );
 		}
 
-		if ( !ccol[ "gDCA" ]->inInclusiveRange( _aTrack->gDCA() ) ){
+		if ( !ccol[ "gDCA" ]->inInclusiveRange( _aTrack->gDCA() ) && excludeCut != "gDCA" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "gDCA", allCuts, book, cutsName );
 		}
 
-		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( _mtdPidTraits->mMatchFlag ) ){
+		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( _mtdPidTraits->mMatchFlag ) && excludeCut != "matchFlagMtd" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdMatchFlag", allCuts, book, cutsName );
 		}
 
-		if ( !ccol[ "mtdTriggerFlag" ]->inInclusiveRange( _mtdPidTraits->mTriggerFlag ) ){
+		if ( !ccol[ "mtdTriggerFlag" ]->inInclusiveRange( _mtdPidTraits->mTriggerFlag ) && excludeCut != "mtdTriggerFlag" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdTriggerFlag", allCuts, book, cutsName );
 		}
 
-		if ( !ccol[ "mtdCell" ]->inInclusiveRange( _mtdPidTraits->mMtdHitChan % 12 ) ){
+		if ( !ccol[ "mtdCell" ]->inInclusiveRange( _mtdPidTraits->mMtdHitChan % 12 ) && excludeCut != "mtdCell" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ){
 			passTrackCut( "mtdCell", allCuts, book, cutsName );
 		}
 
-		if ( !ccol[ "dTofMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaTimeOfFlight ) ){
+		if ( !ccol[ "mtdDeltaTOF" ]->inInclusiveRange( _mtdPidTraits->mDeltaTimeOfFlight ) && excludeCut != "mtdDeltaTOF" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdDeltaTof", allCuts, book, cutsName );
 		}
 
-		if ( !ccol[ "dyMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) ){
+		if ( !ccol[ "mtdDeltaY" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) && excludeCut != "mtdDeltaY" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdDeltaY", allCuts, book, cutsName );
 		}
 
-		if ( _aTrack->charge() > 0 ){
-			if ( !ccol[ "dyMtdPos" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) ){
-				allCuts = false;
-				if ( !makeQA ) return false;
-			} else if ( makeQA ) {
-				passTrackCut( "mtdDeltaYCharge", allCuts, book, cutsName );
-			}
-		} else if ( _aTrack->charge() < 0  ){
-			if ( !ccol[ "dyMtdNeg" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) ){
-				allCuts = false;
-				if ( !makeQA ) return false;
-			} else if ( makeQA ) {
-				passTrackCut( "mtdDeltaYCharge", allCuts, book, cutsName );
-			}
-		}
+		// if ( _aTrack->charge() > 0 ){
+		// 	if ( !ccol[ "mtdDeltaYPos" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) && excludeCut != "mtdDeltaY" ){
+		// 		allCuts = false;
+		// 		if ( !makeQA ) return false;
+		// 	} else if ( makeQA ) {
+		// 		passTrackCut( "mtdDeltaYCharge", allCuts, book, cutsName );
+		// 	}
+		// } else if ( _aTrack->charge() < 0  ){
+		// 	if ( !ccol[ "mtdDeltaYNeg" ]->inInclusiveRange( _mtdPidTraits->mDeltaY ) ){
+		// 		allCuts = false;
+		// 		if ( !makeQA ) return false;
+		// 	} else if ( makeQA ) {
+		// 		passTrackCut( "mtdDeltaYCharge", allCuts, book, cutsName );
+		// 	}
+		// }
 		
 
-		if ( !ccol[ "dzMtd" ]->inInclusiveRange( _mtdPidTraits->mDeltaZ ) ){
+		if ( !ccol[ "mtdDeltaZ" ]->inInclusiveRange( _mtdPidTraits->mDeltaZ ) && excludeCut != "mtdDeltaZ" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
 			passTrackCut( "mtdDeltaZ", allCuts, book, cutsName );
 		}
-		if ( !ccol[ "drMtd" ]->inInclusiveRange( deltaR ) ){
+		if ( !ccol[ "mtdDeltaR" ]->inInclusiveRange( deltaR ) && excludeCut != "mtdDeltaR" ){
 			allCuts = false;
 			if ( !makeQA ) return false;
 		} else if ( makeQA ) {
@@ -301,23 +301,23 @@ public:
 			passTrackCut( "mtdMatch", allCuts, book, cutsName );
 		}
 
-		if ( !ccol[ "dTofMtd" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaTimeOfFlight[ iMtd ] ) ){
+		if ( !ccol[ "mtdDeltaTOF" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaTimeOfFlight[ iMtd ] ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "dTof", allCuts, book, cutsName );
 		}
 
-		if ( !ccol[ "dyMtd" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaY[ iMtd ] ) ){
+		if ( !ccol[ "mtdDeltaY" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaY[ iMtd ] ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "dy", allCuts, book, cutsName );
 		}
-		if ( !ccol[ "dzMtd" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaZ[ iMtd ] ) ){
+		if ( !ccol[ "mtdDeltaZ" ]->inInclusiveRange( pico->MtdPidTraits_mDeltaZ[ iMtd ] ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "dz", allCuts, book, cutsName );
 		}
-		if ( !ccol[ "drMtd" ]->inInclusiveRange( deltaR ) ){
+		if ( !ccol[ "mtdDeltaR" ]->inInclusiveRange( deltaR ) ){
 			allCuts = false;
 		} else if ( makeQA ) {
 			passTrackCut( "dr", allCuts, book, cutsName );
@@ -595,7 +595,7 @@ public:
 		if ( nullptr == book )
 			return;
 		// book->cd("trackQA");
-		// book->fill( "dTofMtd", _mtdPidTraits->mDeltaTimeOfFlight );
+		// book->fill( "mtdDeltaTOF", _mtdPidTraits->mDeltaTimeOfFlight );
 		// book->fill( "deltaYMtd", _mtdPidTraits->mDeltaY );
 		// book->fill( "deltaZMtd", _mtdPidTraits->mDeltaZ );
 	}

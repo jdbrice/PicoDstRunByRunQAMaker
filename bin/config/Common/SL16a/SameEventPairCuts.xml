@@ -3,7 +3,7 @@
 	
 	<SameEventPairCuts>
 		<Range name="leadingPt" min="1.2" />
-		<Range name="deltaEta" min="-10" max="10" />
-		<Range name="deltaPhi" min="10" max="10" />
+		<!-- <Range name="deltaEta" min="-10" max="10" /> -->
+		<!-- <Range name="deltaPhi" min="10" max="10" /> -->
 	</SameEventPairCuts>
 </config>

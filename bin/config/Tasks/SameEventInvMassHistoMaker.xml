@@ -2,7 +2,7 @@
 <config>
 
 	<Task name="flm" type="InvMassHistoMaker" config="" nodePath="IMHM" />
-	<Logger color="true" globalLogLevel="all" />
+	<Logger color="true" globalLogLevel="info" />
 	
 	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
 	<Include url="{R:url}/cwd.xml" />
@@ -12,11 +12,12 @@
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="5" treeName="FemtoDst" url="{CWD:out}/filelists/SameEventMuMuPairs.lis" nEvents="-1"/>
+			<dst splitBy="1" treeName="FemtoDst" url="{CWD:out}/filelists/SameEventMuMuPairs.lis" nEvents="-1"/>
 		</input>
 
 		<output>
 			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_{jobIndex}.root" />
+			<XmlFile url="{CWD:out}/InvMassMuMu/config_{jobIndex}.xml" />
 		</output>
 
 		<histograms>

@@ -17,6 +17,8 @@ using namespace jdb;
 #include "MuonCandidateQA.h"
 #include "SameEventPairQA.h"
 #include "MixedEventPairQAMaker.h"
+#include "PidPlotMaker.h"
+#include "PidPdfMaker.h"
 
 // Exporters
 #include "CandidateCSVExporter.h"
@@ -76,6 +78,8 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<MuonCandidateQA>( "MuonCandidateQA" );
 	TaskFactory::registerTaskRunner<SameEventPairQA>( "SameEventPairQA" );
 	TaskFactory::registerTaskRunner<MixedEventPairQAMaker>( "MixedEventPairQAMaker" );
+	TaskFactory::registerTaskRunner<PidPlotMaker>( "PidPlotMaker" );
+	TaskFactory::registerTaskRunner<PidPdfMaker>( "PidPdfMaker" );
 
 	TaskFactory::registerTaskRunner<CandidateCSVExporter>( "CandidateCSVExporter" );
 	TaskFactory::registerTaskRunner<CandidatePairCSVExporter>( "CandidatePairCSVExporter" );

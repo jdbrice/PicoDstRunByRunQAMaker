@@ -6,7 +6,7 @@
 	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
 	<Include url="{R:url}/cwd.xml" />
 
-	<Data name="d1" url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_-1.root" />
+	<Data name="d1" url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_all.root" />
 	<!-- <Data name="d2" url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" /> -->
 
 	<TLatex x="0.7" y="0.86" text="Run15 p+p at #sqrt{{s}} = 200 GeV" size="0.03"/>
@@ -67,7 +67,7 @@
 			<style draw="E1" logy="1"/>
 		</Histo>
 
-		<TLatex x="0.7" y="0.82" text="(+-) - geom mean bg" size="0.03"/>
+		<!-- <TLatex x="0.7" y="0.82" text="(+-) - geom mean bg" size="0.03"/> -->
 
 		<Export url="{CWD:out}/export/pdf/signal_gm.pdf" />
 	</Plot>
@@ -75,7 +75,7 @@
 
 
 	<styles>
-		<h1d title=" ; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" draw="h" fc="597" optstat="0" logy="0" xts="0.05" yts="0.05" draw="E1"/>
+		<h1d title=" ; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM [c^{{2}}/GeV]" draw="h" fc="597" optstat="0" logy="0" xts="0.05" yts="0.05" draw="E1"/>
 	</styles>
 	
 

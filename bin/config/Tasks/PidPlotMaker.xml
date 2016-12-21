@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="flm" type="PidPlotMaker" config="" nodePath="PidPdf" />
+	<Logger color="true" globalLogLevel="none" />
+	
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<mod>_jpsi_Nm1</mod>
+	
+	<PidPdf triggers="dimuon">
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+		
+		<MakeQA SingleTrack="true" Pair="true" track="true" />
+		<input>
+			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
+		</input>
+
+		<output>
+			<TFile url="{CWD:out}/QA/PidPlotMaker{mod}_{jobIndex}.root" />
+			<XmlFile url="{CWD:out}/QA/PidPlotMaker{mod}_{jobIndex}.xml" />
+		</output>
+
+		<histograms>
+			<Include url="../Common/dimuonHistos.xml" />
+			<Include url="../Common/TrackQAHistos.xml" />
+			<Include url="../Common/PairQAHistos.xml" />
+		</histograms>
+
+		<Include url="{R:url}/MixedEventBins.xml" />
+		<Include url="{R:url}/SameEventPairCuts.xml" />
+
+		<!-- Loose Muon Candidate Cuts -->
+		<MuonCandidateCuts>
+			<Range name="nHitsRatio" min="0.52" />
+			<Range name="nHitsDedx" min="10.0" />
+			<Range name="nHitsFit" min="15.0" />
+			<Range name="eta" min="-0.8" max="0.8" />
+			
+			<Range name="pt" min="0.5" />
+			<Range name="nSigmaPion" min="-10.0" max="30.5" />
+			<Range name="gDCA" min="0.0" max="30.0" />
+			
+
+			<Range name="mtdPidTraitsIndex" min="0" />
+			<Range name="mtdTriggerFlag" min="1" max="100" />
+			<Range name="matchFlagMtd" min="1" max="100"/>
+
+			<Range name="mtdCell" min="0" max="11" /> 
+			<Range name="mtdDeltaZ" min="-200" max="200" />
+			<Range name="mtdDeltaY" min="-200" max="200" />
+
+			<Range name="mtdDeltaR" min="0" max="200.0" />
+			
+			<Range name="mtdDeltaTOF" min="-10" max="10" />
+		</MuonCandidateCuts>
+
+
+
+		
+		<PidCuts>
+			<Range name="nSigmaPion" min="-1.0" max="3.5" />
+			<Range name="gDCA" min="0.0" max="30.5" />
+
+			<Range name="mtdCell" min="0" max="11" /> 
+			<Range name="mtdDeltaZ" min="-20" max="20" />
+			<Range name="mtdDeltaY" min="-20" max="20" />
+
+			<Range name="mtdDeltaR" min="0" max="25.0" />
+			
+			<Range name="mtdDeltaTOF" min="-1" max="4" />
+		</PidCuts>
+
+		<QACuts>
+			<Range name="InvMass" min="3.0" max="3.2" />
+		</QACuts>
+
+	</PidPdf>
+
+	<Include url="../Common/TrackQABins.xml" />
+	<Include url="../Common/EventQABins.xml" />
+	<Include url="{R:url}/dimuonBins.xml" />
+
+	<PairQABins>
+		<deltaPhi nBins="120" min="-3.14159" max="3.14159" />
+		<deltaEta nBins="160" min="-1.6" max="1.6" />
+		<deltaR nBins="250" min="0" max="5" />
+		<parentPt width="0.1" min="0" max="10" />
+		<parentM width="0.05" min="0" max="10" />
+		<mtdCell width="1" min="0" max="12" />
+
+		<eta nBins="80" min="-0.8" max="0.8" />
+		<phi nBins="120" min="-3.14159" max="3.14159" />
+
+		<nPairs width="1" min="0" max="20" />
+		<nCharge width="1" min="0" max="20" />
+
+		<nPairsFinite width="1" min="1" max="20" />
+
+	</PairQABins>
+</config>

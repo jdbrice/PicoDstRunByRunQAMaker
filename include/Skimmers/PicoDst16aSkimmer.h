@@ -13,6 +13,7 @@
 #include "CandidateTracksWriter.h"
 #include "CandidateMtdPidTraitsWriter.h"
 #include "CandidateBTofPidTraitsWriter.h"
+#include "CandidateTrackHelixWriter.h"
 
 #include "CandidateFilter.h"
 #include "EventFilter.h"
@@ -41,6 +42,7 @@ public:
 		fTrack   = new CandidateTrack();
 		fMtdPid  = new CandidateTrackMtdPidTraits();
 		fBTofPid = new CandidateTrackBTofPidTraits();
+		fHelix   = new CandidateTrackHelix();
 
 		treeFile = new TFile( config.getXString( nodePath + ".output.TTree:url" ).c_str(), "RECREATE" );
 		treeFile->cd();
@@ -49,6 +51,7 @@ public:
 		tracksWriter  = shared_ptr<CandidateTracksWriter>( new CandidateTracksWriter( tree ) );
 		mtdPidWriter  = shared_ptr<CandidateMtdPidTraitsWriter>( new CandidateMtdPidTraitsWriter( tree ) );
 		btofPidWriter = shared_ptr<CandidateBTofPidTraitsWriter>( new CandidateBTofPidTraitsWriter( tree ) );
+		helixWriter   = shared_ptr<CandidateTrackHelixWriter>( new CandidateTrackHelixWriter( tree ) );
 
 
 
@@ -100,6 +103,7 @@ protected:
 	CandidateTrack *fTrack;
 	CandidateTrackMtdPidTraits *fMtdPid;
 	CandidateTrackBTofPidTraits *fBTofPid;
+	CandidateTrackHelix *fHelix;
 
 	StRefMultCorr * rmc = nullptr;
 	
@@ -139,16 +143,17 @@ protected:
 		fTrack->reset();
 		fMtdPid->reset();
 		fBTofPid->reset();
+		fHelix->reset();
 
 		StPicoTrack * pTrack = pico->track( iTrack );
 		StPicoMtdPidTraits * pMtdPid = pico->mtdPidTraitFor( iTrack );
 		StPicoBTofPidTraits * pBTofPid = pico->btofPidTraitFor( iTrack );
 
+
 		CandidateTreeMaker::fillCandidateTrack( pTrack, pico->event(), fTrack );
 		CandidateTreeMaker::fillCandidateMtdPidTraits( pMtdPid, fMtdPid );
 		CandidateTreeMaker::fillCandidateBTofPidTraits( pBTofPid, fBTofPid );
-
-
+		CandidateTreeMaker::fillCandidateTrackHelix( pTrack, fHelix );
 
 		bool isMuon = false;
 
@@ -172,6 +177,8 @@ protected:
 		tracksWriter->reset();
 		btofPidWriter->reset();
 		mtdPidWriter->reset();
+		helixWriter->reset();
+
 		int nTracks = pico->nTracks();
 		for ( int i = 0; i < nTracks; i++ ){
 			if ( keepTrack( i ) ){
@@ -191,8 +198,10 @@ protected:
 		btofPidWriter->add( fBTofPid, fTrack );	
 		mtdPidWriter->add( fMtdPid, fTrack );
 
+		helixWriter->add( fHelix, fTrack );
 		DEBUG( classname(), "\n" << fTrack->print() );
 		DEBUG( classname(), "\n" << fMtdPid->print() );
+		
 		tracksWriter->add( fTrack );
 		
 		
@@ -228,6 +237,7 @@ protected:
 	shared_ptr<CandidateTracksWriter> tracksWriter;
 	shared_ptr<CandidateMtdPidTraitsWriter> mtdPidWriter;
 	shared_ptr<CandidateBTofPidTraitsWriter> btofPidWriter;
+	shared_ptr<CandidateTrackHelixWriter> helixWriter;
 
 };
 

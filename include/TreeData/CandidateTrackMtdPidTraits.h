@@ -17,6 +17,7 @@ public:
 		this->mDeltaTimeOfFlight = 0.0;
 		this->mMatchFlag         = 0.0;
 		this->mMtdHitChan        = 0.0;
+		this->mTriggerFlag       = 0.0;
 	}
 	
 	void copy( CandidateTrackMtdPidTraits * that ){
@@ -25,6 +26,7 @@ public:
 		this->mDeltaTimeOfFlight = that->mDeltaTimeOfFlight;
 		this->mMatchFlag         = that->mMatchFlag;
 		this->mMtdHitChan        = that->mMtdHitChan;
+		this->mTriggerFlag       = that->mTriggerFlag;
 	}
 
 	int cell() {

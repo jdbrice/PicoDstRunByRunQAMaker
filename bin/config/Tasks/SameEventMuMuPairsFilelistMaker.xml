@@ -13,7 +13,7 @@
 			<File url="{CWD:out}/filelists/SameEventMuMuPairs.lis" />
 		</output>
 
-		<command>ls -1 {CWD:out}/SameEventMuMuPairs/*.root &gt; {CWD:out}/filelists/SameEventMuMuPairs.lis</command>
+		<command>ls -1 {CWD:out}/SameEventMuMuPairs/inv*.root &gt; {CWD:out}/filelists/SameEventMuMuPairs.lis</command>
 	</muonFLM>
 
 </config>

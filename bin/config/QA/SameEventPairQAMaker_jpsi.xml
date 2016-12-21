@@ -7,13 +7,13 @@
 	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
 	<Include url="{R:url}/cwd.xml" />
 
-	<mod>_jpsi</mod>
+	<mod>_jpsi_Nm1</mod>
 	
 	<MECS triggers="dimuon">
-		<Logger color="true" globalLogLevel="info" />
+		<Logger color="true" globalLogLevel="warning" />
 		<EventLoop progress="true" />
 		
-		<MakeQA SingleTrack="false" Pair="true" track="true" />
+		<MakeQA SingleTrack="true" Pair="true" track="true" />
 		<input>
 			<dst splitBy="22" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
 		</input>
@@ -26,6 +26,7 @@
 		<histograms>
 			<Include url="../Common/dimuonHistos.xml" />
 			<Include url="../Common/TrackQAHistos.xml" />
+			<Include url="../Common/PairQAHistos.xml" />
 		</histograms>
 
 		<Include url="{R:url}/MixedEventBins.xml" />
@@ -53,6 +54,11 @@
 
 		<eta nBins="80" min="-0.8" max="0.8" />
 		<phi nBins="120" min="-3.14159" max="3.14159" />
+
+		<nPairs width="1" min="0" max="20" />
+		<nCharge width="1" min="0" max="20" />
+
+		<nPairsFinite width="1" min="1" max="20" />
 
 	</PairQABins>
 </config>

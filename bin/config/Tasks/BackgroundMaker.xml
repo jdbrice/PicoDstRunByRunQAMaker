@@ -7,15 +7,18 @@
 	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
 	<Include url="{R:url}/cwd.xml" />
 	<BGM >
-		<Logger color="true" globalLogLevel="info" />
+		<Logger color="true" globalLogLevel="trace" />
 
 		<input>
 			<TFile url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" name="mixed"/>
-			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms.root" name="same" />
+			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_all.root" name="same" />
 		</input>
 		<output path="" >
 			<TFile url="{CWD:out}/InvMassMuMu/bg_inv_mass_mumu.root" />
 		</output> 
+
+		<Bg1d rebinX="1" />
+		<Bg rebinX="1" rebinY="5" />
 
 	</BGM>
 

@@ -11,10 +11,10 @@
 		<Range name="gDCA" min="0.0" max="100.0" />
 		
 		<Range name="matchFlagMtd" min="1" max="15"/> 
-		<Range name="dzMtd" min="-2000" max="2000" />
-		<Range name="dyMtd" min="-2000" max="2000" />
-		<Range name="drMtd" min="0" max="30000" />
+		<Range name="mtdDeltaZ" min="-2000" max="2000" />
+		<Range name="mtdDeltaY" min="-2000" max="2000" />
+		<Range name="mtdDeltaR" min="0" max="30000" />
 		
-		<Range name="dTofMtd" min="-50000000" max="50000000" />
+		<Range name="mtdDeltaTOF" min="-50000000" max="50000000" />
 	</MuonCandidateCuts>
 </config>

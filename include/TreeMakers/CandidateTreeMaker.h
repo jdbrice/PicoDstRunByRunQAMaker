@@ -132,10 +132,10 @@ public:
 		_track->mNHitsFit           = _pTrack->nHitsFit() * _pTrack->charge();
 		_track->mNHitsMax           = _pTrack->nHitsMax();
 		_track->mNHitsDedx          = _pTrack->nHitsDedx();
-		_track->mNSigmaPion         = _pTrack->nSigmaPion();
-		_track->mNSigmaKaon         = _pTrack->nSigmaKaon();
-		_track->mNSigmaProton       = _pTrack->nSigmaProton();
-		_track->mNSigmaElectron     = _pTrack->nSigmaElectron();
+		_track->mNSigmaPion         = _pTrack->nSigmaPion()     * 100.0;
+		_track->mNSigmaKaon         = _pTrack->nSigmaKaon()     * 100.0;
+		_track->mNSigmaProton       = _pTrack->nSigmaProton()   * 100.0;
+		_track->mNSigmaElectron     = _pTrack->nSigmaElectron() * 100.0;
 
 
 
@@ -289,6 +289,18 @@ public:
 		helix->mMap0 = mPico->Tracks_mMap0[iTrack];
 		helix->mMap1 = mPico->Tracks_mMap1[iTrack];
 		
+	}
+
+	static void fillCandidateTrackHelix( StPicoTrack* _pTrack, CandidateTrackHelix * _helix ){
+		
+		memcpy( _helix->mPar, _pTrack->params(), sizeof(Float_t) * 6 );
+
+		// for ( int i =0; i < 6; i++ ){
+		// 	INFO( "CandidateTreeMaker", "mPar["<< i <<"] = " << _helix->mPar[i]  );
+		// }
+
+		_helix->mMap0 = _pTrack->map0();
+		_helix->mMap1 = _pTrack->map1();
 	}
 
 	virtual void fillTree(){

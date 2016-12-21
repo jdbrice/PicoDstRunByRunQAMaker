@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<MuonCandidatePDFs>
+		<XmlFunction name="pdf_mtdDeltaY" formula="{y} / sqrt( 2 * pow({sig},2) * TMath::Pi() ) ) * TMath::Exp( -pow( x - {mu} / {sig}, 2 ) / 2.0 )" p0Name="y" p1Name="mu" p2Name="sig" />
+	</MuonCandidatePDFs>
+</config>
