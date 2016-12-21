@@ -14,7 +14,7 @@ class StPicoMtdTrigger : public TObject {
   UShort_t   getMT101Id(const Int_t qt, const Int_t index);
   UChar_t    getTF201TriggerBit();
 
-  void       getMaximumQTtac(const Int_t qt, Int_t& pos1, Int_t& pos2);
+  void       getMaximumQTtac(const Int_t qt, Int_t& pos1, Int_t& pos2) {}
 
  protected:
   static const UShort_t mtd_qt_tac_max = 4095;
