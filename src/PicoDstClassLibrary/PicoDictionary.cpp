@@ -224,7 +224,7 @@ namespace ROOT {
       ::StPicoEvent *ptr = 0;
       static ::TVirtualIsAProxy* isa_proxy = new ::TInstrumentedIsAProxy< ::StPicoEvent >(0);
       static ::ROOT::TGenericClassInfo 
-         instance("StPicoEvent", ::StPicoEvent::Class_Version(), "StPicoEvent.h", 10,
+         instance("StPicoEvent", ::StPicoEvent::Class_Version(), "StPicoEvent.h", 11,
                   typeid(::StPicoEvent), ::ROOT::Internal::DefineBehavior(ptr, ptr),
                   &::StPicoEvent::Dictionary, isa_proxy, 4,
                   sizeof(::StPicoEvent) );

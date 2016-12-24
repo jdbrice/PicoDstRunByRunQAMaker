@@ -28,6 +28,10 @@ public:
 		tracks->Clear();
 	}
 
+	int nEntries(){
+		return tracks->GetEntries();
+	}
+
 protected:
 	TClonesArray * tracks;
 };

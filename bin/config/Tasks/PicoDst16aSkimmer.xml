@@ -14,7 +14,7 @@
 		<Select electrons="false" muons="true" />
 
 		<input>
-			<dst treeName="PicoDst" url="{CWD:in}/filelists/PicoDst.lis" splitBy="50" nEvents="-1"/>
+			<dst treeName="PicoDst" url="{CWD:in}/filelists/PicoDst.lis" splitBy="5" nEvents="-1"/>
 		</input>
 
 		<output path="" >

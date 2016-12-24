@@ -44,6 +44,16 @@ public:
 	Char_t 		mChargeSum;						// charge of daughter1 + charge of daughter2
 	Float_t 	mLeadingPt;						// the pt of the leading daughter
 
+	Float_t 	d1_mMomentum_mX1;
+	Float_t 	d1_mMomentum_mX2;
+	Float_t 	d1_mMomentum_mX3;
+	Float_t 	d1_mMass;
+
+	Float_t 	d2_mMomentum_mX1;
+	Float_t 	d2_mMomentum_mX2;
+	Float_t 	d2_mMomentum_mX3;
+	Float_t 	d2_mMass;
+
 	// CandidateTrack* d1 = nullptr;
 	// CandidateTrack* d2 = nullptr;
 

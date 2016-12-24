@@ -87,6 +87,8 @@ public:
 		rmc = CentralityMaker::instance()->getgRefMultCorr();
 		rmf = shared_ptr<RunMapFactory>( new RunMapFactory( "Run14AuAu200", false ) );
 
+		keepAllEvents = config.getBool( nodePath + ".Select:allEvents", false );
+
 	}
 	
 protected:
@@ -108,6 +110,8 @@ protected:
 	CandidateTrackHelix *fHelix;
 
 	StRefMultCorr * rmc = nullptr;
+
+	bool keepAllEvents = false;
 	
 	
 	virtual void postMake() {
@@ -188,7 +192,9 @@ protected:
 			}
 		}
 		// DEBUG( classname(), "mRunId" << pico->event()->runId() );
-		tree->Fill();
+		if ( keepAllEvents || tracksWriter->nEntries() >= 2 ){
+			tree->Fill();
+		}
 
 		DEBUG( classname(), "==========EVENT STOP=========" );
 	}
@@ -197,10 +203,14 @@ protected:
 	virtual void analyzeTrack( int iTrack ){
 		
 
-		btofPidWriter->add( fBTofPid, fTrack );	
-		mtdPidWriter->add( fMtdPid, fTrack );
+		if ( fBTofPid->mBTofMatchFlag >= 1 )
+			btofPidWriter->add( fBTofPid, fTrack );	
 
+		// required, always write
+		mtdPidWriter->add( fMtdPid, fTrack );
 		helixWriter->add( fHelix, fTrack );
+
+
 		DEBUG( classname(), "\n" << fTrack->print() );
 		DEBUG( classname(), "\n" << fMtdPid->print() );
 		

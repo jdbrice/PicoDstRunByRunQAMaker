@@ -14,7 +14,7 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin0_gm_signal" data="d1">
-			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -28,7 +28,7 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin1_gm_signal" data="d1">
-			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -43,7 +43,7 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin2_gm_signal" data="d1">
-			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -58,7 +58,7 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin3_gm_signal" data="d1">
-			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -72,7 +72,7 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin4_gm_signal" data="d1">
-			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -86,7 +86,7 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin5_gm_signal" data="d1">
-			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -100,7 +100,7 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin6_gm_signal" data="d1">
-			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -114,7 +114,7 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin7_gm_signal" data="d1">
-			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -133,15 +133,15 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin0_unlike_sign" data="d1">
-			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin0_like_sign_geom" data="d1">
-			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 6" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin0_gm_signal" data="d1">
-			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e5" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -164,15 +164,15 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin1_unlike_sign" data="d1">
-			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin1_like_sign_geom" data="d1">
-			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 6" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin1_gm_signal" data="d1">
-			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -195,15 +195,15 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin2_unlike_sign" data="d1">
-			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin2_like_sign_geom" data="d1">
-			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 6" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin2_gm_signal" data="d1">
-			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -226,15 +226,15 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin3_unlike_sign" data="d1">
-			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e2, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin3_like_sign_geom" data="d1">
-			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 6" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin3_gm_signal" data="d1">
-			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -257,15 +257,15 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin4_unlike_sign" data="d1">
-			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin4_like_sign_geom" data="d1">
-			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 6" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin4_gm_signal" data="d1">
-			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -288,15 +288,15 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin5_unlike_sign" data="d1">
-			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin5_like_sign_geom" data="d1">
-			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 6" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin5_gm_signal" data="d1">
-			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -319,15 +319,15 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin6_unlike_sign" data="d1">
-			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin6_like_sign_geom" data="d1">
-			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 6" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin6_gm_signal" data="d1">
-			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
@@ -350,15 +350,15 @@
 		<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
 
 		<Histo name="bin7_unlike_sign" data="d1">
-			<style draw="E1" markersize="1" optstat="0" xr="0.0, 4" yr="1e1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="E1" markersize="1" optstat="0" xr="0.0, 6" yr="1e-1, 1e7" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin7_like_sign_geom" data="d1">
-			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 4" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markersize="1" optstat="0" xr="0.0, 6" c="red" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<Histo name="bin7_gm_signal" data="d1">
-			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 4" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
+			<style draw="same E1" markerstyle="20" markersize="1" optstat="0" xr="0.0, 6" c="black" logy="1" title="; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM_{{#mu#mu}} [c^{{2}}/GeV]" yto="1.3" />
 		</Histo>
 
 		<TLatex x="0.7" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>

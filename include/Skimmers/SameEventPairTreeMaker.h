@@ -45,6 +45,17 @@ public:
 			leadingPt = lv2.Pt();
 
 		aPair->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), aTrack->charge() + bTrack->charge(), leadingPt );
+
+		aPair->d1_mMomentum_mX1 = lv1.Px();
+		aPair->d1_mMomentum_mX2 = lv1.Py();
+		aPair->d1_mMomentum_mX3 = lv1.Pz();
+		aPair->d1_mMass         = m1;
+
+		aPair->d2_mMomentum_mX1 = lv2.Px();
+		aPair->d2_mMomentum_mX2 = lv2.Py();
+		aPair->d2_mMomentum_mX3 = lv2.Pz();
+		aPair->d2_mMass         = m2;
+
 		nCandPairs++;
 	}
 
