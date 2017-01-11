@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="CocktailFitter" type="CocktailSingleComponentFitter" config="" nodePath="CSCF" />
+	<Logger color="true" globalLogLevel="warning" />
+	
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<CSCF>
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+
+		<Components>
+			<Component parent="omega" decay="twobody" />
+			<Component parent="phi" decay="twobody" />	
+			<Component parent="eta" decay="twobody" />
+			<Component parent="etaprime" decay="dalitz" />
+			<Component parent="eta" decay="dalitz" />
+			<Component parent="omega" decay="dalitz" />
+		</Components>
+		
+
+		<Cuts minPt="1.0" minDeltaPhi="0.02"/>
+
+		<input>
+			<dst treeName="llCocktail" url="{CWD:in}/filelists/Cocktail.lis" splitBy="100" nEvents="-1" maxFiles="10000"/>
+			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_all.root" />
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}/Cocktail/single_fit_{CSCF.Component:parent}_{CSCF.Component:decay}.root" />
+		</output>
+
+		<histograms>
+			<Histo name="dNdM" title=";M_{#mu#mu} [GeV/c^{2}]; dN/dM" bins_x="dimuonBins.invMass" />
+		</histograms>
+		
+	</CSCF>
+
+	<Include url="{R:url}/dimuonBins.xml" />
+
+</config>
