@@ -16,6 +16,9 @@
 #include "ISameEventPairTreeMaker.h"
 #include "PairFilter.h"
 #include "CutCollectionTreeMaker.h"
+#include "TriggerPatchMapper.h"
+
+#include <stdint.h>
 
 
 
@@ -92,6 +95,9 @@ protected:
 	int eventHash = -1;
 	int currentEventHash = -1;
 	shared_ptr<RunMapFactory> rmf;
+	TriggerPatchMapper tpm;
+	int nFTP = 0;
+	uint32_t mtdTriggerMask = 0;
 
 
 	bool keepTrack( CandidateTrack *aTrack ){
@@ -130,6 +136,13 @@ protected:
 
 		// TRACE( classname(), "current Event = " << currentEventHash );
 		if ( 0 <= eventHash && eventHash != currentEventHash ) return;
+
+		// set the # of fired Trigger Patches to 0
+		nFTP = 0;
+		mtdTriggerMask = 0;
+
+		
+		
 
 		// Pre loop hook
 		prePairLoop();
@@ -178,6 +191,9 @@ protected:
 
 				
 				// if ( !keepPair( lv1, lv2 ) ) continue;
+				// if ( PairFilter::keepSameEventPair( pairCuts, 
+				// 		aTrack, (CandidateTrackMtdPidTraits*)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex ), 
+				// 		bTrack, (CandidateTrackMtdPidTraits*)mtdPidTraits->At( bTrack->mMtdPidTraitsIndex ) ) )
 				analyzePair( aTrack, bTrack );
 				
 				nPairs++;

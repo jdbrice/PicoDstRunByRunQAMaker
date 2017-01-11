@@ -5,6 +5,7 @@
 #include "IPicoDst.h"
 #include "CandidateTrack.h"
 #include "CandidateTrackMtdPidTraits.h"
+#include "TriggerPatchMapper.h"
 
 
 // ROOT
@@ -43,7 +44,10 @@ public:
 		ccol.setDefault( "mtdDeltaYNeg"       , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 		ccol.setDefault( "mtdDeltaZ"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 		ccol.setDefault( "mtdDeltaR"          , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
-		ccol.setDefault( "mtdCell"        , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdCell"            , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+
+		ccol.setDefault( "mtdTriggerPatch1"   , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
+		ccol.setDefault( "mtdTriggerPatch2"   , std::numeric_limits<double>::lowest() , std::numeric_limits<double>::max() );
 	}
 
 	static void setDefaultElectronCuts( CutCollection &ccol ){
@@ -174,6 +178,18 @@ public:
 		} else if ( makeQA ) {
 			passTrackCut( "mtdTriggerFlag", allCuts, book, cutsName );
 		}
+
+		// check trigger patch
+		// int tp = TriggerPatchMapper::findTriggerPatch( _mtdPidTraits->mMtdHitChan );
+		// if ( (!ccol[ "mtdTriggerPatch1" ]->inInclusiveRange( tp ) && excludeCut != "mtdTriggerPatch1") && 
+		// 	 (!ccol[ "mtdTriggerPatch2" ]->inInclusiveRange( tp ) && excludeCut != "mtdTriggerPatch2") ){
+		// 	allCuts = false;
+		// 	if ( !makeQA ) return false;
+		// } else if ( makeQA ) {
+		// 	passTrackCut( "mtdTriggerPatch", allCuts, book, cutsName );
+		// }
+
+
 
 		if ( !ccol[ "mtdCell" ]->inInclusiveRange( _mtdPidTraits->mMtdHitChan % 12 ) && excludeCut != "mtdCell" ){
 			allCuts = false;

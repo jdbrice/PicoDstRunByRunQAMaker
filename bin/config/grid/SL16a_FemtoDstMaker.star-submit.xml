@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<job simulateSubmission="false" nProcesses="7580" >
+<job simulateSubmission="false" nProcesses="3032" >
 	
 	<command>
 		starver pro

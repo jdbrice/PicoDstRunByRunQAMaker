@@ -109,7 +109,9 @@ public:
 			makeBin16Histos = true;
 		}
 
+		// for ( int i = 0; i < 30; i++ ){
 
+		// }
 		
 
 
@@ -151,6 +153,8 @@ public:
 		double bw = dimuonBins.binWidth( iBin );
 		double weight = 1.0 / bw;
 
+		int dbl = abs(pair->d1_mtdBackleg - pair->d2_mtdBackleg);
+		int des = abs( (int)pair->d1_mtdEtaStrip - (int)pair->d2_mtdEtaStrip );
 
 		if ( pair->mLeadingPt < pairCuts["leadingPt"]->min )
 			return;
@@ -158,6 +162,10 @@ public:
 		if ( abs(pair->mChargeSum) == 2 ){
 			h_like_sign->Fill( mass, weight );
 			h_like_sign_vs_pt->Fill( mass, pt );
+
+			book->fill( "like_sign_vs_dbl", dbl, mass, weight );
+			book->fill( "like_sign_vs_dbl_des_" + ts( des ), dbl, mass, weight );
+			book->fill( "like_sign_vs_des", des, mass, weight );
 
 			if ( makeBin16Histos ){
 				book->fill( "bin" + ts( centBin ) + "_like_sign", mass, weight );
@@ -188,6 +196,9 @@ public:
 			book->fill( "unlike_sign_eta", lv.Eta() );
 			h_unlike_sign->Fill( mass, weight );
 			h_unlike_sign_vs_pt->Fill( mass, pt );
+			book->fill( "unlike_sign_vs_dbl", dbl, mass, weight );
+			book->fill( "unlike_sign_vs_dbl_des_" + ts( des ), dbl, mass, weight );
+			book->fill( "unlike_sign_vs_des", des, mass, weight );
 
 			if ( makeBin16Histos ){
 				book->fill( "bin" + ts( centBin ) + "_unlike_sign", mass, weight );

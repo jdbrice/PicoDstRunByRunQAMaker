@@ -13,6 +13,9 @@
 		<weight width="0.01" min="0.5" max="4" />
 		<gRefMult width="1" min="0" max="1000" />
 		<bin16 width="1" min="0" max="20" />
+		<nTriggerPatch width="1" min="0" max="10" />
+		<triggerPatch width="1" min="0" max="33" />
+
 		<!-- TODO : Add this! -->
 		<runIndex width="1" min="0" max="0" />
 

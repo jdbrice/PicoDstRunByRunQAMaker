@@ -46,15 +46,24 @@ public:
 
 		aPair->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), aTrack->charge() + bTrack->charge(), leadingPt );
 
-		aPair->d1_mMomentum_mX1 = lv1.Px();
-		aPair->d1_mMomentum_mX2 = lv1.Py();
-		aPair->d1_mMomentum_mX3 = lv1.Pz();
-		aPair->d1_mMass         = m1;
+		CandidateTrackMtdPidTraits * d1MtdPid = (CandidateTrackMtdPidTraits*)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
+		CandidateTrackMtdPidTraits * d2MtdPid = (CandidateTrackMtdPidTraits*)mtdPidTraits->At( bTrack->mMtdPidTraitsIndex );
 
-		aPair->d2_mMomentum_mX1 = lv2.Px();
-		aPair->d2_mMomentum_mX2 = lv2.Py();
-		aPair->d2_mMomentum_mX3 = lv2.Pz();
-		aPair->d2_mMass         = m2;
+		aPair->d1_mMomentum_mX1   = lv1.Px();
+		aPair->d1_mMomentum_mX2   = lv1.Py();
+		aPair->d1_mMomentum_mX3   = lv1.Pz();
+		aPair->d1_mMass           = m1;
+		aPair->d1_mtdBackleg      = TriggerPatchMapper::backleg( d1MtdPid->mMtdHitChan );
+		aPair->d1_mtdTriggerPatch = TriggerPatchMapper::findTriggerPatch( d1MtdPid->mMtdHitChan );
+		aPair->d1_mtdEtaStrip     = TriggerPatchMapper::etaStrip( d1MtdPid->mMtdHitChan );
+
+		aPair->d2_mMomentum_mX1   = lv2.Px();
+		aPair->d2_mMomentum_mX2   = lv2.Py();
+		aPair->d2_mMomentum_mX3   = lv2.Pz();
+		aPair->d2_mMass           = m2;
+		aPair->d2_mtdBackleg      = TriggerPatchMapper::backleg( d2MtdPid->mMtdHitChan );
+		aPair->d2_mtdTriggerPatch = TriggerPatchMapper::findTriggerPatch( d2MtdPid->mMtdHitChan );
+		aPair->d2_mtdEtaStrip     = TriggerPatchMapper::etaStrip( d2MtdPid->mMtdHitChan );
 
 		nCandPairs++;
 	}

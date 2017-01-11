@@ -7,6 +7,7 @@
 // Project
 #include "CandidateTrack.h"
 #include "CandidateTrackMtdPidTraits.h"
+#include "TriggerPatchMapper.h"
 
 
 // ROOT
@@ -30,6 +31,8 @@ public:
 
 		// TLorentzVector lv = lv1 + lv2;
 		// if ( lv1.DeltaPhi( lv2 ) < 0.5 / ( lv.Pt() ) ) return false;
+		
+		
 		return true;
 	}
 
@@ -52,7 +55,28 @@ public:
 		// 	// INFO( "PairFilter", "deltaPhi" );
 		// 	return false;
 		// }
+		// 
 		
+		
+
+		return true;
+	}
+
+	static bool keepSameEventPair( CutCollection &ccol, CandidateTrack *_aTrack, CandidateTrackMtdPidTraits * _aMtdPidTraits,
+														CandidateTrack *_bTrack, CandidateTrackMtdPidTraits * _bMtdPidTraits ){
+
+		if ( ccol[ "mtdBackLegA" ] != nullptr &&  ccol[ "mtdBackLegB" ] != nullptr ){
+
+			int blA = TriggerPatchMapper::backleg( _aMtdPidTraits->mMtdHitChan );
+			int blB = TriggerPatchMapper::backleg( _bMtdPidTraits->mMtdHitChan );
+
+			if( !ccol["mtdBackLegA"]->inInclusiveRange( blA ) && !ccol["mtdBackLegB"]->inInclusiveRange( blA ) )
+				return false;
+			if( !ccol["mtdBackLegA"]->inInclusiveRange( blB ) && !ccol["mtdBackLegB"]->inInclusiveRange( blB ) )
+				return false;
+
+			
+		}
 
 		return true;
 	}

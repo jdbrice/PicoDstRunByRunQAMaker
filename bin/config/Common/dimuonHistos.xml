@@ -25,6 +25,26 @@
 		<Histo name="unlike_sign_eta" title="unlike sign eta; #eta; dN/d#eta" bins_x="dimuonBins.rapidity" />
 
 
+		<Histo name="unlike_sign_vs_dbl" title="Unlike sign; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="like_sign_vs_dbl" title="like sign; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+
+		<Histo name="unlike_sign_vs_dbl_des_0" title="Unlike sign #Delta etaStrip=0; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="like_sign_vs_dbl_des_0" title="like sign #Delta etaStrip=0; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+
+		<Histo name="unlike_sign_vs_dbl_des_1" title="Unlike sign #Delta etaStrip=1; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="like_sign_vs_dbl_des_1" title="like sign #Delta etaStrip=1; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+
+		<Histo name="unlike_sign_vs_dbl_des_2" title="Unlike sign #Delta etaStrip=2; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="like_sign_vs_dbl_des_2" title="like sign #Delta etaStrip=2; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+
+		<Histo name="unlike_sign_vs_dbl_des_3" title="Unlike sign #Delta etaStrip=3; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="like_sign_vs_dbl_des_3" title="like sign #Delta etaStrip=3; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+
+		<Histo name="unlike_sign_vs_dbl_des_4" title="Unlike sign #Delta etaStrip=4; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="like_sign_vs_dbl_des_4" title="like sign #Delta etaStrip=4; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		
+		<Histo name="unlike_sign_vs_des" title="Unlike sign; delta Eta Strip; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.deltaEtaStrip" bins_y="dimuonBins.invMass" />
+		<Histo name="like_sign_vs_des" title="like sign; delta Eta Strip; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.deltaEtaStrip" bins_y="dimuonBins.invMass" />
 		
 
 

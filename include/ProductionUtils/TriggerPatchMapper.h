@@ -2,8 +2,13 @@
 #define TRIGGER_PATCH_MAPPER_H
 
 #include "IObject.h"
+using namespace jdb;
+
+
 #include <map>
 #include <utility>
+#include <memory>
+using namespace std;
 
 class TriggerPatchMapper :public IObject
 {
@@ -194,28 +199,37 @@ public:
 		////////stop////////////
 
 	}
+
+	static shared_ptr<TriggerPatchMapper> instance;
 	~TriggerPatchMapper() {}
 
 	// 0 to 11
-	int cell ( int _channel ){
+	static int cell ( int _channel ){
 		return ( _channel % 60 ) % 12;
 	}
 
 	// 0 to 4
-	int module( int _channel ){
+	static int module( int _channel ){
 		return (_channel % 60 ) / 12;
 	}
 	// 0 to 29
-	int backleg( int _channel ){
+	static int backleg( int _channel ){
 		return _channel / 60;
 	}
 
+	static int etaStrip( int _channel ){
+		int mod = TriggerPatchMapper::module( _channel ) + 5 * TriggerPatchMapper::backleg( _channel );
+		return mod % 5 - 2;
+	}
+
 	int triggerPatch(  int _channel ){
-		int bl = backleg( _channel );
-		int mod = module( _channel );
+		int bl = TriggerPatchMapper::backleg( _channel );
+		int mod = TriggerPatchMapper::module( _channel );
 
 		return patchMap[bl+1][mod+1];
 	}
+
+	static int findTriggerPatch( int _channel );
 
 	
 };

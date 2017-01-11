@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<Data name="d1" url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_all.root" />
+	<Data name="d2" url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" />
+
+	<TLatex x="0.7" y="0.86" text="Run15 p+p at #sqrt{{s}} = 200 GeV" size="0.03"/>
+	<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+	<TFile url="{CWD:out}/export/root/delta_backleg.root" />
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl" data="d1" style="styles.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = {name}"/>
+		</Histo>
+		<Histo name="like_sign_vs_dbl" data="d1" style="style.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="same E1" lc="red"/>
+		</Histo>
+
+		<Legend>
+			<!-- <Entries>raw_signal</Entries> -->
+			<Entry name="unlike_sign_vs_dbl" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="like_sign_vs_dbl" title="Same Event (++)+(--)" opt="lpe" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl" data="d1" style="styles.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<Norm/>
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = {name}"/>
+		</Histo>
+		<Histo name="unlike_sign_vs_dbl" data="d2" style="style.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<Norm/>
+			<style draw="same E1" lc="red"/>
+		</Histo>
+
+		<Legend>
+			<!-- <Entries>raw_signal</Entries> -->
+			<Entry name="d1/unlike_sign_vs_dbl" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="d2/unlike_sign_vs_dbl" title="Mixed Event (+-)" opt="lpe" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_mixed_unlike_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="like_sign_vs_dbl" data="d1" style="styles.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<Norm/>
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = {name}"/>
+		</Histo>
+		<Histo name="like_sign_vs_dbl" data="d2" style="style.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<Norm/>
+			<style draw="same E1" lc="red"/>
+		</Histo>
+
+		<Legend>
+			<!-- <Entries>raw_signal</Entries> -->
+			<Entry name="d1/like_sign_vs_dbl" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="d2/like_sign_vs_dbl" title="Mixed Event (+-)" opt="lpe" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_mixed_like_{name}.pdf" />
+	</PlotTemplate>
+
+
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl" data="d2" style="styles.h1d" >
+			<Divide name="like_sign_vs_dbl" data="d2"/>
+
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = {name}" yr="0, 5"/>
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_mixed_unlike_over_like_{name}.pdf" />
+	</PlotTemplate>
+
+	<Plot >
+		
+		<Histo name="unlike_sign" data="d2" style="styles.h1d" >
+			<Divide name="like_sign" data="d2"/>
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = all" yr="0.5, 2.0"/>
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_mixed_unlike_over_like_all.pdf" />
+	</Plot>
+
+	
+
+
+
+	<styles>
+		<h1d title=" ; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM [c^{{2}}/GeV]" draw="h" fc="597" optstat="0" logy="0" xts="0.05" yts="0.05" draw="E1"/>
+	</styles>
+	
+
+	
+
+</config>

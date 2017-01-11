@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<EventCuts>
+		<Range name="zVertex" min="-5" max="5" />
+		<Range name="zVertexDelta" min="0" max="3" />
+	</EventCuts>
+</config>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="Trigger Patch  QA" type="TriggerPatchQA" config="" nodePath="TPQA" />
+	<Logger color="true" globalLogLevel="all" />
+	
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
+	<Include url="{R:url}/cwd.xml" />
+
+
+	<mod>_module_map_</mod>
+	<TPQA>
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+		
+		<input>
+			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
+		</input>
+
+		<output>
+			<TFile url="{CWD:out}/QA/TriggerPatch{mod}_{jobIndex}.root" />
+		</output>
+
+		<TrackCuts>
+			<Range name="rigidity" min="-10" max="10" />
+		</TrackCuts>
+
+		<EventCuts>
+			<Range name="zVertex" min="-100" max="100" />
+			<Range name="zVertexDelta" min="0" max="3" />
+		</EventCuts>
+
+	</TPQA>
+
+	<Include url="../Common/TrackQABins.xml" />
+	<Include url="../Common/EventQABins.xml" />
+
+</config>

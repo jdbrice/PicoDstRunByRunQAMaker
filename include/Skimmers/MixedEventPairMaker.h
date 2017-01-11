@@ -3,6 +3,7 @@
 
 #include "Candidate.h"
 #include "MixedEventCandidateSkimmer.h"
+#include "TriggerPatchMapper.h"
 
 class MixedEventPairMaker : public MixedEventCandidateSkimmer, public IMixedEventPairTreeMaker
 {
@@ -23,10 +24,18 @@ protected:
 		// reject mixed event pairs from SAME event
 		if ( _cand1->event->mRunId == _cand2->event->mRunId && _cand1->event->mEventId == _cand2->event->mEventId )
 			return false;
+		
 		// reject dimoun events that are from the same cell, since this is forbidden in a same-event scenario (TODO: Deal with matchFlag > 1 cases?)
-		if ( _cand1->mtdPidTraits->mMatchFlag >= 1 && _cand2->mtdPidTraits->mMatchFlag >= 1 && _cand1->mtdPidTraits->mMtdHitChan == _cand2->mtdPidTraits->mMtdHitChan ){
+		if ( _cand1->mtdPidTraits->mMtdHitChan == _cand2->mtdPidTraits->mMtdHitChan ){
 			return false;
 		}
+
+		int tpA = TriggerPatchMapper::findTriggerPatch( _cand1->mtdPidTraits->mMtdHitChan );
+		int tpB = TriggerPatchMapper::findTriggerPatch( _cand2->mtdPidTraits->mMtdHitChan );
+
+		if ( tpA == tpB ) 
+			return false;
+
 
 		return true;
 	}
@@ -85,6 +94,17 @@ protected:
 			leadingPt = lv2.Pt();
 
 		wPairs->set( lv.Px(), lv.Py(), lv.Pz(), lv.M(), _cand1->track->charge() + _cand2->track->charge(), leadingPt );
+
+
+		wPairs->d1_mtdBackleg      = TriggerPatchMapper::backleg( _cand1->mtdPidTraits->mMtdHitChan );
+		wPairs->d1_mtdTriggerPatch = TriggerPatchMapper::findTriggerPatch( _cand1->mtdPidTraits->mMtdHitChan );
+		wPairs->d1_mtdEtaStrip     = TriggerPatchMapper::etaStrip( _cand1->mtdPidTraits->mMtdHitChan );
+
+		wPairs->d2_mtdBackleg      = TriggerPatchMapper::backleg( _cand2->mtdPidTraits->mMtdHitChan );
+		wPairs->d2_mtdTriggerPatch = TriggerPatchMapper::findTriggerPatch( _cand2->mtdPidTraits->mMtdHitChan );
+		wPairs->d2_mtdEtaStrip     = TriggerPatchMapper::etaStrip( _cand2->mtdPidTraits->mMtdHitChan );
+
+
 	}
 	
 };

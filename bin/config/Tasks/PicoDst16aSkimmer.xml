@@ -11,10 +11,10 @@
 		<Logger color="false" globalLogLevel="info" />
 		<EventLoop progress="true" />
 
-		<Select electrons="false" muons="true" />
+		<Select electrons="false" muons="true" allEvents="false" />
 
 		<input>
-			<dst treeName="PicoDst" url="{CWD:in}/PicoDst.lis" splitBy="100" nEvents="-1"/>
+			<dst treeName="PicoDst" url="{CWD:in}/filelists/PicoDst.lis" splitBy="250" nEvents="1000"/>
 		</input>
 
 		<output path="" >

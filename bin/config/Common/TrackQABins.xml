@@ -9,6 +9,9 @@
 		<mtdDeltaY width="1" min="-200" max="200" />
 		<mtdHitChan width="1" min="0" max="1810" />
 		<mtdCell width="1" min="0" max="12" />
+		<mtdTriggerPatch width="1" min="0" max="33" />
+		<mtdModule width="1" min="0" max="155" />
+		<mtdEtaStrip width="1" min="-3" max="4" />
 
 		<dEdx width="0.025" min="0" max="10" />
 		<nHits width="1" min="-50" max="50" />

@@ -15,6 +15,7 @@ using namespace jdb;
 #include "RunByRunReportMaker.h"
 #include "RunByRunCandidateQAMaker.h"
 #include "MuonCandidateQA.h"
+#include "TriggerPatchQA.h"
 #include "SameEventPairQA.h"
 #include "MixedEventPairQAMaker.h"
 #include "PidPlotMaker.h"
@@ -75,6 +76,7 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<RunByRunQAMaker>( "RunByRunQAMaker" );
 	TaskFactory::registerTaskRunner<RunByRunReportMaker>( "RunByRunReportMaker" );
 	TaskFactory::registerTaskRunner<RunByRunCandidateQAMaker>( "RunByRunCandidateQAMaker" );
+	TaskFactory::registerTaskRunner<TriggerPatchQA>( "TriggerPatchQA" );
 	TaskFactory::registerTaskRunner<MuonCandidateQA>( "MuonCandidateQA" );
 	TaskFactory::registerTaskRunner<SameEventPairQA>( "SameEventPairQA" );
 	TaskFactory::registerTaskRunner<MixedEventPairQAMaker>( "MixedEventPairQAMaker" );

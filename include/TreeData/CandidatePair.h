@@ -20,11 +20,27 @@ public:
 	}
 
 	void copy( CandidatePair * that ) {
-		this->mMomentum_mX1  = that->mMomentum_mX1;
-		this->mMomentum_mX2  = that->mMomentum_mX2;
-		this->mMomentum_mX3  = that->mMomentum_mX3;
-		this->mMass 		 = that->mMass;
-		this->mChargeSum = that->mChargeSum;
+		this->mMomentum_mX1      = that->mMomentum_mX1;
+		this->mMomentum_mX2      = that->mMomentum_mX2;
+		this->mMomentum_mX3      = that->mMomentum_mX3;
+		this->mMass              = that->mMass;
+		this->mChargeSum         = that->mChargeSum;
+		this->mLeadingPt         = that->mLeadingPt;
+		this->d1_mMomentum_mX1   = that->d1_mMomentum_mX1;
+		this->d1_mMomentum_mX2   = that->d1_mMomentum_mX2;
+		this->d1_mMomentum_mX3   = that->d1_mMomentum_mX3;
+		this->d1_mMass           = that->d1_mMass;
+		this->d1_mtdBackleg      = that->d1_mtdBackleg;
+		this->d1_mtdTriggerPatch = that->d1_mtdTriggerPatch;
+		this->d1_mtdEtaStrip     = that->d1_mtdEtaStrip;
+
+		this->d2_mMomentum_mX1   = that->d2_mMomentum_mX1;
+		this->d2_mMomentum_mX2   = that->d2_mMomentum_mX2;
+		this->d2_mMomentum_mX3   = that->d2_mMomentum_mX3;
+		this->d2_mMass           = that->d2_mMass;
+		this->d2_mtdBackleg      = that->d2_mtdBackleg;
+		this->d2_mtdTriggerPatch = that->d2_mtdTriggerPatch;
+		this->d2_mtdEtaStrip     = that->d2_mtdEtaStrip;
 	}
 	void set( float px, float py, float pz, float m, int cs, float lpt ){
 		mMomentum_mX1 = px;
@@ -44,15 +60,23 @@ public:
 	Char_t 		mChargeSum;						// charge of daughter1 + charge of daughter2
 	Float_t 	mLeadingPt;						// the pt of the leading daughter
 
+
 	Float_t 	d1_mMomentum_mX1;
 	Float_t 	d1_mMomentum_mX2;
 	Float_t 	d1_mMomentum_mX3;
 	Float_t 	d1_mMass;
+	Char_t  	d1_mtdBackleg;
+	Char_t  	d1_mtdTriggerPatch;
+	Char_t  	d1_mtdEtaStrip;
 
 	Float_t 	d2_mMomentum_mX1;
 	Float_t 	d2_mMomentum_mX2;
 	Float_t 	d2_mMomentum_mX3;
 	Float_t 	d2_mMass;
+	Char_t  	d2_mtdBackleg;
+	Char_t  	d2_mtdTriggerPatch;
+	Char_t  	d2_mtdEtaStrip;
+
 
 	// CandidateTrack* d1 = nullptr;
 	// CandidateTrack* d2 = nullptr;
@@ -78,7 +102,7 @@ public:
 	// 	return nullptr;
 	// }
 
-	ClassDef( CandidatePair, 3 )
+	ClassDef( CandidatePair, 5 )
 };
 
 #endif
