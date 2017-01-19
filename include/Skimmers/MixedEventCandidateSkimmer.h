@@ -113,6 +113,8 @@ protected:
 		if ( event->mBin16 < 0 || event->mBin16 > 50 )
 			return;
 
+		if ( event->mBin16 > 5 ) return;
+
 		cEventHash = hasher.hash( event );
 
 		if ( iEventLoop == 0 ){
@@ -150,7 +152,7 @@ protected:
 		// need a bit more logic here
 		// no need to check for existance first because if it doesnt exist then it must be empty
 		// times two because we may have some same-event tracks, we want to make sure we have at least nPerEventHash available
-		int mod = 2;
+		int mod = 3;
 		if ( buffer[ cEventHash ].size() < nPerEventHash * mod )
 			buffer[ cEventHash ].push_back( _cand );
 		else {
@@ -161,7 +163,7 @@ protected:
 	}
 
 	bool isBufferFull( int eventHash ){
-		int mod = 2;
+		int mod = 3;
 		if ( buffer.count( eventHash ) > 0 && buffer[ eventHash ].size() >= nPerEventHash * mod )
 			return true;
 		return false;

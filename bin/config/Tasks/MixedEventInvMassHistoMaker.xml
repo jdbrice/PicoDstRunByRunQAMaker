@@ -11,11 +11,11 @@
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/MixedEventMuMuPairs/mixed_muon_pairs_-1.root" nEvents="5000000"/>
+			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/MixedEventMuMuPairs/mixed_muon_pairs{mod}_{jobIndex}.root" nEvents="-1"/>
 		</input>
 
 		<output>
-			<TFile url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" />
+			<TFile url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms{mod}_{jobIndex}.root" />
 		</output>
 
 		<histograms>

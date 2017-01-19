@@ -3,6 +3,7 @@
 
 #include "TObject.h"
 #include "TVector3.h"
+#include "TLorentzVector.h"
 
 class CandidateTrack : public TObject
 {
@@ -60,6 +61,7 @@ public:
 
 	float gDCA() { return mDCA / 1000.0; }
 	TVector3 pMomentum() { return TVector3( mPMomentum_mX1, mPMomentum_mX2, mPMomentum_mX3 ); }
+	TLorentzVector lvM( double m ) { return TLorentzVector( mPMomentum_mX1, mPMomentum_mX2, mPMomentum_mX3, m ); }
 	float dEdx() { return mDedx / 1000.0; }
 
 	std::string print();

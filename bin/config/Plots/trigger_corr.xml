@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<Include url="../../{DataSet}/Common/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+	<Logger color="true" globalLogLevel="info" />
+
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
+	<Include url="{R:url}/cwd.xml" />
+
+	
+	<Data name="dme" url="{CWD:out}/MixedEventMuMuPairs/TriggerCorrection.root" />
+
+
+	<!-- <TCanvas width="800" height="600" /> -->
+
+	<Margins left="0.10" right="0.01" top="0.1" bottom="0.15" />
+	<TLatex x="0.65" y="0.86" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.03"/>
+
+	<TFile url="{CWD:out}/export/root/trigger_1d_{mod}.root" />
+
+	<styles>
+		<fillh1d draw="h" fc="597" optstat="0" logy="0" xts="0.05" yts="0.05" />
+		<h1d optstat="0" logy="0" xts="0.05" yts="0.05" />
+		<smooth1d optstat="0" logy="0" xts="0.05" yts="0.05" draw="c" lw="2"/>
+		<h2d draw="colz" optstat="0" logy="0" xts="0.05" yts="0.05" />
+	</styles>
+
+
+	<ep>{CWD:out}/export/pdf/{mod}</ep>
+
+	<Transform>
+		<ProjectionX data="dme" name="uls_all_pT_vs_m" save_as="uls_all_m" />
+		<ProjectionX data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_m" />
+		<ProjectionX data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_m" />
+
+		<ProjectionX data="dme" name="lsp_all_pT_vs_m" save_as="lsp_all_m" />
+		<ProjectionX data="dme" name="lsp_chan_pT_vs_m" save_as="lsp_chan_m" />
+		<ProjectionX data="dme" name="lsp_tp_pT_vs_m" save_as="lsp_tp_m" />
+
+		<ProjectionX data="dme" name="lsn_all_pT_vs_m" save_as="lsn_all_m" />
+		<ProjectionX data="dme" name="lsn_chan_pT_vs_m" save_as="lsn_chan_m" />
+		<ProjectionX data="dme" name="lsn_tp_pT_vs_m" save_as="lsn_tp_m" />
+
+		<ProjectionY data="dme" name="uls_all_pT_vs_m" save_as="uls_all_pT" />
+		<ProjectionY data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_pT" />
+		<ProjectionY data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_pT" />
+
+		<ProjectionY data="dme" name="lsp_all_pT_vs_m" save_as="lsp_all_pT" />
+		<ProjectionY data="dme" name="lsp_chan_pT_vs_m" save_as="lsp_chan_pT" />
+		<ProjectionY data="dme" name="lsp_tp_pT_vs_m" save_as="lsp_tp_pT" />
+
+		<ProjectionY data="dme" name="lsn_all_pT_vs_m" save_as="lsn_all_pT" />
+		<ProjectionY data="dme" name="lsn_chan_pT_vs_m" save_as="lsn_chan_pT" />
+		<ProjectionY data="dme" name="lsn_tp_pT_vs_m" save_as="lsn_tp_pT" />
+
+		<!-- project pT with mass cuts -->
+		<ProjectionY data="dme" name="uls_all_pT_vs_m" save_as="uls_all_pT_m_gt_1p0" x1="1.0" />
+		<ProjectionY data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_pT_m_gt_1p0" x1="1.0" />
+		<ProjectionY data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_pT_m_gt_1p0" x1="1.0" />
+
+		<ProjectionY data="dme" name="uls_all_pT_vs_m" save_as="uls_all_pT_m_gt_2p0" x1="2.0" />
+		<ProjectionY data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_pT_m_gt_2p0" x1="2.0" />
+		<ProjectionY data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_pT_m_gt_2p0" x1="2.0" />
+
+		<ProjectionY data="dme" name="uls_all_pT_vs_m" save_as="uls_all_pT_m_gt_3p0" x1="3.0" />
+		<ProjectionY data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_pT_m_gt_3p0" x1="3.0" />
+		<ProjectionY data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_pT_m_gt_3p0" x1="3.0" />
+
+		<!-- Projections mass with pT cut -->
+		<ProjectionX data="dme" name="uls_all_pT_vs_m" save_as="uls_all_m_pT_gt_0p5" y1="0.5" />
+		<ProjectionX data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_m_pT_gt_0p5" y1="0.5" />
+		<ProjectionX data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_m_pT_gt_0p5" y1="0.5" />
+
+		<ProjectionX data="dme" name="uls_all_pT_vs_m" save_as="uls_all_m_pT_gt_1p0" y1="1.0" />
+		<ProjectionX data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_m_pT_gt_1p0" y1="1.0" />
+		<ProjectionX data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_m_pT_gt_1p0" y1="1.0" />
+
+		<ProjectionX data="dme" name="uls_all_pT_vs_m" save_as="uls_all_m_pT_gt_2p0" y1="2.0" />
+		<ProjectionX data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_m_pT_gt_2p0" y1="2.0" />
+		<ProjectionX data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_m_pT_gt_2p0" y1="2.0" />
+
+		<ProjectionX data="dme" name="uls_all_pT_vs_m" save_as="uls_all_m_pT_gt_3p0" y1="3.0" />
+		<ProjectionX data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_m_pT_gt_3p0" y1="3.0" />
+		<ProjectionX data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_m_pT_gt_3p0" y1="3.0" />
+
+		<ProjectionX data="dme" name="uls_all_pT_vs_m" save_as="uls_all_m_pT_gt_4p0" y1="4.0" />
+		<ProjectionX data="dme" name="uls_chan_pT_vs_m" save_as="uls_chan_m_pT_gt_4p0" y1="4.0" />
+		<ProjectionX data="dme" name="uls_tp_pT_vs_m" save_as="uls_tp_m_pT_gt_4p0" y1="4.0" />
+
+
+	</Transform>
+
+	<Transform>
+		<Add save_as="ls_all_m" nameA="lsn_all_m" nameB="lsp_all_m" />
+		<Add save_as="ls_chan_m" nameA="lsn_chan_m" nameB="lsp_chan_m" />
+		<Add save_as="ls_tp_m" nameA="lsn_tp_m" nameB="lsp_tp_m" />
+
+		<Add save_as="ls_all_pT" nameA="lsn_all_pT" nameB="lsp_all_pT" />
+		<Add save_as="ls_chan_pT" nameA="lsn_chan_pT" nameB="lsp_chan_pT" />
+		<Add save_as="ls_tp_pT" nameA="lsn_tp_pT" nameB="lsp_tp_pT" />
+
+		<Add save_as="ls_all_pT_vs_m" nameA="lsn_all_pT_vs_m" nameB="lsp_all_pT_vs_m" data="dme" />
+		<Add save_as="ls_chan_pT_vs_m" nameA="lsn_chan_pT_vs_m" nameB="lsp_chan_pT_vs_m" data="dme" />
+		<Add save_as="ls_tp_pT_vs_m" nameA="lsn_tp_pT_vs_m" nameB="lsp_tp_pT_vs_m" data="dme" />
+	</Transform>
+
+	<Transform>
+		<Divide save_as="trigger_corr_uls_tp_over_all_pT_vs_m" data="dme" nameA="uls_tp_pT_vs_m" nameB="uls_all_pT_vs_m" />
+		<Divide save_as="trigger_corr_uls_tp_over_chan_pT_vs_m" data="dme" nameA="uls_tp_pT_vs_m" nameB="uls_chan_pT_vs_m" />
+		<Divide save_as="trigger_corr_uls_chan_over_all_pT_vs_m" data="dme" nameA="uls_chan_pT_vs_m" nameB="uls_all_pT_vs_m" />
+
+
+		<Divide save_as="trigger_corr_uls_tp_over_all_m" nameA="uls_tp_m" nameB="uls_all_m" />
+		<Divide save_as="trigger_corr_uls_tp_over_chan_m" nameA="uls_tp_m" nameB="uls_chan_m" />
+		<Divide save_as="trigger_corr_uls_chan_over_all_m" nameA="uls_chan_m" nameB="uls_all_m" />
+
+		<Divide save_as="trigger_corr_ls_tp_over_all_m" nameA="ls_tp_m" nameB="ls_all_m" />
+		<Divide save_as="trigger_corr_ls_tp_over_chan_m" nameA="ls_tp_m" nameB="ls_chan_m" />
+		<Divide save_as="trigger_corr_ls_chan_over_all_m" nameA="ls_chan_m" nameB="ls_all_m" />
+
+		<Divide save_as="trigger_corr_lsp_tp_over_all_m" nameA="lsp_tp_m" nameB="lsp_all_m" />
+		<Divide save_as="trigger_corr_lsp_tp_over_chan_m" nameA="lsp_tp_m" nameB="lsp_chan_m" />
+		<Divide save_as="trigger_corr_lsp_chan_over_all_m" nameA="lsp_chan_m" nameB="lsp_all_m" />
+
+		<Divide save_as="trigger_corr_lsn_tp_over_all_m" nameA="lsn_tp_m" nameB="lsn_all_m" />
+		<Divide save_as="trigger_corr_lsn_tp_over_chan_m" nameA="lsn_tp_m" nameB="lsn_chan_m" />
+		<Divide save_as="trigger_corr_lsn_chan_over_all_m" nameA="lsn_chan_m" nameB="lsn_all_m" />
+
+		<Divide save_as="trigger_corr_uls_tp_over_all_m_pT_gt_0p5" nameA="uls_tp_m_pT_gt_0p5" nameB="uls_all_m_pT_gt_0p5" />
+		<Divide save_as="trigger_corr_uls_tp_over_all_m_pT_gt_1p0" nameA="uls_tp_m_pT_gt_1p0" nameB="uls_all_m_pT_gt_1p0" />
+		<Divide save_as="trigger_corr_uls_tp_over_all_m_pT_gt_2p0" nameA="uls_tp_m_pT_gt_2p0" nameB="uls_all_m_pT_gt_2p0" />
+		<Divide save_as="trigger_corr_uls_tp_over_all_m_pT_gt_3p0" nameA="uls_tp_m_pT_gt_3p0" nameB="uls_all_m_pT_gt_3p0" />
+		<Divide save_as="trigger_corr_uls_tp_over_all_m_pT_gt_4p0" nameA="uls_tp_m_pT_gt_4p0" nameB="uls_all_m_pT_gt_4p0" />
+		
+
+		<Divide save_as="trigger_corr_uls_tp_over_all_pT" nameA="uls_tp_pT" nameB="uls_all_pT" />
+		<Divide save_as="trigger_corr_uls_tp_over_chan_pT" nameA="uls_tp_pT" nameB="uls_chan_pT" />
+		<Divide save_as="trigger_corr_uls_chan_over_all_pT" nameA="uls_chan_pT" nameB="uls_all_pT" />
+
+		<Divide save_as="trigger_corr_ls_tp_over_all_pT" nameA="ls_tp_pT" nameB="ls_all_pT" />
+		<Divide save_as="trigger_corr_ls_tp_over_chan_pT" nameA="ls_tp_pT" nameB="ls_chan_pT" />
+		<Divide save_as="trigger_corr_ls_chan_over_all_pT" nameA="ls_chan_pT" nameB="ls_all_pT" />
+
+		<Divide save_as="trigger_corr_lsp_tp_over_all_pT" nameA="lsp_tp_pT" nameB="lsp_all_pT" />
+		<Divide save_as="trigger_corr_lsp_tp_over_chan_pT" nameA="lsp_tp_pT" nameB="lsp_chan_pT" />
+		<Divide save_as="trigger_corr_lsp_chan_over_all_pT" nameA="lsp_chan_pT" nameB="lsp_all_pT" />
+
+		<Divide save_as="trigger_corr_lsn_tp_over_all_pT" nameA="lsn_tp_pT" nameB="lsn_all_pT" />
+		<Divide save_as="trigger_corr_lsn_tp_over_chan_pT" nameA="lsn_tp_pT" nameB="lsn_chan_pT" />
+		<Divide save_as="trigger_corr_lsn_chan_over_all_pT" nameA="lsn_chan_pT" nameB="lsn_all_pT" />
+
+		<Divide save_as="trigger_corr_uls_tp_over_all_pT_m_gt_1p0" nameA="uls_tp_pT_m_gt_1p0" nameB="uls_all_pT_m_gt_1p0" />
+		<Divide save_as="trigger_corr_uls_tp_over_all_pT_m_gt_2p0" nameA="uls_tp_pT_m_gt_2p0" nameB="uls_all_pT_m_gt_2p0" />
+		<Divide save_as="trigger_corr_uls_tp_over_all_pT_m_gt_3p0" nameA="uls_tp_pT_m_gt_3p0" nameB="uls_all_pT_m_gt_3p0" />
+
+
+		<Divide save_as="accept_corr_all_m" nameA="uls_all_m" nameB="ls_all_m" />
+		<Divide save_as="accept_corr_chan_m" nameA="uls_chan_m" nameB="ls_chan_m" />
+		<Divide save_as="accept_corr_tp_m" nameA="uls_tp_m" nameB="ls_tp_m" />
+
+		<Divide save_as="accept_corr_all_pT" nameA="uls_all_pT" nameB="ls_all_pT" />
+		<Divide save_as="accept_corr_chan_pT" nameA="uls_chan_pT" nameB="ls_chan_pT" />
+		<Divide save_as="accept_corr_tp_pT" nameA="uls_tp_pT" nameB="ls_tp_pT" />
+
+		<Divide save_as="accept_corr_all_pT_vs_m" dataA="dme" nameA="uls_all_pT_vs_m" nameB="ls_all_pT_vs_m" />
+		<Divide save_as="accept_corr_chan_pT_vs_m" dataA="dme" nameA="uls_chan_pT_vs_m" nameB="ls_chan_pT_vs_m" />
+		<Divide save_as="accept_corr_tp_pT_vs_m" dataA="dme" nameA="uls_tp_pT_vs_m" nameB="ls_tp_pT_vs_m" />
+
+	</Transform>
+
+	
+	<Plot>
+		<Histo name="uls_all_m"/>
+		<Export url="{ep}/uls_all_m.pdf" />
+	</Plot>
+
+
+	<!-- ACCEPTANCE CORRECTIONS in 1D vs. MASS -->
+	<Plot>
+		<Histo name="accept_corr_tp_m" style="styles.smooth1d" >
+			<style xr="0, 3" y="UnLike(mix) / Like(mix)" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/accept_corr_tp_m.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="accept_corr_chan_m" style="styles.smooth1d" >
+			<style xr="0, 3" y="UnLike(mix) / Like(mix)" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/accept_corr_chan_m.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="accept_corr_all_m" style="styles.smooth1d" >
+			<style xr="0, 3" y="UnLike(mix) / Like(mix)" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/accept_corr_all_m.pdf" />
+	</Plot>
+
+	<!-- ACCEPTANCE CORRECTIONS in 1D vs. pT -->
+	<Plot>
+		<Histo name="accept_corr_tp_pT" style="styles.smooth1d" >
+			<style xr="0, 3" y="UnLike(mix) / Like(mix)" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/accept_corr_tp_pT.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="accept_corr_chan_pT" style="styles.smooth1d" >
+			<style xr="0, 3" y="UnLike(mix) / Like(mix)" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/accept_corr_chan_pT.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="accept_corr_all_pT" style="styles.smooth1d" >
+			<style xr="0, 3" y="UnLike(mix) / Like(mix)" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/accept_corr_all_pT.pdf" />
+	</Plot>
+
+	<!-- 2D Acceptance Corrections -->
+	<Plot>
+		<Margins left="0.10" right="0.15" top="0.1" bottom="0.15" />
+		<Histo name="accept_corr_all_pT_vs_m" style="styles.h2d" >
+			<style draw="colz" zr="0,2" xr="0,3" yr="0,3"/>
+		</Histo>
+		<Export url="{ep}/mixed_event/accept_corr_all_pt_vs_m.png" />
+	</Plot>
+	<Plot>
+		<Margins left="0.10" right="0.15" top="0.1" bottom="0.15" />
+		<Histo name="accept_corr_chan_pT_vs_m" style="styles.h2d" >
+			<style draw="colz" zr="0,2" xr="0,3" yr="0,3"/>
+		</Histo>
+		<Export url="{ep}/mixed_event/accept_corr_chan_pt_vs_m.png" />
+	</Plot>
+	<Plot>
+		<Margins left="0.10" right="0.15" top="0.1" bottom="0.15" />
+		<Histo name="accept_corr_tp_pT_vs_m" style="styles.h2d" >
+			<style draw="colz" zr="0,2" xr="0,3" yr="0,3"/>
+		</Histo>
+		<Export url="{ep}/mixed_event/accept_corr_tp_pt_vs_m.png" />
+	</Plot>
+
+	<!-- Channel correction -->
+	<Plot>
+		<Histo name="trigger_corr_uls_chan_over_all_m" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass Same ChannelRejection / all" yr="0.5, 1.1" />
+		</Histo>
+		<Histo name="trigger_corr_ls_chan_over_all_m" style="styles.smooth1d" >
+			<style draw="same c" lc="red" xr="0, 3" y="pass TriggerPatch / all" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+
+		<Legend>
+			<Entry name="trigger_corr_uls_chan_over_all_m" title="(+-)" opt="l" />
+			<Entry name="trigger_corr_ls_chan_over_all_m" title="(++)+(--)" opt="l" />
+			<Position x1="0.5" x2="0.8" y1="0.3" y2="0.5" />
+		</Legend>
+
+		<Export url="{ep}/mixed_event/trigger_corr_chan_over_all_m.pdf" />
+	</Plot>
+
+
+	<!-- TRIGGER PATCH CORRECTION in 1D vs. MASS -->
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_m" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass TriggerPatch / all" />
+		</Histo>
+		<Histo name="trigger_corr_ls_tp_over_all_m" style="styles.smooth1d" >
+			<style draw="same c" lc="red" xr="0, 3" y="pass TriggerPatch / all" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+
+		<Legend>
+			<Entry name="trigger_corr_uls_tp_over_all_m" title="(+-)" opt="l" />
+			<Entry name="trigger_corr_ls_tp_over_all_m" title="(++)+(--)" opt="l" />
+			<Position x1="0.5" x2="0.8" y1="0.3" y2="0.5" />
+		</Legend>
+
+		<Export url="{ep}/mixed_event/trigger_corr_tp_over_all_m.pdf" />
+	</Plot>
+
+
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_m" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass TriggerPatch / all" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_m.pdf" />
+	</Plot>
+
+<!-- 	<Plot>
+		<Histo name="trigger_corr_ls_tp_over_all_m" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass TriggerPatch / all" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_ls_tp_over_all_m.pdf" />
+	</Plot> -->
+
+	<Plot>
+		<Histo name="trigger_corr_ls_tp_over_all_m" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass TriggerPatch / all" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_ls_tp_over_all_m.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_m_pT_gt_0p5" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass TriggerPatch / all" title=" pT > 0.5 [GeV/c]" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_m_pT_gt_0p5.pdf" />
+	</Plot>
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_m_pT_gt_1p0" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass TriggerPatch / all" title=" pT > 1.0 [GeV/c]" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_m_pT_gt_1p0.pdf" />
+	</Plot>
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_m_pT_gt_2p0" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass TriggerPatch / all" title=" pT > 2.0 [GeV/c]" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_m_pT_gt_2p0.pdf" />
+	</Plot>
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_m_pT_gt_3p0" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass TriggerPatch / all" title=" pT > 3.0 [GeV/c]" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_m_pT_gt_3p0.pdf" />
+	</Plot>
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_m_pT_gt_4p0" style="styles.smooth1d" >
+			<style xr="0, 3" y="pass TriggerPatch / all" title=" pT > 4.0 [GeV/c]" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_m_pT_gt_4p0.pdf" />
+	</Plot>
+
+	<!-- TRIGGER PATCH CORRECTION in 1D vs. pT -->
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_pT" style="styles.smooth1d" >
+			<style xr="0, 8" yr="0.5, 1.1" lw="3" y="pass TriggerPatch / all" />
+		</Histo>
+		<TLine x1="0" x2="8" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_pT.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="trigger_corr_ls_tp_over_all_pT" style="styles.smooth1d" >
+			<style xr="0, 8" yr="0.5, 1.1" lw="3" y="pass TriggerPatch / all" />
+		</Histo>
+		<TLine x1="0" x2="8" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_ls_tp_over_all_pT.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_pT_m_gt_1p0" style="styles.smooth1d" >
+			<style xr="0, 8" yr="0.5, 1.1" lw="3" y="pass TriggerPatch / all" title="M_{#mu#mu} > 1.0 [GeV/c^{2}]" />
+		</Histo>
+		<TLine x1="0" x2="8" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_pT_m_gt_1p0.pdf" />
+	</Plot>
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_pT_m_gt_2p0" style="styles.smooth1d" >
+			<style xr="0, 8" yr="0.5, 1.1" lw="3" y="pass TriggerPatch / all" title="M_{#mu#mu} > 2.0 [GeV/c^{2}]" />
+		</Histo>
+		<TLine x1="0" x2="8" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_pT_m_gt_2p0.pdf" />
+	</Plot>
+	<Plot>
+		<Histo name="trigger_corr_uls_tp_over_all_pT_m_gt_3p0" style="styles.smooth1d" >
+			<style xr="0, 8" yr="0.5, 1.1" lw="3" y="pass TriggerPatch / all" title="M_{#mu#mu} > 3.0 [GeV/c^{2}]" />
+		</Histo>
+		<TLine x1="0" x2="8" y1="1" y2="1.0" />
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_pT_m_gt_3p0.pdf" />
+	</Plot>
+
+	<Plot>
+		<Margins left="0.10" right="0.15" top="0.1" bottom="0.15" />
+		<Histo name="trigger_corr_uls_tp_over_all_pT_vs_m" style="styles.h2d" >
+			<style draw="colz"  xr="0,8" yr="0,8"/>
+			<RebinX>4</RebinX>
+			<RebinY>4</RebinY>
+			<Scale>0.0625</Scale>
+		</Histo>
+		<Export url="{ep}/mixed_event/trigger_corr_uls_tp_over_all_pt_vs_m.png" />
+	</Plot>
+	
+
+</config>

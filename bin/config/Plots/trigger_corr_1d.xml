@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<Include url="../../{DataSet}/Common/cwd.xml" />
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+	<Logger color="true" globalLogLevel="info" />
+
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<Data name="d" url="{CWD:out}/export/root/trigger_1d.root" />
+	
+
+	<!-- <TCanvas width="800" height="600" /> -->
+
+	<Margins left="0.10" right="0.01" top="0.1" bottom="0.15" />
+	<TLatex x="0.65" y="0.26" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.03"/>
+
+	
+
+	<styles>
+		<fillh1d draw="h" fc="597" optstat="0" logy="0" xts="0.05" yts="0.05" />
+		<smoothh1d draw="c" lc="597" lw="2" optstat="0" logy="0" xts="0.05" yts="0.05" />
+	</styles>
+
+
+	<pTMin>1</pTMin>
+
+	<PlotTemplate names="0, 1, 2, 3, 4, 5">
+		<Histo data="d" name="uls_tp_m_pT_gt_{name}" style="styles.smoothh1d">
+			<style title="pass" xr="0, 3" />
+			<Divide name="uls_all_m_pT_gt_{name}" data="d" save_as="corr_uls_m_pT_gt_{name}"/>
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_uls_pT_gt_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 1, 2, 3, 4, 5">
+		<Histo data="d" name="lsp_tp_m_pT_gt_{name}" style="styles.smoothh1d">
+			<style title="pass" xr="0, 3" />
+			<Divide name="lsp_all_m_pT_gt_{name}" data="d" save_as="corr_lsp_m_pT_gt_{name}"/>
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_lsp_pT_gt_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 1, 2, 3, 4, 5">
+		<Histo data="d" name="lsn_tp_m_pT_gt_{name}" style="styles.smoothh1d">
+			<style title="pass" xr="0, 3" />
+			<Divide name="lsn_all_m_pT_gt_{name}" data="d" save_as="corr_lsn_m_pT_gt_{name}"/>
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_lsn_pT_gt_{name}.pdf" />
+	</PlotTemplate>
+
+	<!-- <Plot>
+		<Histo data="d" name="lsp_tp_m_pT_gt_{pTMin}" style="styles.smoothh1d">
+			<style title="pass" xr="0, 3" />
+			<Divide name="lsp_all_m_pT_gt_{pTMin}" data="d" save_as="corr_lsp_m"/>
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_lsp.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo data="d" name="lsn_tp_m_pT_gt_{pTMin}" style="styles.smoothh1d">
+			<style title="pass" xr="0, 3" />
+			<Divide name="lsn_all_m_pT_gt_{pTMin}" data="d" save_as="corr_lsn_m"/>
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_lsn.pdf" />
+	</Plot> -->
+
+<!-- 	<Plot>
+		<Histo name="lsn_tp_m" data="d">
+			<Add name="lsp_tp_m" />
+			<Save name="ls_tp_m" />
+		</Histo>
+	</Plot>
+
+	<Plot>
+		<Histo name="lsn_all_m" data="d">
+			<Add name="lsp_all_m" />
+			<Save name="ls_all_m" />
+		</Histo>
+	</Plot> -->
+
+<!-- 	<Plot>
+		<Histo data="d" name="ls_tp_m" style="styles.smoothh1d">
+			<style title="pass" xr="0, 3" />
+			<Divide name="ls_all_m" data="d" save_as="corr_ls_m"/>
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_ls.pdf" />
+	</Plot> -->
+
+
+
+
+	<PlotTemplate names="0, 1, 2, 3, 4, 5">
+		<Histo name="corr_lsp_m_pT_gt_{name}" style="styles.smoothh1d">
+			<style lw="2"/>
+		</Histo>
+
+		<Histo name="corr_lsn_m_pT_gt_{name}" style="styles.smoothh1d">
+			<style draw="same l" lc="red" lw="2"/>
+		</Histo>
+
+		<Histo name="corr_uls_m_pT_gt_{name}" style="styles.smoothh1d">
+			<style draw="same l" lc="black" lw="2"/>
+		</Histo>
+
+		<Legend>
+			<Position x1="0.65" x2="0.89" y1="0.3" y2="0.45">Bottom Right</Position>
+			<Entry name="corr_lsp_m_pT_gt_{name}" title="(++)" opt="l" />
+			<Entry name="corr_lsn_m_pT_gt_{name}" title="(--)" opt="l" />
+			<Entry name="corr_uls_m_pT_gt_{name}" title="(+-)" opt="l" />
+		</Legend>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_compare_1d_pT_gt_{name}.pdf" />
+	</PlotTemplate>
+
+	<!-- <Plot>
+		<Histo name="corr_uls_m" style="styles.smoothh1d" >
+			<Divide name="corr_lsn_m" />
+			<style yr="0.5, 1.5" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_uls_over_lsn.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="corr_uls_m" style="styles.smoothh1d" >
+			<Divide name="corr_lsp_m" />
+			<style yr="0.5, 1.5" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_uls_over_lsp.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="corr_lsn_m" style="styles.smoothh1d" >
+			<Divide name="corr_lsp_m" />
+			<style yr="0.5, 1.5" />
+		</Histo>
+		<TLine x1="0" x2="3" y1="1" y2="1" />
+		<Export url="{CWD:out}/export/pdf/trigger_corr_lsn_over_lsp.pdf" />
+	</Plot> -->
+
+	
+
+
+</config>

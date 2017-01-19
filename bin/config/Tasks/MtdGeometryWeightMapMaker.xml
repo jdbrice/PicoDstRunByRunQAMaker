@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="flm" type="MtdGeometryWeightMapMaker" config="" nodePath="MGWMM" />
+	<Logger color="true" globalLogLevel="info" />
+	
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<mod>_jpsi_Nm1</mod>
+
+	<MGWMM>
+		<Logger color="true" globalLogLevel="info" />
+		<input>
+			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_all.root" name="same_event" />
+			<TFile url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" name="mixed_event" />
+		</input>
+		<output>
+			<TFile url="{CWD:out}/temp.root" />
+			<File url="{CWD:out}/Corrections/MtdWeights.xml" />
+		</output>
+	</MGWMM>
+
+</config>

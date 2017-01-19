@@ -61,10 +61,10 @@ pico_dict = pico_env.RootCint( "src/PicoDstClassLibrary/PicoDictionary.cpp", [Gl
 pico_env.Alias( 'pico_dict', pico_dict )
 
 ########################## Project Target #####################################
-common_env = env.Clone()
-# common_env =  Environment()
+# common_env = env.Clone()
+common_env =  Environment()
 common_env.Append( ENV  = {'LD_LIBRARY_PATH' : LD_LIBRARY_PATH} )
-
+common_env['ENV']['TERM'] = os.environ['TERM']
 common_env.Append(CPPDEFINES 	= cppDefines)
 common_env.Append(CPPFLAGS 		= cppFlags)
 common_env.Append(CXXFLAGS 		= cxxFlags)
@@ -78,6 +78,8 @@ common_env[ "_LIBFLAGS" ] = common_env[ "_LIBFLAGS" ] + " " + ROOTLIBS + " "
 
 jdb_log_level = ARGUMENTS.get( "ll", 60 )
 common_env.Append(CXXFLAGS 		= "-DJDB_LOG_LEVEL=" + str(jdb_log_level) )
+common_env.Append(CXXFLAGS 		= "-O3" )
+print "-O3 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
 target = common_env.Program( target='bin/app', source=[Glob( "src/*.cpp" ), Glob( "src/*/*.cpp" )] )
 

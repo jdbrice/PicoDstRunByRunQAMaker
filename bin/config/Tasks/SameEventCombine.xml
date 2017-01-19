@@ -9,11 +9,7 @@
 	<muonFLM>
 		<Logger color="true" globalLogLevel="trace" />
 
-		<output>
-			<File url="{CWD:out}/filelists/SameEventMuMuPairs.lis" />
-		</output>
-
-		<command>ls -1 {CWD:out}/SameEventMuMuPairs/inv_mass_mumu{mod}_*.root &gt; {CWD:out}/filelists/SameEventMuMuPairs.lis</command>
+		<command>hadd -f {CWD:out}/InvMassMuMu/all_same_event_inv_mass_histograms.root {CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_*.root;</command>
 	</muonFLM>
 
 </config>

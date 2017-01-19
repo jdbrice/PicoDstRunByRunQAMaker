@@ -21,6 +21,8 @@
 #include <stdint.h>
 
 
+#include "PidLR.h"
+
 
 class SameEventPairMaker : public CandidateSkimmer
 {
@@ -30,7 +32,7 @@ public:
 	~SameEventPairMaker(){}
 
 
-
+	int nTriggerPatch;
 
 	virtual void initialize(){
 		CandidateSkimmer::initialize();
@@ -81,7 +83,15 @@ public:
 		rmf = shared_ptr<RunMapFactory>( new RunMapFactory( "Run15PP200", false ) );
 		INFO( classname(), "BAD == " << rmf->isRunBad( 16055005 ) );
 
+		book->cd("PDFs");
 		// createSameEventPairTree( "Same Event Muon Pairs" );
+		vector<string> lrfs = config.childrenOf( nodePath + ".LikelihoodPid", "XmlFunction" );
+		INFOC( "Found " << lrfs.size() << plural( lrfs.size(), " PDF", " PDFs" ) );
+		for ( string p : lrfs ){
+			pidLR.addPDF( config, p );
+		}
+
+		book->cd();
 
 	}
 
@@ -98,6 +108,8 @@ protected:
 	TriggerPatchMapper tpm;
 	int nFTP = 0;
 	uint32_t mtdTriggerMask = 0;
+
+	PidLR pidLR;
 
 
 	bool keepTrack( CandidateTrack *aTrack ){
@@ -120,6 +132,18 @@ protected:
 		// 	ERROR( classname(), "Should not be bad runs here!" );
 		// 	passAll = false;
 		// }
+		nTriggerPatch = 0;
+		map<int, bool> tps;
+		int nTracks = tracks->GetEntries();
+		for ( int iTrack = 0; iTrack < nTracks; iTrack++ ){
+			CandidateTrack* aTrack = (CandidateTrack*)tracks->At( iTrack );
+			CandidateTrackMtdPidTraits * d1MtdPid = (CandidateTrackMtdPidTraits*)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
+			int tp = TriggerPatchMapper::findTriggerPatch( d1MtdPid->mMtdHitChan );
+			if ( 0 == tps.count( tp ) ) nTriggerPatch++;
+			tps[ tp ] = true;
+		}
+
+		// if ( nTriggerPatch != 2 ) return false;
 
 		return passAll;
 
@@ -188,6 +212,14 @@ protected:
 					if ( aTrack->charge() == -1 ) nLSNeg++;
 				}
 				if ( aTrack->charge() != bTrack->charge() ) nULS++;
+
+
+				CandidateTrackMtdPidTraits * d1MtdPid = (CandidateTrackMtdPidTraits*)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
+				CandidateTrackMtdPidTraits * d2MtdPid = (CandidateTrackMtdPidTraits*)mtdPidTraits->At( bTrack->mMtdPidTraitsIndex );
+				int tpA = TriggerPatchMapper::findTriggerPatch( d1MtdPid->mMtdHitChan );
+				int tpB = TriggerPatchMapper::findTriggerPatch( d2MtdPid->mMtdHitChan );
+
+				// if ( tpA != tpB ) continue;
 
 				
 				// if ( !keepPair( lv1, lv2 ) ) continue;

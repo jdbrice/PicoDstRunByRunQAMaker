@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="flm" type="AcceptanceFixer" config="" nodePath="AFixer" />
+	<Logger color="true" globalLogLevel="info" />
+	
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml">
+		<!-- <mod></mod> -->
+	</Include>
+
+
+	<AFixer >
+		<Logger color="true" globalLogLevel="info" />
+		
+		<input>
+			<TFile url="{CWD:out}/InvMassMuMu/all_same_event_inv_mass_histograms.root" name="SE" />
+			<TFile url="{CWD:out}/InvMassMuMu/all_mixed_event_inv_mass_histograms.root" name="ME" />
+			<TFile url="{CWD:out}/MixedEventMuMuPairs/TriggerCorrection.root" name="Trigger" />
+		</input>
+
+		<output>
+			<TFile url="{CWD:out}/InvMassMuMu/acceptanceCorrected.root" />
+		</output>
+	</AFixer>
+
+	<dimuonBins>
+		<Include url="{R:url}/dimuonBins.xml" />
+	</dimuonBins>
+</config>

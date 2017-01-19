@@ -104,23 +104,23 @@ public:
 		float nSigmaPion = _track->mNSigmaPion / 100.0;
 
 		if ( _var == "phi" )
-			_qaMaker.s( "phi"         , mom.Phi() );
+			_qaMaker.s( "phi"          , mom.Phi() );
 		if ( _var == "eta" )
-			_qaMaker.s( "eta"         , mom.Eta() );
+			_qaMaker.s( "eta"          , mom.Eta() );
 		
-			_qaMaker.s( "rigidity"    , rdg );
+			_qaMaker.s( "rigidity"     , rdg );
 		if ( _var == "mtdHitChan" )
-			_qaMaker.s( "mtdHitChan"  , _mtdPid->mMtdHitChan );
+			_qaMaker.s( "mtdHitChan"   , _mtdPid->mMtdHitChan );
 		if ( _var == "mtdCell" )
-			_qaMaker.s( "mtdCell"     , _mtdPid->cell() );
+			_qaMaker.s( "mtdCell"      , _mtdPid->cell() );
 		if ( _var == "mtdDeltaY"  )
-			_qaMaker.s( "mtdDeltaY"   , _mtdPid->mDeltaY );
+			_qaMaker.s( "mtdDeltaY"   , _mtdPid->mDeltaY * _track->charge() );
 		if ( _var == "mtdDeltaZ" )
-			_qaMaker.s( "mtdDeltaZ"   , _mtdPid->mDeltaZ );
+			_qaMaker.s( "mtdDeltaZ"    , _mtdPid->mDeltaZ );
 		if ( _var == "mtdDeltaTOF" )
-			_qaMaker.s( "mtdDeltaTOF" , _mtdPid->mDeltaTimeOfFlight );
+			_qaMaker.s( "mtdDeltaTOF"  , _mtdPid->mDeltaTimeOfFlight );
 		if ( _var == "nSigmaPion" )
-			_qaMaker.s( "nSigmaPion"  , nSigmaPion );
+			_qaMaker.s( "nSigmaPion"   , nSigmaPion );
 
 		if ( _var == "dca" || _var == "gDCA")
 			_qaMaker.s( "dca"         , _track->gDCA() );

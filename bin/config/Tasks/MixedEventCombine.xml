@@ -10,10 +10,10 @@
 		<Logger color="true" globalLogLevel="trace" />
 
 		<output>
-			<File url="{CWD:out}/filelists/SameEventMuMuPairs.lis" />
+			<File url="{CWD:out}/filelists/MixedEventMuMuPairs.lis" />
 		</output>
 
-		<command>ls -1 {CWD:out}/SameEventMuMuPairs/inv_mass_mumu{mod}_*.root &gt; {CWD:out}/filelists/SameEventMuMuPairs.lis</command>
+		<command>hadd -f {CWD:out}/InvMassMuMu/all_mixed_event_inv_mass_histograms.root {CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms_*.root; hadd -f -T -k {CWD:out}/MixedEventMuMuPairs/TriggerCorrection.root {CWD:out}/MixedEventMuMuPairs/mixed_muon_pairs_*.root </command>
 	</muonFLM>
 
 </config>

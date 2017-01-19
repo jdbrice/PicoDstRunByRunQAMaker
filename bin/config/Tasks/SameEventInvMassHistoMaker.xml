@@ -5,8 +5,15 @@
 	<Logger color="true" globalLogLevel="info" />
 	
 	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
-	<Include url="{R:url}/cwd.xml" />
+	<Include url="{R:url}/cwd.xml" >
+
+	</Include>
 	
+	<r1>0.0</r1>
+	<r2>5.0</r2>
+
+	<l1>-0.51</l1>
+
 	<IMHM>
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
@@ -16,7 +23,7 @@
 		</input>
 
 		<output>
-			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_{jobIndex}.root" />
+			<TFile url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms{mod}_{jobIndex}.root" />
 			<XmlFile url="{CWD:out}/InvMassMuMu/config_{jobIndex}.xml" />
 		</output>
 
@@ -28,6 +35,9 @@
 
 		<Include url="{R:url}/SameEventPairCuts.xml" />
 		<Include url="{R:url}/CentralityMap.xml" />
+
+		<LikelihoodPid min="{l1}" max="0.99" />
+		<ROI min="{r1}" max="{r2}" />
 
 	</IMHM>
 

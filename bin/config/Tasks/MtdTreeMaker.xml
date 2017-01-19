@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<!-- TASKS -->
+	<Task name="skimmer" type="MtdTreeMaker" config="" nodePath="MTDTreeMaker" />
+	<Logger color="true" globalLogLevel="debug" />
+	
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<MTDTreeMaker >
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+
+		<input>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="5" nEvents="-1"/>
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}/MTDTree.root" />
+		</output>
+
+	</MTDTreeMaker>
+
+</config>

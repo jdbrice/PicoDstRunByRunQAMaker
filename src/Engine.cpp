@@ -66,6 +66,12 @@ using namespace jdb;
 
 #include "PythiaSkimmer.h"
 
+#include "MtdGeometryWeightMapMaker.h"
+#include "MtdTreeMaker.h"
+
+#include "AcceptanceFixer.h"
+#include "EfficiencyTableMaker.h"
+
 TRandom3 SameEventPairQA::rnd;
 
 int main( int argc, char* argv[] ) {
@@ -122,6 +128,13 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<UnitTestEventHasher>( "UnitTestEventHasher" );
 
 	TaskFactory::registerTaskRunner<PythiaSkimmer>( "PythiaSkimmer" );
+
+	TaskFactory::registerTaskRunner<MtdGeometryWeightMapMaker>( "MtdGeometryWeightMapMaker" );
+	TaskFactory::registerTaskRunner<MtdTreeMaker>( "MtdTreeMaker" );
+
+	TaskFactory::registerTaskRunner<AcceptanceFixer>( "AcceptanceFixer" );
+
+	TaskFactory::registerTaskRunner<EfficiencyTableMaker>( "EfficiencyTableMaker" );
 
 	TaskEngine engine( argc, argv );
 

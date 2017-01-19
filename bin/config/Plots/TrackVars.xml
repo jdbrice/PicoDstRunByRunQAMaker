@@ -5,7 +5,7 @@
 	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
 
 
-	<Data name="dtree" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" maxFiles="10"/>
+	<Data name="dtree" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" maxFiles="374"/>
 	
 
 	<DataSet>AuAuRun14</DataSet>
@@ -14,7 +14,7 @@
 
 	<Margins left="0.10" right="0.10" top="0.1" bottom="0.15" />
 	<!-- <TLatex x="0.55" y="0.85" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.04"/> -->
-	<TLatex x="0.55" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+	<TLatex x="0.55" y="0.86" text="Run15 p+p at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
 
 	<OptStats x1="0.65" y1="0.65" x2="0.9" y2="0.8" />
 	
@@ -33,12 +33,65 @@
 	</Plot> -->
 
 
-	<Plot>
+	<!-- <Plot>
 		<Histo name="mPos" data="dtree" draw=" mDeltaY : sqrt( pow(mPMomentum_mX1, 2) + pow(mPMomentum_mX2, 2) ) * ( mNHitsFit / ( abs(mNHitsFit) ) )" select="" bins_x="bins.mRigidity" bins_y="bins.mDeltaY" style="styles.h2d">
 			<style title="Muon Candidates; q*p_{{T}} [GeV/c] ;mtdDeltaY [cm]" />
 		</Histo>
 		<Export url="{CWD:out}/Export/png/mDeltaY_vs_rig.png" />
+	</Plot> -->
+
+	<PlotTemplate names="1, 2, 3, 7, 8, 9">
+		<Histo name="mPos" data="dtree" draw=" MtdPidTraits[0].mMtdHitChan : MtdPidTraits[1].mMtdHitChan" select="MtdPidTraits[0].mMatchFlag=={name} && MtdPidTraits[1].mMatchFlag=={name}" bins_x="bins.mMtdHitChan" bins_y="bins.mMtdHitChan" style="styles.h2d">
+			<style  title="mMatchFlag=={name}; hit 1; hit 2" />
+		</Histo>
+		<Export url="{CWD:out}/export/png/mMtdHitchan_mf_{name}.png" />
+	</PlotTemplate >
+
+	<PlotTemplate names="1, 2, 3, 7, 8, 9">
+		<Histo name="mPos" data="dtree" draw=" MtdPidTraits[0].mMtdHitChan : MtdPidTraits[1].mMtdHitChan" select="MtdPidTraits[0].mMatchFlag==2 && MtdPidTraits[1].mMatchFlag=={name}" bins_x="bins.mMtdHitChan" bins_y="bins.mMtdHitChan" style="styles.h2d">
+			<style  title="mMatchFlag_{1}==2 && mMatchFlag_{1}=={name}; hit 1; hit 2" />
+		</Histo>
+		<Export url="{CWD:out}/export/png/mMtdHitchan_mf_2_and_{name}.png" />
+	</PlotTemplate >
+
+	<Plot>
+		<Histo name="mPos" data="dtree" draw=" MtdPidTraits[0].mMtdHitChan : MtdPidTraits[1].mMtdHitChan" select="" bins_x="bins.mMtdHitChan" bins_y="bins.mMtdHitChan" style="styles.h2d">
+			<style  title="mMatchFlag==All; hit 1; hit 2" />
+		</Histo>
+		<Export url="{CWD:out}/export/png/mMtdHitchan_mf_all.png" />
 	</Plot>
+
+	<Plot>
+		<Histo name="mPos" data="dtree" draw="MtdPidTraits[0].mMatchFlag : MtdPidTraits[1].mMatchFlag " select="MtdPidTraits[0].mMtdHitChan == MtdPidTraits[1].mMtdHitChan" bins_x="bins.mMatchFlag" bins_y="bins.mMatchFlag" style="styles.h2d">
+			<style  title="Both mMatchFlag==All; hit 1; hit 2" />
+		</Histo>
+		<Export url="{CWD:out}/export/png/mMatchFlag_equal_hit_chan.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="matchFlag" data="dtree" draw="MtdPidTraits.mMatchFlag" select="" bins_x="bins.mMatchFlag" style="styles.h1d">
+			<style  title=";mMatchFlag;dN/dMAtchFlag" yr="10, 10e7"/>
+		</Histo>
+		<Export url="{CWD:out}/export/png/mMatchFlag_equal_hit_chan.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="matchFlag" data="dtree" draw="MtdPidTraits.mMatchFlag" select="" bins_x="bins.mMatchFlag" style="styles.h1d">
+			<style  title=";mMatchFlag;dN/dMAtchFlag" yr="0, 1.0" logy="0"/>
+			<Norm/>
+		</Histo>
+		<Export url="{CWD:out}/export/png/mMatchFlag_norm.png" />
+	</Plot>
+
+	<Plot>
+		<Histo name="mMatchFlag_vs_mMatchFlag" data="dtree" draw="MtdPidTraits[0].mMatchFlag : MtdPidTraits[1].mMatchFlag " select="" bins_x="bins.mMatchFlag" bins_y="bins.mMatchFlag" style="styles.h2d">
+			<style  title="; matchFlag 1; matchFlag 2" />
+		</Histo>
+		<Export url="{CWD:out}/export/png/mMatchFlag_vs_mMatchFlag.png" />
+	</Plot>
+
+
+
 
 
 	<!-- <Plot>
@@ -73,6 +126,8 @@
 		
 		<mRigidity width="0.05" min="-5" max="5" />
 		<mDeltaY width="1" min="-60" max="60" />
+		<mMtdHitChan width="1" min="0" max="1800"/>
+		<mMatchFlag width="1" min="0" max="15"/>
 
 		<mPt width="0.05" min="0" max="10" />
 		<mPtVar> 

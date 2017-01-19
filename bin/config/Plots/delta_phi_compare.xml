@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<Data name="d1" url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_all.root" />
+	<Data name="d2" url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" />
+
+	<TLatex x="0.7" y="0.86" text="Run15 p+p at #sqrt{{s}} = 200 GeV" size="0.03"/>
+	<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+	<Plot>
+		
+		<Histo name="uls_deltaPhi" data="d1" style="styles.h1d" >
+			<style draw="E1" lc="black" yr="0, 1000"/>
+		</Histo>
+		<Histo name="lsp_deltaPhi" data="d1" style="styles.h1d" >
+			<style draw="same E1" lc="red"/>
+			<Scale>2.0</Scale>
+		</Histo>
+		<Histo name="lsn_deltaPhi" data="d1" style="styles.h1d" >
+			<style draw="same E1" lc="blue"/>
+			<Scale>2.0</Scale>
+		</Histo>
+
+		<Legend>
+			<Entry name="uls_deltaPhi" title="N_{+-}" opt="lpe"/>
+			<Entry name="lsp_deltaPhi" title="2*N_{++}" opt="lpe" />
+			<Entry name="lsn_deltaPhi" title="2*N_{--}" opt="lpe" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/same_event_delta_phi.pdf" />
+	</Plot>
+
+	<PlotTemplate names="0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0" >
+		<Histo name="lsp_m_vs_deltaPhi" data="d1" style="styles.h1d" >
+			<style draw="E1" lc="red" title="M_{#mu#mu} > {name} [GeV/c^{2}]; #Delta #phi; dN/d#Delta #phi" />
+			<ProjectionX y1="{name}" y2="10" />
+			<Norm/>
+		</Histo>
+		<Histo name="lsp_m_vs_deltaPhi" data="d2" style="styles.h1d" >
+			<style draw="same E1" lc="blue"/>
+			<ProjectionX y1="{name}" y2="10" />
+			<Norm/>
+		</Histo>
+
+		<!-- <Histo name="uls_m_vs_deltaPhi" data="d2" style="styles.h1d" >
+			<style draw="same E1" lc="black"/>
+			<ProjectionX y1="{name}" y2="10" />
+			<Norm/>
+		</Histo> -->
+
+		<Legend>
+			<Entry name="d1/lsp_m_vs_deltaPhi_px" title="N_{++}" />
+			<Entry name="d2/lsp_m_vs_deltaPhi_px" title="B_{++}" />
+			<!-- <Entry name="d2/uls_m_vs_deltaPhi_px" title="B_{+-}" /> -->
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_phi/same_event_mass_gt_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0" >
+		<Histo name="lsp_m_vs_deltaPhi" data="d1" style="styles.h1d" >
+			<style draw="E1" lc="red" title="M_{#mu#mu} < {name} [GeV/c^{2}]; #Delta #phi; dN/d#Delta #phi" />
+			<ProjectionX y1="0.0" y2="{name}" />
+			<Norm/>
+		</Histo>
+		<Histo name="lsp_m_vs_deltaPhi" data="d2" style="styles.h1d" >
+			<style draw="same E1" lc="blue"/>
+			<ProjectionX y1="0.0" y2="{name}" />
+			<Norm/>
+		</Histo>
+
+		<Legend>
+			<Entry name="d1/lsp_m_vs_deltaPhi_px" title="N_{++}" />
+			<Entry name="d2/lsp_m_vs_deltaPhi_px" title="B_{++}" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_phi/same_event_mass_lt_{name}.pdf" />
+	</PlotTemplate>
+
+	<Plot>
+		<Histo name="ls_pPhi" data="d1" style="styles.h1d">
+			<style draw="" lc="red" />
+			<Norm/>
+		</Histo>
+
+		<Histo name="ls_pPhi" data="d2" style="styles.h1d">
+			<style draw="same " lc="blue" />
+			<Norm/>
+		</Histo>
+
+		<Legend>
+			<Entry name="d1/ls_pPhi" title="N_{++}+N_{--}" />
+			<Entry name="d2/ls_pPhi" title="B_{++}+B_{--}" />
+			<Position x1="0.20" x2="0.475" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/mixed_event_parent_phi_ls.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="uls_pPhi" data="d1" style="styles.h1d">
+			<style draw="" lc="red" />
+			<Norm/>
+		</Histo>
+
+		<Histo name="uls_pPhi" data="d2" style="styles.h1d">
+			<style draw="same " lc="blue" />
+			<Norm/>
+		</Histo>
+
+		<Legend>
+			<Entry name="d1/uls_pPhi" title="N_{++}+N_{--}" />
+			<Entry name="d2/uls_pPhi" title="B_{++}+B_{--}" />
+			<Position x1="0.20" x2="0.475" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/mixed_event_parent_phi_uls.pdf" />
+	</Plot>
+
+	
+
+
+	<styles>
+		<!-- title=" ; M_{{#mu#mu}} [GeV/c^{{2}}]; dN/dM [c^{{2}}/GeV]" -->
+		<h1d optstat="0" logy="0" xts="0.05" yts="0.05"  draw="E1"/>
+	</styles>
+	
+
+	
+
+</config>

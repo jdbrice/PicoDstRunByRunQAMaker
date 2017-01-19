@@ -10,10 +10,10 @@
 		<Logger color="true" globalLogLevel="trace" />
 
 		<output>
-			<File url="{CWD:out}/filelists/SameEventMuMuPairs.lis" />
+			<File url="{CWD:out}/filelists/MixedEventMuMuPairs.lis" />
 		</output>
 
-		<command>ls -1 {CWD:out}/SameEventMuMuPairs/inv_mass_mumu{mod}_*.root &gt; {CWD:out}/filelists/SameEventMuMuPairs.lis</command>
+		<command>ls -1 {CWD:out}/MixedEventMuMuPairs/mixed_muon_pairs{mod}_*.root &gt; {CWD:out}/filelists/MixedEventMuMuPairs.lis</command>
 	</muonFLM>
 
 </config>

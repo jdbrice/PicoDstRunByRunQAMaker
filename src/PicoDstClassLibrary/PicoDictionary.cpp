@@ -1131,6 +1131,8 @@ namespace {
     };
     static const char* includePaths[] = {
 "/home/jdb12/work/muonAna/include/CandidateMakers",
+"/home/jdb12/work/muonAna/include/Cocktail",
+"/home/jdb12/work/muonAna/include/Corrections",
 "/home/jdb12/work/muonAna/include/DataAdapters",
 "/home/jdb12/work/muonAna/include/EventPlane",
 "/home/jdb12/work/muonAna/include/Exporters",

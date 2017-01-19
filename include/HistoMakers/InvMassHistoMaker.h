@@ -12,6 +12,7 @@
 
 #include "TH1D.h"
 #include "TH2D.h"
+#include "TRandom3.h"
 
 class InvMassHistoMaker : public TreeAnalyzer
 {
@@ -31,9 +32,11 @@ public:
 
 		book->cd("");
 
-		dimuonBins.load( config, "dimuonBins.invMass" );
+		massBins.load( config, "dimuonBins.invMass" );
+		ptBins.load( config, "dimuonBins.pT" );
 
-		INFO( classname(), "Invariant mass Bins : " << dimuonBins.toString() );
+		INFO( classname(), "Invariant mass Bins : " << massBins.toString() );
+		INFO( classname(), "pT Bins : " << ptBins.toString() );
 
 		
 		PairFilter::setDefaultPairCuts( pairCuts );
@@ -56,9 +59,37 @@ public:
 
 		makeBin16Histos = false;
 
+		rnd3.SetSeed(0);
+
+
+
+		// look for a lrCut range
+		lrCut.loadConfig( config, nodePath + ".LikelihoodPid" );
+		if ( config.exists( nodePath + ".LikelihoodPid:min" ) ){
+			INFOC( "=========Using LikelihoodPid=========" );
+			INFOC( lrCut.toString() );
+			usePidLR = true;
+		} else {
+			INFOC( "XXXXXXX NOT USING LikelihoodPid XXXXXXX" );
+			usePidLR = false;
+		}
+
+
+		roi.loadConfig( config, nodePath + ".ROI" );
+		if ( config.exists( nodePath + ".ROI:min" ) ){
+			INFOC( "=========Using ROI=========" );
+			INFOC( roi.toString() );
+			useROI = true;
+		} else {
+			INFOC( "XXXXXXX NOT USING ROI XXXXXXX" );
+			useROI = false;
+		}
+		
+
 	}
 
-	HistoBins dimuonBins;
+	HistoBins massBins;
+	HistoBins ptBins;
 	TH1D * h_like_sign, *h_unlike_sign;
 	TH2D * h_like_sign_vs_pt, *h_unlike_sign_vs_pt;
 	CutCollection pairCuts;
@@ -109,9 +140,11 @@ public:
 			makeBin16Histos = true;
 		}
 
-		// for ( int i = 0; i < 30; i++ ){
-
-		// }
+		for ( string hn : { "deltaPhi", "m_vs_deltaPhi", "dBL_vs_deltaPhi", "pPhi", "bl1_vs_bl2", "tp1_vs_tp2", "dEta_vs_dPhi" } ){
+			for ( string prefix : { "uls_", "ls_", "lsp_", "lsn_" } ){
+				book->clone( hn, prefix + hn );
+			}
+		}
 		
 
 
@@ -141,31 +174,87 @@ public:
 		}
 	}
 
+	void fillCutHistos( string prefix, CandidatePair * pair ){
+		book->fill( prefix + "_lr", pair->d1_mPid );
+
+		if ( abs(pair->mChargeSum) == 2 ){
+			book->fill( prefix + "_ls_lr", pair->d1_mPid );
+
+			if (pair->mChargeSum == 2) {
+				book->fill( prefix + "_lsp_lr", pair->d1_mPid );
+	
+			} else {
+				book->fill( prefix + "_lsn_lr", pair->d1_mPid );
+	
+			}
+		} else {
+			book->fill( prefix + "_uls_lr", pair->d1_mPid );
+
+		}
+	}
+
 	void analyzePair( CandidatePair * pair ){
 		TLorentzVector lv;
-		lv.SetXYZM( pair->mMomentum_mX1, pair->mMomentum_mX2, pair->mMomentum_mX3, pair->mMass );
+		lv.SetPtEtaPhiM( pair->mMomentum_mPt, pair->mMomentum_mEta, pair->mMomentum_mPhi, pair->mMass );
 
 		double mass = lv.M();
 		double pt = lv.Pt();
-		int iBin = dimuonBins.findBin( mass );
-		if ( iBin < 0 ) return;
+		
+		book->fill( "event_cuts", 0.5 );
+	
 
-		double bw = dimuonBins.binWidth( iBin );
-		double weight = 1.0 / bw;
+		int massBin = massBins.findBin( mass );
+		int ptBin = ptBins.findBin( mass );	
+		if ( massBin < 0 ) return;
 
-		int dbl = abs(pair->d1_mtdBackleg - pair->d2_mtdBackleg);
-		int des = abs( (int)pair->d1_mtdEtaStrip - (int)pair->d2_mtdEtaStrip );
+		book->fill( "event_cuts", 1.5 );
+
+		double bw = massBins.binWidth( massBin );
+		double weight = 1.0;
+		// double weight = 1.0 / bw;
+		double ptbw = ptBins.binWidth( ptBin );
+		// weight = 1.0 / ptbw;
+
+		int bl1 = pair->d1bl();
+		int bl2 = pair->d2bl();
+
+		int es1 = pair->d1es();
+		int es2 = pair->d2es();
+
+		int dbl = abs(bl1 - bl2); // symmetry around full circle, arbitray which is 1 and which is 2
+		if ( dbl > 15 ) dbl = 30 - dbl; 	// symmetry around half circle, ie larges opening angle is pi
+		int des = abs( es1 - es2 );
+
+
+		if ( useROI && !roi.inInclusiveRange( mass ) ) return;
+
+		fillCutHistos( "all", pair );
 
 		if ( pair->mLeadingPt < pairCuts["leadingPt"]->min )
 			return;
+		book->fill( "event_cuts", 2.5 );
 
+
+		
+		if (  usePidLR && ( !lrCut.inInclusiveRange( pair->d1_mPid ) || !lrCut.inInclusiveRange( pair->d2_mPid ) ) ) 
+			return;
+		fillCutHistos( "pass", pair );
+		book->fill( "event_cuts", 3.5 );
+
+		string prefix = "";
+		string prefix2 = "";
 		if ( abs(pair->mChargeSum) == 2 ){
+			prefix = "ls_";
 			h_like_sign->Fill( mass, weight );
 			h_like_sign_vs_pt->Fill( mass, pt );
 
 			book->fill( "like_sign_vs_dbl", dbl, mass, weight );
+			book->fill( "like_sign_vs_bl", bl1, mass, weight );
+			book->fill( "like_sign_vs_bl", bl2, mass, weight );
 			book->fill( "like_sign_vs_dbl_des_" + ts( des ), dbl, mass, weight );
 			book->fill( "like_sign_vs_des", des, mass, weight );
+
+			book->fill( "like_sign_dbl_vs_des", dbl, des );
 
 			if ( makeBin16Histos ){
 				book->fill( "bin" + ts( centBin ) + "_like_sign", mass, weight );
@@ -174,8 +263,11 @@ public:
 			
 
 			if ( 2 == pair->mChargeSum  ){
+				prefix2 = "lsp_";
 				book->fill( "like_sign_Pos", mass, weight );
 				book->fill( "like_sign_Pos_pT", mass, pt );
+
+				book->fill( "like_sign_pos_dbl_vs_des", dbl, des );
 
 				if ( makeBin16Histos ){
 					book->fill( "bin" + ts( centBin ) + "_like_sign_Pos", mass, weight );
@@ -183,8 +275,11 @@ public:
 				}
 
 			} else if ( -2 == pair->mChargeSum  ){
+				prefix2 = "lsn_";
 				book->fill( "like_sign_Neg", mass, weight );
 				book->fill( "like_sign_Neg_pT", mass, pt );
+
+				book->fill( "like_sign_neg_dbl_vs_des", dbl, des );
 
 				if ( makeBin16Histos ){
 					book->fill( "bin" + ts( centBin ) + "_like_sign_Neg", mass, weight );
@@ -192,19 +287,46 @@ public:
 				}
 			}
 		} else {
+			prefix="uls_";
 			book->fill( "unlike_sign_y", lv.Rapidity() );
 			book->fill( "unlike_sign_eta", lv.Eta() );
 			h_unlike_sign->Fill( mass, weight );
 			h_unlike_sign_vs_pt->Fill( mass, pt );
+			
+			book->fill( "unlike_sign_vs_bl", bl1, mass, weight );
+			book->fill( "unlike_sign_vs_bl", bl2, mass, weight );
+
+
 			book->fill( "unlike_sign_vs_dbl", dbl, mass, weight );
 			book->fill( "unlike_sign_vs_dbl_des_" + ts( des ), dbl, mass, weight );
 			book->fill( "unlike_sign_vs_des", des, mass, weight );
+
+			book->fill( "unlike_sign_dbl_vs_des", dbl, des );
 
 			if ( makeBin16Histos ){
 				book->fill( "bin" + ts( centBin ) + "_unlike_sign", mass, weight );
 				book->fill( "bin" + ts( centBin ) + "_unlike_sign_pT", mass, pt );
 			}
 		}
+
+		double dPhi = pair->d1_mMomentum_mPhi - pair->d2_mMomentum_mPhi;
+		if ( rnd3.Rndm() > 0.5 )
+			dPhi = pair->d2_mMomentum_mPhi - pair->d1_mMomentum_mPhi;
+		double dEta = pair->d1_mMomentum_mEta - pair->d2_mMomentum_mEta;
+		if ( rnd3.Rndm() > 0.5 )
+			dEta = pair->d2_mMomentum_mEta - pair->d1_mMomentum_mEta;;
+		for ( string p : { prefix, prefix2 } ){
+			if ( "" == p  ) continue;
+			book->fill( p + "deltaPhi", dPhi );
+			book->fill( p + "m_vs_deltaPhi", dPhi, mass );
+			book->fill( p + "dEta_vs_dPhi", dPhi, dEta );
+			book->fill( p + "dBL_vs_deltaPhi", dPhi, dbl );
+			book->fill( p + "pPhi", lv.Phi() );
+		}
+
+
+
+
 	}	
 
 
@@ -291,13 +413,162 @@ public:
 		}
 		book->cd();
 
+		book->cd( "computed" );
+		string ssig = config.getXString( nodePath + ".Compute:signal", "gm_signal" );
+		// make the S+B etc.
+		TH1D * h = (TH1D*)book->get( "signal_bg" );
+		TH1D * hSig = (TH1D*)book->get( ssig, "" );
+		TH1D * hBg = (TH1D*)book->get( "like_sign", "" );
+
+		h->Reset();
+		h->Add( hSig );
+		h->Add( hBg );
+
+		h = (TH1D*)book->get( "signal_over_bg" );
+		h->Add( hSig );
+		h->Divide( hBg );
+
+		h = (TH1D*)book->get( "sqrt_signal_bg" );
+		h->Add( hSig );
+		h->Add( hBg );
+		for ( int i = 1; i <= h->GetNbinsX(); i++ ){
+			double bc = h->GetBinContent( i );
+			double be = h->GetBinError( i );
+			h->SetBinContent( i, sqrt( bc ) );
+			h->SetBinError( i, sqrt(be) );
+		}
+
+		h = (TH1D*)book->get( "sqrt_signal_2bg" );
+		h->Add( hSig );
+		h->Add( hBg, 2.0 );
+		for ( int i = 1; i <= h->GetNbinsX(); i++ ){
+			double bc = h->GetBinContent( i );
+			double be = h->GetBinError( i );
+			h->SetBinContent( i, sqrt( bc ) );
+			h->SetBinError( i, sqrt(be) );
+		}
+
+		h = (TH1D*) book->get( "signal_over_sqrt_signal_bg" );
+		h->Add( hSig );
+		h->Divide( book->get( "sqrt_signal_bg" ) );
+
+		h = (TH1D*) book->get( "signal_over_sqrt_signal_2bg" );
+		h->Add( hSig );
+		h->Divide( book->get( "sqrt_signal_2bg" ) );
+
+
+		//  Making Mixed event part
+		TH1D * hBpm = (TH1D*)book->get( "unlike_sign", "" );
+		TH1D * hBpp = (TH1D*)book->get( "like_sign_Pos", "" );
+		TH1D * hBmm = (TH1D*)book->get( "like_sign_Neg", "" );
+		TH1D * hBppmm = (TH1D*)book->get( "like_sign", "" );
+		book->cd( "mixedEvent" );
+		h = (TH1D*) book->get( "am_acorr" );
+		h->Add( hBpm );	//B+-
+		h->Divide( hBppmm );	// (B++)+(B--)
+
+		// make the geometric mean 
+		TH1D * hGm = (TH1D*) book->get( "gmBg" );
+		makeGeometricMean( hGm, hBpp, hBmm );
+
+		h = (TH1D*) book->get( "acorr" );
+		h->Add( hBpm ); // uls
+		h->Divide( hGm );
+
+		TH2D * h2Bpm = (TH2D*)book->get( "unlike_sign_pT", "" );
+		TH2D * h2Bpp = (TH2D*)book->get( "like_sign_Pos_pT", "" );
+		TH2D * h2Bmm = (TH2D*)book->get( "like_sign_Neg_pT", "" );
+		TH2D * h2Bppmm = (TH2D*)book->get( "like_sign_pT", "" );
+
+
+		h = (TH1D*) book->get( "acorr_pT_vs_m" );
+		TH2D * h2Gm = (TH2D*) book->get( "gmBg_pT_vs_m" );
+		makeGeometricMean( h2Gm, h2Bpp, h2Bmm );
+		
+		h->Add( h2Bpm ); // uls
+		h->Divide( h2Gm );
+
+		TH2D* h2Am = (TH2D*) book->get( "am_acorr_pT_vs_m" );
+		h2Am->Add( h2Bpm ); // uls
+		h2Am->Divide( h2Bppmm );
+
 
 
 
 
 	}
 
+	virtual void makeGeometricMean( TH1*gm, TH1* lsp, TH1* lsn ){
+		if ( nullptr == gm || nullptr == lsp || nullptr == lsn ) return;
 
+		int nBins = lsn->GetNbinsX();
+		for ( int iBin = 1; iBin <= nBins; iBin++ ){
+			
+			double Npp = lsp->GetBinContent( iBin );
+			double Nmm = lsn->GetBinContent( iBin );
+
+			if ( 0 == Npp || 0 == Nmm ){
+				gm->SetBinContent( iBin, 0 );
+				gm->SetBinError( iBin, 0 );
+				continue;
+			}
+
+			double Epp = lsp->GetBinError( iBin ) / Npp;
+			double Emm = lsn->GetBinError( iBin ) / Nmm;
+
+			double N = sqrt( Npp * Nmm );
+			// Q = x^n  
+			// ->
+			// dQ/Q = n * dx/x
+			double E = (Epp+Emm) * 0.5 * N;
+			DEBUGC( "B++ = " << Npp << " +/- " << Epp );
+			DEBUGC( "B-- = " << Nmm << " +/- " << Emm );
+
+			DEBUGC( "gm = " << N << " +/- " << E );
+			gm->SetBinContent( iBin, N );
+			gm->SetBinError( iBin, E );
+		}
+	}
+
+	virtual void makeGeometricMean( TH2*gm, TH2* lsp, TH2* lsn ){
+		if ( nullptr == gm || nullptr == lsp || nullptr == lsn ) return;
+		INFOC( "2D Geometric Mean" );
+
+		int nBinsX = lsn->GetNbinsX()  ;
+		int nBinsY = lsn->GetNbinsY()  ;
+
+		
+		for ( int iBinX = 1; iBinX <= nBinsX; iBinX++ ){
+			for ( int iBinY = 1; iBinY <= nBinsY; iBinY++ ){
+			
+				int iBin = lsp->GetBin( iBinX, iBinY ) ;
+
+				double Npp = lsp->GetBinContent( iBin );
+				double Nmm = lsn->GetBinContent( iBin );
+
+				if ( 0 == Npp || 0 == Nmm ){
+					gm->SetBinContent( iBin, 0 );
+					gm->SetBinError( iBin, 0 );
+					continue;
+				}
+
+				double Epp = lsp->GetBinError( iBin ) / Npp;
+				double Emm = lsn->GetBinError( iBin ) / Nmm;
+
+				double N = sqrt( Npp * Nmm );
+				// Q = x^n  
+				// ->
+				// dQ/Q = n * dx/x
+				double E = (Epp+Emm) * 0.5 * N;
+				DEBUGC( "B++ = " << Npp << " +/- " << Epp );
+				DEBUGC( "B-- = " << Nmm << " +/- " << Emm );
+
+				DEBUGC( "gm = " << N << " +/- " << E );
+				gm->SetBinContent( iBin, N );
+				gm->SetBinError( iBin, E );
+			}
+		}
+	}
 
 	virtual void makeGeometricMean( string _prefix = "", string _suffix ="" ){
 
@@ -317,6 +588,11 @@ public:
 	}
 
 protected:
+
+	XmlRange lrCut;
+	XmlRange roi;
+	bool usePidLR;
+	bool useROI;
 
 	virtual void overrideConfig(){
 
@@ -343,6 +619,7 @@ protected:
 
 	TTreeQA pairQA;
 	bool makeBin16Histos = false;
+	TRandom3 rnd3;
 };
 
 #endif

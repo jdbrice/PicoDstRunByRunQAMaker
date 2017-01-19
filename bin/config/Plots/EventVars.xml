@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	<Include url="../../{DataSet}/Common/cwd.xml" />
-	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+	
 
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+	<Logger color="true" globalLogLevel="info" />
 
 	<Data name="dtree" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" maxFiles="50"/>
 
-	<DataSet>AuAuRun14</DataSet>
-
+	<DataSet>Run15PP</DataSet>
+	<dir>{CWD:out}/export/pdf/event/</dir>
 	
 
 	<Margins left="0.10" right="0.10" top="0.1" bottom="0.15" />
 	<!-- <TLatex x="0.55" y="0.85" text="Run15 pp at #sqrt{{s}} = 200 GeV" size="0.04"/> -->
-	<TLatex x="0.55" y="0.86" text="Run14 Au+Au at #sqrt{{s_{{NN}}}} = 200 GeV" size="0.03"/>
+	<TLatex x="0.55" y="0.86" text="Run15 p+p at #sqrt{s} = 200 GeV" size="0.03"/>
 
 	<!-- <OptStats x1="0.7" y1="0.75" x2="0.975" y2="0.9" /> -->
 	
@@ -21,7 +25,7 @@
 			<style title="Centrality Bin;bin16 ;dN/dbin16" />
 			<Norm/>
 		</Histo>
-		<Export url="{CWD:out}/pdf/mBin16.pdf" />
+		<Export url="{dir}/mBin16.pdf" />
 	</Plot>
 
 	<Plot>
@@ -29,7 +33,7 @@
 			<style title="Primary Vertex X;vX [cm];dN/dvX" optstat="110" />
 			<Norm/>
 		</Histo>
-		<Export url="{CWD:out}/pdf/mPrimaryVertex_mX1.pdf" />
+		<Export url="{dir}/mPrimaryVertex_mX1.pdf" />
 	</Plot>
 
 	<Plot>
@@ -38,7 +42,7 @@
 			<Norm/>
 		</Histo>
 		
-		<Export url="{CWD:out}/pdf/mPrimaryVertex_mX2.pdf" />
+		<Export url="{dir}/mPrimaryVertex_mX2.pdf" />
 	</Plot>
 
 	<Plot>
@@ -46,7 +50,15 @@
 			<style title="Primary Vertex Z;vZ [cm];dN/dvZ" />
 			<Norm/>
 		</Histo>
-		<Export url="{CWD:out}/pdf/mPrimaryVertex_mX3.pdf" />
+		<Export url="{dir}/mPrimaryVertex_mX3.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="mPrimaryVertex_mX3_mixedEventBins" data="dtree" draw="mPrimaryVertex_mX3" select="" bins_x="bins_{DataSet}.MEmPrimaryVertex_mX3" style="styles.h1d">
+			<style title="Primary Vertex Z;vZ [cm];dN/dvZ" />
+			<Norm/>
+		</Histo>
+		<Export url="{dir}/mPrimaryVertex_mX3_mixedEventBins.pdf" />
 	</Plot>
 
 	<Plot>
@@ -54,7 +66,15 @@
 			<style title="Global RefMult;gRefMult;dN/dgRefMult" />
 			<Norm/>
 		</Histo>
-		<Export url="{CWD:out}/pdf/mGRefMult.pdf" />
+		<Export url="{dir}/mGRefMult.pdf" />
+	</Plot>
+
+	<Plot>
+		<Histo name="gRefMult" data="dtree" draw="mGRefMult" select="" bins_x="bins_{DataSet}.MEmGRefMult" style="styles.h1d">
+			<style title="Global RefMult;gRefMult;dN/dgRefMult" />
+			<Norm/>
+		</Histo>
+		<Export url="{dir}/mGRefMult_mixedEventBins.pdf" />
 	</Plot>
 
 	<Plot>
@@ -62,7 +82,7 @@
 			<style title="Event Weight;Weight;dN/dWeight" />
 			<Norm/>
 		</Histo>
-		<Export url="{CWD:out}/pdf/mWeight.pdf" />
+		<Export url="{dir}/mWeight.pdf" />
 	</Plot>
 
 	<Plot>
@@ -70,28 +90,28 @@
 			<style title="Event Plane;#Psi [radians];dN/d#Psi" />
 			<Norm/>
 		</Histo>
-		<Export url="{CWD:out}/pdf/mPsi2.pdf" />
+		<Export url="{dir}/mPsi2.pdf" />
 	</Plot>
 
 	<Plot>
 		<Histo name="gRefMult_vs_bin16" data="dtree" draw="mGRefMult : mBin16" select="" bins_x="bins.mBin16" bins_y="bins_{DataSet}.mGRefMult" style="styles.h2d">
 			<style title="Centrality Bin vs. Global RefMult;bin16;gRefMult" />
 		</Histo>
-		<Export url="{CWD:out}/pdf/mGRefMult_vs_mBin16.pdf" />
+		<Export url="{dir}/mGRefMult_vs_mBin16.pdf" />
 	</Plot>
 
 	<Plot>
 		<Histo name="Weight_vs_bin16" data="dtree" draw="mWeight : mBin16" select="" bins_x="bins.mBin16" bins_y="bins.mWeight" style="styles.h2d">
 			<style title="Centrality Bin vs. Event Weight;bin16;Weight" logz="0"/>
 		</Histo>
-		<Export url="{CWD:out}/pdf/mWeight_vs_mBin16.pdf" />
+		<Export url="{dir}/mWeight_vs_mBin16.pdf" />
 	</Plot>
 
 	<Plot>
 		<Histo name="mPrimaryVertex_mX2_vs_mPrimaryVertex_mX1" data="dtree" draw="mPrimaryVertex_mX2 : mPrimaryVertex_mX1" select="" bins_x="bins_{DataSet}.mPrimaryVertex_mX1" bins_y="bins_{DataSet}.mPrimaryVertex_mX2" style="styles.h2d">
 			<style title="Primary Vertex Y vs. X;vX [cm];vY [cm]"  logz="0" />
 		</Histo>
-		<Export url="{CWD:out}/pdf/mPrimaryVertex_mX2_vs_mPrimaryVertex_mX2.pdf" />
+		<Export url="{dir}/mPrimaryVertex_mX2_vs_mPrimaryVertex_mX2.pdf" />
 	</Plot>
 
 
@@ -99,6 +119,10 @@
 		<mGRefMult width="1" min="0" max="60" />
 		<mPrimaryVertex_mX1 width="0.01" min="-0.2" max="0.2" />
 		<mPrimaryVertex_mX2 width="0.01" min="-0.5" max="0" />
+
+		<MEmPrimaryVertex_mX3>-100, -60, -40, -25, -12, 0, 12, 25, 40, 60, 100</MEmPrimaryVertex_mX3>
+		<MEmGRefMult> 0, 10, 14, 100 </GRefMult>
+
 	</bins_Run15PP>
 	<bins_AuAuRun14>
 		<mGRefMult width="1" min="0" max="700" />
@@ -120,3 +144,6 @@
 	
 
 </config>
+
+[-100->-60), [-60->-40), [-40->-25), [-25->-12), [-12->0), [0->12), [12->25), [25->40), [40->60), [60->100)
+

@@ -13,11 +13,11 @@
 		<MakeQA event="true" track="true" />
 
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="5" nEvents="-1"/>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="7" nEvents="-1"/>
 		</input>
 
 		<output path="" >
-			<TFile url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu_{jobIndex}.root" />
+			<TFile url="{CWD:out}/SameEventMuMuPairs/inv_mass_mumu{mod}_{jobIndex}.root" />
 			<!-- The config is frozen to this file for reference -->
 			<XmlFile url="{CWD:out}/SameEventMuMuPairs/config_{jobIndex}.xml" />
 		</output>
@@ -34,6 +34,10 @@
 		<Include url="{R:url}/MuonCandidateCuts.xml" />
 		<Include url="{R:url}/SameEventPairCuts.xml" />
 		<Include url="{R:url}/MixedEventBins.xml" />
+
+		<LikelihoodPid>
+			<Include url="{CWD:out}/Params/PidPdfs.xml" />
+		</LikelihoodPid>
 
 	</InvMP>
 

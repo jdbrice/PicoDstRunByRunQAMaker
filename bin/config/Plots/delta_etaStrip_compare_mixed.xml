@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<Data name="d1" url="{CWD:out}/InvMassMuMu/same_event_inv_mass_histograms_all.root" />
+	<Data name="d2" url="{CWD:out}/InvMassMuMu/mixed_event_inv_mass_histograms.root" />
+
+	<TLatex x="0.7" y="0.86" text="Run15 p+p at #sqrt{{s}} = 200 GeV" size="0.03"/>
+	<Margins left="0.15" right="0.025" top="0.1" bottom="0.15" />
+
+	<Plot>
+		<Histo name="unlike_sign_vs_dbl_des_0" data="d1" style="styles.h1d" >
+			<ProjectionX/>
+			<style draw="E1" />
+
+			<Export url="{CWD:out}/export/pdf/delta_backleg_des_0.pdf" />
+		</Histo>
+	</Plot>
+
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_0" data="d2" style="styles.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = {name}"/>
+		</Histo>
+		<Histo name="like_sign_vs_dbl_des_0" data="d2" style="style.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="same E1" lc="red"/>
+		</Histo>
+
+		<Legend>
+			<Entry name="d2/unlike_sign_vs_dbl_des_0_py" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="d2/like_sign_vs_dbl_des_0_py" title="Same Event (++)+(--)" opt="lpe" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_mixed_des_0_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_1" data="d2" style="styles.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = {name}"/>
+		</Histo>
+		<Histo name="like_sign_vs_dbl_des_1" data="d2" style="style.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="same E1" lc="red"/>
+		</Histo>
+
+		<Legend>
+			<Entry name="d2/unlike_sign_vs_dbl_des_1_py" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="d2/like_sign_vs_dbl_des_1_py" title="Same Event (++)+(--)" opt="lpe" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_mixed_des_1_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_2" data="d2" style="styles.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = {name}"/>
+		</Histo>
+		<Histo name="like_sign_vs_dbl_des_2" data="d2" style="style.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="same E1" lc="red"/>
+		</Histo>
+
+		<Legend>
+			<Entry name="d2/unlike_sign_vs_dbl_des_2_py" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="d2/like_sign_vs_dbl_des_2_py" title="Same Event (++)+(--)" opt="lpe" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_mixed_des_2_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_3" data="d2" style="styles.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = {name}"/>
+		</Histo>
+		<Histo name="like_sign_vs_dbl_des_3" data="d2" style="style.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="same E1" lc="red"/>
+		</Histo>
+
+		<Legend>
+			<Entry name="d2/unlike_sign_vs_dbl_des_3_py" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="d2/like_sign_vs_dbl_des_3_py" title="Same Event (++)+(--)" opt="lpe" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_mixed_des_3_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_4" data="d2" style="styles.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg = {name}"/>
+		</Histo>
+		<Histo name="like_sign_vs_dbl_des_4" data="d2" style="style.h1d" >
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="same E1" lc="red"/>
+		</Histo>
+
+		<Legend>
+			<Entry name="d2/unlike_sign_vs_dbl_des_4_py_py" title="Same Event (+-)" opt="lpe"/>
+			<Entry name="d2/like_sign_vs_dbl_des_4_py_py" title="Same Event (++)+(--)" opt="lpe" />
+			<Position x1="0.70" x2="0.975" y1="0.7" y2="0.85"/>
+		</Legend>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg_mixed_des_4_{name}.pdf" />
+	</PlotTemplate>
+
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_0" data="d2" style="styles.h1d" >
+			<Divide name="like_sign_vs_dbl_des_0" data="d2"/>
+
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg={name}, #Delta #eta-Strip=0" yr="0, 5"/>
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg__mixed_unlike_over_like_des_0_dbl_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_1" data="d2" style="styles.h1d" >
+			<Divide name="like_sign_vs_dbl_des_1" data="d2"/>
+
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg={name}, #Delta #eta-Strip=1" yr="0, 5"/>
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg__mixed_unlike_over_like_des_1_dbl_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_2" data="d2" style="styles.h1d" >
+			<Divide name="like_sign_vs_dbl_des_2" data="d2"/>
+
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg={name}, #Delta #eta-Strip=2" yr="0, 5"/>
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg__mixed_unlike_over_like_des_2_dbl_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_3" data="d2" style="styles.h1d" >
+			<Divide name="like_sign_vs_dbl_des_3" data="d2"/>
+
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg={name}, #Delta #eta-Strip=3" yr="0, 5"/>
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg__mixed_unlike_over_like_des_3_dbl_{name}.pdf" />
+	</PlotTemplate>
+
+	<PlotTemplate names="0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30">
+		
+		<Histo name="unlike_sign_vs_dbl_des_4" data="d2" style="styles.h1d" >
+			<Divide name="like_sign_vs_dbl_des_4" data="d2"/>
+
+			<ProjectionY b1="{iPlot}" b2="{iPlot}" />
+			<style draw="E1" xr="0, 6" title="#Delta mtd Backleg={name}, #Delta #eta-Strip=4" yr="0, 5"/>
+		</Histo>
+
+		<Export url="{CWD:out}/export/pdf/delta_backleg__mixed_unlike_over_like_des_4_dbl_{name}.pdf" />
+	</PlotTemplate>
+
+
+	<styles>
+		<h1d draw="h" fc="597" optstat="0" logy="0" xts="0.05" yts="0.05" draw="E1"/>
+	</styles>
+	
+
+	
+
+</config>
