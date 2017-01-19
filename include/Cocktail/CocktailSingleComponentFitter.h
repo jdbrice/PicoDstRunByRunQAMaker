@@ -4,7 +4,7 @@
 // RooBarb
 #include "TreeAnalyzer.h"
 #include "HistoBins.h"
-#include "extra/format.h"
+#include "Extra/format.h"
 using namespace jdb;
 
 // STL
