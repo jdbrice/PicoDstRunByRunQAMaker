@@ -14,12 +14,13 @@
 		<EventLoop progress="true" />
 
 		<input>
-			<dst treeName="PicoDst" adapter="{R:active}" url="{CWD:in}/filelists/PicoDst.lis" splitBy="100" nEvents="-1"/>
+			<dst treeName="PicoDst" adapter="{R:active}" url="{CWD:in}/filelists/PicoDst.lis" splitBy="100" nEvents="1000"/>
 		</input>
 
 		<output path="" >
 			<TFile url="{CWD:out}/muon_candidates_QA_{jobIndex}.root" />
 			<TTree url="{CWD:out}/muon_candidates_Tree_{jobIndex}.root" />
+			<TTree name="eventTree" url="{CWD:out}/dimuon_event_Tree_{jobIndex}.root" />
 		</output>
 
 		<histograms>
@@ -40,6 +41,7 @@
 		<TrackBranches>
 			Tracks,
 			MtdPidTraits,
+			BTofPidTraits,
 			MtdHit
 		</TrackBranches>
 

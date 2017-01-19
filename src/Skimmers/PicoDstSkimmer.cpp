@@ -62,11 +62,34 @@ void PicoDstSkimmer::initialize(){
 	INFO( classname(), "Event : " << bts( config.getBool( nodePath +".MakeQA:event", false ) ) );
 	INFO( classname(), "Track : " << bts( config.getBool( nodePath +".MakeQA:track", false ) ) );
 
+	// make the event QA tree 
+	if ( config.exists( config.q( nodePath + ".output.TTree{name==eventTree}" ) ) ){
+
+		INFOC( "MAKING EVENT QA TREE" );
+		string p = config.q( nodePath + ".output.TTree{name==eventTree}" );
+		eventTreeFile = new TFile( config.getXString( p + ":url" ).c_str(), "RECREATE" );
+		eventTree = new TTree( "EventDst", "" );
+		eventTree->Branch( "mRunNumber"       , &et_mRunNumber       , 256000 , 99 );
+		eventTree->Branch( "mEventNumber"     , &et_mEventNumber     , 256000 , 99 );
+		eventTree->Branch( "mX1"              , &et_mX1              , 256000 , 99 );
+		eventTree->Branch( "mX2"              , &et_mX2              , 256000 , 99 );
+		eventTree->Branch( "mX3"              , &et_mX3              , 256000 , 99 );
+		eventTree->Branch( "mVpdVz"           , &et_mVpdVz           , 256000 , 99 );
+		eventTree->Branch( "mNTracks"         , &et_mNTracks         , 256000 , 99 );
+		eventTree->Branch( "mNTracksEvtPlane" , &et_mNTracksEvtPlane , 256000 , 99 );
+		eventTree->Branch( "mPassCuts"        , &et_mPassCuts        , 256000 , 99 );
+
+	} else {
+		INFOC( "NOT making Event QA Tree" );
+		eventTree=nullptr;
+	}
+
 }
 
 bool PicoDstSkimmer::keepEvent(){
 	DEBUG( classname(), "keepEvent" );
 	bool passAllCuts = true;
+	bool passTrigger = false;
 
 	bool makeQA = config.getBool( nodePath +".MakeQA:event", false );
 
@@ -93,11 +116,8 @@ bool PicoDstSkimmer::keepEvent(){
 	} else if ( makeQA ) {
 		passEventCut( "trigger", passAllCuts );
 	}
+	passTrigger = passAllCuts;
 
-	// if ( rmf->isRunBad( pico->Event_mRunId[0] ) ){
-	// 	DEBUG( classname(), pico->Event_mRunId[0]  << " is BAD" );
-	// 	passAllCuts = false;
-	// } else 
 	if ( makeQA ){
 		passEventCut( "bad run", passAllCuts );
 	}
@@ -130,6 +150,20 @@ bool PicoDstSkimmer::keepEvent(){
 		book->fill( "zVpd", zVpd );
 		book->fill( "zVertexDelta", zDelta );
 		book->fill( "zVertex_vs_zVPD", zVpd, zVertex );
+	}
+
+	if ( nullptr != eventTree && passTrigger ){
+		et_mRunNumber       = pico->Event_mRunId[0];
+		et_mEventNumber     = pico->Event_mEventId[0];
+		et_mX1              = pico->Event_mPrimaryVertex_mX1[0];
+		et_mX2              = pico->Event_mPrimaryVertex_mX2[0];
+		et_mX3              = pico->Event_mPrimaryVertex_mX3[0];
+		et_mVpdVz           = zVpd;
+		et_mNTracks         = pico->Tracks_;
+		et_mNTracksEvtPlane = pico->ntrk();
+		et_mPassCuts        = passAllCuts;
+
+		eventTree->Fill();
 	}
 
 	return passAllCuts;

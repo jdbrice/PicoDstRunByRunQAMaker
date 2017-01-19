@@ -218,7 +218,9 @@ protected:
 	}
 
 	virtual void postMake(){
+		PicoDstSkimmer::postMake();
 		candidateTree->close();
+		
 	}
 	
 };

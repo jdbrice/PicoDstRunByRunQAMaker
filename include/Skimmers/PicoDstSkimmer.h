@@ -15,6 +15,9 @@
 // STL
 #include <memory>
 
+//ROOT
+#include "TNtuple.h"
+
 
 class SharedPicoDstSkimmer;
 
@@ -37,6 +40,19 @@ protected:
 	shared_ptr<RunMapFactory> rmf;
 
 	string picoDstAdapter;
+
+	TTree * eventTree     = nullptr;
+	TFile * eventTreeFile = nullptr;
+	// eventTree data members
+	UInt_t  et_mRunNumber;
+	UInt_t  et_mEventNumber;
+	Float_t et_mX1;              // Primary vertex
+	Float_t et_mX2;              // Primary vertex
+	Float_t et_mX3;              // Primary vertex
+	Float_t et_mVpdVz;           // Z Vertex from VPD
+	UInt_t  et_mNTracks;         // Number of pico Tracks
+	UInt_t  et_mNTracksEvtPlane; // Number of Event Plane Tracks
+	Bool_t  et_mPassCuts;        // did this pass the cuts?
 
 	virtual void eventLoop();
 	virtual bool keepEvent();
@@ -77,6 +93,14 @@ protected:
 			read += chain->GetBranch( s.c_str() )->GetEntry( iEvent );
 		}
 		return read;
+	}
+
+
+	virtual void postMake(){
+		if ( nullptr != eventTree && nullptr != eventTreeFile ){
+			eventTreeFile->cd();
+			eventTree->Write();
+		}
 	}
 
 };
