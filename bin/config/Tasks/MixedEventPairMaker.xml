@@ -10,13 +10,17 @@
 	<MM event="true" track="true" triggers="">
 		<Logger color="true" globalLogLevel="trace" />
 		<EventLoop progress="true" />
-		<Mixing max="2400" nPerEventHash="200" />
+		<Mixing max="2400" nPerEventHash="100" />
 
 		<Control rejectSameChannel="true" rejectSameTriggerPatch="true" />
 
+		<Params trackMergedEta="0.025" trackMergedPhi="0.6" >
+			<LRPid>true</LRPid>
+			<minLR>0.4</minLR>
+		</Params>
 
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="100" nEvents="-1" maxFiles="500"/>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="100" nEvents="-1" maxFiles="-1"/>
 		</input>
 
 		<output>
@@ -32,15 +36,15 @@
 			<Histo name="EventHashN" title="EventHashN" bins_x="bins.EventHash"/>
 
 			<Histo name="mixedPairCuts" title="MixedPairCuts" bins_x="bins.PairCuts" />
-			<Histo name="pT_vs_m" title=";M_{#mu#mu} [GeV/c^{2}]; p_{T} [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
+			<Histo name="pT_vs_m" title=";M_{#mu#mu} [GeV/c^{2}]; p_{T} [GeV/c]" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
 			<Histo name="dPhi_vs_dEta" title=";#Delta#eta; #Delta#phi" bins_x="bins.dEta" bins_y="bins.dPhi" />
 
 
-			<Histo name="pre_triggerPatch" title="PRE TriggerPatch" bins_x="dimuonBins.invMass" />
-			<Histo name="post_triggerPatch" title="POST TriggerPatch" bins_x="dimuonBins.invMass" />
+			<Histo name="pre_triggerPatch" title="PRE TriggerPatch" bins_x="dimuonBins.mass" />
+			<Histo name="post_triggerPatch" title="POST TriggerPatch" bins_x="dimuonBins.mass" />
 
-			<Histo name="pre_triggerPatch_pT" title="PRE TriggerPatch" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
-			<Histo name="post_triggerPatch_pT" title="POST TriggerPatch" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
+			<Histo name="pre_triggerPatch_pT" title="PRE TriggerPatch" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
+			<Histo name="post_triggerPatch_pT" title="POST TriggerPatch" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
 
 
 
@@ -49,9 +53,16 @@
 
 		<Particles mass1="0.105658" mass2="0.105658" />
 
+		<LikelihoodPid>
+			<Include url="{CWD:out}/Params/PidPdfs.xml" />
+		</LikelihoodPid>
+
 	</MM>
 
-	<Include url="{R:url}/dimuonBins.xml" />
+	<dimuonBins>
+		<Include url="../Common/dimuonBins.xml" />
+		<Include url="{R:url}/dimuonBins.xml" />
+	</dimuonBins>
 
 	<bins>
 		<EventHash width="1" min="0" max="2400" />

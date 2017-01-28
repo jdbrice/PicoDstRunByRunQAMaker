@@ -2,11 +2,7 @@
 <config>
 	
 	<SameEventPairCuts>
-		<Range name="leadingPt" min="1.25" />
-		<!-- <Range name="mtdBackLegA" min="0" max="5"/>
-		<Range name="mtdBackLegB" min="10" max="15"/>
-
-		<Range name="mtdTriggerPatchA" min="0" max="100" />
-		<Range name="mtdTriggerPatchB" min="0" max="200" /> -->
+		<Range name="leadingPt" min="0.0" />
+		<Range name="y" min="-0.5" max="0.5" />
 	</SameEventPairCuts>
 </config>

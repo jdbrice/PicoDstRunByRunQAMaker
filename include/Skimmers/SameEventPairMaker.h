@@ -91,6 +91,24 @@ public:
 			pidLR.addPDF( config, p );
 		}
 
+		tofPid = config.getBool( nodePath + ".MuonCandidateCuts:tofPid", false );
+		string pfSigmaDeltaZ = config.q( nodePath + ".MtdParams.XmlFunction{name==SigmaMtdDeltaZ}" );
+		string pfSigmaDeltaY = config.q( nodePath + ".MtdParams.XmlFunction{name==SigmaMtdDeltaY}" );
+		string pfSigmaDeltaTOF = config.q( nodePath + ".MtdParams.XmlFunction{name==SigmaMtdDeltaTOF}" );
+		if ( config.exists( pfSigmaDeltaZ ) ){
+			INFOC( "=================== SIGMA DELTA Z ENABLED ========================" );
+			fSigmaDeltaZ.set( config, pfSigmaDeltaZ );
+		}
+		if ( config.exists( pfSigmaDeltaY ) ){
+			INFOC( "=================== SIGMA DELTA Y ENABLED ========================" );
+			fSigmaDeltaY.set( config, pfSigmaDeltaY );
+		}
+		if ( config.exists( pfSigmaDeltaTOF ) ){
+			INFOC( "=================== SIGMA DELTA TOF ENABLED ========================" );
+			fSigmaDeltaTOF.set( config, pfSigmaDeltaTOF );
+		}
+
+
 		book->cd();
 
 	}
@@ -111,18 +129,46 @@ protected:
 
 	PidLR pidLR;
 
+	bool tofPid = false;
+	XmlFunction fSigmaDeltaZ, fSigmaDeltaY, fSigmaDeltaTOF;
 
 	bool keepTrack( CandidateTrack *aTrack ){
 		DEBUG( classname(), "("<< aTrack << ")" );
 		
 		if ( aTrack->mMtdPidTraitsIndex < 0) return false;
 
-		CandidateTrackMtdPidTraits *mtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
-		return CandidateFilter::isMuon( aTrack, mtdPid, trackCuts,  makeTrackCutQA ? book : nullptr );
-	}
 
-	virtual bool keepPair( TLorentzVector _lv1, TLorentzVector _lv2 ){
-		return PairFilter::keepSameEventPair( pairCuts, _lv1, _lv2 );
+		bool goodTrack = CandidateFilter::isGoodTrack( aTrack, trackCuts, makeTrackCutQA ? book : nullptr, "MtdMuon" );
+
+		if (false == goodTrack) return false;
+
+		TF1 * f1SigmaDeltaZ   = fSigmaDeltaZ.getTF1().get();
+		TF1 * f1SigmaDeltaY   = fSigmaDeltaY.getTF1().get();
+		TF1 * f1SigmaDeltaTOF = fSigmaDeltaTOF.getTF1().get();
+		CandidateTrackMtdPidTraits *mtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
+		bool mtdMuon = CandidateFilter::isMtdMuon(  aTrack, 
+													mtdPid, 
+													trackCuts, 
+													makeTrackCutQA ? book : nullptr,
+													"",
+													f1SigmaDeltaZ,
+													f1SigmaDeltaY,
+													f1SigmaDeltaTOF );
+
+		if ( false == mtdMuon ) return false;
+
+
+		if ( tofPid && aTrack->mBTofPidTraitsIndex >= 0 ){
+			CandidateTrackBTofPidTraits *btofPid = (CandidateTrackBTofPidTraits *)btofPidTraits->At( aTrack->mBTofPidTraitsIndex );
+			bool tofMuon = CandidateFilter::isTofMuon(  aTrack,
+														btofPid,
+														trackCuts,
+														makeTrackCutQA ? book : nullptr );
+
+			if ( false == tofMuon ) return false;
+		}	// TOF PID
+
+		return true;
 	}
 
 	virtual bool keepEvent(){
@@ -219,13 +265,6 @@ protected:
 				int tpA = TriggerPatchMapper::findTriggerPatch( d1MtdPid->mMtdHitChan );
 				int tpB = TriggerPatchMapper::findTriggerPatch( d2MtdPid->mMtdHitChan );
 
-				// if ( tpA != tpB ) continue;
-
-				
-				// if ( !keepPair( lv1, lv2 ) ) continue;
-				// if ( PairFilter::keepSameEventPair( pairCuts, 
-				// 		aTrack, (CandidateTrackMtdPidTraits*)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex ), 
-				// 		bTrack, (CandidateTrackMtdPidTraits*)mtdPidTraits->At( bTrack->mMtdPidTraitsIndex ) ) )
 				analyzePair( aTrack, bTrack );
 				
 				nPairs++;

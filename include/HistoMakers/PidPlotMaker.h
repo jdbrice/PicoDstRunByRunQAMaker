@@ -30,7 +30,7 @@ public:
 			INFO( classname(), "" );
 		}
 
-		dimuonBins.load( config, "dimuonBins.invMass" );
+		dimuonBins.load( config, "dimuonBins.mass" );
 
 
 		if ( config.getBool( nodePath + ".MakeQA:SingleTrack", true ) ){
@@ -100,8 +100,8 @@ public:
 		TVector3 mom = _track->pMomentum();
 
 		float rdg        = mom.Pt() * _track->charge();
-		float dEdx       = _track->mDedx/1000.0;
-		float nSigmaPion = _track->mNSigmaPion / 100.0;
+		float dEdx       = _track->dEdx();
+		float nSigmaPion = _track->nSigmaPion();
 
 		if ( _var == "phi" )
 			_qaMaker.s( "phi"          , mom.Phi() );
@@ -143,7 +143,7 @@ public:
 
 		lv = lv1 + lv2;
 		
-		if ( !PairFilter::keepSameEventPair( pairCuts, lv1, lv2 ) ) return;
+		if ( !PairFilter::keepSameEventPair( pairCuts, lv, lv1, lv2 ) ) return;
 
 		int iBin = dimuonBins.findBin( lv.M() );
 		if ( iBin < 0 ) return;

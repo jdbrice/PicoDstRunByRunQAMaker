@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
+
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	
+	<Data name="cocktail"  url="{CWD:out}/Cocktail/sum.root"/>
+
+	<!-- <TFile url="{CWD:out}/export/root/acceptance.root" /> -->
+
+
+
+	<Plot>
+
+		<Histo data="cocktail" name="dNdM" style="smooth">
+			<style lc="black" draw="c"/>
+		</Histo>
+		<Histo data="cocktail" name="dNdM_phi_mumu" style="smooth">
+			<style draw="same c" lc="920" />
+		</Histo>
+		<!-- <Histo data="cocktail" name="dNdM_rho_mumu" style="smooth">
+			<style lc="923" draw="same c" ls="dashed"/>
+		</Histo> -->
+		<Histo data="cocktail" name="dNdM_omega_mumu" style="smooth">
+			<style lc="red" draw="same c"/>
+		</Histo>
+		<Histo data="cocktail" name="dNdM_omega_pi0mumu" style="smooth">
+			<style lc="red" draw="same c"/>
+		</Histo>
+		<Histo data="cocktail" name="dNdM_eta_mumu" style="smooth">
+			<style lc="416" draw="same c"/>
+		</Histo>
+		<Histo data="cocktail" name="dNdM_eta_gammamumu" style="smooth">
+			<style lc="416" draw="same c"/>
+		</Histo>
+		<Histo data="cocktail" name="dNdM_etaprime_gammamumu_dalitz" style="smooth">
+			<style lc="blue" draw="same c"/>
+		</Histo>
+
+		
+
+		<Export url="{CWD:out}/export/pdf/cocktail.pdf" />
+	</Plot>
+
+
+	<smooth draw="c" linewidth="2" logy="1" xr="0, 3.4" optstat="0" />
+
+</config>

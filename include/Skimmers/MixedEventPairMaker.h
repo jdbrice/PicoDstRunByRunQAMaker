@@ -5,12 +5,21 @@
 #include "MixedEventCandidateSkimmer.h"
 #include "TriggerPatchMapper.h"
 
+#include "PidLR.h"
+
 class MixedEventPairMaker : public MixedEventCandidateSkimmer, public IMixedEventPairTreeMaker
 {
 protected:
 
 	bool rejectSameChannel      = true;
 	bool rejectSameTriggerPatch = true;
+	double trackMergedEta       = 0.02;
+	double trackMergedPhi       = 1.00;
+
+	PidLR pidLR;
+	bool LRPid = false;
+	double minLR = -1.0;
+
 public:
 	MixedEventPairMaker() {}
 	~MixedEventPairMaker() {}
@@ -27,6 +36,27 @@ public:
 		INFOC( "reject SameChannel = " << bts(rejectSameChannel) );
 		INFOC( "reject SameTriggerPatch = " << bts(rejectSameTriggerPatch) );
 
+		trackMergedEta = config.getDouble( nodePath + ".Params:trackMergedEta", 0.02 );
+		trackMergedPhi = config.getDouble( nodePath + ".Params:trackMergedPhi", 1.00 );
+
+		INFOC( "Track Merge Params:" );
+		INFOC( "deltaEta = " << trackMergedEta );
+		INFOC( "deltaPhi = " << trackMergedPhi );
+
+
+		vector<string> lrfs = config.childrenOf( nodePath + ".LikelihoodPid", "XmlFunction" );
+		INFOC( "Found " << lrfs.size() << plural( lrfs.size(), " PDF", " PDFs" ) );
+		for ( string p : lrfs ){
+			pidLR.addPDF( config, p );
+			INFOC( "ADDING LR: " << config.getString( p+":name" ) );
+		}
+
+		LRPid = config.getBool( nodePath + ".Params.LRPid", false );
+		minLR = config.getDouble( nodePath + ".Params.minLR", -1.0 );
+
+		INFOC( "==================== LRPID ==================" );
+		INFOC( "= " << LRPid << ", min = " << minLR );
+		INFOC( "==================== LRPID ==================" );
 
 	}
 
@@ -70,7 +100,7 @@ protected:
 		book->cd();
 
 		for ( string c : { "uls_", "lsp_", "lsn_" } ){
-			for ( string s : { "all_", "chan_", "tp_" } ){
+			for ( string s : { "all_", "chan_", "tp_", "merge_" } ){
 				for ( string n : { "pT_vs_m", "dPhi_vs_dEta" } ){
 
 					book->clone( n, c + s + n );
@@ -94,7 +124,7 @@ protected:
 
 		TLorentzVector lv = pairLV( _cand1, _cand2 );
 		TLorentzVector lv1 = _cand1->track->lvM( m1 );
-		TLorentzVector lv2 = _cand2->track->lvM( m1 );
+		TLorentzVector lv2 = _cand2->track->lvM( m2 );
 
 		string c = "uls_";
 		if (  2 == _cand1->track->charge() + _cand2->track->charge() ) c = "lsp_";
@@ -113,13 +143,20 @@ protected:
 		fillState( c + "chan_", lv, lv1, lv2 );
 	
 
+		if ( fabs( lv1.Eta() - lv2.Eta() ) > trackMergedEta || fabs(lv1.DeltaPhi( lv2 )) > trackMergedPhi ){
+			book->fill( "mixedPairCuts", 3 );
+			fillState( c + "merge_", lv, lv1, lv2 );
+		}
+
 		int tpA = TriggerPatchMapper::findTriggerPatch( _cand1->mtdPidTraits->mMtdHitChan );
 		int tpB = TriggerPatchMapper::findTriggerPatch( _cand2->mtdPidTraits->mMtdHitChan );
 
-		if ( rejectSameTriggerPatch && tpA == tpB ) 
-			return false;
-		book->fill( "mixedPairCuts", 3 );
-		fillState( c + "tp_", lv, lv1, lv2 );
+		if ( rejectSameTriggerPatch && tpA == tpB ){
+			// return false;
+		} else {
+			book->fill( "mixedPairCuts", 4 );
+			fillState( c + "tp_", lv, lv1, lv2 );
+		}
 		
 
 		return true;
@@ -140,7 +177,8 @@ protected:
 			TLorentzVector lv1, lv2, lv;
 			lv1.SetXYZM( _cand->track->mPMomentum_mX1, _cand->track->mPMomentum_mX2, _cand->track->mPMomentum_mX3, m1 );
 			lv2.SetXYZM( bufCand->track->mPMomentum_mX1, bufCand->track->mPMomentum_mX2, bufCand->track->mPMomentum_mX3, m2 );
-			if ( !PairFilter::keepSameEventPair( pairCuts, lv1, lv2 ) ) continue;
+			lv = lv1 + lv2;
+			if ( !PairFilter::keepSameEventPair( pairCuts, lv, lv1, lv2 ) ) continue;
 			// Apply leading pT cut (keepSameEventPair) before maing trigger correction plots
 			if( !keepMixedTracks( _cand, bufCand ) ) continue;
 			
@@ -162,7 +200,9 @@ protected:
 
 	virtual void analyzePair( shared_ptr<Candidate> _cand1, shared_ptr<Candidate> _cand2 ){
 		fillCandidatePair( _cand1, _cand2 );
-		mMixedEventTree->Fill();
+
+		if ( LRPid && wPairs->d1_mPid > minLR && wPairs->d2_mPid > minLR )
+			mMixedEventTree->Fill();
 	}
 
 	virtual void fillCandidatePair( shared_ptr<Candidate> _cand1, shared_ptr<Candidate> _cand2 ){
@@ -178,8 +218,8 @@ protected:
 
 		lv = lv1 + lv2;
 
-		double lr1 = -1;
-		double lr2 = -1;
+		double lr1 = pidLR.eval( _cand1->track.get(), _cand1->mtdPidTraits.get() );
+		double lr2 = pidLR.eval( _cand2->track.get(), _cand2->mtdPidTraits.get() );
 
 		wPairs->set( lv, _cand1->track->charge() + _cand2->track->charge() );
 		wPairs->setDaughters(    lv1, _cand1->mtdPidTraits->mMtdHitChan, lr1,

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="flm" type="PidEfficiencyMaker" config="" nodePath="PEM" />
+	<Logger color="true" globalLogLevel="info" />
+	
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<Params>
+
+	</Params>
+
+	<PEM >
+		<Logger color="true" globalLogLevel="info" />
+		
+		<input>
+			<TFile url="{CWD:out}/QA/MtdSigmaMaker.root" name="data" />
+		</input>
+
+		<output>
+			<TFile url="{CWD:out}/Params/Pid_efficiency.root" />
+			<!-- <File url="{CWD:out}/Params/MtdParams.xml" /> -->
+		</output>
+
+		<Include url="{R:url}/MuonCandidateCuts.xml" />
+	</PEM>
+
+	<bins>
+		<!-- <pt> -10.0,-4.5,-2.5,-2.25,-2.0,-1.75,-1.5,-1.25,-1.0, 0.0, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 4.5, 10.0</pT> -->
+		<pt> -10.0, -3.0, -2.75, -2.5, -2.25, -2.0, -1.8 -1.6, -1.4, -1.2, -1.0, -0.5, 0.0, 0.5, 1.0, 1.2, 1.4, 1.6, 1.8 2.0, 2.25, 2.5, 2.75, 3.0, 10.0 </pt>
+		<mtdDz width="1" min="-60" max="60" />
+		<dTOF width="0.05" min="-10" max="10" />
+		<nSigPi width="0.1" min="-10" max="10" />
+	</bins>
+</config>

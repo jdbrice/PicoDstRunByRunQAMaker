@@ -6,12 +6,16 @@
 	
 	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
 	<Include url="{R:url}/cwd.xml" />
+
+	<l1>0.40</l1>
+
+
 	<IMHM>
 		<Logger color="true" globalLogLevel="trace" />
 		<EventLoop progress="true" />
 		
 		<input>
-			<dst splitBy="20" treeName="FemtoDst" url="{CWD:out}/MixedEventMuMuPairs/mixed_muon_pairs{mod}_{jobIndex}.root" nEvents="-1"/>
+			<dst splitBy="1" treeName="FemtoDst" url="{CWD:out}/filelists/MixedEventMuMuPairs.lis" nEvents="10000000"/>
 		</input>
 
 		<output>
@@ -22,8 +26,15 @@
 			<Include url="../Common/dimuonHistos.xml" />
 		</histograms>
 
+		<Include url="{R:url}/SameEventPairCuts.xml" />
+
+		<LikelihoodPid min="{l1}" max="0.99" />
+
 	</IMHM>
 
-	<Include url="{R:url}/dimuonBins.xml" />
+	<dimuonBins>
+		<Include url="../Common/dimuonBins.xml" />
+		<Include url="{R:url}/dimuonBins.xml" />
+	</dimuonBins>
 
 </config>

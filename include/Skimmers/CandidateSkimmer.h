@@ -96,6 +96,11 @@ protected:
 		} else {
 			passAll = false;
 		}
+
+		if ( event->mBin16 >= 4  ){
+			passAll = false;
+		}
+
 		// INFO( classname(), "keep = " << event->mTriggerWordMtd );
 		return passAll;
 	}

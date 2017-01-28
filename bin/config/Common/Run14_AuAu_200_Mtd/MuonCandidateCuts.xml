@@ -1,133 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	
-
-	<!-- tight cuts v_0 cuts -->
-<!-- <MuonCandidateCuts>
-	<Range name="nHitsRatio" min="0.52" />
-	<Range name="nHitsDedx" min="15" />
-	<Range name="nHitsFit" min="20" />
-	<Range name="eta" min="-0.8" max="0.8" />
-	
-	<Range name="pt" min="1.1" />
-	<Range name="nSigmaPion" min="-1.0" max="3.0" />
-	<Range name="gDCA" min="0.0" max="1.5" />
-	
-	<Range name="mtdTriggerFlag" min="1" max="100" />
-	<Range name="matchFlagMtd" min="1" max="1"/>
-	<Range name="mtdCell" min="1" max="10" /> 
-	<Range name="mtdDeltaZ" min="-30" max="30" />
-	<Range name="mtdDeltaY" min="-10" max="10" />
-	<Range name="mtdDeltaR" min="0" max="20000" />
-	
-	<Range name="mtdDeltaTOF" min="-1" max="1" />
-</MuonCandidateCuts> -->
-
-
-<!-- <MuonCandidateCuts>
-	<Range name="nHitsRatio" min="0.52" />
-	<Range name="nHitsDedx" min="10" />
-	<Range name="nHitsFit" min="15" />
-	<Range name="eta" min="-0.8" max="0.8" />
-	
-	<Range name="pt" min="1.1" />
-	<Range name="nSigmaPion" min="-1.0" max="3.0" />
-	<Range name="gDCA" min="0.0" max="3.0" />
-	
-	<Range name="mtdTriggerFlag" min="1" max="1" />
-	<Range name="matchFlagMtd" min="1" max="100"/>
-	<Range name="mtdCell" min="0" max="11" /> 
-	<Range name="mtdDeltaZ" min="-300" max="300" />
-	<Range name="mtdDeltaY" min="-300" max="300" />
-	<Range name="mtdDeltaYPos" min="-300" max="300" />
-	<Range name="mtdDeltaYNeg" min="-300" max="300" />
-
-	<Range name="mtdDeltaR" min="0" max="1500" />
-	
-	<Range name="mtdDeltaTOF" min="-1" max="1" />
-</MuonCandidateCuts> -->
-
-
-
-<!-- ver_2 -->
-<!-- <MuonCandidateCuts>
-	<Range name="nHitsRatio" min="0.52" />
-	<Range name="nHitsDedx" min="15" />
-	<Range name="nHitsFit" min="20" />
-	<Range name="eta" min="-0.8" max="0.8" />
-	
-	<Range name="pt" min="1.1" />
-	<Range name="nSigmaPion" min="-1.0" max="3.0" />
-	<Range name="gDCA" min="0.0" max="3.0" />
-	
-	<Range name="mtdTriggerFlag" min="1" max="100" />
-	<Range name="matchFlagMtd" min="1" max="1"/>
-	<Range name="mtdCell" min="0" max="11" /> 
-	<Range name="mtdDeltaZ" min="-60" max="60" />
-	<Range name="mtdDeltaY" min="-20" max="20" />
-	<Range name="mtdDeltaR" min="0" max="20000" />
-	
-	<Range name="mtdDeltaTOF" min="-10" max="2" />
-</MuonCandidateCuts> -->
-
-
-<MuonCandidateCuts>
-	<Range name="nHitsRatio" min="0.52" />
-	<Range name="nHitsDedx" min="10.0" />
-	<Range name="nHitsFit" min="15.0" />
-	<Range name="eta" min="-0.8" max="0.8" />
-	
-	<Range name="pt" min="1.0" />
-	<Range name="nSigmaPion" min="-1.0" max="3.5" />
-	<Range name="gDCA" min="0.0" max="3.0" />
-	
-	<Range name="mtdPidTraitsIndex" min="0" />
-	<Range name="mtdTriggerFlag" min="1" max="1" />
-	<Range name="matchFlagMtd" min="1" max="1"/> 
-	<Range name="mtdCell" min="0" max="11" /> 
-	<Range name="mtdDeltaZ" min="-20" max="20" />
-	<Range name="mtdDeltaY" min="-20" max="20" />
-	<Range name="mtdDeltaR" min="0" max="25" />
-	
-	<Range name="mtdDeltaTOF" min="-1" max="1" />
-</MuonCandidateCuts>
-
-	<!-- Takahito's Cuts -->
-<!-- <MuonCandidateCuts>
-	<Range name="nHitsRatio" min="0.52" />
-	<Range name="nHitsDedx" min="10" />
-	<Range name="nHitsFit" min="15" />
-	<Range name="eta" min="-0.8" max="0.8" />
-	
-	<Range name="pt" min="1.0" />
-	<Range name="nSigmaPion" min="-1.0" max="3.0" />
-	<Range name="gDCA" min="0.0" max="3.0" />
-	
-	<Range name="mtdTriggerFlag" min="1" max="100" />
-	<Range name="matchFlagMtd" min="1" max="100"/> 
-	<Range name="mtdCell" min="0" max="20" />
-	<Range name="mtdDeltaZ" min="-20" max="20" />
-	<Range name="mtdDeltaY" min="-20" max="20" />
-	<Range name="mtdDeltaR" min="0" max="800" />
-	
-	<Range name="mtdDeltaTOF" min="-10000" max="1000" />
-</MuonCandidateCuts> -->
-
-	<!-- <MuonCandidateCuts>
+	<!-- Square Cuts -->
+	<MuonCandidateCuts tofPid="false">
 		<Range name="nHitsRatio" min="0.52" />
-		<Range name="nHitsDedx" min="10" />
-		<Range name="nHitsFit" min="10" />
+		<Range name="nHitsDedx" min="10.0" />
+		<Range name="nHitsFit" min="15.0" />
 		<Range name="eta" min="-0.8" max="0.8" />
 		
 		<Range name="pt" min="1.0" />
-		<Range name="nSigmaPion" min="-50.0" max="50.0" />
-		<Range name="gDCA" min="0.0" max="300.0" />
+		<Range name="nSigmaPion" min="1.0" max="3.5" />
+		<Range name="gDCA" min="0.0" max="1.5" />
 		
+
+		<Range name="mtdPidTraitsIndex" min="0" />
+		<Range name="mtdTriggerFlag" min="1" max="1" />
 		<Range name="matchFlagMtd" min="1" max="100"/> 
-		<Range name="mtdDeltaZ" min="-200" max="200" />
-		<Range name="mtdDeltaY" min="-200" max="200" />
-		<Range name="mtdDeltaR" min="0" max="800" />
+		<Range name="mtdCell" min="1" max="10" /> 
+		<Range name="mtdDeltaZ" min="-3.0" max="3.0" />
+		<Range name="mtdDeltaY" min="-5.0" max="20.0" />
+		<Range name="mtdDeltaR" min="0" max="300.5" />
 		
-		<Range name="mtdDeltaTOF" min="-1000000" max="100000.2" />
-	</MuonCandidateCuts> -->
+		<Range name="mtdDeltaTOF" min="-0.2" max="0.2" />
+
+	</MuonCandidateCuts>
 </config>

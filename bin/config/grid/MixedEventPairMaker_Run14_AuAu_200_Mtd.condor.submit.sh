@@ -2,12 +2,10 @@
 # 				MixedEventPairMaker
 ######################################################################
 
-# Requirements = ( Machine != "star3.local" && Machine != "star4.local" )
-
 InitialDir = /home/jdb12/work/muonAna/bin/
 Executable = /home/jdb12/work/muonAna/bin/prod
-Arguments  = /home/jdb12/work/muonAna/bin/config/Tasks/MixedEventPairMaker.xml --jobIndex=$(Process) --R:active=Run15_PP_200_Mtd --MM.input.dst:splitBy=31
+Arguments  = /home/jdb12/work/muonAna/bin/config/Tasks/MixedEventPairMaker.xml --jobIndex=$(Process) --R:active=Run14_AuAu_200_Mtd
 
 GetEnv     = True
 
-Queue 12
+Queue 75

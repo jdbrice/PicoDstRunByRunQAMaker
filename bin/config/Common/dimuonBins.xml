@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<!-- Small bins used for everything, then rebinned -->
+	<mass width="0.005" min="0.0" max="5.0" />
+	<pT width="0.025" min="0.0" max="10.0" />
+	<pTProjections width="0.5" min="0" max="5.0" />
+	
+	<deltaR nBins="100" min="0.0" max="4.0" />
+	<deltaPhi nBins="424" min="-3.2" max="3.2" />
+	<phi nBins="212" min="-3.2" max="3.2" />
+	<rapidity width="0.1" min="-2" max="2" />
+
+	<backleg width="1" min="0" max="35" />
+	<etaStrip width="1" min="-3" max="4" />
+	<deltaEtaStrip width="1" min="0" max="6" />
+	<deltaEta nBins="400" min="-1" max="1" />
+	<triggerPatch width="1" min="0" max="35" />
+
+
+	<event_cuts width="1" min="0" max="10" />
+	<lr nBins="50" min="-1.1" max="1.1" />
+</config>

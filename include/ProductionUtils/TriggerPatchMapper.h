@@ -232,7 +232,7 @@ public:
 	static int findTriggerPatch( int _channel );
 	
 	int triggerPatch(  int _bl, int _mod ){
-		return patchMap[_bl+1][_mod+1];
+		return patchMap[_bl][_mod];
 	}
 
 	static int findTriggerPatch( int _bl, int _mod );

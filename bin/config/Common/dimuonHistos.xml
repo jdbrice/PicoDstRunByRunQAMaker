@@ -3,33 +3,33 @@
 	<Plots dir="">
 
 		<!-- 1D dN/dM Integrated over all pT centrality etc. -->
-		<Histo name="like_sign" title="like sign; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
-		<Histo name="unlike_sign" title="unlike sign; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
-		<Histo name="like_sign_Pos" title="like sign pos; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
-		<Histo name="like_sign_Neg" title="like sign neg; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+		<Histo name="like_sign" title="like sign; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.mass" />
+		<Histo name="unlike_sign" title="unlike sign; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.mass" />
+		<Histo name="like_sign_Pos" title="like sign pos; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.mass" />
+		<Histo name="like_sign_Neg" title="like sign neg; M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.mass" />
 
 		<!-- 1D for pT slices computed at runtime-->
-		<Histo name="like_sign_pT_{min}_to_{max}" title="like sign;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
-		<Histo name="unlike_sign_pT_{min}_to_{max}" title="unlike sign;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
-		<Histo name="like_sign_Pos_pT_{min}_to_{max}" title="like sign pos;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
-		<Histo name="like_sign_Neg_pT_{min}_to_{max}" title="like sign neg;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.invMass" />
+		<Histo name="like_sign_pT_{min}_to_{max}" title="like sign;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.mass" />
+		<Histo name="unlike_sign_pT_{min}_to_{max}" title="unlike sign;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.mass" />
+		<Histo name="like_sign_Pos_pT_{min}_to_{max}" title="like sign pos;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.mass" />
+		<Histo name="like_sign_Neg_pT_{min}_to_{max}" title="like sign neg;  M_{#mu#mu} [GeV/c^{2}]; dN/dM [c^{2}/GeV]" bins_x="dimuonBins.mass" />
 
 		<!-- 2D M vs. pT -->
-		<Histo name="like_sign_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
-		<Histo name="unlike_sign_pT" title="unlike sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
-		<Histo name="like_sign_Pos_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
-		<Histo name="like_sign_Neg_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
+		<Histo name="like_sign_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
+		<Histo name="unlike_sign_pT" title="unlike sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
+		<Histo name="like_sign_Pos_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
+		<Histo name="like_sign_Neg_pT" title="like sign; M_{#mu #mu}; pT [GeV/c]" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
 
 
 		<Histo name="unlike_sign_y" title="unlike sign y; y; dN/dy" bins_x="dimuonBins.rapidity" />
 		<Histo name="unlike_sign_eta" title="unlike sign eta; #eta; dN/d#eta" bins_x="dimuonBins.rapidity" />
 
 
-		<Histo name="unlike_sign_vs_dbl" title="Unlike sign; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
-		<Histo name="like_sign_vs_dbl" title="like sign; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="unlike_sign_vs_dbl" title="Unlike sign; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
+		<Histo name="like_sign_vs_dbl" title="like sign; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
 
-		<Histo name="unlike_sign_vs_bl" title="Unlike sign; Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
-		<Histo name="like_sign_vs_bl" title="like sign; Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="unlike_sign_vs_bl" title="Unlike sign; Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
+		<Histo name="like_sign_vs_bl" title="like sign; Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
 
 		<Histo name="unlike_sign_dbl_vs_des" title="Unlike sign; delta Backleg; delta EtaStrip" bins_x="dimuonBins.backleg" bins_y="dimuonBins.deltaEtaStrip" />
 		<Histo name="like_sign_dbl_vs_des" title="like sign; delta Backleg; delta EtaStrip" bins_x="dimuonBins.backleg" bins_y="dimuonBins.deltaEtaStrip" />
@@ -37,28 +37,32 @@
 		<Histo name="like_sign_neg_dbl_vs_des" title="like sign (--); delta Backleg; delta EtaStrip" bins_x="dimuonBins.backleg" bins_y="dimuonBins.deltaEtaStrip" />
 
 
-		<Histo name="unlike_sign_vs_dbl_des_0" title="Unlike sign #Delta etaStrip=0; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
-		<Histo name="like_sign_vs_dbl_des_0" title="like sign #Delta etaStrip=0; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="unlike_sign_vs_dbl_des_0" title="Unlike sign #Delta etaStrip=0; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
+		<Histo name="like_sign_vs_dbl_des_0" title="like sign #Delta etaStrip=0; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
 
-		<Histo name="unlike_sign_vs_dbl_des_1" title="Unlike sign #Delta etaStrip=1; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
-		<Histo name="like_sign_vs_dbl_des_1" title="like sign #Delta etaStrip=1; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="unlike_sign_vs_dbl_des_1" title="Unlike sign #Delta etaStrip=1; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
+		<Histo name="like_sign_vs_dbl_des_1" title="like sign #Delta etaStrip=1; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
 
-		<Histo name="unlike_sign_vs_dbl_des_2" title="Unlike sign #Delta etaStrip=2; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
-		<Histo name="like_sign_vs_dbl_des_2" title="like sign #Delta etaStrip=2; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="unlike_sign_vs_dbl_des_2" title="Unlike sign #Delta etaStrip=2; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
+		<Histo name="like_sign_vs_dbl_des_2" title="like sign #Delta etaStrip=2; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
 
-		<Histo name="unlike_sign_vs_dbl_des_3" title="Unlike sign #Delta etaStrip=3; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
-		<Histo name="like_sign_vs_dbl_des_3" title="like sign #Delta etaStrip=3; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="unlike_sign_vs_dbl_des_3" title="Unlike sign #Delta etaStrip=3; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
+		<Histo name="like_sign_vs_dbl_des_3" title="like sign #Delta etaStrip=3; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
 
-		<Histo name="unlike_sign_vs_dbl_des_4" title="Unlike sign #Delta etaStrip=4; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
-		<Histo name="like_sign_vs_dbl_des_4" title="like sign #Delta etaStrip=4; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.invMass" />
+		<Histo name="unlike_sign_vs_dbl_des_4" title="Unlike sign #Delta etaStrip=4; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
+		<Histo name="like_sign_vs_dbl_des_4" title="like sign #Delta etaStrip=4; delta Backleg; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.backleg" bins_y="dimuonBins.mass" />
 		
-		<Histo name="unlike_sign_vs_des" title="Unlike sign; delta Eta Strip; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.deltaEtaStrip" bins_y="dimuonBins.invMass" />
-		<Histo name="like_sign_vs_des" title="like sign; delta Eta Strip; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.deltaEtaStrip" bins_y="dimuonBins.invMass" />
+		<Histo name="unlike_sign_vs_des" title="Unlike sign; delta Eta Strip; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.deltaEtaStrip" bins_y="dimuonBins.mass" />
+		<Histo name="like_sign_vs_des" title="like sign; delta Eta Strip; M_{#mu#mu} [GeV/c^{2}]" bins_x="dimuonBins.deltaEtaStrip" bins_y="dimuonBins.mass" />
 		
 
 		<Histo name="pPhi" title=";#Delta #phi; dN/d#phi" bins_x="dimuonBins.phi" />
 		<Histo name="deltaPhi" title=";#Delta #phi; dN/dM" bins_x="dimuonBins.deltaPhi" />
-		<Histo name="m_vs_deltaPhi" title=";#Delta #phi;M_{#mu#mu}" bins_y="dimuonBins.invMass" bins_x="dimuonBins.deltaPhi" />
+		<Histo name="m_vs_deltaPhi" title=";#Delta #phi;M_{#mu#mu}" bins_y="dimuonBins.mass" bins_x="dimuonBins.deltaPhi" />
+		<Histo name="m_vs_deltaEta" title=";#Delta #eta;M_{#mu#mu}" bins_y="dimuonBins.mass" bins_x="dimuonBins.deltaEta" />
+		<Histo name="m_vs_deltaBL" title=";#Delta #eta;M_{#mu#mu}" bins_y="dimuonBins.mass" bins_x="dimuonBins.backleg" />
+		<Histo name="m_vs_deltaES" title=";#Delta #eta;M_{#mu#mu}" bins_y="dimuonBins.mass" bins_x="dimuonBins.deltaEtaStrip" />
+		<Histo name="m_vs_m" title=";M_{#pi#pi};M_{#mu#mu}" bins_y="dimuonBins.mass" bins_x="dimuonBins.mass" />
 		<Histo name="dBL_vs_deltaPhi" title=";#Delta #phi;MTD #DeltaBL" bins_y="dimuonBins.backleg" bins_x="dimuonBins.deltaPhi" />
 		<Histo name="dEta_vs_dPhi" title=";#Delta #phi;MTD #Delta#eta" bins_y="dimuonBins.deltaEta" bins_x="dimuonBins.deltaPhi" />
 		<Histo name="bl1_vs_bl2" title=";MTD BL1; MTD BL2" bins_x="dimuonBins.backleg" bins_y="dimuonBins.backleg" />
@@ -82,22 +86,22 @@
 		<Histo name="pass_lsn_lr" title=";LR1; dN/dLR" bins_x="dimuonBins.lr" />
 
 		<Plots dir="computed" >
-			<Histo name="signal_over_bg" title="S/B" bins_x="dimuonBins.invMass" />
-			<Histo name="signal_over_sqrt_signal_bg" title="S/#sqrt{S+B}" bins_x="dimuonBins.invMass" />
-			<Histo name="signal_over_sqrt_signal_2bg" title="S/#sqrt{S+2B}" bins_x="dimuonBins.invMass" />
-			<Histo name="signal_bg" title="S+B" bins_x="dimuonBins.invMass" />
-			<Histo name="sqrt_signal_bg" title="#sqrt{S+B}" bins_x="dimuonBins.invMass" />
-			<Histo name="sqrt_signal_2bg" title="#sqrt{S+2B}" bins_x="dimuonBins.invMass" />
+			<Histo name="signal_over_bg" title="S/B" bins_x="dimuonBins.mass" />
+			<Histo name="signal_over_sqrt_signal_bg" title="S/#sqrt{S+B}" bins_x="dimuonBins.mass" />
+			<Histo name="signal_over_sqrt_signal_2bg" title="S/#sqrt{S+2B}" bins_x="dimuonBins.mass" />
+			<Histo name="signal_bg" title="S+B" bins_x="dimuonBins.mass" />
+			<Histo name="sqrt_signal_bg" title="#sqrt{S+B}" bins_x="dimuonBins.mass" />
+			<Histo name="sqrt_signal_2bg" title="#sqrt{S+2B}" bins_x="dimuonBins.mass" />
 		</Plots>
 
 		<Plots dir="mixedEvent">
-			<Histo name="am_acorr" title="B_{+-}/(B_{++}+B_{--})" bins_x="dimuonBins.invMass" />
-			<Histo name="acorr" title="B_{+-}/#sqrt{B_{++}+B_{--}}" bins_x="dimuonBins.invMass" />
-			<Histo name="gmBg" title="B_{+-}/#sqrt{B_{++}+B_{--}}" bins_x="dimuonBins.invMass" />
-			<Histo name="gmBg_pT_vs_m" title="B_{+-}/#sqrt{B_{++}+B_{--}}" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT"/>
+			<Histo name="am_acorr" title="B_{+-}/(B_{++}+B_{--})" bins_x="dimuonBins.mass" />
+			<Histo name="acorr" title="B_{+-}/#sqrt{B_{++}+B_{--}}" bins_x="dimuonBins.mass" />
+			<Histo name="gmBg" title="B_{+-}/#sqrt{B_{++}+B_{--}}" bins_x="dimuonBins.mass" />
+			<Histo name="gmBg_pT_vs_m" title="B_{+-}/#sqrt{B_{++}+B_{--}}" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT"/>
 
-			<Histo name="am_acorr_pT_vs_m" title="B_{+-}/(B_{++}+B_{--})" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
-			<Histo name="acorr_pT_vs_m" title="B_{+-}/#sqrt{B_{++}+B_{--}}" bins_x="dimuonBins.invMass" bins_y="dimuonBins.pT" />
+			<Histo name="am_acorr_pT_vs_m" title="B_{+-}/(B_{++}+B_{--})" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
+			<Histo name="acorr_pT_vs_m" title="B_{+-}/#sqrt{B_{++}+B_{--}}" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
 		</Plots>
 
 		

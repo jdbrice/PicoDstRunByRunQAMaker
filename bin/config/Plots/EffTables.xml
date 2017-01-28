@@ -7,7 +7,7 @@
 	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
 	<Include url="{R:url}/cwd.xml" />
 
-	<Data name="eff" url="{CWD:out}/Params/tracking_efficiency.root" />
+	<Data name="eff" url="{CWD:out}/Params/embedding_tables.root" />
 
 	<!-- <TFile url="{CWD:out}/export/root/acceptance.root" /> -->
 
@@ -151,8 +151,9 @@
 
 	<Plot>
 		<Histo data="eff" name="uls_mtd_over_mc_vs_m" >
-			<style title="" draw=""  logy="0"/>
-			
+			<style title="" draw=""  logy="0" optstat="0" title="Total Pair Efficiency"/>
+			<RebinX>4</RebinX>
+			<Scale>0.1625</Scale>
 		</Histo>
 		<Export url="{CWD:out}/Export/pdf/Eff/uls_mtd_over_mc_vs_m.pdf" />
 	</Plot>

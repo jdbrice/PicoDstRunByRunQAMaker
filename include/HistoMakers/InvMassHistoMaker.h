@@ -32,7 +32,7 @@ public:
 
 		book->cd("");
 
-		massBins.load( config, "dimuonBins.invMass" );
+		massBins.load( config, "dimuonBins.mass" );
 		ptBins.load( config, "dimuonBins.pT" );
 
 		INFO( classname(), "Invariant mass Bins : " << massBins.toString() );
@@ -140,8 +140,8 @@ public:
 			makeBin16Histos = true;
 		}
 
-		for ( string hn : { "deltaPhi", "m_vs_deltaPhi", "dBL_vs_deltaPhi", "pPhi", "bl1_vs_bl2", "tp1_vs_tp2", "dEta_vs_dPhi" } ){
-			for ( string prefix : { "uls_", "ls_", "lsp_", "lsn_" } ){
+		for ( string hn : { "deltaPhi", "m_vs_deltaPhi", "dBL_vs_deltaPhi", "pPhi", "bl1_vs_bl2", "tp1_vs_tp2", "dEta_vs_dPhi", "m_vs_m", "m_vs_deltaBL", "m_vs_deltaEta", "m_vs_deltaES" } ){
+			for ( string prefix : { "uls_", "ls_", "lsp_", "lsn_", "piuls_" } ){
 				book->clone( hn, prefix + hn );
 			}
 		}
@@ -194,8 +194,12 @@ public:
 	}
 
 	void analyzePair( CandidatePair * pair ){
-		TLorentzVector lv;
+		TLorentzVector lv, pilv1, pilv2, pilv;
 		lv.SetPtEtaPhiM( pair->mMomentum_mPt, pair->mMomentum_mEta, pair->mMomentum_mPhi, pair->mMass );
+		pilv1.SetPtEtaPhiM( pair->d1_mMomentum_mPt, pair->d1_mMomentum_mEta, pair->d1_mMomentum_mPhi, 0.139 );
+		pilv2.SetPtEtaPhiM( pair->d2_mMomentum_mPt, pair->d2_mMomentum_mEta, pair->d2_mMomentum_mPhi, 0.139 );
+		pilv = pilv1 + pilv2;
+
 
 		double mass = lv.M();
 		double pt = lv.Pt();
@@ -224,65 +228,67 @@ public:
 		int dbl = abs(bl1 - bl2); // symmetry around full circle, arbitray which is 1 and which is 2
 		if ( dbl > 15 ) dbl = 30 - dbl; 	// symmetry around half circle, ie larges opening angle is pi
 		int des = abs( es1 - es2 );
-
+		
 
 		if ( useROI && !roi.inInclusiveRange( mass ) ) return;
 
 		fillCutHistos( "all", pair );
 
-		if ( pair->mLeadingPt < pairCuts["leadingPt"]->min )
-			return;
+		if ( pair->mLeadingPt < pairCuts["leadingPt"]->min )return;
 		book->fill( "event_cuts", 2.5 );
+		if ( !pairCuts["y"]->inInclusiveRange( lv.Rapidity() ) ) return;
+		book->fill( "event_cuts", 4.5 );
+
 
 
 		
 		if (  usePidLR && ( !lrCut.inInclusiveRange( pair->d1_mPid ) || !lrCut.inInclusiveRange( pair->d2_mPid ) ) ) 
 			return;
 		fillCutHistos( "pass", pair );
-		book->fill( "event_cuts", 3.5 );
+		book->fill( "event_cuts", 5.5 );
 
 		string prefix = "";
 		string prefix2 = "";
 		if ( abs(pair->mChargeSum) == 2 ){
 			prefix = "ls_";
-			h_like_sign->Fill( mass, weight );
+			h_like_sign->Fill( mass );
 			h_like_sign_vs_pt->Fill( mass, pt );
 
-			book->fill( "like_sign_vs_dbl", dbl, mass, weight );
-			book->fill( "like_sign_vs_bl", bl1, mass, weight );
-			book->fill( "like_sign_vs_bl", bl2, mass, weight );
-			book->fill( "like_sign_vs_dbl_des_" + ts( des ), dbl, mass, weight );
-			book->fill( "like_sign_vs_des", des, mass, weight );
+			book->fill( "like_sign_vs_dbl", dbl, mass );
+			book->fill( "like_sign_vs_bl", bl1, mass );
+			book->fill( "like_sign_vs_bl", bl2, mass );
+			book->fill( "like_sign_vs_dbl_des_" + ts( des ), dbl, mass );
+			book->fill( "like_sign_vs_des", des, mass );
 
 			book->fill( "like_sign_dbl_vs_des", dbl, des );
 
 			if ( makeBin16Histos ){
-				book->fill( "bin" + ts( centBin ) + "_like_sign", mass, weight );
+				book->fill( "bin" + ts( centBin ) + "_like_sign", mass );
 				book->fill( "bin" + ts( centBin ) + "_like_sign_pT", mass, pt );
 			}
 			
 
 			if ( 2 == pair->mChargeSum  ){
 				prefix2 = "lsp_";
-				book->fill( "like_sign_Pos", mass, weight );
+				book->fill( "like_sign_Pos", mass );
 				book->fill( "like_sign_Pos_pT", mass, pt );
 
 				book->fill( "like_sign_pos_dbl_vs_des", dbl, des );
 
 				if ( makeBin16Histos ){
-					book->fill( "bin" + ts( centBin ) + "_like_sign_Pos", mass, weight );
+					book->fill( "bin" + ts( centBin ) + "_like_sign_Pos", mass );
 					book->fill( "bin" + ts( centBin ) + "_like_sign_Pos_pT", mass, pt );
 				}
 
 			} else if ( -2 == pair->mChargeSum  ){
 				prefix2 = "lsn_";
-				book->fill( "like_sign_Neg", mass, weight );
+				book->fill( "like_sign_Neg", mass );
 				book->fill( "like_sign_Neg_pT", mass, pt );
 
 				book->fill( "like_sign_neg_dbl_vs_des", dbl, des );
 
 				if ( makeBin16Histos ){
-					book->fill( "bin" + ts( centBin ) + "_like_sign_Neg", mass, weight );
+					book->fill( "bin" + ts( centBin ) + "_like_sign_Neg", mass );
 					book->fill( "bin" + ts( centBin ) + "_like_sign_Neg_pT", mass, pt );
 				}
 			}
@@ -290,21 +296,21 @@ public:
 			prefix="uls_";
 			book->fill( "unlike_sign_y", lv.Rapidity() );
 			book->fill( "unlike_sign_eta", lv.Eta() );
-			h_unlike_sign->Fill( mass, weight );
+			h_unlike_sign->Fill( mass );
 			h_unlike_sign_vs_pt->Fill( mass, pt );
 			
-			book->fill( "unlike_sign_vs_bl", bl1, mass, weight );
-			book->fill( "unlike_sign_vs_bl", bl2, mass, weight );
+			book->fill( "unlike_sign_vs_bl", bl1, mass );
+			book->fill( "unlike_sign_vs_bl", bl2, mass );
 
 
-			book->fill( "unlike_sign_vs_dbl", dbl, mass, weight );
-			book->fill( "unlike_sign_vs_dbl_des_" + ts( des ), dbl, mass, weight );
-			book->fill( "unlike_sign_vs_des", des, mass, weight );
+			book->fill( "unlike_sign_vs_dbl", dbl, mass );
+			book->fill( "unlike_sign_vs_dbl_des_" + ts( des ), dbl, mass );
+			book->fill( "unlike_sign_vs_des", des, mass );
 
 			book->fill( "unlike_sign_dbl_vs_des", dbl, des );
 
 			if ( makeBin16Histos ){
-				book->fill( "bin" + ts( centBin ) + "_unlike_sign", mass, weight );
+				book->fill( "bin" + ts( centBin ) + "_unlike_sign", mass );
 				book->fill( "bin" + ts( centBin ) + "_unlike_sign_pT", mass, pt );
 			}
 		}
@@ -319,13 +325,17 @@ public:
 			if ( "" == p  ) continue;
 			book->fill( p + "deltaPhi", dPhi );
 			book->fill( p + "m_vs_deltaPhi", dPhi, mass );
+			book->fill( p + "m_vs_deltaEta", dEta, mass );
+			book->fill( p + "m_vs_deltaBL", dbl, mass );
+			book->fill( p + "m_vs_deltaES", des, mass );
 			book->fill( p + "dEta_vs_dPhi", dPhi, dEta );
 			book->fill( p + "dBL_vs_deltaPhi", dPhi, dbl );
 			book->fill( p + "pPhi", lv.Phi() );
 		}
 
-
-
+		if ( "uls_" == prefix ){
+			book->fill( "piuls_m_vs_m", lv.M(), pilv.M()  );
+		}
 
 	}	
 

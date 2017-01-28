@@ -42,22 +42,16 @@ public:
 	}
 
 	static bool keepSameEventPair( 	CutCollection &ccol, 
-									TLorentzVector &lv1, TLorentzVector &lv2 ){
-		if ( ccol[ "leadingPt" ]->below( lv1.Pt() ) && ccol[ "leadingPt" ]->below( lv2.Pt() ) ) 
+									TLorentzVector &_lv, TLorentzVector &_lv1, TLorentzVector &_lv2 ){
+		
+		if ( ccol[ "leadingPt" ]->below( _lv1.Pt() ) && ccol[ "leadingPt" ]->below( _lv2.Pt() ) ) 
 			return false;
 
-		// if ( !ccol["deltaEta"]->inInclusiveRange( fabs( lv1.Eta() - lv2.Eta() ) ) ){
-		// 	// INFO( "PairFilter", "deltaEta" );
-		// 	return false;
-		// }
 
-		// if ( !ccol["deltaPhi"]->inInclusiveRange( fabs( lv1.DeltaPhi( lv2 ) ) ) ){
-		// 	// INFO( "PairFilter", "deltaPhi" );
-		// 	return false;
-		// }
-		// 
-		
-		
+		if ( !ccol[ "y" ]->inInclusiveRange( _lv.Rapidity() ) )
+			return false;
+		if ( !ccol[ "eta" ]->inInclusiveRange( _lv1.Eta() ) || !ccol[ "eta" ]->inInclusiveRange( _lv2.Eta() ) )
+			return false;
 
 		return true;
 	}

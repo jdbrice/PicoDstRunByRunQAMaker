@@ -3,8 +3,9 @@
 	<MixedEventBins>
 		<VertexX nBins="1" min="-2" max="2" />
 		<VertexY nBins="1" min="-2" max="2" />
-		<VertexZ nBins="10" min="-100" max="100" />
-		<Bin16 nBins="16" min="0" max="16" />
+		<!-- <VertexZ nBins="10" min="-100" max="100" /> -->
+		<VertexZ>-100, -60, -40, -25, -12, 0, 12, 25, 40, 60, 100</VertexZ>
+		<Bin16 nBins="1" min="0" max="16" />
 		<Psi2 nBins="16" min="-3.2" max="3.2" />
 	</MixedEventBins>
 </config>

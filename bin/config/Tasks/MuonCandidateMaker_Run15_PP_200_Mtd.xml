@@ -20,6 +20,7 @@
 		<output path="" >
 			<TFile url="{CWD:out}MuonCandidates/QA/muon_candidates_QA_{jobIndex}.root" />
 			<TTree url="{CWD:out}MuonCandidates/muon_candidates_Tree_{jobIndex}.root" />
+			<TTree name="eventTree" url="{CWD:out}MuonCandidates/dimuon_event_Tree_{jobIndex}.root" />
 		</output>
 
 		<histograms>
@@ -38,6 +39,7 @@
 		<TrackBranches>
 			Tracks,
 			MtdPidTraits,
+			BTofPidTraits,
 			MtdHit
 		</TrackBranches>
 

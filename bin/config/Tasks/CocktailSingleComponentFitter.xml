@@ -33,7 +33,7 @@
 		</output>
 
 		<histograms>
-			<Histo name="dNdM" title=";M_{#mu#mu} [GeV/c^{2}]; dN/dM" bins_x="dimuonBins.invMass" />
+			<Histo name="dNdM" title=";M_{#mu#mu} [GeV/c^{2}]; dN/dM" bins_x="dimuonBins.mass" />
 		</histograms>
 		
 	</CSCF>

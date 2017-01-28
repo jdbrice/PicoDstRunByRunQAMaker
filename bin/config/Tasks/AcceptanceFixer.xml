@@ -9,6 +9,11 @@
 		<!-- <mod></mod> -->
 	</Include>
 
+	<Params>
+		<pT min="2.0" max="10.0"/>
+	</Params>
+
+
 
 	<AFixer >
 		<Logger color="true" globalLogLevel="info" />
@@ -17,14 +22,18 @@
 			<TFile url="{CWD:out}/InvMassMuMu/all_same_event_inv_mass_histograms.root" name="SE" />
 			<TFile url="{CWD:out}/InvMassMuMu/all_mixed_event_inv_mass_histograms.root" name="ME" />
 			<TFile url="{CWD:out}/MixedEventMuMuPairs/TriggerCorrection.root" name="Trigger" />
+			<!-- <TFile url="{CWD:out}/Params/tracking_efficiency.root" name="Embed" /> -->
 		</input>
 
 		<output>
 			<TFile url="{CWD:out}/InvMassMuMu/acceptanceCorrected.root" />
 		</output>
+
+		<NMinBias>4.375e+11</NMinBias>
 	</AFixer>
 
 	<dimuonBins>
+		<Include url="../Common/dimuonBins.xml" />
 		<Include url="{R:url}/dimuonBins.xml" />
 	</dimuonBins>
 </config>

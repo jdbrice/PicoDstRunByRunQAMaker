@@ -29,7 +29,7 @@ public:
 			INFO( classname(), "" );
 		}
 
-		dimuonBins.load( config, "dimuonBins.invMass" );
+		dimuonBins.load( config, "dimuonBins.mass" );
 
 
 		if ( config.getBool( nodePath + ".MakeQA:SingleTrack", true ) ){
@@ -96,7 +96,7 @@ public:
 
 		lv = lv1 + lv2;
 		INFO( classname(), "pre keep pair" );
-		if ( !PairFilter::keepSameEventPair( pairCuts, lv1, lv2 ) ) return;
+		if ( !PairFilter::keepSameEventPair( pairCuts, lv, lv1, lv2 ) ) return;
 		INFO( classname(), "post keep pair" );
 
 		int iBin = dimuonBins.findBin( lv.M() );

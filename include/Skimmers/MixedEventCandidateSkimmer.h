@@ -69,6 +69,23 @@ public:
 			INFO( classname(), "" );
 		}
 
+		tofPid = config.getBool( nodePath + ".MuonCandidateCuts:tofPid", false );
+		string pfSigmaDeltaZ = config.q( nodePath + ".MtdParams.XmlFunction{name==SigmaMtdDeltaZ}" );
+		string pfSigmaDeltaY = config.q( nodePath + ".MtdParams.XmlFunction{name==SigmaMtdDeltaY}" );
+		string pfSigmaDeltaTOF = config.q( nodePath + ".MtdParams.XmlFunction{name==SigmaMtdDeltaTOF}" );
+		if ( config.exists( pfSigmaDeltaZ ) ){
+			INFOC( "=================== SIGMA DELTA Z ENABLED ========================" );
+			fSigmaDeltaZ.set( config, pfSigmaDeltaZ );
+		}
+		if ( config.exists( pfSigmaDeltaY ) ){
+			INFOC( "=================== SIGMA DELTA Y ENABLED ========================" );
+			fSigmaDeltaY.set( config, pfSigmaDeltaY );
+		}
+		if ( config.exists( pfSigmaDeltaTOF ) ){
+			INFOC( "=================== SIGMA DELTA TOF ENABLED ========================" );
+			fSigmaDeltaTOF.set( config, pfSigmaDeltaTOF );
+		}
+
 		
 		// rand used for choosing which buffered track to overwrite when the buffer is full
 		rander.SetSeed( 0 ); // this is unique for every run
@@ -87,6 +104,9 @@ protected:
 	int maxEventHash;
 	int cEventHash = -1;
 
+	bool tofPid = false;
+	XmlFunction fSigmaDeltaZ, fSigmaDeltaY, fSigmaDeltaTOF;
+
 	/* Buffer of mixed event candidates
 	 * key 		: EventHash
 	 * value 	: vector of Candidate objects where the length is determined at runtime by the requested number to mix
@@ -100,8 +120,44 @@ protected:
 	 * @return bool
 	 */
 	bool keepTrack( CandidateTrack *aTrack ){
+		// CandidateTrackMtdPidTraits *mtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
+		// return CandidateFilter::isMuon( aTrack, mtdPid, trackCuts,  makeTrackCutQA ? book : nullptr );
+		DEBUG( classname(), "("<< aTrack << ")" );
+		
+		if ( aTrack->mMtdPidTraitsIndex < 0) return false;
+
+
+		bool goodTrack = CandidateFilter::isGoodTrack( aTrack, trackCuts, makeTrackCutQA ? book : nullptr, "MtdMuon" );
+
+		if (false == goodTrack) return false;
+
+		TF1 * f1SigmaDeltaZ   = fSigmaDeltaZ.getTF1().get();
+		TF1 * f1SigmaDeltaY   = fSigmaDeltaY.getTF1().get();
+		TF1 * f1SigmaDeltaTOF = fSigmaDeltaTOF.getTF1().get();
 		CandidateTrackMtdPidTraits *mtdPid = (CandidateTrackMtdPidTraits *)mtdPidTraits->At( aTrack->mMtdPidTraitsIndex );
-		return CandidateFilter::isMuon( aTrack, mtdPid, trackCuts,  makeTrackCutQA ? book : nullptr );
+		bool mtdMuon = CandidateFilter::isMtdMuon(  aTrack, 
+													mtdPid, 
+													trackCuts, 
+													makeTrackCutQA ? book : nullptr,
+													"",
+													f1SigmaDeltaZ,
+													f1SigmaDeltaY,
+													f1SigmaDeltaTOF );
+
+		if ( false == mtdMuon ) return false;
+
+
+		if ( tofPid && aTrack->mBTofPidTraitsIndex >= 0 ){
+			CandidateTrackBTofPidTraits *btofPid = (CandidateTrackBTofPidTraits *)btofPidTraits->At( aTrack->mBTofPidTraitsIndex );
+			bool tofMuon = CandidateFilter::isTofMuon(  aTrack,
+														btofPid,
+														trackCuts,
+														makeTrackCutQA ? book : nullptr );
+
+			if ( false == tofMuon ) return false;
+		}	// TOF PID
+
+		return true;
 	}
 
 	/* Analyze Event

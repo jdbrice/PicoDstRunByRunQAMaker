@@ -5,6 +5,7 @@
 #include "IPicoDst.h"
 #include "CandidateTrack.h"
 #include "CandidateTrackMtdPidTraits.h"
+#include "CandidateTrackBTofPidTraits.h"
 #include "TriggerPatchMapper.h"
 
 
@@ -88,6 +89,227 @@ public:
 		}
 	}
 
+
+	static bool isGoodTrack( CandidateTrack *_aTrack, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr, string cutsName = "", string excludeCut = "" ){
+		if ( nullptr == _aTrack ){
+			ERROR( "CandidateFilter", "Null Track" );
+			return false;
+		}
+
+		bool allCuts = true;
+
+		double nHitsFit   = abs( _aTrack->mNHitsFit);
+		double nHitsMax   = _aTrack->mNHitsMax;
+		double nHitsDedx  = _aTrack->mNHitsDedx;
+		double nHitsRatio = nHitsFit / nHitsMax;
+		double nSigmaPion = _aTrack->nSigmaPion();
+		TVector3 momentum = _aTrack->pMomentum();
+
+
+		bool makeQA = true;
+		if ( nullptr == book  )
+			makeQA = false;
+
+		if ( makeQA ){
+			passTrackCut( "All", allCuts, book, cutsName );
+		}
+
+		if ( momentum.Pt() < ccol[ "pt" ]->min && excludeCut != "pt" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "Mom", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "nSigmaPion" ]->inInclusiveRange( nSigmaPion ) && excludeCut != "nSigmaPion" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "nSigPi", allCuts, book, cutsName );
+		}
+
+		if ( nHitsRatio < ccol[ "nHitsRatio" ]->min && excludeCut != "nHitsRatio" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "nHitsRatio", allCuts, book, cutsName );
+		}
+		if ( nHitsDedx < ccol[ "nHitsDedx" ]->min && excludeCut != "nHitsDedx"){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "nHitsDedx", allCuts, book, cutsName );
+		}
+		if ( nHitsFit < ccol[ "nHitsFit" ]->min && excludeCut != "nHitsFit" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "nHitsFit", allCuts, book, cutsName );
+		}
+		if ( !ccol[ "eta" ]->inInclusiveRange( momentum.Eta() ) && excludeCut != "eta" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "eta", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "gDCA" ]->inInclusiveRange( _aTrack->gDCA() ) && excludeCut != "gDCA" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "gDCA", allCuts, book, cutsName );
+		}
+
+
+		return allCuts;
+	}
+
+	static bool isMtdMuon(  CandidateTrack *_aTrack, 
+							CandidateTrackMtdPidTraits * _mtdPidTraits, 
+							CutCollection &ccol, 
+							const shared_ptr<HistoBook>& book = nullptr, 
+							string excludeCut = "",
+							TF1 * fSigmaDeltaZ = nullptr,
+							TF1 * fSigmaDeltaY = nullptr,
+							TF1 * fSigmaDeltaTOF = nullptr ){
+
+		if ( nullptr == _aTrack || nullptr == _mtdPidTraits ){
+			ERROR( "CandidateFilter", "Null Track" );
+			return false;
+		}
+
+		bool allCuts = true;
+		string cutsName = "MtdMuon";
+
+		bool makeQA = true;
+		if ( nullptr == book  )
+			makeQA = false;
+
+		// Now do MTD cuts
+		if ( !ccol[ "matchFlagMtd" ]->inInclusiveRange( _mtdPidTraits->mMatchFlag ) && excludeCut != "matchFlagMtd" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "mtdMatchFlag", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "mtdTriggerFlag" ]->inInclusiveRange( _mtdPidTraits->mTriggerFlag ) && excludeCut != "mtdTriggerFlag" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "mtdTriggerFlag", allCuts, book, cutsName );
+		}
+
+		if ( !ccol[ "mtdCell" ]->inInclusiveRange( _mtdPidTraits->mMtdHitChan % 12 ) && excludeCut != "mtdCell" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ){
+			passTrackCut( "mtdCell", allCuts, book, cutsName );
+		}
+
+		TVector3 mom = _aTrack->pMomentum();
+		double dTof = _mtdPidTraits->mDeltaTimeOfFlight;
+		if ( nullptr != fSigmaDeltaTOF ){
+			double sigma = fSigmaDeltaTOF->Eval( mom.Pt() );
+			if ( sigma < 0.001 ) sigma = 0.001;
+			dTof /= sigma;
+			DEBUG( "CandidateFilter", "mtDeltaTof( " << _mtdPidTraits->mDeltaTimeOfFlight << " / " << sigma << " ) --> nSigma = " << dTof  );
+		}
+		if ( !ccol[ "mtdDeltaTOF" ]->inInclusiveRange( dTof ) && excludeCut != "mtdDeltaTOF" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "mtdDeltaTof", allCuts, book, cutsName );
+		}
+
+
+		// q * DeltaY
+		double qdy = _aTrack->charge() * _mtdPidTraits->mDeltaY;
+		
+		DEBUG( "CandidateFilter", "pT = " << mom.Pt() );
+		if ( nullptr != fSigmaDeltaY ){
+			double sigma = fSigmaDeltaY->Eval( mom.Pt() );
+			if ( sigma < 1.0 ) sigma = 1.0;
+			qdy /= sigma;
+			DEBUG( "CandidateFilter", "mtDeltaY( " << _mtdPidTraits->mDeltaY << " / " << sigma << " ) --> nSigma = " << qdy  );
+		}
+		if ( !ccol[ "mtdDeltaY" ]->inInclusiveRange( qdy ) && excludeCut != "mtdDeltaY" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "mtdDeltaY", allCuts, book, cutsName );
+		}
+
+
+		double dz = _mtdPidTraits->mDeltaZ;
+		if ( nullptr != fSigmaDeltaZ ){
+			double sigma = fSigmaDeltaZ->Eval( mom.Pt() );
+			if ( sigma < 1.0 ) sigma = 1.0;
+			dz /= sigma;
+			DEBUG( "CandidateFilter", "mtDeltaZ( " << _mtdPidTraits->mDeltaZ << " / " << sigma << " ) --> nSigma = " << dz  );
+		}
+		if ( !ccol[ "mtdDeltaZ" ]->inInclusiveRange( dz ) && excludeCut != "mtdDeltaZ" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "mtdDeltaZ", allCuts, book, cutsName );
+		}
+		
+		double deltaR = sqrt( qdy*qdy + dz*dz );
+		if ( !ccol[ "mtdDeltaR" ]->inInclusiveRange( deltaR ) && excludeCut != "mtdDeltaR" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "mtdDeltaR", allCuts, book, cutsName );
+		}
+
+
+		return allCuts;
+	}
+
+
+
+	static bool isTofMuon(  CandidateTrack *_aTrack, 
+							CandidateTrackBTofPidTraits *_btofPid,
+							CutCollection &ccol, 
+							const shared_ptr<HistoBook>& book = nullptr, 
+							string excludeCut = "" ){
+
+		if ( nullptr == _aTrack || nullptr == _btofPid ){
+			ERROR( "CandidateFilter", "Null Track" );
+			return false;
+		}
+
+		bool allCuts = true;
+		string cutsName = "MtdMuon";
+
+		bool makeQA = true;
+		if ( nullptr == book  )
+			makeQA = false;
+
+
+		if ( !ccol[ "matchFlagTof" ]->inInclusiveRange( _btofPid->mBTofMatchFlag ) && excludeCut != "matchFlagTof" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "tofMatchFlag", allCuts, book, cutsName );
+		}
+
+		double iBeta = 1.0 / _btofPid->beta();
+		if ( !ccol[ "tofInvBeta" ]->inInclusiveRange( iBeta ) && excludeCut != "tofInvBeta" ){
+			allCuts = false;
+			if ( !makeQA ) return false;
+		} else if ( makeQA ) {
+			passTrackCut( "tofInvBeta", allCuts, book, cutsName );
+		}
+
+		return allCuts;
+	}
+
+
+
+
+
 	static bool isMuon( CandidateTrack *_aTrack, CandidateTrackMtdPidTraits * _mtdPidTraits, CutCollection &ccol, const shared_ptr<HistoBook>& book = nullptr, string excludeCut = "" ){
 		
 
@@ -115,7 +337,6 @@ public:
 		double deltaR = sqrt( _mtdPidTraits->mDeltaY*_mtdPidTraits->mDeltaY + _mtdPidTraits->mDeltaZ*_mtdPidTraits->mDeltaZ );
 
 		if ( makeQA ){
-			book->cd("trackQA");
 			passTrackCut( "All", allCuts, book, cutsName );
 		}
 
@@ -598,11 +819,19 @@ public:
 	static void passTrackCut( string cut, bool passAllCuts, const shared_ptr<HistoBook>& book, string name = "track" ){
 		DEBUG( "CandidateFilter", fmt::format("(cut={0}, passAllCuts={1})", cut, bts(passAllCuts) ) );
 		
-		book->cd("trackQA");
-		book->fill( name + "_single_cuts", cut, 1 );
+		// book->cd("trackQA");
+		// book->fill( name + "_single_cuts", cut, 1 );
+
+		TH1 * h = book->get( name + "_single_cuts", "trackQA" );
+		if ( h )
+			h->Fill( cut.c_str(), 1 );
+		
 
 		if ( passAllCuts ){
-			book->fill( name + "_cuts", cut, 1 );
+			TH1 * h = book->get( name + "_cuts", "trackQA" );
+			if ( h )
+				h->Fill( cut.c_str(), 1 );
+			// book->fill( name + "_cuts", cut, 1 );
 		}
 		return;
 	}

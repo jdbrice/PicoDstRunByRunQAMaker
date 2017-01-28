@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="flm" type="MtdSigmaMaker" config="" nodePath="MSM" />
+	<Logger color="true" globalLogLevel="info" />
+	
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml">
+		<!-- <mod></mod> -->
+	</Include>
+
+	<Params>
+		<fDeltaZ min="-10" max="10"  > [0] + [1] * exp( [2]/abs(x) ) </fDeltaZ>
+		<fDeltaY min="-10" max="10"  > [0] + [1] * exp( [2]/abs(x) ) </fDeltaY>
+		<fDeltaTOF min="-10" max="10"> [0] + [1] * exp( [2]/abs(x) ) </fDeltaTOF>
+	</Params>
+
+
+	<MSM >
+		<Logger color="true" globalLogLevel="info" />
+		
+		<input>
+			<TFile url="{CWD:out}/QA/PidPlotMaker_Nominal.root" name="data" />
+		</input>
+
+		<output>
+			<TFile url="{CWD:out}/QA/MtdSigmaMaker.root" />
+			<File url="{CWD:out}/Params/MtdParams.xml" />
+		</output>
+	</MSM>
+
+	<bins>
+		<!-- <pt> -10.0,-4.5,-2.5,-2.25,-2.0,-1.75,-1.5,-1.25,-1.0, 0.0, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 4.5, 10.0</pT> -->
+		<pt width="0.1" min="-10" max="10" />
+		<mtdDz width="1" min="-60" max="60" />
+		<dTOF width="0.05" min="-10" max="10" />
+		<nSigPi width="0.1" min="-10" max="10" />
+	</bins>
+</config>

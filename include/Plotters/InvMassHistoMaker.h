@@ -23,7 +23,7 @@ public:
 		treeReader = shared_ptr<CandidatePairTreeReader>( new CandidatePairTreeReader( chain ) );
 		book->cd("");
 
-		dimuonBins.load( config, "dimuonBins.invMass" );
+		dimuonBins.load( config, "dimuonBins.mass" );
 
 		INFO( classname(), "Invariant mass Bins : " << dimuonBins.toString() );
 	}

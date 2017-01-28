@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="flm" type="CommandRunner" config="" nodePath="muonFLM" />
+	<Logger color="true" globalLogLevel="info" />
+	
+	<R url="../Common/{R:active}/" active="{R_ACTIVE}" />
+	<Include url="{R:url}/cwd.xml" />
+	<muonFLM>
+		<Logger color="true" globalLogLevel="trace" />
+
+		<command>hadd -f {CWD:out}/Cocktail/sum.root {CWD:out}/Cocktail/components/*.root;</command>
+	</muonFLM>
+
+</config>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="Cocktail + Signal" type="SignalCocktailPlotter" config="" nodePath="SCP" />
+	<Logger color="true" globalLogLevel="warning" />
+	
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml" />
+
+	<SCP>
+		<Logger color="true" globalLogLevel="info" />
+
+		<input>
+			<TFile url="{CWD:out}/InvMassMuMu/acceptanceCorrected.root" name="signal" />
+			<!-- Cocktail -->
+			<TFile url="{CWD:out}/Cocktail/rho_mumu.root" name="rho" />
+			<TFile url="{CWD:out}/Cocktail/phi_mumu.root" name="phi" />
+			<TFile url="{CWD:out}/Cocktail/omega_mumu.root" name="omega" />
+			<TFile url="{CWD:out}/Cocktail/eta_mumu.root" name="eta" />
+			<TFile url="{CWD:out}/Cocktail/jpsi_mumu.root" name="jpsi" />
+			<TFile url="{CWD:out}/Cocktail/eta_gammamumu.root" name="eta_dalitz" />
+			<TFile url="{CWD:out}/Cocktail/etaprime_gammamumu.root" name="etaprime_dalitz" />
+			<TFile url="{CWD:out}/Cocktail/omega_pi0mumu.root" name="omega_dalitz" />
+
+		</input>
+
+		<output path="" >
+			<TFile url="{CWD:out}/InvMassMuMu/SignalAndCocktail.root" />
+		</output>
+
+	</SCP>
+
+</config>

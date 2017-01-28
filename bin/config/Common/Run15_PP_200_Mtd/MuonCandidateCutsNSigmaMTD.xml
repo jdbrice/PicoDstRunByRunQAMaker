@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<!-- NSIGMA MTD Cuts -->
+	<MuonCandidateCuts tofPid="false">
+		<Range name="nHitsRatio" min="0.52" />
+		<Range name="nHitsDedx" min="10.0" />
+		<Range name="nHitsFit" min="15.0" />
+		<Range name="eta" min="-0.8" max="0.8" />
+		
+		<Range name="pt" min="1.0" />
+		<Range name="nSigmaPion" min="-1.0" max="3.5" />
+		<Range name="gDCA" min="0.0" max="30.0" />
+		
+
+		<Range name="mtdPidTraitsIndex" min="0" />
+		<Range name="mtdTriggerFlag" min="1" max="1" />
+		<Range name="matchFlagMtd" min="1" max="100"/> 
+		<Range name="mtdCell" min="0" max="11" /> 
+		<Range name="mtdDeltaZ" min="-2.0" max="2.0" />
+		<Range name="mtdDeltaY" min="-2.0" max="2.0" />
+		<Range name="mtdDeltaR" min="0" max="2.5" />
+		
+		<Range name="mtdDeltaTOF" min="-1" max="0.4" />
+
+	</MuonCandidateCuts>
+
+	<!-- If this is here then we use nSigma for DeltaZ, DeltaY, DeltaR -->
+	<MtdParams>
+		<Include url="{CWD:out}/Params/MtdParams.xml" />
+	</MtdParams>
+</config>

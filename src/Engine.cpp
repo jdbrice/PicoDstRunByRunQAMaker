@@ -10,6 +10,13 @@ using namespace jdb;
 #include <iostream>
 #include <exception>
 
+#include "SignalCocktailPlotter.h"
+#include "PidEfficiencyMaker.h"
+#include "MtdSigmaMaker.h"
+
+// Efficiency
+#include "EfficiencyMaker.h"
+
 // Project
 #include "RunByRunQAMaker.h"
 #include "RunByRunReportMaker.h"
@@ -70,7 +77,7 @@ using namespace jdb;
 #include "MtdTreeMaker.h"
 
 #include "AcceptanceFixer.h"
-#include "EfficiencyTableMaker.h"
+#include "EmbeddingMaker.h"
 
 TRandom3 SameEventPairQA::rnd;
 
@@ -134,7 +141,13 @@ int main( int argc, char* argv[] ) {
 
 	TaskFactory::registerTaskRunner<AcceptanceFixer>( "AcceptanceFixer" );
 
-	TaskFactory::registerTaskRunner<EfficiencyTableMaker>( "EfficiencyTableMaker" );
+	TaskFactory::registerTaskRunner<EmbeddingMaker>( "EmbeddingMaker" );
+	TaskFactory::registerTaskRunner<EfficiencyMaker>( "EfficiencyMaker" );
+
+	TaskFactory::registerTaskRunner<MtdSigmaMaker>( "MtdSigmaMaker" );
+	TaskFactory::registerTaskRunner<PidEfficiencyMaker>( "PidEfficiencyMaker" );
+
+	TaskFactory::registerTaskRunner<SignalCocktailPlotter>( "SignalCocktailPlotter" );
 
 	TaskEngine engine( argc, argv );
 

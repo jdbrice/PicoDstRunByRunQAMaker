@@ -25,7 +25,7 @@ public:
 			INFO( classname(), "" );
 		}
 
-		dimuonBins.load( config, "dimuonBins.invMass" );
+		dimuonBins.load( config, "dimuonBins.mass" );
 
 
 		if ( config.getBool( nodePath + ".MakeQA:SingleTrack", true ) ){
