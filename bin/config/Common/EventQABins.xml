@@ -5,6 +5,7 @@
 		<zVertex width="1" min="-105" max="105" />
 		<zVertexDelta width=".1" min="-30.1" max="30.1" />
 		<nTracks width="1" min="0" max="1000" />
+		<nMuons width="1" min="0" max="10" />
 
 
 		<vertexX width=".01" min="-2" max="2" />
@@ -17,7 +18,7 @@
 		<triggerPatch width="1" min="0" max="33" />
 
 		<!-- TODO : Add this! -->
-		<runIndex width="1" min="0" max="0" />
+		<runIndex width="1" min="0" max="2000" />
 		<runNumbers width="1" min="1574104" max="15167001" />
 
 		<!-- Bin Index     1   , 2       , 3        , 4       , 5            , 6 -->

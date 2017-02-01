@@ -60,6 +60,7 @@ public:
 			INFO( classname(), "" );
 		}
 
+		PairFilter::setDefaultPairCuts( pairCuts );
 		if ( config.exists( nodePath + ".SameEventPairCuts" ) ){
 			pairCuts.init( config, nodePath + ".SameEventPairCuts" );	// TODO: either make a diff config or change name to show that it is used for both
 
@@ -169,7 +170,7 @@ protected:
 		if ( event->mBin16 < 0 || event->mBin16 > 50 )
 			return;
 
-		if ( event->mBin16 > 5 ) return;
+		if ( event->mBin16 > 4) return;
 
 		cEventHash = hasher.hash( event );
 

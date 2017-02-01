@@ -10,17 +10,17 @@
 	<MM event="true" track="true" triggers="">
 		<Logger color="true" globalLogLevel="trace" />
 		<EventLoop progress="true" />
-		<Mixing max="2400" nPerEventHash="100" />
+		<Mixing max="2400" nPerEventHash="50" />
 
 		<Control rejectSameChannel="true" rejectSameTriggerPatch="true" />
 
 		<Params trackMergedEta="0.025" trackMergedPhi="0.6" >
-			<LRPid>true</LRPid>
+			<LRPid>false</LRPid>
 			<minLR>0.4</minLR>
 		</Params>
 
 		<input>
-			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="100" nEvents="-1" maxFiles="-1"/>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="20" nEvents="-1" maxFiles="-1"/>
 		</input>
 
 		<output>
@@ -29,7 +29,7 @@
 
 		<Include url="{R:url}/MixedEventBins.xml" />
 		<Include url="{R:url}/SameEventPairCuts.xml" />
-		<Include url="{R:url}/MuonCandidateCuts.xml" />
+		<Include url="{R:url}/LooseMuonCandidateCuts.xml" />
 
 		<histograms>
 			<Histo name="EventHash" title="EventHash" bins_x="bins.EventHash"/>
@@ -46,16 +46,13 @@
 			<Histo name="pre_triggerPatch_pT" title="PRE TriggerPatch" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
 			<Histo name="post_triggerPatch_pT" title="POST TriggerPatch" bins_x="dimuonBins.mass" bins_y="dimuonBins.pT" />
 
-
-
-
 		</histograms>
 
 		<Particles mass1="0.105658" mass2="0.105658" />
 
-		<LikelihoodPid>
+		<!-- <LikelihoodPid>
 			<Include url="{CWD:out}/Params/PidPdfs.xml" />
-		</LikelihoodPid>
+		</LikelihoodPid> -->
 
 	</MM>
 

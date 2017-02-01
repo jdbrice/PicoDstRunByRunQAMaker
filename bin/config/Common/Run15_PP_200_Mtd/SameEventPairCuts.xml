@@ -2,7 +2,16 @@
 <config>
 	
 	<SameEventPairCuts>
+		<Range name="pT" min="0.0" max="10.0" />
 		<Range name="leadingPt" min="0.0" />
-		<Range name="y" min="-0.5" max="0.5" />
+		<Range name="y" min="-10.5" max="10.5" />
+
+		<!-- Daughter cuts -->
+		<Range name="lr1" min="-10.0" max="1.0" />
+		<Range name="lr2" min="-10.0" max="1.0" />
+		<Range name="eta" min="-10.5" max="10.5" />
+
+		<!-- <range name="pT1" min="1.3" max="10.0" /> -->
+		<!-- <range name="pT2" min="1.3" max="10.0" /> -->
 	</SameEventPairCuts>
 </config>

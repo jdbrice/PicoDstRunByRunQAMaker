@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<Task name="flm" type="EventXMLExporter" config="" nodePath="EXMLE" />
+	<Logger color="true" globalLogLevel="info" />
+	
+	<R url="../Common/{R:active}/" active="Run15_PP_200_Mtd" />
+	<Include url="{R:url}/cwd.xml">
+		<!-- <mod></mod> -->
+	</Include>
+
+	<EXMLE >
+		<Logger color="true" globalLogLevel="info" />
+		<EventLoop progress="true" />
+
+		<input>
+			<dst treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" splitBy="7" nEvents="-1"/>
+		</input>
+
+		<output>
+			<File url="{CWD:out}/Params/EventInfo.xml" />
+		</output>
+
+	</EXMLE>
+</config>

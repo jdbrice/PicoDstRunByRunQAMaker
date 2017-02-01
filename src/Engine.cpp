@@ -10,6 +10,8 @@ using namespace jdb;
 #include <iostream>
 #include <exception>
 
+
+#include "EventXMLExporter.h"
 #include "SignalCocktailPlotter.h"
 #include "PidEfficiencyMaker.h"
 #include "MtdSigmaMaker.h"
@@ -148,6 +150,7 @@ int main( int argc, char* argv[] ) {
 	TaskFactory::registerTaskRunner<PidEfficiencyMaker>( "PidEfficiencyMaker" );
 
 	TaskFactory::registerTaskRunner<SignalCocktailPlotter>( "SignalCocktailPlotter" );
+	TaskFactory::registerTaskRunner<EventXMLExporter>( "EventXMLExporter" );
 
 	TaskEngine engine( argc, argv );
 

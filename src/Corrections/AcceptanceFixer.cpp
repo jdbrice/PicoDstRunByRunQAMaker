@@ -104,29 +104,35 @@ void AcceptanceFixer::multiplyBinByBin( TH1 * A, TH1 * B ){
 
 void AcceptanceFixer::applyTriggerPatchCorr( TH1* _sig, TH1* _tpcorr ){
 	vector<double> sig = HistoBook::contentVector( _sig );
+	vector<double> sige = HistoBook::errorVector( _sig );
 	vector<double> tpc = HistoBook::contentVector( _tpcorr );;
 
 	for ( int i = 0; i < sig.size(); i++ ){
 		if ( 0.0 == sig[i] || 0.0 == tpc[i] ) {
 			sig[i] = 0.0;
+			sige[i] = 0.0;
 		} else {
 			sig[i] = sig[i] * ( 1.0 / tpc[i] );
+			sige[i] = sige[i] * ( 1.0 / tpc[i] );
 		}
 	}
 
 	// overwrite with new contents, dont change errors
-	HistoBook::writeVector( _sig, sig );
+	HistoBook::writeVector( _sig, sig, sige );
 }
 
 void AcceptanceFixer::applyTriggerPatchCorr( TH2* _sig, TH2* _tpcorr ){
 	vector<double> sig = HistoBook::contentVector( _sig );
+	vector<double> sige = HistoBook::errorVector( _sig );
 	vector<double> tpc = HistoBook::contentVector( _tpcorr );;
 
 	for ( int i = 0; i < sig.size(); i++ ){
 		if ( 0.0 == sig[i] || 0.0 == tpc[i] ) {
 			sig[i] = 0.0;
+			sige[i] = 0.0;
 		} else {
 			sig[i] = sig[i] * ( 1.0 / tpc[i] );
+			sige[i] = sige[i] * ( 1.0 / tpc[i] );
 		}
 	}
 
@@ -145,14 +151,14 @@ void AcceptanceFixer::makeMass1D(){
 	INFOC( "Signal pT bins: " << bPt.toString() );
 
 	// make the mixed event acorr
-	TH1D * hBpm   = get<TH1D>( "unlike_sign"   , "ME" );
-	TH1D * hBpp   = get<TH1D>( "like_sign_Pos" , "ME" );
-	TH1D * hBmm   = get<TH1D>( "like_sign_Neg" , "ME" );
-	TH1D * hBppmm = get<TH1D>( "like_sign"     , "ME" );
+	TH1D * hBpm   = get<TH1D>( "uls_dNdM"   , "ME" );
+	TH1D * hBpp   = get<TH1D>( "lsp_dNdM" , "ME" );
+	TH1D * hBmm   = get<TH1D>( "lsn_dNdM" , "ME" );
+	TH1D * hBppmm = get<TH1D>( "ls_dNdM"     , "ME" );
 
-	hBpm          = (TH1D*)hBpm->Rebin( bMass.nBins(), "Bpm", bMass.bins.data() );
-	hBpp          = (TH1D*)hBpp->Rebin( bMass.nBins(), "Bpp", bMass.bins.data() );
-	hBmm          = (TH1D*)hBmm->Rebin( bMass.nBins(), "Bmm", bMass.bins.data() );
+	hBpm          = (TH1D*)hBpm->Rebin(   bMass.nBins(), "Bpm",   bMass.bins.data() );
+	hBpp          = (TH1D*)hBpp->Rebin(   bMass.nBins(), "Bpp",   bMass.bins.data() );
+	hBmm          = (TH1D*)hBmm->Rebin(   bMass.nBins(), "Bmm",   bMass.bins.data() );
 	hBppmm        = (TH1D*)hBppmm->Rebin( bMass.nBins(), "Bppmm", bMass.bins.data() );
 
 	// arithmetic mean
@@ -177,10 +183,10 @@ void AcceptanceFixer::makeMass1D(){
 	gmac->Divide( megm );
 
 	// same event arithmetic mean
-	TH1 * hNpm   = get<TH1D>( "unlike_sign"   , "SE" );
-	TH1 * hNpp   = get<TH1D>( "like_sign_Pos" , "SE" );
-	TH1 * hNmm   = get<TH1D>( "like_sign_Neg" , "SE" );
-	TH1 * hNppmm = get<TH1D>( "like_sign"     , "SE" );
+	TH1 * hNpm   = get<TH1D>( "uls_dNdM" , "SE" );
+	TH1 * hNpp   = get<TH1D>( "lsp_dNdM" , "SE" );
+	TH1 * hNmm   = get<TH1D>( "lsn_dNdM" , "SE" );
+	TH1 * hNppmm = get<TH1D>( "ls_dNdM"  , "SE" );
 
 	hNpm          = (TH1D*)hNpm->Rebin( bMass.nBins()   , "Npm"   , bMass.bins.data() );
 	hNpp          = (TH1D*)hNpp->Rebin( bMass.nBins()   , "Npp"   , bMass.bins.data() );
@@ -199,15 +205,15 @@ void AcceptanceFixer::makeMass1D(){
 	multiplyBinByBin( bgam, amac );
 
 	TH1 *bggm = book->addClone( "bggm", segm );
-	multiplyBinByBin( bggm, gmac );
+	// multiplyBinByBin( bggm, gmac );
 
 	TH1 * amsig = book->addClone( "amsig", hNpm );
 	amsig->Add( bgam, -1 );
 	HistoBook::weightByBinWidth( amsig );
 
-
+	double R = config.getDouble( "Params.R", 1.0 );
 	TH1 * gmsig = book->addClone( "gmsig", hNpm );
-	gmsig->Add( bggm, -1 );
+	gmsig->Add( bggm, -1 * R );
 	HistoBook::weightByBinWidth( gmsig );
 
 
@@ -264,11 +270,17 @@ void AcceptanceFixer::make2D(){
 	INFOC( "Signal pT bins: " << bPt.toString() );
 
 	// make the mixed event acorr
-	TH2 * hBpm   = get<TH2>( "unlike_sign_pT"   , "ME" );
-	TH2 * hBpp   = get<TH2>( "like_sign_Pos_pT" , "ME" );
-	TH2 * hBmm   = get<TH2>( "like_sign_Neg_pT" , "ME" );
-	TH2 * hBppmm = get<TH2>( "like_sign_pT"     , "ME" );
+	// TH2 * hBpm   = get<TH2>( "uls_pT_vs_dNdM"   , "ME" );
+	// TH2 * hBpp   = get<TH2>( "lsp_pT_vs_dNdM" , "ME" );
+	// TH2 * hBmm   = get<TH2>( "lsn_pT_vs_dNdM" , "ME" );
+	// TH2 * hBppmm = get<TH2>( "ls_pT_vs_dNdM"     , "ME" );
 
+	TH2 * hBpm   = get<TH2D>( "uls_tp_pT_vs_m", "Trigger" );
+	TH2 * hBpp   = get<TH2D>( "lsp_tp_pT_vs_m", "Trigger" );
+	TH2 * hBmm   = get<TH2D>( "lsn_tp_pT_vs_m", "Trigger" );
+	TH2 * hBppmm = get<TH2D>( "lsp_tp_pT_vs_m", "Trigger" );
+	hBppmm->Add( hBmm );
+	
 
 	hBpm          = HistoBins::rebin2D( "Bpm", hBpm, bMass, bPt );
 	hBpp          = HistoBins::rebin2D( "Bpp", hBpp, bMass, bPt );
@@ -296,10 +308,10 @@ void AcceptanceFixer::make2D(){
 
 
 	// same event arithmetic mean
-	TH2 * hNpm   = get<TH2D>( "unlike_sign_pT"   , "SE" );
-	TH2 * hNpp   = get<TH2D>( "like_sign_Pos_pT" , "SE" );
-	TH2 * hNmm   = get<TH2D>( "like_sign_Neg_pT" , "SE" );
-	TH2 * hNppmm = get<TH2D>( "like_sign_pT"     , "SE" );
+	TH2 * hNpm   = get<TH2D>( "uls_pT_vs_dNdM" , "SE" );
+	TH2 * hNpp   = get<TH2D>( "lsp_pT_vs_dNdM" , "SE" );
+	TH2 * hNmm   = get<TH2D>( "lsn_pT_vs_dNdM" , "SE" );
+	TH2 * hNppmm = get<TH2D>( "ls_pT_vs_dNdM"  , "SE" );
 
 	hNpm          = HistoBins::rebin2D( "Npm", hNpm, bMass, bPt );
 	hNpp          = HistoBins::rebin2D( "Npp", hNpp, bMass, bPt );
@@ -324,9 +336,9 @@ void AcceptanceFixer::make2D(){
 	amsig->Add( bgam, -1 );
 	
 
-
+	double R = config.getDouble( "Params.R", 1.0 );
 	TH2 * gmsig = (TH2*)book->addClone( "gmsig", hNpm );
-	gmsig->Add( bggm, -1 );
+	gmsig->Add( bggm, -1 * R );
 	// HistoBook::weightByBinWidth( gmsig );
 	
 	TH2D * tpcorrnum2D= get<TH2D>( "uls_tp_pT_vs_m", "Trigger" );
@@ -340,7 +352,8 @@ void AcceptanceFixer::make2D(){
 	TH2 * tpgmsig = (TH2*)book->addClone( "tpgmsig2d", gmsig );
 	TH2 * tpamsig = (TH2*)book->addClone( "tpamsig2d", amsig );
 
-	applyTriggerPatchCorr( tpgmsig, tpcorr );
+	// applyTriggerPatchCorr( tpgmsig, tpcorr );
+	tpgmsig->Divide( tpcorr );
 	applyTriggerPatchCorr( tpamsig, tpcorr );
 
 	int b1 = tpgmsig->GetYaxis()->FindBin( config.getDouble( "Params.pT:min", 0.0 ) );
@@ -354,8 +367,26 @@ void AcceptanceFixer::make2D(){
 	book->add( "tpgmsig", tpgmsig1d );
 
 	// Apply Efficiency Correction!
-	book->addClone( "effcorrsig", tpgmsig1d );
+	TH2 * effcorrsig = (TH2*)book->addClone( "effcorrsig", tpgmsig );
 
+
+	TH2* effNum = HistoBins::rebin2D( "effNum", get<TH2>( "RapCut_wdNdM_pT", "Eff" ), bMass, bPt );
+	TH2* effDen = HistoBins::rebin2D( "effDen", get<TH2>( "RapCut_dNdM_pT", "Eff" ), bMass, bPt );
+
+	TH2* effCorr = (TH2*)book->addClone( "effCorr", effNum );
+
+	effCorr->Divide( effDen );
+
+	double meanPt = config.getDouble( "Params.meanPt", 3.6 );
+	int by = effCorr->GetYaxis()->FindBin( meanPt );
+	TH1 *effCorr1d = effCorr->ProjectionX( "effCorr1d", by, by );
+
+	TH1 *effcorrsig1d = effcorrsig->ProjectionX("effcorrsig1d", effcorrsig->GetYaxis()->FindBin(config.getDouble( "Params.pT:min", 0.0 )), effcorrsig->GetYaxis()->FindBin( config.getDouble( "Params.pT:max", 10.0 ) ) );
+
+	applyTriggerPatchCorr( effcorrsig1d, effCorr1d );
+
+	book->add( "effcorrsig1d", effcorrsig1d );
+	effcorrsig1d->Scale(1.0, "width");
 
 }
 
@@ -366,7 +397,7 @@ void AcceptanceFixer::make(){
 	makeEmbeddingEfficiencyCurve();
 
 	book->cd("");
-	TH1 * h = book->addClone( "normsig",  book->get("effcorrsig" ) );
+	TH1 * h = book->addClone( "normsig",  book->get("effcorrsig1d" ) );
 
 	double NMinBias = config.getDouble( nodePath + ".NMinBias" );
 	INFOC( "N MinBias Effective = " << NMinBias );

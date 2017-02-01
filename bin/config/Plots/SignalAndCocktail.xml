@@ -4,7 +4,7 @@
 	<Task name="skimmer" type="VegaXmlPlotter" config="" nodePath="" />
 	<Logger color="true" globalLogLevel="info" />
 
-	<Data name="dd" url="/data/star2/jdb12/Run15PP200/Cocktail/STAR_MTD.root" />
+	<Data name="dd" url="/data/star2/jdb12/Run15PP200/Cocktail/Combined_STAR_uu2p1.root" />
 	<Data name="sig" url="/data/star2/jdb12/Run15PP200/InvMassMuMu/acceptanceCorrected.root" />
 
 	<Margins left="0.10" right="0.01" top="0.1" bottom="0.15" />
@@ -12,7 +12,7 @@
 
 
 	<Transform>
-		<Add save_as="sum" data="dd" name="Scaled_eta_mumu, Scaled_eta_gammamumu, Scaled_omega_mumu, Scaled_omega_pi0mumu, Scaled_rho_mumu, Scaled_phi_mumu, Scaled_etaprime_gammamumu, Scaled_ccbar_mumu"/>
+		<Add save_as="sum" data="dd" name="Scaled_eta_mumu, Scaled_eta_gammamumu, Scaled_omega_mumu, Scaled_omega_pi0mumu, Scaled_rho_mumu, Scaled_phi_mumu, Scaled_etaprime_gammamumu, Scaled_ccbar_mumu, Scaled_jpsi_mumu"/>
 	</Transform>
 
 	<Plot>
@@ -21,7 +21,7 @@
 
 		<Histo name="Scaled_ccbar_mumu" data="dd" style="smooth" >
 			
-			<style yr="1e-11, 0.5e-6" xr="0, 3.5" linecolor="#0B99BC"/>
+			<style yr="1e-11, 5.45e-6" xr="0, 3.5" linecolor="#0B99BC"/>
 		</Histo>
 
 		<Histo name="Scaled_eta_mumu" data="dd" style="smooth" >
@@ -53,16 +53,16 @@
 		</Histo>
 
 		<Histo name="normsig" data="sig" >
-			<style draw="same " />
-			<Scale>30</Scale>
+			<style draw="same pe" linecolor="#FF0000" markercolor="#FF0000" markerstyle="8"/>
+			<!-- <Scale>.05</Scale> -->
 		</Histo>
 
 
-		<Export url="Cocktail.pdf" />
+		<Export url="Cocktail_semilogy_lr0p0.pdf" />
 	</Plot>
 
 
-	<smooth draw="hist c" linewidth="2" linecolor="black" optstat="0" logy="0"/>
+	<smooth draw="hist c" linewidth="2" linecolor="black" optstat="0" logy="1"/>
 
 
 

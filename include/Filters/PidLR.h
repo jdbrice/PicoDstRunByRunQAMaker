@@ -89,6 +89,10 @@ public:
 		return LR;
 	}
 
+	int nPdfs(  ){
+		return pdfRatio.size();
+	}
+
 
 
 

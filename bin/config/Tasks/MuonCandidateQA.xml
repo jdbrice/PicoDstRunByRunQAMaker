@@ -12,8 +12,10 @@
 		<Logger color="true" globalLogLevel="info" />
 		<EventLoop progress="true" />
 		
+		<Make track="false" event="true" />
+
 		<input>
-			<dst splitBy="5" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="1000"/>
+			<dst splitBy="7" treeName="FemtoDst" url="{CWD:out}/filelists/MuonCandidates.lis" nEvents="-1"/>
 		</input>
 
 		<output>
@@ -23,6 +25,15 @@
 		<TrackCuts>
 			<Range name="rigidity" min="-1000" max="1000" />
 		</TrackCuts>
+
+		<histograms>
+			<Include url="../Common/TrackQAHistos.xml" />
+		</histograms>
+
+		<Include url="{R:url}/LooseMuonCandidateCuts.xml" />
+		<LikelihoodPid min="0.3" max="1.0">
+			<Include url="{CWD:out}/Params/PidPdfs.xml" />
+		</LikelihoodPid>
 
 	</MuonQA>
 

@@ -117,7 +117,9 @@ protected:
 		// reject mixed event pairs from SAME event
 		book->fill( "mixedPairCuts", 0 );
 
-		
+		double lr1 = pidLR.eval( _cand1->track.get(), _cand1->mtdPidTraits.get() );
+		double lr2 = pidLR.eval( _cand2->track.get(), _cand2->mtdPidTraits.get() );
+		if ( LRPid && (lr1 < minLR || lr2 < minLR) ) return false;
 
 		if ( _cand1->event->mRunId == _cand2->event->mRunId && _cand1->event->mEventId == _cand2->event->mEventId )
 			return false;
@@ -200,9 +202,7 @@ protected:
 
 	virtual void analyzePair( shared_ptr<Candidate> _cand1, shared_ptr<Candidate> _cand2 ){
 		fillCandidatePair( _cand1, _cand2 );
-
-		if ( LRPid && wPairs->d1_mPid > minLR && wPairs->d2_mPid > minLR )
-			mMixedEventTree->Fill();
+		mMixedEventTree->Fill();
 	}
 
 	virtual void fillCandidatePair( shared_ptr<Candidate> _cand1, shared_ptr<Candidate> _cand2 ){
